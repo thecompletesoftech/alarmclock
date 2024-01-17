@@ -6,3 +6,4 @@ export 'package:clockalarm/Account/Login.dart';
 export 'package:clockalarm/Config/Helper.dart';
 export 'package:clockalarm/View/Auth/SignIn/SignIn.dart';
 export 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
+export 'package:clockalarm/Config/TextStyle.dart';

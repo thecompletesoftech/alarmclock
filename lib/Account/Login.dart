@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 
 import '../Config/TextStyle.dart';
 
@@ -29,25 +29,13 @@ class _LoginState extends State<Login> {
                 children: [
                   Text(
                     "Login",
-                    style: LoginTextStyle,
+                    style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw70024
+                    ),
                   ),
                 ],
               ),
-              Neumorphic(
-                margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
-                style: NeumorphicStyle(
-                  depth: NeumorphicTheme.embossDepth(context),
-                  boxShape: NeumorphicBoxShape.stadium(),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 14, horizontal: 18),
-                child: TextField(
-                    onChanged: (value) {
-                      
-                    },
-                    controller: _controller,
-                    // decoration: InputDecoration.collapsed(hintText: this.widget.hint),
-                    ),
-              )
+            
             ],
           ),
         ),
