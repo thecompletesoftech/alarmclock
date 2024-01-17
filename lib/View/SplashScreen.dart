@@ -1,3 +1,5 @@
+import 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
+
 import '../Config/Import.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       Duration(seconds: 3),
-      () => nextscreen(context, SignIn()),
+      () => nextscreen(context, SignUp()),
     );
   }
 
