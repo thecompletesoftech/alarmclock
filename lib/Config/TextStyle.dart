@@ -1,6 +1,7 @@
 import 'package:clockalarm/Config/Import.dart';
 
 const Lato = "Lato";
+
 class MyTextStyle {
   static TextStyle Dynamic({
     TextStyle? style,
@@ -17,7 +18,6 @@ class MyTextStyle {
     );
   }
 
- 
   static const TextStyle mw50010 = TextStyle(
     fontSize: 10,
     fontFamily: Lato,
@@ -100,6 +100,11 @@ class MyTextStyle {
     fontWeight: FontWeight.w700,
   );
   static const TextStyle mw70016 = TextStyle(
+    fontSize: 16,
+    fontFamily: Lato,
+    fontWeight: FontWeight.w700,
+  );
+  static const TextStyle mw70020 = TextStyle(
     fontSize: 16,
     fontFamily: Lato,
     fontWeight: FontWeight.w700,
@@ -242,6 +247,4 @@ class MyTextStyle {
     fontFamily: Lato,
     fontWeight: FontWeight.w600,
   );
-
 }
-
