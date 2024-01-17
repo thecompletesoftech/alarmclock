@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-
+import 'package:clockalarm/Config/Import.dart';
 import 'View/SplashScreen.dart';
 
 void main() {
@@ -12,12 +11,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      themeMode: ThemeMode.dark,
+      theme: NeumorphicThemeData(
+        baseColor: mycolor().lightWhite,
+        lightSource: LightSource.topLeft,
+        accentColor: mycolor().lighttxtcolor,
+        depth: 10,
+      ),
+      darkTheme: NeumorphicThemeData(
+        baseColor: mycolor().lightBlack,
+        accentColor: mycolor().darktxtcolor,
+        lightSource: LightSource.topLeft,
+        depth: 6,
       ),
       home: SplashScreen(),
     );
