@@ -1,4 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
+
 import 'View/SplashScreen.dart';
 
 void main() {

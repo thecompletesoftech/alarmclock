@@ -1,4 +1,4 @@
-import 'package:clockalarm/Config/Import.dart';
+import '../Config/Import.dart';
 
 class mycolor {
   var White = Color(0xFFFFFFFF);
