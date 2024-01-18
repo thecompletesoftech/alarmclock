@@ -23,7 +23,7 @@ class _ProfileState extends State<Profile> {
               color: mycolor().White,
             ),
             Text(
-              profiletext,
+              "profiletext",
               style: MyTextStyle.Dynamic(
                   style: MyTextStyle.mw60030,
                   color: NeumorphicTheme.accentColor(context)),
