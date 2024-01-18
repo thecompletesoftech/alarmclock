@@ -1,5 +1,3 @@
-import 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
-
 import '../Config/Import.dart';
 
 class SplashScreen extends StatefulWidget {
