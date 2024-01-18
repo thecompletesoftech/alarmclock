@@ -7,3 +7,6 @@ export 'package:clockalarm/Config/TextStyle.dart';
 export 'package:clockalarm/Config/Localstring.dart';
 export 'package:clockalarm/Widgets/Appbar.dart';
 export 'package:get/get.dart';
+export 'package:clockalarm/Config/Import.dart';
+export 'package:clockalarm/Config/Utils.dart';
+

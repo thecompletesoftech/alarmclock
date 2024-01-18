@@ -1,4 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
 
 class Profile extends StatefulWidget {
@@ -33,7 +34,7 @@ class _ProfileState extends State<Profile> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
               Center(
@@ -44,7 +45,47 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               SizedBox(height: 32),
-              CardWidget()
+              CardWidget(
+                title: bruceBanner,
+              ),
+              SizedBox(height: 28),
+              CardWidget(
+                title: mailtext,
+              ),
+              SizedBox(height: 32),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      generalsettings,
+                      style: MyTextStyle.Dynamic(
+                          style: MyTextStyle.mw70020,
+                          color: NeumorphicTheme.accentColor(context)),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 17),
+              CardWidget(
+                title: historytext,
+                ontap: (){
+                  nextscreen(context, History());
+                },
+              ),
+              SizedBox(height: 28),
+              CardWidget(
+                title: resetpassword,
+              ),
+              SizedBox(height: 28),
+              CardWidget(
+                title: logout,
+              ),
+              SizedBox(height: 28),
+              CardWidget(
+                title: deleteaccount,
+              ),
+              SizedBox(height: 28),
             ],
           ),
         ),

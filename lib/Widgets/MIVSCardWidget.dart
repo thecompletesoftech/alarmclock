@@ -1,10 +1,10 @@
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/Config/Utils.dart';
 
-class CardWidget extends StatelessWidget {
+class MIVSCardWidget extends StatelessWidget {
   final title;
+  final timertext;
   final Function? ontap;
-  const CardWidget({super.key, this.title = '', this.ontap});
+  const MIVSCardWidget({super.key, this.title, this.ontap, this.timertext});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CardWidget extends StatelessWidget {
             radius: 10.5 * fem),
         width: MediaQuery.sizeOf(context).width,
         padding: EdgeInsets.only(left: 32.0, top: 16.0, right: 16.0),
-        height: 60,
+        height: 300,
         alignment: Alignment.topLeft,
         child: Text(
           title,
