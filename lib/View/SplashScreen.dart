@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       Duration(seconds: 3),
-      () => nextscreen(context, SignUp()),
+      () => nextscreenwithoutback(context, SignIn()),
     );
   }
 

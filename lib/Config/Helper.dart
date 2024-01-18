@@ -1,13 +1,13 @@
 import 'package:clockalarm/Config/Import.dart';
 
-nextscreenwithoutback(context, screenname) {
+nextscreenwithoutback(cntx, screenname) {
   Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => screenname));
+      cntx, MaterialPageRoute(builder: (BuildContext context) => screenname));
 }
 
-nextscreen(context, screenname) {
-  Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => screenname));
+nextscreen(cntx, screenname) {
+  Navigator.push(
+      cntx, MaterialPageRoute(builder: (BuildContext context) => screenname));
 }
 
 buttonradius({r}) {

@@ -39,6 +39,8 @@ class TextBoxwidget extends StatefulWidget {
   final autofocus;
   final onchange;
   final String? Function(String?)? validator;
+  final errormsg;
+  final showerror;
 
   TextBoxwidget({
     Key? key,
@@ -81,6 +83,8 @@ class TextBoxwidget extends StatefulWidget {
     this.outerborderclr,
     this.autofocus = false,
     this.onchange,
+    this.errormsg = '',
+    this.showerror = false,
   }) : super(key: key);
 
   @override
@@ -90,114 +94,134 @@ class TextBoxwidget extends StatefulWidget {
 class _TextBoxwidgetState extends State<TextBoxwidget> {
   @override
   Widget build(BuildContext context) {
-    return Neumorphic(
-      margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
-      style: NeumorphicStyle(
-        depth: NeumorphicTheme.embossDepth(context),
-        boxShape: buttonradius(),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 18),
-      child: TextFormField(
-        onChanged: (value) {
-          widget.onchange(value);
-        },
-        cursorColor: NeumorphicTheme.accentColor(context),
-        inputFormatters: widget.inputformate,
-        validator: widget.validator,
-        maxLines: widget.maxline,
-        keyboardType: widget.keyboradtype,
-        obscureText: widget.obsecuretext!,
-        onTap: () {
-          widget.ontap!();
-        },
-        style: widget.style,
-        autofocus: widget.autofocus,
-        readOnly: widget.readtype,
-        controller: widget.controller,
-        maxLength: widget.maxlength,
-        decoration: InputDecoration(
-          enabledBorder: widget.showoutlineborder
-              ? OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: widget.outerborderclr ??
-                        NeumorphicTheme.baseColor(context),
-                  ),
-                  borderRadius: BorderRadius.circular(10))
-              : widget.showborder
-                  ? UnderlineInputBorder(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Neumorphic(
+          margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+          style: NeumorphicStyle(
+            depth: NeumorphicTheme.embossDepth(context),
+            boxShape: buttonradius(),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 18),
+          child: TextFormField(
+            onChanged: (value) {
+              widget.onchange(value);
+            },
+            cursorColor: NeumorphicTheme.accentColor(context),
+            inputFormatters: widget.inputformate,
+            validator: widget.validator,
+            maxLines: widget.maxline,
+            keyboardType: widget.keyboradtype,
+            obscureText: widget.obsecuretext!,
+            onTap: () {
+              widget.ontap!();
+            },
+            style: widget.style,
+            autofocus: widget.autofocus,
+            readOnly: widget.readtype,
+            controller: widget.controller,
+            maxLength: widget.maxlength,
+            decoration: InputDecoration(
+              enabledBorder: widget.showoutlineborder
+                  ? OutlineInputBorder(
                       borderSide: BorderSide(
                         color: widget.outerborderclr ??
                             NeumorphicTheme.baseColor(context),
                       ),
-                    )
-                  : InputBorder.none,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color:
-                    widget.outerborderclr ?? NeumorphicTheme.baseColor(context),
-                width: 2.0),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          prefixIconConstraints: BoxConstraints(
-            maxWidth: widget.showprefixicon ? 80 : 0,
-            maxHeight: widget.showprefixicon ? 70 : 0,
-          ),
-          prefixIcon: widget.showprefixicon ? widget.prefixicon : null,
-          isDense: true,
-          contentPadding: EdgeInsets.only(
-              left: widget.leftpadding,
-              top: widget.toppadding,
-              bottom: widget.bottompadding),
-          border: widget.showborder
-              ? UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: NeumorphicTheme.baseColor(context),
-                  ),
-                )
-              : widget.showoutlineborder
-                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))
+                  : widget.showborder
+                      ? UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: widget.outerborderclr ??
+                                NeumorphicTheme.baseColor(context),
+                          ),
+                        )
+                      : InputBorder.none,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: widget.outerborderclr ??
+                        NeumorphicTheme.baseColor(context),
+                    width: 2.0),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              prefixIconConstraints: BoxConstraints(
+                maxWidth: widget.showprefixicon ? 80 : 0,
+                maxHeight: widget.showprefixicon ? 70 : 0,
+              ),
+              prefixIcon: widget.showprefixicon ? widget.prefixicon : null,
+              isDense: true,
+              contentPadding: EdgeInsets.only(
+                  left: widget.leftpadding,
+                  top: widget.toppadding,
+                  bottom: widget.bottompadding),
+              border: widget.showborder
+                  ? UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: NeumorphicTheme.baseColor(context),
                       ),
-                      borderRadius: BorderRadius.circular(15))
-                  : InputBorder.none,
-          labelText: widget.label,
-          labelStyle: widget.labelstyle,
-          hintText: widget.hinttext,
-          hintStyle: widget.hintstyle,
-          suffixIconConstraints: BoxConstraints(
-            maxWidth: widget.suffixshowicon ? 30 : 0,
-            maxHeight: widget.suffixshowicon ? 20 : 0,
+                    )
+                  : widget.showoutlineborder
+                      ? OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: NeumorphicTheme.baseColor(context),
+                          ),
+                          borderRadius: BorderRadius.circular(15))
+                      : InputBorder.none,
+              labelText: widget.label,
+              labelStyle: widget.labelstyle,
+              hintText: widget.hinttext,
+              hintStyle: widget.hintstyle ??
+                  MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw40018,
+                      color: NeumorphicTheme.accentColor(context)),
+              suffixIconConstraints: BoxConstraints(
+                maxWidth: widget.suffixshowicon ? 30 : 0,
+                maxHeight: widget.suffixshowicon ? 20 : 0,
+              ),
+              suffixIcon: widget.suffixshowicon
+                  ? widget.iconorimage
+                      ? GestureDetector(
+                          onTap: () {
+                            widget.ontapsufixicon!();
+                          },
+                          child: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: widget.child),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            widget.ontapsufixicon!();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Icon(
+                              widget.suffixicon,
+                              color: widget.suffix_icon_color ??
+                                  NeumorphicTheme.accentColor(context),
+                              size: widget.size,
+                            ),
+                          ),
+                        )
+                  : Padding(
+                      padding: EdgeInsets.all(5),
+                    ),
+            ),
           ),
-          suffixIcon: widget.suffixshowicon
-              ? widget.iconorimage
-                  ? GestureDetector(
-                      onTap: () {
-                        widget.ontapsufixicon!();
-                      },
-                      child: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: widget.child),
-                    )
-                  : GestureDetector(
-                      onTap: () {
-                        widget.ontapsufixicon!();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Icon(
-                          widget.suffixicon,
-                          color: widget.suffix_icon_color ??
-                              NeumorphicTheme.accentColor(context),
-                          size: widget.size,
-                        ),
-                      ),
-                    )
-              : Padding(
-                  padding: EdgeInsets.all(5),
-                ),
         ),
-      ),
+        if (widget.showerror)
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 12.0,
+          ),
+          child: Text(
+             widget.errormsg,
+            style: MyTextStyle.Dynamic(
+                color: mycolor().Redcolor, style: MyTextStyle.mw40014),
+          ),
+        ),
+      ],
     );
   }
 }
