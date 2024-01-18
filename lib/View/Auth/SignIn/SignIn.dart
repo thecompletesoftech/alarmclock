@@ -1,7 +1,8 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/ForgotPassword/ForgotPaasword.dart';
-import 'package:clockalarm/View/Auth/Home/Home.dart';
+import 'package:clockalarm/View/Auth/Profile/Profile.dart';
 import 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
+import 'package:clockalarm/View/WorldClock/WorldClock.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/gestures.dart';
 
@@ -132,7 +133,7 @@ class _SignInState extends State<SignIn> {
                             emailerror = false;
                             passworderror = false;
                           });
-                          nextscreen(context, Home());
+                          nextscreen(context, Profile());
                         }
                       },
                     ),

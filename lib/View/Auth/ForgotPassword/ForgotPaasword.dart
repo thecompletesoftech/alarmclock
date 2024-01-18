@@ -1,7 +1,4 @@
 import "../../../Config/Import.dart";
-
-import 'package:clockalarm/View/Auth/Home/Home.dart';
-
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 
 
