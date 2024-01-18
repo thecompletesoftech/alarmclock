@@ -1,7 +1,9 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/ForgotPassword/ForgotPaasword.dart';
 import 'package:clockalarm/View/Auth/Home/Home.dart';
+import 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
+import 'package:flutter/gestures.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -121,7 +123,7 @@ class _SignInState extends State<SignIn> {
                     SizedBox(height: 51),
                     ButtonWidget(
                       width: 0.76,
-                      name: resetpass,
+                      name: login,
                       onTap: () {
                         final isvalidForm = _formkey.currentState!.validate();
                         if (isvalidForm) {
@@ -143,14 +145,13 @@ class _SignInState extends State<SignIn> {
                               color: NeumorphicTheme.accentColor(context)),
                           children: [
                             TextSpan(
-                              text: register,
-                              style: MyTextStyle.Dynamic(
-                                  style: MyTextStyle.mw60016,
-                                  color: NeumorphicTheme.accentColor(context)),
-                              // recognizer: TapGestureRecognizer()
-                              //   ..onTap =
-                              //       () => nextscreen(context, forgotpassword)
-                            )
+                                text: register,
+                                style: MyTextStyle.Dynamic(
+                                    style: MyTextStyle.mw60016,
+                                    color:
+                                        NeumorphicTheme.accentColor(context)),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => nextscreen(context, SignUp()))
                           ]),
                     ),
                     SizedBox(height: 30),

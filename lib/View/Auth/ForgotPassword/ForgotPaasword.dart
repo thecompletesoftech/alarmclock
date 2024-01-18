@@ -99,7 +99,7 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                           setState(() {
                             emailerror = false;
                           });
-                          nextscreen(context, Home());
+                          nextscreen(context, SignIn());
                         }
                       },
                     ),

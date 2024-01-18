@@ -1,3 +1,4 @@
+import 'package:clockalarm/Config/Import.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -11,14 +12,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: NeumorphicAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: [
-              
-            ],
+            children: [],
           ),
         ),
       ),
