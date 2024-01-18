@@ -1,5 +1,6 @@
 import 'package:clockalarm/Config/Import.dart';
 
+
 nextscreenwithoutback(cntx, screenname) {
   Navigator.pushReplacement(
       cntx, MaterialPageRoute(builder: (BuildContext context) => screenname));

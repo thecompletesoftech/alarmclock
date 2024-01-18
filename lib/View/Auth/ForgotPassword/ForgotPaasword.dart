@@ -1,10 +1,9 @@
-import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/Config/Localstring.dart';
-import 'package:clockalarm/Config/TextStyle.dart';
+import "../../../Config/Import.dart";
+
 import 'package:clockalarm/View/Auth/Home/Home.dart';
-import 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
+
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
-import 'package:flutter/material.dart';
+
 
 class ForgotPaasword extends StatefulWidget {
   const ForgotPaasword({super.key});
