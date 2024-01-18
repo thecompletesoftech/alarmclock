@@ -11,7 +11,7 @@ const requiredtext = 'Please enter ';
 const emailerrormsg = 'valid email';
 const passworderrormsg = 'valid password';
 const resetpass = 'Reset Password';
-const worldclockalrm = 'World Clock';
-const profiletext = 'Profile';
+const worldclock = 'World Clock';
+const alarm = 'Alarm';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
