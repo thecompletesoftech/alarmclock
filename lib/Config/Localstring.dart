@@ -49,5 +49,6 @@ const gammatext = 'Gamma';
 const alramtext = 'Alarm';
 const timeuptext = 'TIME’S UP!';
 const timertext = 'Timer';
+const selectcity = 'Choose a City';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
