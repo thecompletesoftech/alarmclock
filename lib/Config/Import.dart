@@ -11,3 +11,5 @@ export 'package:analog_clock/analog_clock.dart';
 export 'package:clockalarm/Widgets/alarmcard.dart';
 export 'package:clockalarm/Config/Utils.dart';
 export 'package:clockalarm/View/alarm/Clock.dart';
+export 'package:clockalarm/View/alarm/Addalarm.dart';
+export 'package:clockalarm/View/Stopwatch/Stopwatchclock.dart';

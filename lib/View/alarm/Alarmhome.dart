@@ -1,5 +1,5 @@
 import '../../Config/Import.dart';
-import 'Addalarm.dart';
+import '../Stopwatch/Stopwatch.dart';
 
 class AlarmHome extends StatefulWidget {
   const AlarmHome({super.key});
@@ -16,7 +16,7 @@ class _AlarmHomeState extends State<AlarmHome> {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: CustomeAppbar(list: [
-            {"icon": Icons.add, "screenname": AddAlram()},
+            {"icon": Icons.add, "screenname": StopwatchScreen()},
             {"icon": Icons.edit, "screenname": null},
             {"icon": Icons.person_outline_outlined, "screenname": null},
           ], titletext: alarm)),

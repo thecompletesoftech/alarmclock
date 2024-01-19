@@ -1,6 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
 
-
 nextscreenwithoutback(cntx, screenname) {
   Navigator.pushReplacement(
       cntx, MaterialPageRoute(builder: (BuildContext context) => screenname));
@@ -9,6 +8,10 @@ nextscreenwithoutback(cntx, screenname) {
 nextscreen(cntx, screenname) {
   Navigator.push(
       cntx, MaterialPageRoute(builder: (BuildContext context) => screenname));
+}
+
+backscreen(cntx) {
+  Navigator.pop(cntx);
 }
 
 buttonradius({r}) {
