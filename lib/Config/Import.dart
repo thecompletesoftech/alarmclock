@@ -9,5 +9,5 @@ export 'package:clockalarm/Widgets/Appbar.dart';
 export 'package:get/get.dart';
 export 'package:analog_clock/analog_clock.dart';
 export 'package:clockalarm/Widgets/alarmcard.dart';
-export  'package:clockalarm/Config/Utils.dart';
-export  'package:clockalarm/View/alarm/Clock.dart';
+export 'package:clockalarm/Config/Utils.dart';
+export 'package:clockalarm/View/alarm/Clock.dart';

@@ -1,4 +1,5 @@
 import '../../Config/Import.dart';
+import 'Addalarm.dart';
 
 class AlarmHome extends StatefulWidget {
   const AlarmHome({super.key});
@@ -15,7 +16,7 @@ class _AlarmHomeState extends State<AlarmHome> {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: CustomeAppbar(list: [
-            {"icon": Icons.add, "screenname": null},
+            {"icon": Icons.add, "screenname": AddAlram()},
             {"icon": Icons.edit, "screenname": null},
             {"icon": Icons.person_outline_outlined, "screenname": null},
           ], titletext: alarm)),
@@ -34,8 +35,17 @@ class _AlarmHomeState extends State<AlarmHome> {
               itemCount: 10,
               itemBuilder: (context, index) {
                 return AlramCard(
+                  showmedium: true,
                   medium: 'pm',
+                  onchange: (value) {
+                    setState(() {
+                      isSwitched = !isSwitched;
+                    });
+                  },
+                  swicthvalue: isSwitched,
                   time: '6:45',
+                  showswitchorsubtile: true,
+                  subtitle: "",
                 ).paddingOnly(bottom: 10, top: 10);
               },
             )

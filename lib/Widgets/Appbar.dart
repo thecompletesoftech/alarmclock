@@ -26,17 +26,23 @@ class CustomeAppbar extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Container(
-                        height: 50,
-                        width: 50,
-                        decoration: Utils().decoration(
-                            cntx: context,
-                            isdark: NeumorphicTheme.isUsingDark(context),
-                            radius: 32.5 * fem),
-                        child: Icon(
-                          list[index]['icon'],
-                          color: NeumorphicTheme.accentColor(context),
-                        )).paddingOnly(left: 10);
+                    return GestureDetector(
+                      onTap: (() {
+                        print("hii");
+                        nextscreen(context, list[index]['screenname']);
+                      }),
+                      child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: Utils().decoration(
+                              cntx: context,
+                              isdark: NeumorphicTheme.isUsingDark(context),
+                              radius: 32.5 * fem),
+                          child: Icon(
+                            list[index]['icon'],
+                            color: NeumorphicTheme.accentColor(context),
+                          )).paddingOnly(left: 10),
+                    );
                   }))
         ],
       ),

@@ -33,7 +33,7 @@ class _ClockState extends State<Clock> {
                 Container(
                   height: 18,
                   width: 2,
-                  color: Colors.white,
+                  color: NeumorphicTheme.defaultTextColor(context),
                 ).paddingOnly(top: 8),
               ],
             ),
@@ -48,7 +48,7 @@ class _ClockState extends State<Clock> {
                 Container(
                   height: 2,
                   width: 18,
-                  color: Colors.white,
+                  color: NeumorphicTheme.defaultTextColor(context),
                 ).paddingOnly(left: 8),
               ],
             ),
@@ -63,7 +63,7 @@ class _ClockState extends State<Clock> {
                 Container(
                   height: 18,
                   width: 2,
-                  color: Colors.white,
+                  color: NeumorphicTheme.defaultTextColor(context),
                 ).paddingOnly(bottom: 8),
               ],
             ),
@@ -78,7 +78,7 @@ class _ClockState extends State<Clock> {
                 Container(
                   height: 2,
                   width: 18,
-                  color: Colors.white,
+                  color: NeumorphicTheme.defaultTextColor(context),
                 ).paddingOnly(right: 8),
               ],
             ),
@@ -94,7 +94,7 @@ class _ClockState extends State<Clock> {
                 radius: 150 * fem),
             width: 150.0,
             isLive: true,
-            hourHandColor: Colors.white,
+            hourHandColor: NeumorphicTheme.defaultTextColor(context),
             minuteHandColor: NeumorphicTheme.accentColor(context),
             showSecondHand: false,
             numberColor: Colors.black87,
@@ -129,7 +129,7 @@ class _ClockState extends State<Clock> {
           child: Container(
             height: hight,
             width: width,
-            color: Colors.white,
+            color: NeumorphicTheme.defaultTextColor(context),
           ),
         )
       ],
