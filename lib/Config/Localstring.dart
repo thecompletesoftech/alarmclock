@@ -25,6 +25,9 @@ const generalsettings = 'General Settings';
 const timerhistory = 'MIVS Timer History';
 const alphatext = 'Alpha';
 const done = 'Done';
+const cancel = 'Cancel';
+const addalarm = 'Add Alarm';
+const save = 'Save';
 const duration = 'Duration:';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
