@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/Widgets/CardWidget.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
 class WorldClock extends StatefulWidget {
@@ -9,6 +8,19 @@ class WorldClock extends StatefulWidget {
   @override
   State<WorldClock> createState() => _WorldClockState();
 }
+
+var serachlist = [
+  'Abu Dhabi, UAE',
+  'Acapulco, Mexico',
+  'Accra, Ghana',
+  'Acton, USA',
+  'Adak, USA',
+  'Baghdad, Iraq',
+  'Baku, Azerbaijan',
+  'Baltimore, USA',
+  'Bangalore, India',
+  'Cairo, Egypt',
+];
 
 class _WorldClockState extends State<WorldClock> {
   @override
@@ -263,12 +275,14 @@ class _WorldClockState extends State<WorldClock> {
       context: context,
       builder: (BuildContext builderContext) {
         return Container(
-          height: 500,
           width: MediaQuery.sizeOf(context).width,
           padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(
+                height: 9,
+              ),
               Text(
                 selectcity,
                 style: MyTextStyle.Dynamic(
@@ -278,13 +292,56 @@ class _WorldClockState extends State<WorldClock> {
               SizedBox(
                 height: 9,
               ),
-              TextBoxwidget(
-                hinttext: 'Search',
-                validator: (p0) {},
-                ontap: () {},
-                suffixicon: Icon(
-                  Icons.search,
-                  color: NeumorphicTheme.accentColor(context),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: TextBoxwidget(
+                        hinttext: 'Search',
+                        validator: (p0) {},
+                        ontap: () {},
+                        suffixshowicon: true,
+                        suffixicon: Icons.search),
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      height: 60,
+                      child: Text(
+                        cancel,
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40016,
+                            color: NeumorphicTheme.defaultTextColor(context)),
+                      ))
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: serachlist.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                serachlist[index],
+                                style: MyTextStyle.Dynamic(
+                                    style: MyTextStyle.mw40018,
+                                    color:
+                                        NeumorphicTheme.accentColor(context)),
+                              ),
+                            ],
+                          ),
+                          Divider(),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
+import 'package:clockalarm/View/WorldClock/WorldClock.dart';
 
 import '../Config/Import.dart';
 
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       Duration(seconds: 3),
-      () => nextscreenwithoutback(context, NewBottomNavigator()),
+      () => nextscreenwithoutback(context, WorldClock()),
     );
   }
 
