@@ -1,5 +1,4 @@
 import '../Config/Import.dart';
-import '../Config/Utils.dart';
 
 class CustomeAppbar extends StatelessWidget {
   final titletext;

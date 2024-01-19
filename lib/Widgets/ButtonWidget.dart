@@ -43,43 +43,40 @@ class ButtonWidget extends StatefulWidget {
 class _ButtonWidgetState extends State<ButtonWidget> {
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 390;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
     var size = MediaQuery.of(context).size;
-    return Neumorphic(
-      style: NeumorphicStyle(
-        shape: NeumorphicShape.flat,
-        shadowDarkColor: mycolor().darkshadow,
-        depth: 2.0,
-        boxShape: buttonradius(r: 20.0),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 18),
-      child: Container(
-        width: size.width * widget.width,
-        height: widget.height,
-        child: InkWell(
-          onTap: () {
-            widget.onTap!();
-          },
-          child: Container(
-            child: widget.loading
-                ? Center(
-                    child: CircularProgressIndicator(
-                    color: NeumorphicTheme.accentColor(context),
-                  ))
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Textwidget().text(
-                            widget.name,
-                            MyTextStyle.Dynamic(
-                              style: MyTextStyle.mw40024,
-                              color: widget.txtcolor ??
-                                  NeumorphicTheme.accentColor(context),
-                            )),
-                      ),
-                    ],
-                  ),
-          ),
+    return Container(
+      decoration: Utils().decoration(
+          cntx: context,
+          isdark: NeumorphicTheme.isUsingDark(context),
+          radius: 10.5 * fem),
+      width: size.width * widget.width,
+      height: widget.height,
+      child: InkWell(
+        onTap: () {
+          widget.onTap!();
+        },
+        child: Container(
+          child: widget.loading
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: NeumorphicTheme.accentColor(context),
+                ))
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Textwidget().text(
+                          widget.name,
+                          MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40024,
+                            color: widget.txtcolor ??
+                                NeumorphicTheme.accentColor(context),
+                          )),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

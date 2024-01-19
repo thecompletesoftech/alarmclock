@@ -1,5 +1,4 @@
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/Config/Utils.dart';
 
 class CardWidget extends StatelessWidget {
   final title;

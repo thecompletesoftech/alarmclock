@@ -1,9 +1,7 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/ForgotPassword/ForgotPaasword.dart';
-import 'package:clockalarm/View/Auth/Profile/Profile.dart';
+import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
-import 'package:clockalarm/View/WorldClock/WorldClock.dart';
-import 'package:clockalarm/View/alarm/Alarmhome.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/gestures.dart';
 
@@ -24,7 +22,6 @@ class _SignInState extends State<SignIn> {
   final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    
     GlobalKey<FormState> _formkey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
@@ -36,21 +33,24 @@ class _SignInState extends State<SignIn> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 100.0, left: 16.0, right: 16.0),
+                    const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
                 child: Column(
                   children: [
                     Center(child: Image.asset("assets/TivalLogo.png")),
                     SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Text(
-                          login,
-                          textAlign: TextAlign.start,
-                          style: MyTextStyle.Dynamic(
-                              style: MyTextStyle.mw70024,
-                              color: NeumorphicTheme.accentColor(context)),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            login,
+                            textAlign: TextAlign.start,
+                            style: MyTextStyle.Dynamic(
+                                style: MyTextStyle.mw70024,
+                                color: NeumorphicTheme.accentColor(context)),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
@@ -125,7 +125,8 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 51),
                     ButtonWidget(
-                      width: 0.76,
+                      height: 60.0,
+                      width: 0.87,
                       name: login,
                       onTap: () {
                         final isvalidForm = _formkey.currentState!.validate();
@@ -135,7 +136,7 @@ class _SignInState extends State<SignIn> {
                             emailerror = false;
                             passworderror = false;
                           });
-                          nextscreen(context, AlarmHome());
+                          nextscreen(context, History());
                         }
                       },
                     ),

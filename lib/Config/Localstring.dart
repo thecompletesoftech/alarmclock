@@ -26,5 +26,12 @@ const timerhistory = 'MIVS Timer History';
 const alphatext = 'Alpha';
 const done = 'Done';
 const duration = 'Duration:';
+const timetext = '00 : 45 : 00';
+const remianingtext = 'Remaining:';
+const remianingtimetext = '00 : 00 : 00';
+const snoozetext = 'Snooze:';
+const snoozetime = '00 : 05 : 00';
+const repeattext = 'Repeat 4 times until';
+const repeattime = '07 : 15 : 00';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';

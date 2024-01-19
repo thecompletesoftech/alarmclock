@@ -87,7 +87,8 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                       height: 44,
                     ),
                     ButtonWidget(
-                      width: 0.76,
+                      height: 60.0,
+                      width: 0.87,
                       name: resetpass,
                       onTap: () {
                         final isvalidForm = _formkey.currentState!.validate();

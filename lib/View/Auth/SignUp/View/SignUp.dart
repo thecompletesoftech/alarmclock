@@ -13,15 +13,18 @@ class SignUp extends StatelessWidget {
           child: Column(
             children: [
               Center(child: Image.asset("assets/TivalLogo.png")),
-              Row(
-                children: [
-                  Text(
-                    register,
-                    style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw70024,
-                        color: NeumorphicTheme.accentColor(context)),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Row(
+                  children: [
+                    Text(
+                      register,
+                      style: MyTextStyle.Dynamic(
+                          style: MyTextStyle.mw70024,
+                          color: NeumorphicTheme.accentColor(context)),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 24),
               TextBoxwidget(
@@ -45,7 +48,7 @@ class SignUp extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Center(
-                child: ButtonWidget(width: 0.76, name: signup),
+                child: ButtonWidget(height: 60.0, width: 0.87, name: register),
               ),
               SizedBox(height: 24),
             ],

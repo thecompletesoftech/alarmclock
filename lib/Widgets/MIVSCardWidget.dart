@@ -21,7 +21,7 @@ class MIVSCardWidget extends StatelessWidget {
             radius: 10.5 * fem),
         width: MediaQuery.sizeOf(context).width,
         padding: EdgeInsets.only(left: 32.0, top: 16.0, right: 16.0),
-        height: 300,
+        height: 60,
         alignment: Alignment.topLeft,
         child: Text(
           title,
