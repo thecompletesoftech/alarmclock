@@ -9,7 +9,6 @@ class AlarmHome extends StatefulWidget {
 }
 
 class _AlarmHomeState extends State<AlarmHome> {
-  
   bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
@@ -17,9 +16,9 @@ class _AlarmHomeState extends State<AlarmHome> {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: CustomeAppbar(list: [
-            {"icon": Icons.add, "screenname": StopwatchScreen()},
-            {"icon": Icons.edit, "screenname": null},
-            {"icon": Icons.person_outline_outlined, "screenname": null},
+            {"icon": "assets/add.png", "screenname": StopwatchScreen()},
+            {"icon":"assets/add.png", "screenname": null},
+            {"icon":"assets/add.png", "screenname": null},
           ], titletext: alarm)),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
