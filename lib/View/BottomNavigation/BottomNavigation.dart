@@ -1,7 +1,8 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/Config/SvgString.dart';
-import 'package:clockalarm/View/Auth/Home/Home.dart';
-import 'package:clockalarm/View/alarm/Alarmhome.dart';
+
+
+
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NewBottomNavigator extends StatefulWidget {
@@ -31,12 +32,12 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: selectedIndex == 0
-          ? AlarmHome()
+          ? WorldClock()
           : selectedIndex == 1
-              ? SignIn()
+              ? AlarmHome()
               : selectedIndex == 2
-                  ? Home()
-                  : SignIn(),
+                  ? StopwatchScreen()
+                  : MIVSTimer(),
       bottomNavigationBar: Theme(
         data: ThemeData(
           splashColor: Colors.transparent,

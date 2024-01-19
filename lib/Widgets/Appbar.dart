@@ -8,6 +8,7 @@ class CustomeAppbar extends StatelessWidget {
   final subtitle;
   final showsubtitle;
   final showbtn;
+  final showarrow;
   const CustomeAppbar(
       {super.key,
       this.titletext,
@@ -16,7 +17,8 @@ class CustomeAppbar extends StatelessWidget {
       this.showlistbtn = true,
       this.subtitle,
       this.showsubtitle = false,
-      this.showbtn = false});
+      this.showbtn = false,
+      this.showarrow = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +33,15 @@ class CustomeAppbar extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  GestureDetector(
-                    onTap: (() {
-                      backscreen(context);
-                    }),
-                    child: Icon(Icons.arrow_back_outlined,
-                            color: NeumorphicTheme.defaultTextColor(context))
-                        .paddingOnly(bottom: 10, right: 20),
-                  ),
+                  if (showarrow)
+                    GestureDetector(
+                      onTap: (() {
+                        backscreen(context);
+                      }),
+                      child: Icon(Icons.arrow_back_outlined,
+                              color: NeumorphicTheme.defaultTextColor(context))
+                          .paddingOnly(bottom: 10, right: 20),
+                    ),
                   Text(
                     titletext,
                     style: MyTextStyle.Dynamic(
@@ -56,7 +59,7 @@ class CustomeAppbar extends StatelessWidget {
               ),
               if (showlistbtn)
                 Container(
-                    height: 50,
+                    height: 40,
                     child: ListView.builder(
                         itemCount: list.length,
                         shrinkWrap: true,
@@ -68,8 +71,8 @@ class CustomeAppbar extends StatelessWidget {
                               nextscreen(context, list[index]['screenname']);
                             }),
                             child: Container(
-                                height: 50,
-                                width: 50,
+                                height: 40,
+                                width: 40,
                                 alignment: Alignment.center,
                                 decoration: Utils().decoration(
                                     cntx: context,
@@ -79,8 +82,8 @@ class CustomeAppbar extends StatelessWidget {
                                 child: Image.asset(
                                   list[index]['icon'],
                                   color: NeumorphicTheme.accentColor(context),
-                                  height: 25,
-                                  width: 25,
+                                  height: 20,
+                                  width: 20,
                                 )).paddingOnly(left: 10),
                           );
                         })),

@@ -1,6 +1,7 @@
+import 'package:flutter/gestures.dart';
+
 import "../../../Config/Import.dart";
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
-
 
 class ForgotPaasword extends StatefulWidget {
   const ForgotPaasword({super.key});
@@ -111,14 +112,13 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                               color: NeumorphicTheme.accentColor(context)),
                           children: [
                             TextSpan(
-                              text: register,
-                              style: MyTextStyle.Dynamic(
-                                  style: MyTextStyle.mw60016,
-                                  color: NeumorphicTheme.accentColor(context)),
-                              // recognizer: TapGestureRecognizer()
-                              //   ..onTap =
-                              //       () => nextscreen(context, forgotpassword)
-                            )
+                                text: register,
+                                style: MyTextStyle.Dynamic(
+                                    style: MyTextStyle.mw60016,
+                                    color:
+                                        NeumorphicTheme.accentColor(context)),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => nextscreen(context, SignUp()))
                           ]),
                     ),
                     SizedBox(

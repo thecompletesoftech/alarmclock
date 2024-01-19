@@ -18,9 +18,14 @@ class _ProfileState extends State<Profile> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
-              Icons.arrow_back,
-              color: mycolor().White,
+            GestureDetector(
+              onTap: () {
+                backscreen(context);
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: mycolor().White,
+              ),
             ),
             Text(
               profiletext,
@@ -69,7 +74,7 @@ class _ProfileState extends State<Profile> {
               SizedBox(height: 17),
               CardWidget(
                 title: historytext,
-                ontap: (){
+                ontap: () {
                   nextscreen(context, History());
                 },
               ),

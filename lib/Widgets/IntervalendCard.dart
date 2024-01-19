@@ -86,7 +86,7 @@ class Intervalend extends StatelessWidget {
                         style: MyTextStyle.mw40018,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: 8),
                   Text(
                     medium,
                     style: MyTextStyle.Dynamic(
