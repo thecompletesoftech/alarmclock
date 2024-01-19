@@ -36,5 +36,10 @@ const snoozetext = 'Snooze:';
 const snoozetime = '00 : 05 : 00';
 const repeattext = 'Repeat 4 times until';
 const repeattime = '07 : 15 : 00';
+const betatext = 'Beta';
+const gammatext = 'Gamma';
+const alramtext = 'Alarm';
+const timeuptext = 'TIME’S UP!';
+const timertext = 'Timer';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
