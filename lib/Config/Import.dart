@@ -5,3 +5,5 @@ export 'package:clockalarm/View/Auth/SignIn/SignIn.dart';
 export 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 export 'package:clockalarm/Config/TextStyle.dart';
 export 'package:clockalarm/Config/Localstring.dart';
+export 'package:clockalarm/Widgets/Appbar.dart';
+export 'package:get/get.dart';
