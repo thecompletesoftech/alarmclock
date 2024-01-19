@@ -15,6 +15,7 @@ class ButtonWidget extends StatefulWidget {
   final showarrow;
   final bordercolor;
   final txtcolor;
+  final txtstyle;
   final showon;
 
   final bool loading;
@@ -27,14 +28,15 @@ class ButtonWidget extends StatefulWidget {
       this.style,
       this.colorbtn = Colors.transparent,
       this.active = false,
-      this.borderRadius = 10,
+      this.borderRadius = 10.5,
       this.height = 50,
       this.elevation = 0,
       this.bordercolor,
       this.showon = true,
       this.loading = false,
       this.txtcolor,
-      this.showarrow = false})
+      this.showarrow = false,
+      this.txtstyle})
       : super(key: key);
   @override
   State<ButtonWidget> createState() => _ButtonWidgetState();
@@ -50,7 +52,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       decoration: Utils().decoration(
           cntx: context,
           isdark: NeumorphicTheme.isUsingDark(context),
-          radius: 10.5 * fem),
+          radius: widget.borderRadius * fem),
       width: size.width * widget.width,
       height: widget.height,
       child: InkWell(
@@ -70,7 +72,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                       child: Textwidget().text(
                           widget.name,
                           MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw40024,
+                            style: widget.txtstyle ?? MyTextStyle.mw40024,
                             color: widget.txtcolor ??
                                 NeumorphicTheme.accentColor(context),
                           )),
