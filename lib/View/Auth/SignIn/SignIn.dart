@@ -125,15 +125,15 @@ class _SignInState extends State<SignIn> {
                       width: 0.76,
                       name: login,
                       onTap: () {
-                        // final isvalidForm = _formkey.currentState!.validate();
-                        // if (isvalidForm) {
-                        //   print("error ==>");
-                        //   setState(() {
-                        //     emailerror = false;
-                        //     passworderror = false;
-                        //   });
+                        final isvalidForm = _formkey.currentState!.validate();
+                        if (isvalidForm) {
+                          print("error ==>");
+                          setState(() {
+                            emailerror = false;
+                            passworderror = false;
+                          });
                           nextscreen(context, Home());
-                        // }
+                        }
                       },
                     ),
                     SizedBox(height: 93),
