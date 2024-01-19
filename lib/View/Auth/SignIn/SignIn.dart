@@ -1,10 +1,10 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/ForgotPassword/ForgotPaasword.dart';
-import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
 import 'package:clockalarm/View/WorldClock/WorldClock.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/gestures.dart';
+import '../../MIVSTimer/MIVSTime.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -137,7 +137,7 @@ class _SignInState extends State<SignIn> {
                             emailerror = false;
                             passworderror = false;
                           });
-                          nextscreen(context, WorldClock());
+                          nextscreen(context, MIVSTimer());
                         }
                       },
                     ),
