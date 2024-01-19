@@ -17,7 +17,7 @@ class _worldclockState extends State<worldclock> {
         title: Row(
           children: [
             Text(
-              worldclockalrm,
+              "worldclockalrm",
               style: MyTextStyle.Dynamic(
                   style: MyTextStyle.mw60030,
                   color: NeumorphicTheme.accentColor(context)),
