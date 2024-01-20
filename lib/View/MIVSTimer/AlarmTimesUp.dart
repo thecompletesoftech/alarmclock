@@ -55,34 +55,22 @@ class _AlramTimesupState extends State<AlramTimesup> {
     );
   }
 
-  checkbox() {
+  checkbox(title) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Row(
       children: [
         Text(
-          "next",
+          title,
           style: MyTextStyle.Dynamic(
               style: MyTextStyle.mw50012,
               color: NeumorphicTheme.defaultTextColor(context)),
         ),
-        Container(
-          // autogroupuxtsko6 (QgJJKFcucEceuwEnwRUXtS)
-          width: 40,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Color(0xff333333),
-            borderRadius: BorderRadius.circular(10 * fem),
-          ),
-          child: Center(
-            child: Text(
-              "4",
-              style: MyTextStyle.Dynamic(
-                  style: MyTextStyle.mw50012,
-                  color: NeumorphicTheme.defaultTextColor(context)),
-            ),
-          ),
-        ),
+        Image.asset(
+          "assets/checkbox.png",
+          height: 20,
+          width: 20,
+        )
       ],
     );
   }
