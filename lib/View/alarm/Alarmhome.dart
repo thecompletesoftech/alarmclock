@@ -9,6 +9,7 @@ class AlarmHome extends StatefulWidget {
 }
 
 class _AlarmHomeState extends State<AlarmHome> {
+  
   bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
