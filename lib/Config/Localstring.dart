@@ -27,6 +27,7 @@ const resetpassword = 'Reset Password';
 const logout = 'Logout';
 const deleteaccount = 'Delete Account';
 const generalsettings = 'General Settings';
+const mivstimer = 'MIVS Timer';
 const timerhistory = 'MIVS Timer History';
 const alphatext = 'Alpha';
 const done = 'Done';
@@ -64,3 +65,4 @@ const reperatinterval = "Repeat Interval";
 const interduration = "Interval Duration";
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
+    
