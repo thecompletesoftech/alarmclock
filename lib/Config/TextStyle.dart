@@ -114,6 +114,11 @@ class MyTextStyle {
     fontFamily: Lato,
     fontWeight: FontWeight.w700,
   );
+    static const TextStyle mw70014 = TextStyle(
+    fontSize: 16,
+    fontFamily: Lato,
+    fontWeight: FontWeight.w700,
+  );
   //fontweight 700
 
   static const TextStyle mw60020 = TextStyle(
@@ -121,6 +126,7 @@ class MyTextStyle {
     fontFamily: Lato,
     fontWeight: FontWeight.w600,
   );
+  
 
   //fontweight 300
   static const TextStyle mw30016 = TextStyle(

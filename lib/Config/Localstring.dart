@@ -46,6 +46,7 @@ const gammatext = 'Gamma';
 const alramtext = 'Alarm';
 const timeuptext = 'TIME’S UP!';
 const timertext = 'Timer';
+const selectcity = 'Choose a City';
 const hours = 'HOURS';
 const miniute = 'MINUTES';
 const seconds = 'SECONDS';
