@@ -12,6 +12,7 @@ const lap = 'Lap';
 const start = 'Start';
 const forgotpassword = "Forgot Password?";
 const account = 'Don’t have an account? ';
+const alreadyaccount = 'Already have an account? ';
 const requiredtext = 'Please enter ';
 const emailerrormsg = 'valid email';
 const passworderrormsg = 'valid password';

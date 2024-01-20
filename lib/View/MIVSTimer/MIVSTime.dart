@@ -15,7 +15,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
           preferredSize: Size.fromHeight(100),
           child: CustomeAppbar(list: [
             {"icon": "assets/add.png", "screenname": AddMIVSTimer()},
-            {"icon": "assets/person.png", "screenname": null},
+            {"icon": "assets/person.png", "screenname": Profile()},
           ], titletext: timertext,showdivider: true,)),
       body: SingleChildScrollView(
         child: Padding(

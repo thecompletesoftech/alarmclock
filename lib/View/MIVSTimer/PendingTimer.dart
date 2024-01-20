@@ -24,15 +24,16 @@ class _PendingTimerState extends State<PendingTimer> {
             titletext: pendingtime,
             showdivider: true,
             showlistbtn: false,
+            showarrow: true,
             showsubtitle: true,
             subtitle: "Alpha",
           )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Column(
                 children: [
                   SizedBox(height: 10),
                   Timercard(
@@ -70,39 +71,39 @@ class _PendingTimerState extends State<PendingTimer> {
                       title: snoozetxt, hour: "00", minute: "00", second: "00"),
                 ],
               ),
-            ),
-            SizedBox(height: 30),
-            widget.showbtn == true
-                ? Row(
-                    children: [
-                      Expanded(
-                        child: ButtonWidget(
-                          name: cancel.toUpperCase(),
-                          txtstyle: MyTextStyle.mw40018,
-                          borderRadius: 15.0,
-                          onTap: () {},
+              SizedBox(height: 30),
+              widget.showbtn == true
+                  ? Row(
+                      children: [
+                        Expanded(
+                          child: ButtonWidget(
+                            name: cancel.toUpperCase(),
+                            txtstyle: MyTextStyle.mw40018,
+                            borderRadius: 15.0,
+                            onTap: () {},
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: ButtonWidget(
-                          name: snoozing,
-                          txtstyle: MyTextStyle.mw40018,
-                          borderRadius: 15.0,
-                          onTap: () {},
+                        Expanded(
+                          child: ButtonWidget(
+                            name: snoozing,
+                            txtstyle: MyTextStyle.mw40018,
+                            borderRadius: 15.0,
+                            onTap: () {},
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                : ButtonWidget(
-                    name: deletetimer,
-                    txtstyle: MyTextStyle.mw40018,
-                    borderRadius: 15.0,
-                    onTap: () {
-                      nextscreen(context, AlramTimesup());
-                    },
-                  ),
-            SizedBox(height: 30),
-          ],
+                      ],
+                    )
+                  : ButtonWidget(
+                      name: deletetimer,
+                      txtstyle: MyTextStyle.mw40018,
+                      borderRadius: 15.0,
+                      onTap: () {
+                        nextscreen(context, AlramTimesup());
+                      },
+                    ),
+              SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );

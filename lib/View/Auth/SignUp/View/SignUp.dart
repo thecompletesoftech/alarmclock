@@ -1,5 +1,6 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
+import 'package:flutter/gestures.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -49,6 +50,23 @@ class SignUp extends StatelessWidget {
               SizedBox(height: 30),
               Center(
                 child: ButtonWidget(height: 60.0, width: 0.87, name: register),
+              ),
+              SizedBox(height: 24),
+              RichText(
+                text: TextSpan(
+                    text: alreadyaccount,
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw50016,
+                        color: NeumorphicTheme.accentColor(context)),
+                    children: [
+                      TextSpan(
+                          text: login,
+                          style: MyTextStyle.Dynamic(
+                              style: MyTextStyle.mw60016,
+                              color: NeumorphicTheme.accentColor(context)),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => nextscreen(context, SignIn()))
+                    ]),
               ),
               SizedBox(height: 24),
             ],

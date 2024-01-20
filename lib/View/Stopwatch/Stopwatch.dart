@@ -16,7 +16,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: CustomeAppbar(list: [
-            {"icon": Icons.person_outline_outlined, "screenname": null},
+            {"icon": "assets/person.png", "screenname": Profile()},
           ], titletext: stopwatch)),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -50,7 +50,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return AlramCard(
                     showmedium: true,

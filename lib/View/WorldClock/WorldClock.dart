@@ -1,7 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/Widgets/CardWidget.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 
 class WorldClock extends StatefulWidget {
   const WorldClock({super.key});
@@ -16,73 +13,15 @@ class _WorldClockState extends State<WorldClock> {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
-      appBar: NeumorphicAppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            Text(
-              worldclockalrm,
-              style: MyTextStyle.Dynamic(
-                  style: MyTextStyle.mw60030,
-                  color: NeumorphicTheme.accentColor(context)),
-            ),
-            SizedBox(
-              width: 22,
-            ),
-            Row(
-              children: [
-                NeumorphicButton(
-                  onPressed: () {
-                    _showNeumorphicBottomSheet(context);
-                  },
-                  style: NeumorphicStyle(
-                    shape: NeumorphicShape.flat,
-                    depth: 3.0,
-                    boxShape: NeumorphicBoxShape.circle(),
-                  ),
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.add,
-                      color: NeumorphicTheme.accentColor(context)),
-                ),
-                SizedBox(
-                  width: 12,
-                ),
-                NeumorphicButton(
-                  onPressed: () {},
-                  style: NeumorphicStyle(
-                    shape: NeumorphicShape.flat,
-                    depth: 3.0,
-                    boxShape: NeumorphicBoxShape.circle(),
-                  ),
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.edit,
-                      color: NeumorphicTheme.accentColor(context)),
-                ),
-                SizedBox(
-                  width: 12,
-                ),
-                NeumorphicButton(
-                  onPressed: () {},
-                  style: NeumorphicStyle(
-                    shape: NeumorphicShape.flat,
-                    depth: 3.0,
-                    boxShape: NeumorphicBoxShape.circle(),
-                  ),
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.person_outline_rounded,
-                      color: NeumorphicTheme.accentColor(context)),
-                ),
-              ],
-            ),
-          ],
-        ),
-        // title: NeumorphicText(
-        //   "Neumorphic Design",
-        //   textStyle:
-        //       NeumorphicTextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-        //   style: NeumorphicStyle(color: Colors.black),
-        // ),
-      ),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(100),
+          child: CustomeAppbar(list: [
+            {"icon": "assets/add.png", "screenname": AddAlram()},
+            {"icon": "assets/edit.png", "screenname": ""},
+            {"icon": "assets/person.png", "screenname": Profile()},
+          ], titletext: worldclock,
+          showarrow: false,
+          )),
       body: SingleChildScrollView(
         child: Column(
           children: [

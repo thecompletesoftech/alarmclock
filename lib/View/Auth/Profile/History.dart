@@ -13,15 +13,19 @@ class History extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
-              Icons.arrow_back,
-              color: mycolor().White,
+            GestureDetector(
+              onTap: (() {
+                backscreen(context);
+              }),
+              child: Icon(
+                Icons.arrow_back,
+                color: mycolor().White,
+              ),
             ),
             Text(
               timerhistory,
               style: MyTextStyle.Dynamic(
-                  style: MyTextStyle.mw60024,
-                  color: NeumorphicTheme.accentColor(context)),
+                  style: MyTextStyle.mw60024, color: mycolor().lighttxtcolor),
             ),
             Container(),
           ],
@@ -100,7 +104,7 @@ class History extends StatelessWidget {
                                     NeumorphicTheme.defaultTextColor(context)),
                           ),
                           Text(
-                            "timetext",
+                            "00 : 45 : 00",
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw40020,
                                 color: NeumorphicTheme.accentColor(context)),
@@ -119,7 +123,7 @@ class History extends StatelessWidget {
                                     NeumorphicTheme.defaultTextColor(context)),
                           ),
                           Text(
-                            "remianingtimetext",
+                            "00 : 45 : 00",
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw40020,
                                 color: mycolor().greenlightcolor),
@@ -138,7 +142,7 @@ class History extends StatelessWidget {
                                     NeumorphicTheme.defaultTextColor(context)),
                           ),
                           Text(
-                            "snoozetime",
+                            "00 : 45 : 00",
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw40020,
                                 color: NeumorphicTheme.accentColor(context)),
@@ -157,7 +161,7 @@ class History extends StatelessWidget {
                                     NeumorphicTheme.defaultTextColor(context)),
                           ),
                           Text(
-                            "repeattime",
+                            "00 : 45 : 00",
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw40020,
                                 color: NeumorphicTheme.accentColor(context)),

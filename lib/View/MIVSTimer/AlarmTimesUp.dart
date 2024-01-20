@@ -23,6 +23,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
             ],
             titletext: alarm,
             showdivider: true,
+            showarrow: true,
             showlistbtn: true,
             showsubtitle: true,
             subtitle: timeuptext,
@@ -31,8 +32,8 @@ class _AlramTimesupState extends State<AlramTimesup> {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           children: [
-            checkbox(),
-            checkbox(),
+            // checkbox(),
+            // checkbox(),
             ButtonWidget(
               name: proceed,
               txtstyle: MyTextStyle.mw40020,
