@@ -58,6 +58,7 @@ class _MivstimerState extends State<Mivstimer> {
                               radius: 32.5 * fem),
                           child: Image.asset(
                             "assets/pause.png",
+                            color: NeumorphicTheme.accentColor(context),
                             height: 20,
                             fit: BoxFit.fill,
                             width: 20,
@@ -74,6 +75,7 @@ class _MivstimerState extends State<Mivstimer> {
                               alignment: Alignment.center,
                               child: Image.asset(
                                 "assets/power.png",
+                                color: NeumorphicTheme.accentColor(context),
                                 height: 20,
                                 fit: BoxFit.fill,
                                 width: 20,
@@ -88,7 +90,10 @@ class _MivstimerState extends State<Mivstimer> {
                   Container(
                       height: 20,
                       width: 20,
-                      child: Image.asset("assets/alramclock.png")),
+                      child: Image.asset(
+                        "assets/alramclock.png",
+                        color: NeumorphicTheme.accentColor(context),
+                      )),
                   SizedBox(width: 4),
                   Text(
                     widget.alarmtime,

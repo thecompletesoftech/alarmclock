@@ -83,7 +83,7 @@ class _ProfileState extends State<Profile> {
               CardWidget(
                 title: bruceBanner,
               ),
-              SizedBox(height: 28),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 28 : 20),
               CardWidget(
                 title: mailtext,
               ),
@@ -108,25 +108,25 @@ class _ProfileState extends State<Profile> {
                   nextscreen(context, History());
                 },
               ),
-              SizedBox(height: 28),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 28 : 20),
               CardWidget(
                 title: resetpassword,
               ),
-              SizedBox(height: 28),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 28 : 20),
               CardWidget(
                 title: logout,
                 ontap: () {
-                  showLogOut( NeumorphicTheme.isUsingDark(context));
+                  showLogOut(NeumorphicTheme.isUsingDark(context));
                 },
               ),
-              SizedBox(height: 28),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 28 : 20),
               CardWidget(
                 title: deleteaccount,
                 ontap: () {
                   showDeleteaccout();
                 },
               ),
-              SizedBox(height: 28),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 28 : 20),
             ],
           ),
         ),
@@ -204,7 +204,7 @@ class _ProfileState extends State<Profile> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: isDark? mycolor().darkbalck:mycolor().lightWhite,
+        backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

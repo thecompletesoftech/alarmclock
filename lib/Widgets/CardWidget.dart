@@ -13,15 +13,7 @@ class CardWidget extends StatelessWidget {
       onTap: () {
         ontap!();
       },
-      child: Container(
-        decoration: Utils().decoration(
-            cntx: context,
-            isdark: NeumorphicTheme.isUsingDark(context),
-            radius: 10.5 * fem),
-        width: MediaQuery.sizeOf(context).width,
-        padding: EdgeInsets.only(left: 32.0, top: 16.0, right: 16.0),
-        height: 60,
-        alignment: Alignment.topLeft,
+      child: CardBackground(
         child: Text(
           title,
           style: MyTextStyle.Dynamic(
