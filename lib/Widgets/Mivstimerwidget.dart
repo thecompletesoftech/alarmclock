@@ -26,89 +26,90 @@ class _MivstimerState extends State<Mivstimer> {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    return Container(
-        decoration: Utils().decoration(
-            cntx: context,
-            isdark: NeumorphicTheme.isUsingDark(context),
-            radius: 15.5 * fem),
-        width: MediaQuery.sizeOf(context).width,
-        padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
-        height: 330,
-        alignment: Alignment.topLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.title.toString(),
-                  style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw60024,
-                      color: NeumorphicTheme.accentColor(context)),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        height: 50,
-                        width: 50,
-                        alignment: Alignment.center,
-                        decoration: Utils().decoration(
-                            cntx: context,
-                            isdark: NeumorphicTheme.isUsingDark(context),
-                            radius: 32.5 * fem),
-                        child: Image.asset("assets/pause.png", height: 20,
-                              fit: BoxFit.fill,
-                              width: 20,)),
-                    SizedBox(width: 15),
-                    Container(
-                        height: 50,
-                        width: 50,
-                        decoration: Utils().decoration(
-                            cntx: context,
-                            isdark: NeumorphicTheme.isUsingDark(context),
-                            radius: 32.5 * fem),
-                        child: Container(
-                            alignment: Alignment.center,
-                            child: Image.asset(
-                              "assets/power.png",
-                              height: 20,
-                              fit: BoxFit.fill,
-                              width: 20,
-                            ))),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 2),
-            Row(
-              children: [
-                Container(
-                    height: 20,
-                    width: 20,
-                    child: Image.asset("assets/alramclock.png")),
-                SizedBox(width: 4),
-                Text(
-                  widget.alarmtime,
-                  style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw50018,
-                      color: NeumorphicTheme.accentColor(context)),
-                ),
-              ],
-            ),
-            SizedBox(height: 28),
-            titlewidgte(duration, widget.duration),
-            SizedBox(height: 20),
-            titlewidgte(remianingtext, widget.remaining),
-            SizedBox(height: 20),
-            titlewidgte(snoozetext, widget.snooze),
-            SizedBox(height: 20),
-            titlewidgte(repeattext, widget.repeat),
-            SizedBox(height: 20),
-          ],
-        ));
+    return CardBackground(
+      backgroundimage: bigcardsvg,
+      child: Container(
+          width: MediaQuery.sizeOf(context).width,
+          padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+          alignment: Alignment.topLeft,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.title.toString(),
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw60024,
+                        color: NeumorphicTheme.accentColor(context)),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          height: 50,
+                          width: 50,
+                          alignment: Alignment.center,
+                          decoration: Utils().decoration(
+                              cntx: context,
+                              isdark: NeumorphicTheme.isUsingDark(context),
+                              radius: 32.5 * fem),
+                          child: Image.asset(
+                            "assets/pause.png",
+                            height: 20,
+                            fit: BoxFit.fill,
+                            width: 20,
+                          )),
+                      SizedBox(width: 15),
+                      Container(
+                          height: 50,
+                          width: 50,
+                          decoration: Utils().decoration(
+                              cntx: context,
+                              isdark: NeumorphicTheme.isUsingDark(context),
+                              radius: 32.5 * fem),
+                          child: Container(
+                              alignment: Alignment.center,
+                              child: Image.asset(
+                                "assets/power.png",
+                                height: 20,
+                                fit: BoxFit.fill,
+                                width: 20,
+                              ))),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 2),
+              Row(
+                children: [
+                  Container(
+                      height: 20,
+                      width: 20,
+                      child: Image.asset("assets/alramclock.png")),
+                  SizedBox(width: 4),
+                  Text(
+                    widget.alarmtime,
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw50018,
+                        color: NeumorphicTheme.accentColor(context)),
+                  ),
+                ],
+              ),
+              SizedBox(height: 28),
+              titlewidgte(duration, widget.duration),
+              SizedBox(height: 20),
+              titlewidgte(remianingtext, widget.remaining),
+              SizedBox(height: 20),
+              titlewidgte(snoozetext, widget.snooze),
+              SizedBox(height: 20),
+              titlewidgte(repeattext, widget.repeat),
+              SizedBox(height: 20),
+            ],
+          )),
+    );
   }
 
   titlewidgte(title, value) {

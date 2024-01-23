@@ -2,7 +2,12 @@ import '../Config/Import.dart';
 
 class CardBackground extends StatelessWidget {
   final child;
-  const CardBackground({super.key, this.child});
+  final backgroundimage;
+  const CardBackground({
+    super.key,
+    this.child,
+    this.backgroundimage = null,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class CardBackground extends StatelessWidget {
         : Stack(
             children: [
               SvgPicture.string(
-                cardbackground,
+                backgroundimage == null ? cardbackground : backgroundimage,
               ),
               Align(
                 alignment: Alignment.center,
