@@ -18,9 +18,39 @@ var serachlist = [
   'Baltimore, USA',
   'Bangalore, India',
   'Cairo, Egypt',
+  'Calgary, Canada',
+  'Canberra, Australia',
+  'Dallas, USA',
+  'Damascus, Syria',
+  'El Paso, USA',
 ];
+List<String> filteredCategories = [];
+TextEditingController searchController = TextEditingController();
 
+@override
 class _WorldClockState extends State<WorldClock> {
+  void initState() {
+    super.initState();
+    filteredCategories = serachlist;
+    searchController.addListener(updateSearchResults);
+  }
+
+  void updateSearchResults() {
+    setState(() {
+      filteredCategories = serachlist
+          .where((category) => category
+              .toLowerCase()
+              .contains(searchController.text.toLowerCase()))
+          .toList();
+    });
+  }
+
+  void _deleteText() {
+    setState(() {
+      searchController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 390;
@@ -28,12 +58,28 @@ class _WorldClockState extends State<WorldClock> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
-          child: CustomeAppbar(list: [
-            {"icon": "assets/add.png", "screenname": AddAlram()},
-            {"icon": "assets/edit.png", "screenname": ""},
-            {"icon": "assets/person.png", "screenname": Profile()},
-          ], titletext: worldclock,
-          showarrow: false,
+          child: CustomeAppbar(
+            list: [
+              {"icon": "assets/add.png", "screenname": AddAlram()},
+              {"icon": "assets/edit.png", "screenname": ""},
+              {"icon": "assets/person.png", "screenname": Profile()},
+            ],
+            ontapnavigate: (value) {
+              switch (value) {
+                case 0:
+                  _showNeumorphicBottomSheet(context);
+                  break;
+                case 1:
+                  nextscreen(context, "");
+                  break;
+                case 2:
+                  nextscreen(context, Profile());
+                  break;
+              }
+            },
+            titletext: worldclock,
+            ontapornavigate: true,
+            showarrow: false,
           )),
       body: SingleChildScrollView(
         child: Column(
@@ -176,8 +222,7 @@ class _WorldClockState extends State<WorldClock> {
                             "India",
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw70014,
-                                color:
-                                    NeumorphicTheme.defaultTextColor(context)),
+                                color: mycolor().greenlightcolor),
                           ),
                         ],
                       ),
@@ -196,14 +241,13 @@ class _WorldClockState extends State<WorldClock> {
                             "pm",
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw70014,
-                                color:
-                                    NeumorphicTheme.defaultTextColor(context)),
+                                color: mycolor().greenlightcolor),
                           ),
                         ],
                       ),
                     ],
                   )),
-            )
+            ),
           ],
         ),
       ),
@@ -213,6 +257,8 @@ class _WorldClockState extends State<WorldClock> {
   void _showNeumorphicBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      isDismissible: true,
       builder: (BuildContext builderContext) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
@@ -221,7 +267,7 @@ class _WorldClockState extends State<WorldClock> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               SizedBox(
-                height: 9,
+                height: 50,
               ),
               Text(
                 selectcity,
@@ -238,21 +284,27 @@ class _WorldClockState extends State<WorldClock> {
                 children: [
                   Expanded(
                     child: TextBoxwidget(
+                        controller: searchController,
                         hinttext: 'Search',
                         validator: (p0) {},
                         ontap: () {},
                         suffixshowicon: true,
                         suffixicon: Icons.search),
                   ),
-                  Container(
-                      alignment: Alignment.center,
-                      height: 60,
-                      child: Text(
-                        cancel,
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw40016,
-                            color: NeumorphicTheme.defaultTextColor(context)),
-                      ))
+                  GestureDetector(
+                    onTap: () {
+                      _deleteText();
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        height: 60,
+                        child: Text(
+                          cancel,
+                          style: MyTextStyle.Dynamic(
+                              style: MyTextStyle.mw40016,
+                              color: NeumorphicTheme.defaultTextColor(context)),
+                        )),
+                  )
                 ],
               ),
               SizedBox(
@@ -260,7 +312,7 @@ class _WorldClockState extends State<WorldClock> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: serachlist.length,
+                  itemCount: filteredCategories.length,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -269,7 +321,7 @@ class _WorldClockState extends State<WorldClock> {
                           Row(
                             children: [
                               Text(
-                                serachlist[index],
+                                filteredCategories[index],
                                 style: MyTextStyle.Dynamic(
                                     style: MyTextStyle.mw40018,
                                     color:

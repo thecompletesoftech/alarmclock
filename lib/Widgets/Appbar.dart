@@ -9,6 +9,8 @@ class CustomeAppbar extends StatelessWidget {
   final showsubtitle;
   final showbtn;
   final showarrow;
+  final ontapornavigate;
+  final Function? ontapnavigate;
   const CustomeAppbar(
       {super.key,
       this.titletext,
@@ -18,7 +20,9 @@ class CustomeAppbar extends StatelessWidget {
       this.subtitle,
       this.showsubtitle = false,
       this.showbtn = false,
-      this.showarrow = false});
+      this.showarrow = false,
+      this.ontapornavigate = false,
+      this.ontapnavigate});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +72,10 @@ class CustomeAppbar extends StatelessWidget {
                           return GestureDetector(
                             onTap: (() {
                               print("hii");
-                              nextscreen(context, list[index]['screenname']);
+                              if (ontapornavigate)
+                                ontapnavigate!(index);
+                              else
+                                nextscreen(context, list[index]['screenname']);
                             }),
                             child: Container(
                                 height: 40,
