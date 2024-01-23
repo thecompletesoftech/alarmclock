@@ -114,3 +114,51 @@ final bigcardsvg =
 </defs>
 </svg>
 ''';
+final clockbackground = '''<svg width="234" height="234" viewBox="0 0 234 234" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_53_1492)">
+<circle cx="113" cy="113" r="113" fill="#EBEBEB"/>
+<circle cx="113" cy="113" r="111.5" stroke="url(#paint0_linear_53_1492)" stroke-width="3"/>
+</g>
+<defs>
+<filter id="filter0_d_53_1492" x="0" y="0" width="234" height="234" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="4" dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.32549 0 0 0 0 0.588235 0 0 0 0 0.478431 0 0 0 0.5 0"/>
+<feBlend mode="darken" in2="BackgroundImageFix" result="effect1_dropShadow_53_1492"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_53_1492" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_53_1492" x1="156.462" y1="18.3243" x2="388.726" y2="235.543" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#8D8D8D" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
+''';
+final smallclockbackground = '''<svg width="182" height="182" viewBox="0 0 182 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_dd_53_1494)">
+<circle cx="91" cy="91" r="66" fill="#EBEBEB"/>
+<circle cx="91" cy="91" r="66" stroke="#EBEBEB" stroke-width="14.0177"/>
+</g>
+<defs>
+<filter id="filter0_dd_53_1494" x="0.469085" y="0.469024" width="181.088" height="181.088" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="5.86667" dy="5.86667"/>
+<feGaussianBlur stdDeviation="5.84071"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_53_1494"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-5.84071" dy="-5.84071"/>
+<feGaussianBlur stdDeviation="5.84071"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.48 0"/>
+<feBlend mode="normal" in2="effect1_dropShadow_53_1494" result="effect2_dropShadow_53_1494"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_53_1494" result="shape"/>
+</filter>
+</defs>
+</svg>
+''';

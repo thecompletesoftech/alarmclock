@@ -22,14 +22,16 @@ class _ClockState extends State<Clock> {
             Stack(
               alignment: Alignment.topCenter,
               children: [
-                Container(
-                  height: 230,
-                  width: 230,
-                  decoration: Utils().decoration(
-                      cntx: context,
-                      isdark: NeumorphicTheme.isUsingDark(context),
-                      radius: 250.0 * fem),
-                ),
+                NeumorphicTheme.isUsingDark(context)
+                    ? Container(
+                        height: 230,
+                        width: 230,
+                        decoration: Utils().decoration(
+                            cntx: context,
+                            isdark: NeumorphicTheme.isUsingDark(context),
+                            radius: 250.0 * fem),
+                      )
+                    : SvgPicture.string(clockbackground),
                 Container(
                   height: 18,
                   width: 2,
@@ -104,7 +106,9 @@ class _ClockState extends State<Clock> {
             showTicks: false,
             showDigitalClock: false,
             datetime: DateTime(2019, 1, 1, 9, 12, 15),
-          ),
+          ).paddingOnly(
+              right: NeumorphicTheme.isUsingDark(context) ? 0 : 5,
+              bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 3),
         ),
       ],
     );

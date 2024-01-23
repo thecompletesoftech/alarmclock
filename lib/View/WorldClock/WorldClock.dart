@@ -95,14 +95,17 @@ class _WorldClockState extends State<WorldClock> {
                         Stack(
                           alignment: Alignment.topCenter,
                           children: [
-                            Container(
-                              height: 230,
-                              width: 230,
-                              decoration: Utils().decoration(
-                                  cntx: context,
-                                  isdark: NeumorphicTheme.isUsingDark(context),
-                                  radius: 250.0 * fem),
-                            ),
+                            NeumorphicTheme.isUsingDark(context)
+                                ? Container(
+                                    height: 230,
+                                    width: 230,
+                                    decoration: Utils().decoration(
+                                        cntx: context,
+                                        isdark: NeumorphicTheme.isUsingDark(
+                                            context),
+                                        radius: 250.0 * fem),
+                                  )
+                                : SvgPicture.string(clockbackground),
                             Container(
                               height: 18,
                               width: 2,
@@ -179,7 +182,9 @@ class _WorldClockState extends State<WorldClock> {
                         showDigitalClock: false,
                         datetime: DateTime(2019, 1, 1, 9, 12, 15),
                       ),
-                    ),
+                    ).paddingOnly(
+                        right: NeumorphicTheme.isUsingDark(context) ? 0 : 5,
+                        bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 3),
                   ],
                 ),
               ],
@@ -196,7 +201,7 @@ class _WorldClockState extends State<WorldClock> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: CardBackground(
-                child: Row(
+                  child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(

@@ -15,25 +15,39 @@ class _StopwatchClockState extends State<StopwatchClock> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Container(
-          alignment: Alignment.center,
-          height: 250,
-          width: 250,
-          decoration: Utils().decoration(
-              cntx: context,
-              isdark: NeumorphicTheme.isUsingDark(context),
-              radius: 250.0 * fem),
-          child: Text(
+        NeumorphicTheme.isUsingDark(context)
+            ? Container(
+                alignment: Alignment.center,
+                height: 250,
+                width: 250,
+                decoration: Utils().decoration(
+                    cntx: context,
+                    isdark: NeumorphicTheme.isUsingDark(context),
+                    radius: 250.0 * fem),
+                child: Text(
+                  "10:00:00",
+                  style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw70036,
+                      color: NeumorphicTheme.accentColor(context)),
+                ),
+              )
+            : SvgPicture.string(clockbackground),
+        if (NeumorphicTheme.isUsingDark(context) == false)
+          Text(
             "10:00:00",
             style: MyTextStyle.Dynamic(
                 style: MyTextStyle.mw70036,
                 color: NeumorphicTheme.accentColor(context)),
-          ),
-        ),
+          ).paddingOnly(
+              right: NeumorphicTheme.isUsingDark(context) ? 0 : 7,
+              bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 5),
         Container(
-            height: 180,
-            width: 180,
-            child: Image.asset("assets/dottedborder.png")),
+                height: 180,
+                width: 180,
+                child: Image.asset("assets/dottedborder.png"))
+            .paddingOnly(
+                right: NeumorphicTheme.isUsingDark(context) ? 0 : 7,
+                bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 5),
       ],
     );
   }
