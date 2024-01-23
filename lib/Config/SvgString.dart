@@ -65,3 +65,26 @@ final cardbackground= '''<svg width="357" height="58" viewBox="0 0 357 58" fill=
 </defs>
 </svg>
 ''';
+final smallbtnbackground = '''<svg width="172" height="58" viewBox="0 0 172 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_53_332)">
+<rect width="164" height="50" rx="10" fill="#EBEBEB"/>
+<rect x="1.5" y="1.5" width="161" height="57" rx="8.5" stroke="url(#paint0_linear_53_332)" stroke-width="3"/>
+</g>
+<defs>
+<filter id="filter0_d_53_332" x="0" y="0" width="172" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="4" dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"/>
+<feBlend mode="darken" in2="BackgroundImageFix" result="effect1_dropShadow_53_332"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_53_332" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_53_332" x1="113.538" y1="4.05406" x2="143.891" y2="97.1618" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#8D8D8D" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
+''';

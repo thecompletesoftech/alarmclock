@@ -31,6 +31,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   child: ButtonWidget(
                     name: lap,
                     txtstyle: MyTextStyle.mw40020,
+                    issmall: true,
                     borderRadius: 20.0,
                     onTap: () {},
                   ),
@@ -39,6 +40,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 Expanded(
                   child: ButtonWidget(
                     name: start,
+                    issmall: true,
                     txtstyle: MyTextStyle.mw40020,
                     borderRadius: 20.0,
                     onTap: () {},

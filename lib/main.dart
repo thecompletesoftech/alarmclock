@@ -1,8 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
-
-import 'View/SplashScreen.dart';
-
 void main() {
   runApp(const MyApp());
 }

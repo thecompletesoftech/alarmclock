@@ -195,58 +195,50 @@ class _WorldClockState extends State<WorldClock> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Container(
-                  decoration: Utils().decoration(
-                      cntx: context,
-                      isdark: NeumorphicTheme.isUsingDark(context),
-                      radius: 10.5 * fem),
-                  width: MediaQuery.sizeOf(context).width,
-                  padding: EdgeInsets.only(left: 32.0, top: 16.0, right: 16.0),
-                  height: 60,
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: CardBackground(
+                child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Bangalore",
-                            style: MyTextStyle.Dynamic(
-                                style: MyTextStyle.mw40020,
-                                color: NeumorphicTheme.accentColor(context)),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            "India",
-                            style: MyTextStyle.Dynamic(
-                                style: MyTextStyle.mw70014,
-                                color: mycolor().greenlightcolor),
-                          ),
-                        ],
+                      Text(
+                        "Bangalore",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40020,
+                            color: NeumorphicTheme.accentColor(context)),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "01:00",
-                            style: MyTextStyle.Dynamic(
-                                style: MyTextStyle.mw40020,
-                                color: NeumorphicTheme.accentColor(context)),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            "pm",
-                            style: MyTextStyle.Dynamic(
-                                style: MyTextStyle.mw70014,
-                                color: mycolor().greenlightcolor),
-                          ),
-                        ],
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "India",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw70014,
+                            color: mycolor().greenlightcolor),
                       ),
                     ],
-                  )),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "01:00",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40020,
+                            color: NeumorphicTheme.accentColor(context)),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "pm",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw70014,
+                            color: mycolor().greenlightcolor),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
             ),
           ],
         ),

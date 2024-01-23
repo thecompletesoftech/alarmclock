@@ -1,7 +1,4 @@
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/Config/SvgString.dart';
-
-import 'package:flutter_svg/flutter_svg.dart';
 
 class NewBottomNavigator extends StatefulWidget {
   NewBottomNavigator({super.key, this.passIndex, this.userId});
