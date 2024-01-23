@@ -43,7 +43,7 @@ final inactivetimersvg =
 </svg>
 ''';
 final cardbackground =
-    '''<svg width="357" height="58" viewBox="0 0 357 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+    '''<svg width="357" height="62" viewBox="0 0 357 62" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_53_593)">
 <rect width="349" height="50" rx="10" fill="#EBEBEB"/>
 <rect x="1.5" y="1.5" width="346" height="57" rx="8.5" stroke="url(#paint0_linear_53_593)" stroke-width="3"/>

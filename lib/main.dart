@@ -1,13 +1,14 @@
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
-void main() {
+import 'package:clockalarm/View/SplashScreen.dart';
+
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -15,7 +16,9 @@ class MyApp extends StatelessWidget {
       home: NeumorphicApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        themeMode: ThemeMode.light,
+        themeMode: MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light,
         theme: NeumorphicThemeData(
           defaultTextColor: mycolor().Black,
           baseColor: mycolor().lightWhite,
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
           lightSource: LightSource.topLeft,
           depth: 6,
         ),
-        home: NewBottomNavigator(),
+        home: SplashScreen(),
       ),
     );
   }
