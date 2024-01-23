@@ -13,6 +13,7 @@ class CardBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
+    var size = MediaQuery.of(context).size;
     return NeumorphicTheme.isUsingDark(context)
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -25,8 +26,12 @@ class CardBackground extends StatelessWidget {
           )
         : Stack(
             children: [
-              SvgPicture.string(
-                backgroundimage == null ? cardbackground : backgroundimage,
+              Container(
+                // color: mycolor().Black,
+                child: SvgPicture.string(
+                  backgroundimage == null ? cardbackground : backgroundimage,
+                  width: size.width,
+                ),
               ),
               Align(
                 alignment: Alignment.center,
@@ -37,6 +42,6 @@ class CardBackground extends StatelessWidget {
                 ),
               )
             ],
-          );
+          ).paddingOnly(left: 10);
   }
 }

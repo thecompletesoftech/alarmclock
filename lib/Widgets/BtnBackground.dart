@@ -34,17 +34,15 @@ class BtnBackground extends StatelessWidget {
         : Stack(
             children: [
               SvgPicture.string(
+                width: size.width,
                 issmall ? smallbtnbackground : cardbackground,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  padding: EdgeInsets.only(left: 10, right: 20, top: 15),
-                  width: MediaQuery.of(context).size.width,
-                  child: child,
-                ),
+              Container(
+                padding: EdgeInsets.only(left: 10, right: 20, top: 15),
+                width: MediaQuery.of(context).size.width,
+                child: child,
               )
             ],
-          );
+          ).paddingOnly(left: 15);
   }
 }
