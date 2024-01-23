@@ -34,14 +34,7 @@ class AlramCard extends StatelessWidget {
       onTap: (() {
         ontapcard!();
       }),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-        // padding: EdgeInsets.fromLTRB(23 * fem, 13 * fem, 22 * fem, 13 * fem),
-        width: MediaQuery.of(context).size.width,
-        decoration: Utils().decoration(
-            cntx: context,
-            isdark: NeumorphicTheme.isUsingDark(context),
-            radius: 18.0 * fem),
+      child: CardBackground(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

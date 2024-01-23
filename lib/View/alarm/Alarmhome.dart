@@ -48,7 +48,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                   time: '6:45',
                   showswitchorsubtile: true,
                   subtitle: "",
-                ).paddingOnly(bottom: 10, top: 10);
+                ).paddingOnly(bottom: 10, top: 5);
               },
             )
           ],

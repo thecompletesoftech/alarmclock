@@ -1,4 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
 
 import 'View/SplashScreen.dart';
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       home: NeumorphicApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
           lightSource: LightSource.topLeft,
           depth: 6,
         ),
-        home: SplashScreen(),
+        home: NewBottomNavigator(),
       ),
     );
   }

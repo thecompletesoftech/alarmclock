@@ -42,3 +42,26 @@ final inactivetimersvg =
 <path d="M7.54248 2.51416V10.0567H7.55505L7.54248 10.0692L12.5708 15.085L7.54248 20.1133L7.55505 20.1259H7.54248V27.6558H22.6275V20.1259H22.6149L22.6275 20.1133L17.5991 15.085L22.6275 10.0692L22.6149 10.0567H22.6275V2.51416H7.54248ZM20.1133 20.7419V25.1417H10.0566V20.7419L15.085 15.7135L20.1133 20.7419ZM15.085 14.4565L10.0566 9.42812V5.02833H20.1133V9.42812L15.085 14.4565Z" fill="white"/>
 </svg>
 ''';
+final cardbackground= '''<svg width="357" height="58" viewBox="0 0 357 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_53_593)">
+<rect width="349" height="50" rx="10" fill="#EBEBEB"/>
+<rect x="1.5" y="1.5" width="346" height="57" rx="8.5" stroke="url(#paint0_linear_53_593)" stroke-width="3"/>
+</g>
+<defs>
+<filter id="filter0_d_53_593" x="0" y="0" width="357" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="4" dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"/>
+<feBlend mode="darken" in2="BackgroundImageFix" result="effect1_dropShadow_53_593"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_53_593" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_53_593" x1="241.615" y1="4.05406" x2="257.033" y2="104.695" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#8D8D8D" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
+''';
