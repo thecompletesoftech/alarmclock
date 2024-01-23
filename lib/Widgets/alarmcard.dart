@@ -89,7 +89,7 @@ class AlramCard extends StatelessWidget {
                         activeColor: mycolor().darkgreen,
                       ),
                     ),
-                  )
+                  ).paddingOnly(right: 5)
                 : Row(
                     children: [
                       Container(
@@ -114,7 +114,7 @@ class AlramCard extends StatelessWidget {
                   )
           ],
         ),
-      ).paddingSymmetric(horizontal: 15),
+      ).paddingSymmetric(horizontal: 10),
     );
   }
 }

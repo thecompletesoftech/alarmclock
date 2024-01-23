@@ -25,9 +25,9 @@ class CardBackground extends StatelessWidget {
             child: child,
           )
         : Stack(
+          alignment: Alignment.center,
             children: [
               Container(
-                // color: mycolor().Black,
                 child: SvgPicture.string(
                   backgroundimage == null ? cardbackground : backgroundimage,
                   width: size.width,
@@ -36,12 +36,12 @@ class CardBackground extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: Container(
-                  padding: EdgeInsets.only(left: 10, right: 20, top: 15),
-                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  width: size.width,
                   child: child,
                 ),
               )
             ],
-          ).paddingOnly(left: 10);
+          ).paddingOnly(left: 8);
   }
 }

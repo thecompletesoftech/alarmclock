@@ -69,8 +69,8 @@ final cardbackground =
 final smallbtnbackground =
     '''<svg width="172" height="58" viewBox="0 0 172 58" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_53_332)">
-<rect width="164" height="50" rx="10" fill="#EBEBEB"/>
-<rect x="1.5" y="1.5" width="161" height="57" rx="8.5" stroke="url(#paint0_linear_53_332)" stroke-width="3"/>
+<rect width="164" height="55" rx="10" fill="#EBEBEB"/>
+<rect x="1.5" y="1.5" width="161" height="55" rx="8.5" stroke="url(#paint0_linear_53_332)" stroke-width="3"/>
 </g>
 <defs>
 <filter id="filter0_d_53_332" x="0" y="0" width="172" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

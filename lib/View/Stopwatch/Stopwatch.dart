@@ -47,7 +47,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   ),
                 ),
               ],
-            ).paddingSymmetric(horizontal: 20),
+            ).paddingSymmetric(horizontal: 10),
             SizedBox(height: 20),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
