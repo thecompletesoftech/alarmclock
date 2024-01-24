@@ -65,6 +65,7 @@ const intervalend = "Intervals End At";
 const totalduration = 'Total Duration';
 const reperatinterval = "Repeat Interval";
 const interduration = "Interval Duration";
+const alarmeat = 'Alpha alarmed at:';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
     

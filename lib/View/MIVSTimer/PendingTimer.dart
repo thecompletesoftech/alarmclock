@@ -35,6 +35,51 @@ class _PendingTimerState extends State<PendingTimer> {
             children: [
               Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Started at",
+                            style: MyTextStyle.Dynamic(
+                                style: MyTextStyle.mw40012,
+                                color: NeumorphicTheme.accentColor(context)),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "4:30",
+                            style: MyTextStyle.Dynamic(
+                                style: MyTextStyle.mw40012,
+                                color:
+                                    NeumorphicTheme.defaultTextColor(context)),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Started at",
+                            style: MyTextStyle.Dynamic(
+                                style: MyTextStyle.mw40012,
+                                color: NeumorphicTheme.accentColor(context)),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "4:30",
+                            style: MyTextStyle.Dynamic(
+                                style: MyTextStyle.mw40012,
+                                color:
+                                    NeumorphicTheme.defaultTextColor(context)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 10),
                   Timercard(
                       title: timeReaming,

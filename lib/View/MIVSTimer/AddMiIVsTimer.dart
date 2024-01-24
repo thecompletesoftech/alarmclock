@@ -34,6 +34,12 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
               child: Column(
                 children: [
                   SizedBox(height: 25),
+                  IntervalCard(
+                    title: reperatinterval,
+                    interval: alphatext,
+                  ),
+                  SizedBox(
+                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
                   Intervalend(
                     title: interduration,
                     hour: "12",
@@ -41,24 +47,28 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                     second: "00",
                     medium: "AM",
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(
+                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
                   IntervalCard(
                     title: reperatinterval,
                     interval: 4,
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(
+                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
                   Timercard(
                       title: intervalend,
                       hour: "00",
                       minute: "00",
                       second: "00"),
-                  SizedBox(height: 25),
+                  SizedBox(
+                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
                   Timercard(
                       title: totalduration,
                       hour: "00",
                       minute: "00",
                       second: "00"),
-                  SizedBox(height: 25),
+                  SizedBox(
+                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
                   Timercard(
                       title: snoozetxt, hour: "00", minute: "00", second: "00"),
                 ],

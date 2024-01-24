@@ -32,6 +32,18 @@ class _AlramTimesupState extends State<AlramTimesup> {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           children: [
+            Intervalend(
+              title: alarmeat,
+              hour: "",
+              minute: "00",
+              second: "00",
+              medium: "AM",
+            ),
+            SizedBox(height: 20),
+            IntervalCard(
+              title: reperatinterval,
+              interval: 4,
+            ),
             // checkbox(),
             // checkbox(),
             ButtonWidget(

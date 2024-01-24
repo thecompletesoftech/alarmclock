@@ -9,14 +9,8 @@ class IntervalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: Utils().decoration(
-          cntx: context,
-          isdark: NeumorphicTheme.isUsingDark(context),
-          radius: 15.5 * fem),
-      width: MediaQuery.sizeOf(context).width,
-      alignment: Alignment.center,
+    return CardBackground(
+      backgroundimage: mediumcardbackground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -39,10 +33,12 @@ class IntervalCard extends StatelessWidget {
                       interval.toString(),
                       style: MyTextStyle.Dynamic(
                           style: MyTextStyle.mw40018,
-                          color: NeumorphicTheme.defaultTextColor(context)),
+                          color: NeumorphicTheme.accentColor(context)),
                     ),
                   )),
-                  SizedBox(width: 20,),
+              SizedBox(
+                width: 20,
+              ),
               Text(
                 times,
                 style: MyTextStyle.Dynamic(

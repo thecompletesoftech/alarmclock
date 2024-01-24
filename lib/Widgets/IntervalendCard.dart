@@ -18,14 +18,8 @@ class Intervalend extends StatelessWidget {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      decoration: Utils().decoration(
-          cntx: context,
-          isdark: NeumorphicTheme.isUsingDark(context),
-          radius: 15.5 * fem),
-      width: MediaQuery.sizeOf(context).width,
-      alignment: Alignment.center,
+    return CardBackground(
+      backgroundimage: mediumcardbackground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

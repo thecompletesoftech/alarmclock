@@ -9,7 +9,7 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         ontap!();
       },

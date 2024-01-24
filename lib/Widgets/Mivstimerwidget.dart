@@ -49,8 +49,8 @@ class _MivstimerState extends State<Mivstimer> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                          height: 50,
-                          width: 50,
+                          height: 40,
+                          width: 40,
                           alignment: Alignment.center,
                           decoration: Utils().decoration(
                               cntx: context,
@@ -65,8 +65,8 @@ class _MivstimerState extends State<Mivstimer> {
                           )),
                       SizedBox(width: 15),
                       Container(
-                          height: 50,
-                          width: 50,
+                          height: 40,
+                          width: 40,
                           decoration: Utils().decoration(
                               cntx: context,
                               isdark: NeumorphicTheme.isUsingDark(context),

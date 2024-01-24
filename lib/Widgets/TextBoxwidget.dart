@@ -102,7 +102,7 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
           margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
           style: NeumorphicStyle(
             depth: NeumorphicTheme.embossDepth(context),
-            boxShape: buttonradius(),
+            boxShape:  buttonradius(r: 0.0),
           ),
           padding: EdgeInsets.symmetric(vertical: 2, horizontal: 18),
           child: TextFormField(

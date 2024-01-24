@@ -283,6 +283,7 @@ class _WorldClockState extends State<WorldClock> {
                     child: TextBoxwidget(
                         controller: searchController,
                         hinttext: 'Search',
+                        radius: 50.0,
                         validator: (p0) {},
                         ontap: () {},
                         suffixshowicon: true,
@@ -290,7 +291,8 @@ class _WorldClockState extends State<WorldClock> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      _deleteText();
+                      Navigator.pop(context);
+                      // _deleteText();
                     },
                     child: Container(
                         alignment: Alignment.center,
