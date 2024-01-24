@@ -283,7 +283,6 @@ class _WorldClockState extends State<WorldClock> {
                     child: TextBoxwidget(
                         controller: searchController,
                         hinttext: 'Search',
-                        radius: 50.0,
                         validator: (p0) {},
                         radius: 16.0,
                         neumormargintop: 0.0,

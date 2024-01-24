@@ -28,77 +28,63 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
           )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 25),
+              IntervalCard(
+                title: reperatinterval,
+                interval: alphatext,
+              ),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              Intervalend(
+                title: interduration,
+                hour: "12",
+                minute: "00",
+                second: "00",
+                medium: "AM",
+              ),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              IntervalCard(
+                title: reperatinterval,
+                interval: 4,
+              ),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              Timercard(
+                  title: intervalend, hour: "00", minute: "00", second: "00"),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              Timercard(
+                  title: totalduration, hour: "00", minute: "00", second: "00"),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              Timercard(
+                  title: snoozetxt, hour: "00", minute: "00", second: "00"),
+              Row(
                 children: [
-                  SizedBox(height: 25),
-                  IntervalCard(
-                    title: reperatinterval,
-                    interval: alphatext,
+                  Expanded(
+                    child: ButtonWidget(
+                      name: go,
+                      txtstyle: MyTextStyle.mw40020,
+                      issmall: true,
+                      borderRadius: 20.0,
+                      onTap: () {
+                        nextscreen(context, PendingTimer());
+                      },
+                    ),
                   ),
-                  SizedBox(
-                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
-                  Intervalend(
-                    title: interduration,
-                    hour: "12",
-                    minute: "00",
-                    second: "00",
-                    medium: "AM",
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: ButtonWidget(
+                      name: reset,
+                      issmall: true,
+                      txtstyle: MyTextStyle.mw40020,
+                      borderRadius: 15.0,
+                      onTap: () {},
+                    ),
                   ),
-                  SizedBox(
-                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
-                  IntervalCard(
-                    title: reperatinterval,
-                    interval: 4,
-                  ),
-                  SizedBox(
-                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
-                  Timercard(
-                      title: intervalend,
-                      hour: "00",
-                      minute: "00",
-                      second: "00"),
-                  SizedBox(
-                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
-                  Timercard(
-                      title: totalduration,
-                      hour: "00",
-                      minute: "00",
-                      second: "00"),
-                  SizedBox(
-                      height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
-                  Timercard(
-                      title: snoozetxt, hour: "00", minute: "00", second: "00"),
                 ],
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ButtonWidget(
-                    name: go,
-                    txtstyle: MyTextStyle.mw40020,
-                    borderRadius: 15.0,
-                    onTap: () {
-                      nextscreen(context, PendingTimer());
-                    },
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: ButtonWidget(
-                    name: reset,
-                    txtstyle: MyTextStyle.mw40020,
-                    borderRadius: 15.0,
-                    onTap: () {},
-                  ),
-                ),
-              ],
-            ).paddingSymmetric(horizontal: 20),
-            SizedBox(height: 30),
-          ],
+            ],
+          ),
         ),
       ),
     );

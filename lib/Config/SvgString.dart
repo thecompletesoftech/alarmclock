@@ -138,7 +138,8 @@ final bigcardsvg =
 </defs>
 </svg>
 ''';
-final clockbackground = '''<svg width="234" height="234" viewBox="0 0 234 234" fill="none" xmlns="http://www.w3.org/2000/svg">
+final clockbackground =
+    '''<svg width="234" height="234" viewBox="0 0 234 234" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_53_1492)">
 <circle cx="113" cy="113" r="113" fill="#EBEBEB"/>
 <circle cx="113" cy="113" r="111.5" stroke="url(#paint0_linear_53_1492)" stroke-width="3"/>
@@ -161,7 +162,8 @@ final clockbackground = '''<svg width="234" height="234" viewBox="0 0 234 234" f
 </defs>
 </svg>
 ''';
-final smallclockbackground = '''<svg width="182" height="182" viewBox="0 0 182 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+final smallclockbackground =
+    '''<svg width="182" height="182" viewBox="0 0 182 182" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_dd_53_1494)">
 <circle cx="91" cy="91" r="66" fill="#EBEBEB"/>
 <circle cx="91" cy="91" r="66" stroke="#EBEBEB" stroke-width="14.0177"/>
@@ -182,6 +184,69 @@ final smallclockbackground = '''<svg width="182" height="182" viewBox="0 0 182 1
 <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.48 0"/>
 <feBlend mode="normal" in2="effect1_dropShadow_53_1494" result="effect2_dropShadow_53_1494"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_53_1494" result="shape"/>
+</filter>
+</defs>
+</svg>
+''';
+final lightuncheckbg =
+    '''<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_ii_53_2540)">
+<rect width="30" height="30" rx="10" fill="#94C1AE" fill-opacity="0.2"/>
+</g>
+<defs>
+<filter id="filter0_ii_53_2540" x="-6.22222" y="-6.22222" width="42.4444" height="42.4444" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="6.22222" dy="6.22222"/>
+<feGaussianBlur stdDeviation="9.33333"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.09 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_53_2540"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-6.22222" dy="-6.22222"/>
+<feGaussianBlur stdDeviation="9.33333"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.68 0"/>
+<feBlend mode="normal" in2="effect1_innerShadow_53_2540" result="effect2_innerShadow_53_2540"/>
+</filter>
+</defs>
+</svg>
+''';
+
+final donesvg =
+    '''<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect width="24" height="24" fill="url(#pattern0)"/>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_53_2543" transform="scale(0.01)"/>
+</pattern>
+<image id="image0_53_2543" width="100" height="100" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAA+pJREFUeF7t2zFrFEEUB/D3VnKHHCghhUW+ghDBfAHRIoLYWQRJFTYhhICBWNlco5UaJQRhc6miWKQRBAuj6AewCVraWQnaeIjhLs7IhYskIXc3sze7+3bmnzazs2//v32bHTLLhB9RCbCoalAMAUTYTQAQgAhLQFg56BCACEtAWDnoEIAIS0BYOegQgAhLQFg56BCACEtAWDnoEIAIS0BYOegQgAhLQFg56BCACEtAWDnoEIAIS0BYOegQgAhLQFg56BCACEvAYTn1ej2q1+tqmCnRIcOkR0RLS0vn9vb27mutp5l5lIi+MvOTJEmepZkaIGlS6x6zuLg41mq13hHRpVOmebixsXHXdnqA2CZ2HOM9EU30mEIppSY2Nze/2JwCIDZpmWMcjGTmlSRJHtmcAiA2aRFR9zHVrzP+z6i1vtdoNB7YnAIgFmktLCyM7u/v7xDRZZPDtNZXGo3GR5Oxh2MAYpiWTWd0p9wZHx+fsn0NBogBSAqM3UqlcnV9ff2nwfTHhgBkQGK2jyki2mXma0mS/LDFOHgRSHNQKMfkjQGQPndWERgA6QFSFAZATgEpEgMgJ0CKxgDIERAJGADpgkjBAAgRScIIHkQaRtAgEjGCBZGKESSIZIzgQKRjBAVSBoxgQMqCEQRImTC8BykbhtcgZcTwFqSsGF6ClBnDKcj8/Pyk1nqls89VKdWMouhVrVZ7vLq6+iev/8HnuTskq2tysskhjuObRLRNRJWjhWqtP1Wr1ak022FsL9gHDCcdsry8fLbZbH5j5rEeIabeo2SK4guGE5A4jq8T0ZsB4WWG4hOGK5DbRPTc4G52juIbhhOQ2dnZi1EUfTYA6QxxhuIjhhOQziRxHL8moht5ofiK4Qyk++7/oc/XRCetUneKzxjOQDoTdVDa7fZbZp407RTbTcllX/SZ5OJkHXJ4oixRQsBw2iFZooSCkQmI68dXSBiZgbhCCQ0jU5BhUULEyBwkLUoURbeUUi9Nv3Yd9jMyk7efvMY4fcvqVXSKtcNfIjpjGELqNY3h/LkOywUkZaeYBDHUB5YmJ8h7TG4gGaB4h5HL35CTd1iKxeNpN6mXGIWAOOgUbzEKAxkCxWuMQkFSoHiPUTiIBUoQGCJAOkUMWKd4tc4Y9Bqd62tvv2Lm5ubOK6WeMvN0dztRi5lfVKvVO2tra78GXYgvvxcDchjozMxMbWRk5EK73f6+tbX125egTa9DHIhp4b6OA4gwWYAARFgCwspBhwBEWALCykGHAERYAsLKQYcARFgCwspBhwBEWALCykGHAERYAsLKQYcARFgCwspBhwBEWALCykGHAERYAsLK+Qf+E3eDap+SogAAAABJRU5ErkJggg=="/>
+</defs>
+</svg>
+''';
+
+final colorcheckboxbg =
+    '''<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_ii_53_2539)">
+<rect width="30" height="30" rx="10" fill="#94C1AE"/>
+</g>
+<defs>
+<filter id="filter0_ii_53_2539" x="-6.22222" y="-6.22222" width="42.4444" height="42.4444" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="6.22222" dy="6.22222"/>
+<feGaussianBlur stdDeviation="9.33333"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.09 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_53_2539"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-6.22222" dy="-6.22222"/>
+<feGaussianBlur stdDeviation="9.33333"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.68 0"/>
+<feBlend mode="normal" in2="effect1_innerShadow_53_2539" result="effect2_innerShadow_53_2539"/>
 </filter>
 </defs>
 </svg>
