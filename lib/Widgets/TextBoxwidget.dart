@@ -41,6 +41,10 @@ class TextBoxwidget extends StatefulWidget {
   final String? Function(String?)? validator;
   final errormsg;
   final showerror;
+  final neumormargintop;
+  final neumormarginbottom;
+  final textboxvertival;
+  final neumormarginleft;
 
   TextBoxwidget({
     Key? key,
@@ -61,7 +65,7 @@ class TextBoxwidget extends StatefulWidget {
     this.height,
     this.width,
     this.maxline = 1,
-    this.radius = 5,
+    this.radius = 15.0,
     this.leftpadding = 20.0,
     this.obsecuretext = false,
     this.ontapsufixicon,
@@ -85,6 +89,10 @@ class TextBoxwidget extends StatefulWidget {
     this.onchange,
     this.errormsg = '',
     this.showerror = false,
+    this.neumormarginleft = 8.0,
+    this.neumormargintop = 2.0,
+    this.neumormarginbottom = 4.0,
+    this.textboxvertival = 2.0,
   }) : super(key: key);
 
   @override
@@ -99,12 +107,18 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Neumorphic(
-          margin: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 4),
+          margin: EdgeInsets.only(
+              left: widget.neumormarginleft,
+              right: 8,
+              top: widget.neumormargintop,
+              bottom: widget.neumormarginbottom),
           style: NeumorphicStyle(
             depth: NeumorphicTheme.embossDepth(context),
-            boxShape:  buttonradius(r: 0.0),
+            boxShape: NeumorphicBoxShape.roundRect(
+                BorderRadius.circular(widget.radius)),
           ),
-          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 18),
+          padding: EdgeInsets.symmetric(
+              vertical: widget.textboxvertival, horizontal: 18),
           child: TextFormField(
             onChanged: (value) {
               widget.onchange(value);

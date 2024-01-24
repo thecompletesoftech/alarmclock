@@ -276,7 +276,7 @@ class _WorldClockState extends State<WorldClock> {
                 height: 9,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
@@ -285,6 +285,11 @@ class _WorldClockState extends State<WorldClock> {
                         hinttext: 'Search',
                         radius: 50.0,
                         validator: (p0) {},
+                        radius: 16.0,
+                        neumormargintop: 0.0,
+                        neumormarginleft: 0.0,
+                        neumormarginbottom: 0.0,
+                        textboxvertival: 0.0,
                         ontap: () {},
                         suffixshowicon: true,
                         suffixicon: Icons.search),

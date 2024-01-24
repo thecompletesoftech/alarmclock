@@ -19,9 +19,9 @@ class _SignInState extends State<SignIn> {
   var passerrormsg = '';
 
   final emailController = TextEditingController();
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> _formkey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: SingleChildScrollView(
@@ -128,7 +128,7 @@ class _SignInState extends State<SignIn> {
                       width: 0.87,
                       name: login,
                       onTap: () {
-                        final isvalidForm = _formkey.currentState!.validate();
+                        // final isvalidForm = _formkey.currentState!.validate();
                         // if (isvalidForm) {
                         //   print("error ==>");
                         //   setState(() {
