@@ -27,3 +27,7 @@ export 'package:clockalarm/View/alarm/Alarmhome.dart';
 export 'package:clockalarm/View/MIVSTimer/MIVSTime.dart';
 export 'package:clockalarm/View/Auth/Profile/Profile.dart';
 export 'package:clockalarm/View/Auth/SignUp/View/SignUp.dart';
+export 'package:clockalarm/Config/SvgString.dart';
+export 'package:flutter_svg/flutter_svg.dart';
+export 'package:clockalarm/Widgets/CardBackground.dart';
+export 'package:get_storage/get_storage.dart';

@@ -4,7 +4,6 @@ import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/gestures.dart';
 
-
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -88,7 +87,7 @@ class _SignInState extends State<SignIn> {
                                 r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
                             .hasMatch(e!);
                         if (e.isEmpty) {
-                          setState(() { 
+                          setState(() {
                             passworderror = true;
                             passerrormsg = requiredtext + password;
                           });
@@ -130,14 +129,14 @@ class _SignInState extends State<SignIn> {
                       name: login,
                       onTap: () {
                         final isvalidForm = _formkey.currentState!.validate();
-                        if (isvalidForm) {
-                          print("error ==>");
-                          setState(() {
-                            emailerror = false;
-                            passworderror = false;
-                          });
-                          nextscreen(context, NewBottomNavigator());
-                        }
+                        // if (isvalidForm) {
+                        //   print("error ==>");
+                        //   setState(() {
+                        //     emailerror = false;
+                        //     passworderror = false;
+                        //   });
+                        // }
+                        nextscreen(context, NewBottomNavigator());
                       },
                     ),
                     SizedBox(height: 93),

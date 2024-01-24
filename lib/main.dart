@@ -1,22 +1,24 @@
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/View/SplashScreen.dart';
 
-import 'View/SplashScreen.dart';
-
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       home: NeumorphicApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        themeMode: ThemeMode.dark,
+        themeMode: MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light,
         theme: NeumorphicThemeData(
           defaultTextColor: mycolor().Black,
           baseColor: mycolor().lightWhite,

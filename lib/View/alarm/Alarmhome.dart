@@ -1,7 +1,4 @@
-
-
 import '../../Config/Import.dart';
-
 
 class AlarmHome extends StatefulWidget {
   const AlarmHome({super.key});
@@ -26,9 +23,7 @@ class _AlarmHomeState extends State<AlarmHome> {
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Clock(),
             SizedBox(height: 50),
             ListView.builder(
@@ -48,7 +43,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                   time: '6:45',
                   showswitchorsubtile: true,
                   subtitle: "",
-                ).paddingOnly(bottom: 10, top: 10);
+                ).paddingOnly(bottom: 10, top: 5);
               },
             )
           ],

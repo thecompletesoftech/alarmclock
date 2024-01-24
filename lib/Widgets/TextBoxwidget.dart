@@ -211,16 +211,16 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
           ),
         ),
         if (widget.showerror)
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 12.0,
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 12.0,
+            ),
+            child: Text(
+              widget.errormsg,
+              style: MyTextStyle.Dynamic(
+                  color: mycolor().Redcolor, style: MyTextStyle.mw40014),
+            ),
           ),
-          child: Text(
-             widget.errormsg,
-            style: MyTextStyle.Dynamic(
-                color: mycolor().Redcolor, style: MyTextStyle.mw40014),
-          ),
-        ),
       ],
     );
   }

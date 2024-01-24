@@ -13,10 +13,14 @@ class _MIVSTimerState extends State<MIVSTimer> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
-          child: CustomeAppbar(list: [
-            {"icon": "assets/add.png", "screenname": AddMIVSTimer()},
-            {"icon": "assets/person.png", "screenname": Profile()},
-          ], titletext: timertext,showdivider: true,)),
+          child: CustomeAppbar(
+            list: [
+              {"icon": "assets/add.png", "screenname": AddMIVSTimer()},
+              {"icon": "assets/person.png", "screenname": Profile()},
+            ],
+            titletext: timertext,
+            showdivider: true,
+          )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -35,7 +39,8 @@ class _MIVSTimerState extends State<MIVSTimer> {
                     repeat: '07 : 15 : 00',
                     snooze: '00 : 05 : 00',
                     title: 'Alpha',
-                  ).paddingOnly(bottom: 30);
+                  ).paddingOnly(
+                      bottom: NeumorphicTheme.isUsingDark(context) ? 30 : 0);
                 },
               )
             ],

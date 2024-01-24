@@ -1,9 +1,4 @@
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/Config/SvgString.dart';
-
-
-
-import 'package:flutter_svg/flutter_svg.dart';
 
 class NewBottomNavigator extends StatefulWidget {
   NewBottomNavigator({super.key, this.passIndex, this.userId});
@@ -71,6 +66,7 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                   child: Center(
                     child: SvgPicture.string(
                       internetsvg,
+                      color: NeumorphicTheme.accentColor(context),
                       height: 30.0,
                     ),
                   ),
@@ -89,6 +85,9 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                     child: Center(
                       child: SvgPicture.string(
                         inactiveinternetsvg,
+                        color: NeumorphicTheme.isUsingDark(context)
+                            ? mycolor().lightWhite
+                            : mycolor().lightBlack,
                         height: 30.0,
                       ),
                     ),
@@ -110,6 +109,7 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                   child: Center(
                     child: SvgPicture.string(
                       alarmsvg,
+                      color: NeumorphicTheme.accentColor(context),
                       height: 30.0,
                     ),
                   ),
@@ -128,6 +128,9 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                     child: Center(
                       child: SvgPicture.string(
                         inactivealarmsvg,
+                        color: NeumorphicTheme.isUsingDark(context)
+                            ? mycolor().lightWhite
+                            : mycolor().lightBlack,
                         height: 30.0,
                       ),
                     ),
@@ -149,6 +152,7 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                   child: Center(
                     child: SvgPicture.string(
                       stopwatchsvg,
+                      color: NeumorphicTheme.accentColor(context),
                       height: 30.0,
                     ),
                   ),
@@ -167,6 +171,9 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                     child: Center(
                       child: SvgPicture.string(
                         inactivestopwatchsvg,
+                        color: NeumorphicTheme.isUsingDark(context)
+                            ? mycolor().lightWhite
+                            : mycolor().lightBlack,
                         height: 30.0,
                       ),
                     ),
@@ -188,6 +195,7 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                   child: Center(
                     child: SvgPicture.string(
                       timersvg,
+                      color: NeumorphicTheme.accentColor(context),
                       height: 30.0,
                     ),
                   ),
@@ -206,6 +214,9 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
                     child: Center(
                       child: SvgPicture.string(
                         inactivetimersvg,
+                        color: NeumorphicTheme.isUsingDark(context)
+                            ? mycolor().lightWhite
+                            : mycolor().lightBlack,
                         height: 30.0,
                       ),
                     ),
