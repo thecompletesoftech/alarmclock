@@ -1,8 +1,10 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/SplashScreen.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   await GetStorage.init();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 

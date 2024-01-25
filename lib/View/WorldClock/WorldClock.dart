@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/Json/Json.dart';
 
 import '../../Coming/TimeList.dart';
 
@@ -9,38 +12,26 @@ class WorldClock extends StatefulWidget {
   State<WorldClock> createState() => _WorldClockState();
 }
 
-var serachlist = [
-  'Abu Dhabi, UAE',
-  'Acapulco, Mexico',
-  'Accra, Ghana',
-  'Acton, USA',
-  'Adak, USA',
-  'Baghdad, Iraq',
-  'Baku, Azerbaijan',
-  'Baltimore, USA',
-  'Bangalore, India',
-  'Cairo, Egypt',
-  'Calgary, Canada',
-  'Canberra, Australia',
-  'Dallas, USA',
-  'Damascus, Syria',
-  'El Paso, USA',
-];
-List<String> filteredCategories = [];
+List filteredCategories = [];
 TextEditingController searchController = TextEditingController();
 
 @override
 class _WorldClockState extends State<WorldClock> {
+  WorldController controller = Get.put(WorldController());
   void initState() {
     super.initState();
-    filteredCategories = serachlist;
+    controller.searchlist.clear();
+    controller.searchlist.value = Searchlist;
     searchController.addListener(updateSearchResults);
+    controller.setup('Europe/Istanbul');
   }
 
   void updateSearchResults() {
+    log("datata");
     setState(() {
-      filteredCategories = serachlist
-          .where((category) => category
+      filteredCategories = controller.searchlist
+          .where((category) => category['name']
+              .toString()
               .toLowerCase()
               .contains(searchController.text.toLowerCase()))
           .toList();
@@ -84,170 +75,189 @@ class _WorldClockState extends State<WorldClock> {
             showarrow: false,
           )),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(height: 250),
-              items: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Stack(
-                      children: [
-                        Stack(
-                          alignment: Alignment.topCenter,
-                          children: [
-                            NeumorphicTheme.isUsingDark(context)
-                                ? Container(
-                                    height: 230,
-                                    width: 230,
-                                    decoration: Utils().decoration(
-                                        cntx: context,
-                                        isdark: NeumorphicTheme.isUsingDark(
-                                            context),
-                                        radius: 250.0 * fem),
-                                  )
-                                : SvgPicture.string(clockbackground),
-                            Container(
-                              height: 18,
-                              width: 2,
-                              color: NeumorphicTheme.defaultTextColor(context),
-                            ).paddingOnly(top: 8),
-                          ],
-                        ),
-                        Stack(
-                          alignment: Alignment.centerLeft,
-                          children: [
-                            Container(
-                              height: 230,
-                              width: 230,
-                              color: Colors.transparent,
-                            ),
-                            Container(
-                              height: 2,
-                              width: 18,
-                              color: NeumorphicTheme.defaultTextColor(context),
-                            ).paddingOnly(left: 8),
-                          ],
-                        ),
-                        Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Container(
-                              height: 230,
-                              width: 230,
-                              color: Colors.transparent,
-                            ),
-                            Container(
-                              height: 18,
-                              width: 2,
-                              color: NeumorphicTheme.defaultTextColor(context),
-                            ).paddingOnly(bottom: 8),
-                          ],
-                        ),
-                        Stack(
-                          alignment: Alignment.centerRight,
-                          children: [
-                            Container(
-                              height: 230,
-                              width: 230,
-                              color: Colors.transparent,
-                            ),
-                            Container(
-                              height: 2,
-                              width: 18,
-                              color: NeumorphicTheme.defaultTextColor(context),
-                            ).paddingOnly(right: 8),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 150,
-                      width: 150,
-                      child: AnalogClock(
-                        decoration: Utils().decoration(
-                            cntx: context,
-                            isdark: NeumorphicTheme.isUsingDark(context),
-                            radius: 150 * fem),
-                        width: 150.0,
-                        isLive: true,
-                        hourHandColor:
-                            NeumorphicTheme.defaultTextColor(context),
-                        minuteHandColor: NeumorphicTheme.accentColor(context),
-                        showSecondHand: false,
-                        numberColor: Colors.black87,
-                        showNumbers: false,
-                        showAllNumbers: false,
-                        textScaleFactor: 1.4,
-                        showTicks: false,
-                        showDigitalClock: false,
-                        datetime: DateTime(2019, 1, 1, 9, 12, 15),
-                      ),
-                    ).paddingOnly(
-                        right: NeumorphicTheme.isUsingDark(context) ? 0 : 5,
-                        bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 3),
-                  ],
+        child: Obx(
+          () => Column(
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 250,
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            DotsIndicator(
-              dotsCount: 4,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: CardBackground(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
+                items: controller.currentcitytime.map((element) {
+                  return Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Text(
-                        "Bangalore",
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw40020,
-                            color: NeumorphicTheme.accentColor(context)),
+                      Stack(
+                        children: [
+                          Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              NeumorphicTheme.isUsingDark(context)
+                                  ? Container(
+                                      height: 230,
+                                      width: 230,
+                                      decoration: Utils().decoration(
+                                          cntx: context,
+                                          isdark: NeumorphicTheme.isUsingDark(
+                                              context),
+                                          radius: 250.0 * fem),
+                                    )
+                                  : SvgPicture.string(clockbackground),
+                              Container(
+                                height: 18,
+                                width: 2,
+                                color:
+                                    NeumorphicTheme.defaultTextColor(context),
+                              ).paddingOnly(top: 8),
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.centerLeft,
+                            children: [
+                              Container(
+                                height: 230,
+                                width: 230,
+                                color: Colors.transparent,
+                              ),
+                              Container(
+                                height: 2,
+                                width: 18,
+                                color:
+                                    NeumorphicTheme.defaultTextColor(context),
+                              ).paddingOnly(left: 8),
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Container(
+                                height: 230,
+                                width: 230,
+                                color: Colors.transparent,
+                              ),
+                              Container(
+                                height: 18,
+                                width: 2,
+                                color:
+                                    NeumorphicTheme.defaultTextColor(context),
+                              ).paddingOnly(bottom: 8),
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.centerRight,
+                            children: [
+                              Container(
+                                height: 230,
+                                width: 230,
+                                color: Colors.transparent,
+                              ),
+                              Container(
+                                height: 2,
+                                width: 18,
+                                color:
+                                    NeumorphicTheme.defaultTextColor(context),
+                              ).paddingOnly(right: 8),
+                            ],
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "India",
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw70014,
-                            color: mycolor().greenlightcolor),
-                      ),
+                      Container(
+                        height: 150,
+                        width: 150,
+                        child: AnalogClock(
+                          decoration: Utils().decoration(
+                              cntx: context,
+                              isdark: NeumorphicTheme.isUsingDark(context),
+                              radius: 150 * fem),
+                          width: 150.0,
+                          isLive: true,
+                          hourHandColor:
+                              NeumorphicTheme.defaultTextColor(context),
+                          minuteHandColor: NeumorphicTheme.accentColor(context),
+                          showSecondHand: false,
+                          numberColor: Colors.black87,
+                          showNumbers: false,
+                          showAllNumbers: false,
+                          textScaleFactor: 1.4,
+                          showTicks: false,
+                          showDigitalClock: false,
+                          datetime: element['time'],
+                        ),
+                      ).paddingOnly(
+                          right: NeumorphicTheme.isUsingDark(context) ? 0 : 5,
+                          bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 3),
                     ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "01:00",
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw40020,
-                            color: NeumorphicTheme.accentColor(context)),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "pm",
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw70014,
-                            color: mycolor().greenlightcolor),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
-            ),
-          ],
+                  );
+                }).toList(),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              DotsIndicator(
+                dotsCount: controller.currentcitytime.length,
+                decorator: DotsDecorator(
+                    activeColor: NeumorphicTheme.accentColor(context)),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              if (controller.WorldClocklist.length > 0)
+                ListView.builder(
+                    itemCount: controller.WorldClocklist.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: CardBackground(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Bangalore",
+                                  style: MyTextStyle.Dynamic(
+                                      style: MyTextStyle.mw40020,
+                                      color:
+                                          NeumorphicTheme.accentColor(context)),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  "India",
+                                  style: MyTextStyle.Dynamic(
+                                      style: MyTextStyle.mw70014,
+                                      color: mycolor().greenlightcolor),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "01:00",
+                                  style: MyTextStyle.Dynamic(
+                                      style: MyTextStyle.mw40020,
+                                      color:
+                                          NeumorphicTheme.accentColor(context)),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  "pm",
+                                  style: MyTextStyle.Dynamic(
+                                      style: MyTextStyle.mw70014,
+                                      color: mycolor().greenlightcolor),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                      );
+                    }),
+            ],
+          ),
         ),
       ),
     );
@@ -326,7 +336,7 @@ class _WorldClockState extends State<WorldClock> {
                           Row(
                             children: [
                               Text(
-                                filteredCategories[index],
+                                filteredCategories[index]['name'],
                                 style: MyTextStyle.Dynamic(
                                     style: MyTextStyle.mw40018,
                                     color:

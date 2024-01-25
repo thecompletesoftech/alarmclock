@@ -42,8 +42,7 @@ class AlramCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin:
-                      EdgeInsets.fromLTRB(0 * fem, 0 * fem, 6 * fem, 0 * fem),
+                  padding: EdgeInsets.only(left: 10),
                   child: Text(
                     time,
                     style: MyTextStyle.Dynamic(
@@ -53,8 +52,6 @@ class AlramCard extends StatelessWidget {
                 ),
                 if (showmedium)
                   Container(
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 2 * fem, 190 * fem, 0 * fem),
                     child: Text(medium.toString(),
                         style: MyTextStyle.Dynamic(
                             style: MyTextStyle.mw40018,
@@ -100,7 +97,7 @@ class AlramCard extends StatelessWidget {
                               color:
                                   subtitlecolor ?? mycolor().greenlightcolor),
                         ),
-                      ),
+                      ).paddingOnly(right: 15),
                       if (showarrowicon)
                         Container(
                             margin: EdgeInsets.fromLTRB(

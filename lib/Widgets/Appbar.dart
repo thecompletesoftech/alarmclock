@@ -75,7 +75,6 @@ class CustomeAppbar extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: (() {
-                              print("hii");
                               if (ontapornavigate)
                                 ontapnavigate!(index);
                               else

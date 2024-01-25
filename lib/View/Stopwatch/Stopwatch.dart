@@ -30,7 +30,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 Expanded(
                   child: ButtonWidget(
                     name: lap,
-                    txtstyle: MyTextStyle.mw40020,
+                    txtstyle: MyTextStyle.mw40024,
                     issmall: true,
                     borderRadius: 20.0,
                     onTap: () {},
@@ -41,18 +41,18 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   child: ButtonWidget(
                     name: start,
                     issmall: true,
-                    txtstyle: MyTextStyle.mw40020,
+                    txtstyle: MyTextStyle.mw40024,
                     borderRadius: 20.0,
                     onTap: () {},
                   ),
                 ),
               ],
             ).paddingSymmetric(horizontal: 10),
-            SizedBox(height: 20),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 1,
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return AlramCard(
                     showmedium: true,
@@ -65,10 +65,10 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                     },
                     swicthvalue: isSwitched,
                     subtitlestyle: MyTextStyle.mw70018,
-                    time: '1',
+                    time: '1 ',
                     showswitchorsubtile: false,
                     subtitle: "00:60:02",
-                  ).paddingOnly(bottom: 10, top: 10);
+                  ).paddingOnly(bottom: 10);
                 }),
           ],
         ),
