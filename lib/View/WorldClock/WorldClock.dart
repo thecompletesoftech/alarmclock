@@ -1,5 +1,7 @@
 import 'package:clockalarm/Config/Import.dart';
 
+import '../../Coming/TimeList.dart';
+
 class WorldClock extends StatefulWidget {
   const WorldClock({super.key});
 
@@ -61,7 +63,7 @@ class _WorldClockState extends State<WorldClock> {
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": AddAlram()},
-              {"icon": "assets/edit.png", "screenname": ""},
+              {"icon": "assets/edit.png", "screenname": TimeList()},
               {"icon": "assets/person.png", "screenname": Profile()},
             ],
             ontapnavigate: (value) {

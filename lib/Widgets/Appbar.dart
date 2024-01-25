@@ -35,7 +35,7 @@ class CustomeAppbar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (showarrow)
                     GestureDetector(
@@ -52,12 +52,16 @@ class CustomeAppbar extends StatelessWidget {
                         style: MyTextStyle.mw60030,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
+                  SizedBox(width: 7),
                   if (showsubtitle)
-                    Text(
-                      subtitle.toString(),
-                      style: MyTextStyle.Dynamic(
-                          style: MyTextStyle.mw50016,
-                          color: NeumorphicTheme.defaultTextColor(context)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        subtitle.toString(),
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw50018,
+                            color: NeumorphicTheme.defaultTextColor(context)),
+                      ),
                     ),
                 ],
               ),

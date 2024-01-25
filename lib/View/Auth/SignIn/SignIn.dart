@@ -113,11 +113,14 @@ class _SignInState extends State<SignIn> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            forgotpassword,
-                            style: MyTextStyle.Dynamic(
-                                style: MyTextStyle.mw40016,
-                                color: NeumorphicTheme.accentColor(context)),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Text(
+                              forgotpassword,
+                              style: MyTextStyle.Dynamic(
+                                  style: MyTextStyle.mw40016,
+                                  color: NeumorphicTheme.accentColor(context)),
+                            ),
                           ),
                         ],
                       ),

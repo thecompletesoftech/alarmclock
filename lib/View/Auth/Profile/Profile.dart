@@ -30,7 +30,7 @@ class _ProfileState extends State<Profile> {
               },
               child: Icon(
                 Icons.arrow_back,
-                color: mycolor().White,
+                color: NeumorphicTheme.defaultTextColor(context),
               ),
             ),
             Text(
@@ -51,11 +51,11 @@ class _ProfileState extends State<Profile> {
               selectimage == null
                   ? GestureDetector(
                       onTap: () {
-                        _imagepicker();
+                        _imagepicker(NeumorphicTheme.isUsingDark(context));
                       },
                       child: Center(
                         child: CircleAvatar(
-                          radius: 70.0,
+                          radius: 60.0,
                           backgroundImage: AssetImage(
                             "assets/profile.png",
                           ),
@@ -66,14 +66,14 @@ class _ProfileState extends State<Profile> {
                   : selectimage != null
                       ? GestureDetector(
                           onTap: () {
-                            _imagepicker();
+                            _imagepicker(NeumorphicTheme.isUsingDark(context));
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
                             child: Image.file(
                               selectimage!,
-                              height: 70,
-                              width: 70,
+                              height: 100,
+                              width: 100,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -123,7 +123,7 @@ class _ProfileState extends State<Profile> {
               CardWidget(
                 title: deleteaccount,
                 ontap: () {
-                  showDeleteaccout();
+                  showDeleteaccout(NeumorphicTheme.isUsingDark(context));
                 },
               ),
               SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 28 : 20),
@@ -134,44 +134,67 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Future _imagepicker() async {
+  Future _imagepicker(isDark) async {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: NeumorphicTheme.accentColor(context),
+        backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  // backgroundColor: transparentColor,
-                  // shadowColor: transparentColor,
-                  ),
-              onPressed: () {
-                _pickcamera();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "Camera".tr,
-                // style: GridListTextStyle,
-              ),
+            Text(
+              selectprofiletext,
+              textAlign: TextAlign.center,
+              style: MyTextStyle.Dynamic(
+                  style: MyTextStyle.mw40018,
+                  color: isDark ? mycolor().lightWhite : mycolor().darkgreen),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  // backgroundColor: transparentColor,
-                  // shadowColor: transparentColor,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        isDark ? mycolor().darkbalck : mycolor().lightWhite,
                   ),
-              onPressed: () {
-                _pickgallary();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "Gallery".tr,
-                // style: GridListTextStyle,
-              ),
+                  onPressed: () {
+                    _pickcamera();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    cameratext,
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw40018,
+                        color: isDark
+                            ? mycolor().lightWhite
+                            : mycolor().darkgreen),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        isDark ? mycolor().darkbalck : mycolor().lightWhite,
+                  ),
+                  onPressed: () {
+                    _pickgallary();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    gallarytext,
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw40018,
+                        color: isDark
+                            ? mycolor().lightWhite
+                            : mycolor().darkgreen),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -204,86 +227,132 @@ class _ProfileState extends State<Profile> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(),
-              onPressed: () {
-                nextscreenwithoutback(context, SignIn());
-              },
-              child: Text(
-                "Yes",
-                style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw40018,
-                    color: NeumorphicTheme.accentColor(context)),
-              ),
+          backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
+          content: Container(
+            height: 100,
+            child: Column(
+              children: [
+                Text(
+                  logoutpopuptext,
+                  style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw40018,
+                      color:
+                          isDark ? mycolor().lightWhite : mycolor().darkgreen),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isDark ? mycolor().darkbalck : mycolor().lightWhite,
+                      ),
+                      onPressed: () {
+                        nextscreenwithoutback(context, SignIn());
+                      },
+                      child: Text(
+                        "Yes",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40018,
+                            color: isDark
+                                ? mycolor().lightWhite
+                                : mycolor().darkgreen),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isDark ? mycolor().darkbalck : mycolor().lightWhite,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "No",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40018,
+                            color: isDark
+                                ? mycolor().lightWhite
+                                : mycolor().darkgreen),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  // backgroundColor: transparentColor,
-                  // shadowColor: transparentColor,
-                  ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "No",
-                style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw40018,
-                    color: NeumorphicTheme.accentColor(context)),
-              ),
-            ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 
-  showDeleteaccout() async {
+  showDeleteaccout(isDark) async {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: NeumorphicTheme.accentColor(context),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  // backgroundColor: transparentColor,
-                  // shadowColor: transparentColor,
-                  ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "Yes".tr,
-                // style: GridListTextStyle,
-              ),
+          backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
+          content: Container(
+            height: 130,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  deleteacpoputext,
+                  textAlign: TextAlign.center,
+                  style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw40018,
+                      color:
+                          isDark ? mycolor().lightWhite : mycolor().darkgreen),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isDark ? mycolor().darkbalck : mycolor().lightWhite,
+                      ),
+                      onPressed: () {
+                        // nextscreenwithoutback(context, SignIn());
+                      },
+                      child: Text(
+                        "Yes",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40018,
+                            color: isDark
+                                ? mycolor().lightWhite
+                                : mycolor().darkgreen),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            isDark ? mycolor().darkbalck : mycolor().lightWhite,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "No",
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40018,
+                            color: isDark
+                                ? mycolor().lightWhite
+                                : mycolor().darkgreen),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  // backgroundColor: transparentColor,
-                  // shadowColor: transparentColor,
-                  ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "No".tr,
-                // style: GridListTextStyle,
-              ),
-            ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

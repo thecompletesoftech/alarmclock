@@ -66,6 +66,12 @@ const totalduration = 'Total Duration';
 const reperatinterval = "Repeat Interval";
 const interduration = "Interval Duration";
 const alarmeat = 'Alpha alarmed at:';
+const repeatinttext = 'Repeat Intervals Remaining';
+const logoutpopuptext = 'Are sure want to Logout ?';
+const deleteacpoputext = 'Are sure want to Delete Account ?';
+const cameratext = 'Camera';
+const gallarytext = 'Gallary';
+const selectprofiletext = 'Select your profile from Camera or Gallary';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
     

@@ -99,7 +99,7 @@ class _SoundState extends State<Sound> {
             ),
             SizedBox(height: 58),
             ButtonWidget(
-              width: 60.0,
+              width: 68.0,
               name: none,
               txtstyle: MyTextStyle.mw40020,
               borderRadius: 20.0,
