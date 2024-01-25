@@ -31,7 +31,7 @@ class _StopwatchClockState extends State<StopwatchClock> {
                       color: NeumorphicTheme.accentColor(context)),
                 ),
               )
-            : SvgPicture.string(clockbackground),
+            : Image.asset("assets/stopwatch.png",height: 250),
         if (NeumorphicTheme.isUsingDark(context) == false)
           Text(
             "10:00:00",
@@ -42,8 +42,8 @@ class _StopwatchClockState extends State<StopwatchClock> {
               right: NeumorphicTheme.isUsingDark(context) ? 0 : 7,
               bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 5),
         Container(
-                height: 180,
-                width: 180,
+                height: 195,
+                width: 195,
                 child: Image.asset("assets/dottedborder.png"))
             .paddingOnly(
                 right: NeumorphicTheme.isUsingDark(context) ? 0 : 7,

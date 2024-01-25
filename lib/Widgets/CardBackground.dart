@@ -25,7 +25,7 @@ class CardBackground extends StatelessWidget {
             child: child,
           )
         : Stack(
-          alignment: Alignment.center,
+            alignment: Alignment.center,
             children: [
               Container(
                 child: SvgPicture.string(
