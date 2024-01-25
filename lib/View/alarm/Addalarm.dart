@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../Config/Import.dart';
 import 'Repeat.dart';
+import 'alarmController.dart';
 
 class AddAlram extends StatefulWidget {
   const AddAlram({super.key});
@@ -12,6 +13,7 @@ class AddAlram extends StatefulWidget {
 }
 
 class _AddAlramState extends State<AddAlram> {
+  AlramController _alramController = Get.put(AlramController());
   var alramlist = [
     {
       "title": "Repeat",
@@ -69,11 +71,21 @@ class _AddAlramState extends State<AddAlram> {
                       style: MyTextStyle.mw60018,
                       color: NeumorphicTheme.accentColor(context)),
                 ),
-                Text(save,
-                    style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw40014,
-                      color: NeumorphicTheme.defaultTextColor(context),
-                    )),
+                GestureDetector(
+                  onTap: () async {
+                    var timeofday = TimeOfDay.fromDateTime(_selectedTime);
+                    await _alramController.setAlarm(
+                        timeofday, isSwitched, context);
+
+                    backscreen(context)
+                        .then({await _alramController.getalram()});
+                  },
+                  child: Text(save,
+                      style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw40014,
+                        color: NeumorphicTheme.defaultTextColor(context),
+                      )),
+                ),
               ],
             ).paddingSymmetric(horizontal: 20),
             Container(
@@ -103,19 +115,19 @@ class _AddAlramState extends State<AddAlram> {
               padding: EdgeInsets.zero,
               itemCount: alramlist.length,
               itemBuilder: (context, index) {
-                return 
-                // UnicornOutlineButton(
-                //   strokeWidth: 2,
-                //   radius: 15,
-                //   gradient: LinearGradient(
-                //       colors: [mycolor().gradient1, mycolor().gradient2]),
-                //   child: Text('OMG', style: TextStyle(fontSize: 16)),
-                //   onPressed: () {},
-                // ).paddingOnly(
-                //   bottom: 10,
-                //   left: 10,
-                // );
-                AlramCard(
+                return
+                    // UnicornOutlineButton(
+                    //   strokeWidth: 2,
+                    //   radius: 15,
+                    //   gradient: LinearGradient(
+                    //       colors: [mycolor().gradient1, mycolor().gradient2]),
+                    //   child: Text('OMG', style: TextStyle(fontSize: 16)),
+                    //   onPressed: () {},
+                    // ).paddingOnly(
+                    //   bottom: 10,
+                    //   left: 10,
+                    // );
+                    AlramCard(
                   showmedium: false,
                   showswitchorsubtile: alramlist[index]['showswicth'],
                   showarrowicon: alramlist[index]['showarrow'],

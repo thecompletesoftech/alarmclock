@@ -1,9 +1,8 @@
-import 'package:clockalarm/View/WorldClock/WorldClock.dart';
-
 import '../../Config/Import.dart';
 
 class Clock extends StatefulWidget {
-  const Clock({super.key});
+  final time;
+  const Clock({super.key, this.time});
 
   @override
   State<Clock> createState() => _ClockState();
@@ -105,7 +104,7 @@ class _ClockState extends State<Clock> {
             textScaleFactor: 1.4,
             showTicks: false,
             showDigitalClock: false,
-            datetime: DateTime(2019, 1, 1, 9, 12, 15),
+            datetime: widget.time,
           ).paddingOnly(
               right: NeumorphicTheme.isUsingDark(context) ? 0 : 5,
               bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 3),
