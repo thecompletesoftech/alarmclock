@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/Json/Json.dart';
+import 'package:clockalarm/View/WorldClock/SearchScreen.dart';
 
 import '../../Coming/TimeList.dart';
 
@@ -12,36 +11,15 @@ class WorldClock extends StatefulWidget {
   State<WorldClock> createState() => _WorldClockState();
 }
 
-List filteredCategories = [];
-TextEditingController searchController = TextEditingController();
-
 @override
 class _WorldClockState extends State<WorldClock> {
   WorldController controller = Get.put(WorldController());
+  var currentindex = 0;
   void initState() {
     super.initState();
     controller.searchlist.clear();
     controller.searchlist.value = Searchlist;
-    searchController.addListener(updateSearchResults);
     controller.setup('Europe/Istanbul');
-  }
-
-  void updateSearchResults() {
-    log("datata");
-    setState(() {
-      filteredCategories = controller.searchlist
-          .where((category) => category['name']
-              .toString()
-              .toLowerCase()
-              .contains(searchController.text.toLowerCase()))
-          .toList();
-    });
-  }
-
-  void _deleteText() {
-    setState(() {
-      searchController.clear();
-    });
   }
 
   @override
@@ -60,7 +38,7 @@ class _WorldClockState extends State<WorldClock> {
             ontapnavigate: (value) {
               switch (value) {
                 case 0:
-                  _showNeumorphicBottomSheet(context);
+                  nextscreen(context, SearchScreen());
                   break;
                 case 1:
                   nextscreen(context, "");
@@ -81,6 +59,12 @@ class _WorldClockState extends State<WorldClock> {
               CarouselSlider(
                 options: CarouselOptions(
                   height: 250,
+                  initialPage: currentindex,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      currentindex = index;
+                    });
+                  },
                 ),
                 items: controller.currentcitytime.map((element) {
                   return Stack(
@@ -194,18 +178,20 @@ class _WorldClockState extends State<WorldClock> {
               ),
               DotsIndicator(
                 dotsCount: controller.currentcitytime.length,
+                position: currentindex,
                 decorator: DotsDecorator(
                     activeColor: NeumorphicTheme.accentColor(context)),
               ),
               SizedBox(
                 height: 30,
               ),
-              if (controller.WorldClocklist.length > 0)
+              if (controller.currentcitytime.length > 0)
                 ListView.builder(
-                    itemCount: controller.WorldClocklist.length,
+                    itemCount: controller.currentcitytime.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
+                      var newitem = controller.currentcitytime[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: CardBackground(
@@ -215,27 +201,18 @@ class _WorldClockState extends State<WorldClock> {
                             Row(
                               children: [
                                 Text(
-                                  "Bangalore",
+                                  newitem['name'],
                                   style: MyTextStyle.Dynamic(
                                       style: MyTextStyle.mw40020,
                                       color:
                                           NeumorphicTheme.accentColor(context)),
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  "India",
-                                  style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw70014,
-                                      color: mycolor().greenlightcolor),
                                 ),
                               ],
                             ),
                             Row(
                               children: [
                                 Text(
-                                  "01:00",
+                                  formatTime(newitem['time']).split(' ')[0],
                                   style: MyTextStyle.Dynamic(
                                       style: MyTextStyle.mw40020,
                                       color:
@@ -245,7 +222,7 @@ class _WorldClockState extends State<WorldClock> {
                                   width: 8,
                                 ),
                                 Text(
-                                  "pm",
+                                  formatTime(newitem['time']).split(' ')[1],
                                   style: MyTextStyle.Dynamic(
                                       style: MyTextStyle.mw70014,
                                       color: mycolor().greenlightcolor),
@@ -260,101 +237,6 @@ class _WorldClockState extends State<WorldClock> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showNeumorphicBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      isDismissible: true,
-      builder: (BuildContext builderContext) {
-        return Container(
-          width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              SizedBox(
-                height: 50,
-              ),
-              Text(
-                selectcity,
-                style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw60018,
-                    color: NeumorphicTheme.accentColor(context)),
-              ),
-              SizedBox(
-                height: 9,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: TextBoxwidget(
-                        controller: searchController,
-                        hinttext: 'Search',
-                        validator: (p0) {},
-                        radius: 16.0,
-                        neumormargintop: 0.0,
-                        neumormarginleft: 0.0,
-                        neumormarginbottom: 0.0,
-                        textboxvertival: 0.0,
-                        ontap: () {},
-                        suffixshowicon: true,
-                        suffixicon: Icons.search),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                      // _deleteText();
-                    },
-                    child: Container(
-                        alignment: Alignment.center,
-                        height: 60,
-                        child: Text(
-                          cancel,
-                          style: MyTextStyle.Dynamic(
-                              style: MyTextStyle.mw40016,
-                              color: NeumorphicTheme.defaultTextColor(context)),
-                        )),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: filteredCategories.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                filteredCategories[index]['name'],
-                                style: MyTextStyle.Dynamic(
-                                    style: MyTextStyle.mw40018,
-                                    color:
-                                        NeumorphicTheme.accentColor(context)),
-                              ),
-                            ],
-                          ),
-                          Divider(),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }
