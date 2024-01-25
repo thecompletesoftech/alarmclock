@@ -31,3 +31,4 @@ export 'package:clockalarm/Config/SvgString.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:clockalarm/Widgets/CardBackground.dart';
 export 'package:get_storage/get_storage.dart';
+export 'package:clockalarm/View/WorldClock/Controller/WorldController.dart';
