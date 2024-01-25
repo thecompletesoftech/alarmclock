@@ -1,3 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
+
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
 
@@ -79,21 +81,30 @@ class _SoundState extends State<Sound> {
                 padding: EdgeInsets.zero,
                 itemCount: soundlist.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          soundlist[index]['title'].toString(),
-                          style: MyTextStyle.Dynamic(
-                              style: MyTextStyle.mw40020,
-                              color: NeumorphicTheme.accentColor(context)),
-                        ),
-                        if (index != soundlist.length - 1) Divider()
-                      ],
-                    ),
-                  ).paddingOnly(top: 5);
+                  return GestureDetector(
+                    onTap: () {
+                      // if (index == 0) {
+                      //   // final player = AudioCache();
+                      //   // player.play('assets/ImmigrantSong.mp3');
+                      // }
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            soundlist[index]['title'].toString(),
+                            style: MyTextStyle.Dynamic(
+                                style: MyTextStyle.mw40020,
+                                color: NeumorphicTheme.accentColor(context)),
+                          ),
+                          if (index != soundlist.length - 1) Divider()
+                        ],
+                      ),
+                    ).paddingOnly(top: 5),
+                  );
                 },
               ).paddingOnly(top: 10, bottom: 5),
             ),
