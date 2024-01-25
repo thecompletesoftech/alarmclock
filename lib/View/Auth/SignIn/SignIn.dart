@@ -1,7 +1,9 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/ForgotPassword/ForgotPaasword.dart';
+import 'package:clockalarm/View/Auth/SignIn/Controller/AuthController.dart';
 import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 
 class SignIn extends StatefulWidget {
@@ -12,14 +14,15 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  AuthController controller = Get.put(AuthController());
   var emailerror = false;
   var emailerrmsg = '';
 
   var passworderror = false;
   var passerrormsg = '';
 
-  final emailController = TextEditingController();
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +56,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
-                      controller: emailController,
+                      controller: controller.emailController,
                       hinttext: email,
                       validator: (e) {
                         final bool emailValid = RegExp(
@@ -81,6 +84,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
+                      controller: controller.passwordController,
                       hinttext: password,
                       validator: (e) {
                         var regex = RegExp(
@@ -91,7 +95,7 @@ class _SignInState extends State<SignIn> {
                             passworderror = true;
                             passerrormsg = requiredtext + password;
                           });
-                          return passerrormsg;
+                          return null;
                         }
                         if (regex == false) {
                           setState(() {
@@ -130,16 +134,23 @@ class _SignInState extends State<SignIn> {
                       height: 60.0,
                       width: 0.87,
                       name: login,
-                      onTap: () {
-                        // final isvalidForm = _formkey.currentState!.validate();
-                        // if (isvalidForm) {
-                        //   print("error ==>");
-                        //   setState(() {
-                        //     emailerror = false;
-                        //     passworderror = false;
-                        //   });
-                        // }
-                        nextscreen(context, NewBottomNavigator());
+                      onTap: () async {
+                        final isvalidForm = _formkey.currentState!.validate();
+                        if (isvalidForm) {
+                          print("error ==>");
+                          setState(() {
+                            emailerror = false;
+                            passworderror = false;
+                          });
+                        }
+                        User? user = await controller.loginUsingEmailPassword(
+                            email: controller.emailController.text,
+                            password: controller.passwordController.text,
+                            context: context);
+                        print(user);
+                        if (user != null) {
+                          nextscreen(context, NewBottomNavigator());
+                        }
                       },
                     ),
                     SizedBox(height: 93),

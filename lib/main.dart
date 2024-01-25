@@ -1,10 +1,13 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/SplashScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   await GetStorage.init();
   tz.initializeTimeZones();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

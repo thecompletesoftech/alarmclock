@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "865241190931",
+    "project_id": "clock-alarm-e14f5",
+    "storage_bucket": "clock-alarm-e14f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865241190931:android:4b17d2ac6a4a09d123e5e6",
+        "android_client_info": {
+          "package_name": "com.example.clockalarm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC56v6HuOraFkJWKkK2FAeviofc1Ty1r14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
