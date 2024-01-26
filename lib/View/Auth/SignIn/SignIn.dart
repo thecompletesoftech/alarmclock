@@ -149,7 +149,7 @@ class _SignInState extends State<SignIn> {
                             context: context);
                         print(user);
                         if (user != null) {
-                          nextscreen(context, NewBottomNavigator());
+                          nextscreenwithoutback(context, NewBottomNavigator());
                         }
                       },
                     ),
