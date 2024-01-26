@@ -1,6 +1,8 @@
+import 'package:flutter_switch/flutter_switch.dart';
+
 import '../Config/Import.dart';
 
-class AlramCard extends StatelessWidget {
+class AlramCard extends StatefulWidget {
   final String time;
   final String? medium;
   final bool showmedium;
@@ -27,12 +29,17 @@ class AlramCard extends StatelessWidget {
       this.subtitlecolor});
 
   @override
+  State<AlramCard> createState() => _AlramCardState();
+}
+
+class _AlramCardState extends State<AlramCard> {
+  @override
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return GestureDetector(
       onTap: (() {
-        ontapcard!();
+        widget.ontapcard!();
       }),
       child: CardBackground(
         child: Row(
@@ -44,22 +51,38 @@ class AlramCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    time,
+                    widget.time,
                     style: MyTextStyle.Dynamic(
                         style: MyTextStyle.mw40020,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                 ),
-                if (showmedium)
+                if (widget.showmedium)
                   Container(
-                    child: Text(medium.toString(),
+                    child: Text(widget.medium.toString(),
                         style: MyTextStyle.Dynamic(
                             style: MyTextStyle.mw40018,
                             color: mycolor().greenlightcolor)),
                   ),
               ],
             ),
-            showswitchorsubtile
+            FlutterSwitch(
+              width: 70.0,
+              height: 26.0,
+              valueFontSize: 25.0,
+              toggleSize: 25.0,
+              value: widget.swicthvalue!,
+              borderRadius: 30.0,
+              padding: 1.0,
+              showOnOff: false,
+              inactiveColor: !NeumorphicTheme.isUsingDark(context)
+                  ? mycolor().greyscreen
+                  : mycolor().darkbalck,
+              onToggle: (val) {
+                widget.onchange!(val);
+              },
+            ),
+            widget.showswitchorsubtile
                 ? Container(
                     width: 30.0,
                     height: 10.0,
@@ -67,9 +90,9 @@ class AlramCard extends StatelessWidget {
                       scale: 0.8,
                       child: Switch(
                         onChanged: ((value) {
-                          onchange!(value);
+                          widget.onchange!(value);
                         }),
-                        value: swicthvalue!,
+                        value: widget.swicthvalue!,
                         inactiveThumbColor: mycolor().darkgreen,
                         inactiveTrackColor:
                             !NeumorphicTheme.isUsingDark(context)
@@ -91,14 +114,15 @@ class AlramCard extends StatelessWidget {
                     children: [
                       Container(
                         child: Text(
-                          subtitle.toString(),
+                          widget.subtitle.toString(),
                           style: MyTextStyle.Dynamic(
-                              style: subtitlestyle ?? MyTextStyle.mw50014,
-                              color:
-                                  subtitlecolor ?? mycolor().greenlightcolor),
+                              style:
+                                  widget.subtitlestyle ?? MyTextStyle.mw50014,
+                              color: widget.subtitlecolor ??
+                                  mycolor().greenlightcolor),
                         ),
                       ).paddingOnly(right: 15),
-                      if (showarrowicon)
+                      if (widget.showarrowicon)
                         Container(
                             margin: EdgeInsets.fromLTRB(
                                 0 * fem, 0 * fem, 6 * fem, 0 * fem),
