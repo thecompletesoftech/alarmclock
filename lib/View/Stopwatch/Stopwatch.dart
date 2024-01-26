@@ -75,4 +75,34 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
       ),
     );
   }
+
+  void _start() {
+    setState(() {
+      _stopwatch.start();
+    });
+  }
+
+  void _stop() {
+    setState(() {
+      _stopwatch.stop();
+      if (_stopwatch.elapsedMilliseconds > 0) {
+        _lapTimes.insert(0, formatTime(_stopwatch.elapsedMilliseconds));
+      }
+    });
+  }
+
+  void _lap() {
+    if (_stopwatch.isRunning) {
+      setState(() {
+        _lapTimes.insert(0, formatTime(_stopwatch.elapsedMilliseconds));
+      });
+    }
+  }
+
+  String formatTime(int milliseconds) {
+    int minutes = (milliseconds / 60000).floor();
+    int seconds = ((milliseconds % 60000) / 1000).floor();
+    int millisecondsPart = (milliseconds % 1000);
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}.${(millisecondsPart ~/ 100).toString()}';
+  }
 }
