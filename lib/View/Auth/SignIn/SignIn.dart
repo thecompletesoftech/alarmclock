@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/ForgotPassword/ForgotPaasword.dart';
 import 'package:clockalarm/View/Auth/SignIn/Controller/AuthController.dart';
@@ -22,6 +24,51 @@ class _SignInState extends State<SignIn> {
   var passerrormsg = '';
 
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  Future CheckValidation() async {
+    final bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(controller.emailController.text);
+    if (controller.emailController.text.length < 1) {
+      setState(() {
+        emailerror = true;
+        emailerrmsg = requiredtext + email;
+      });
+      return true;
+    } else if (controller.emailController.text.length > 0) {
+      setState(() {
+        emailerror = false;
+        emailerrmsg = '';
+      });
+    }
+
+    if (emailValid == false) {
+      setState(() {
+        emailerror = true;
+        emailerrmsg = requiredtext + emailerrormsg;
+      });
+      return true;
+    } else if (emailValid == true) {
+      setState(() {
+        emailerror = false;
+        emailerrmsg = '';
+      });
+    }
+
+    if (controller.passwordController.text.length < 1) {
+      setState(() {
+        passworderror = true;
+        passerrormsg = requiredtext + password;
+      });
+      return true;
+    } else if (controller.passwordController.text.length > 0) {
+      setState(() {
+        passworderror = false;
+        passerrormsg = '';
+      });
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,24 +106,6 @@ class _SignInState extends State<SignIn> {
                       controller: controller.emailController,
                       hinttext: email,
                       validator: (e) {
-                        final bool emailValid = RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(e!);
-
-                        if (e.isEmpty) {
-                          setState(() {
-                            emailerror = true;
-                            emailerrmsg = requiredtext + email;
-                          });
-                          return emailerrmsg;
-                        }
-                        if (emailValid == false) {
-                          setState(() {
-                            emailerror = true;
-                            emailerrmsg = requiredtext + emailerrormsg;
-                          });
-                          return emailerrmsg;
-                        }
                         return null;
                       },
                       showerror: emailerror,
@@ -90,20 +119,6 @@ class _SignInState extends State<SignIn> {
                         var regex = RegExp(
                                 r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
                             .hasMatch(e!);
-                        if (e.isEmpty) {
-                          setState(() {
-                            passworderror = true;
-                            passerrormsg = requiredtext + password;
-                          });
-                          return null;
-                        }
-                        if (regex == false) {
-                          setState(() {
-                            passworderror = true;
-                            passerrormsg = requiredtext + passworderrormsg;
-                          });
-                          return passerrormsg;
-                        }
                         return null;
                       },
                       showerror: passworderror,
@@ -130,28 +145,28 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     SizedBox(height: 51),
-                    ButtonWidget(
-                      height: 60.0,
-                      width: 0.87,
-                      name: login,
-                      onTap: () async {
-                        final isvalidForm = _formkey.currentState!.validate();
-                        if (isvalidForm) {
-                          print("error ==>");
-                          setState(() {
-                            emailerror = false;
-                            passworderror = false;
-                          });
-                        }
-                        User? user = await controller.loginUsingEmailPassword(
-                            email: controller.emailController.text,
-                            password: controller.passwordController.text,
-                            context: context);
-                        print(user);
-                        if (user != null) {
-                          nextscreen(context, NewBottomNavigator());
-                        }
-                      },
+                    Obx(
+                      () => ButtonWidget(
+                        height: 60.0,
+                        width: 0.87,
+                        name: login,
+                        loading: controller.loginloader.value,
+                        onTap: () async {
+                          if (controller.loginloader.value == false) {
+                            await CheckValidation().then((value) async {
+                              if (value == false) {
+                                User? user = await controller
+                                    .loginUsingEmailPassword(context: context);
+                                print(user);
+                                if (user != null) {
+                                  nextscreenwithoutback(
+                                      context, NewBottomNavigator());
+                                }
+                              }
+                            });
+                          }
+                        },
+                      ),
                     ),
                     SizedBox(height: 93),
                     RichText(
