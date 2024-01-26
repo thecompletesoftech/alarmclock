@@ -77,8 +77,8 @@ class _AddAlramState extends State<AddAlram> {
                     await _alramController.setAlarm(
                         timeofday, isSwitched, context);
 
-                    backscreen(context)
-                        .then({await _alramController.getalram()});
+                    backscreen(context);
+                    _alramController.getalram();
                   },
                   child: Text(save,
                       style: MyTextStyle.Dynamic(

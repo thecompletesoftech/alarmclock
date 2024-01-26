@@ -44,7 +44,14 @@ class _AlarmHomeState extends State<AlarmHome> {
             SizedBox(height: 50),
             Obx(
               () => _alramController.alarms.length == 0
-                  ? Center(child: Text("No Any alram found"))
+                  ? Center(
+                      child: Text(
+                        noanyalarfound,
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw50018,
+                            color: NeumorphicTheme.defaultTextColor(context)),
+                      ),
+                    )
                   : ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
