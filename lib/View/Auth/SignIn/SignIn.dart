@@ -157,7 +157,7 @@ class _SignInState extends State<SignIn> {
                               if (value == false) {
                                 User? user = await controller
                                     .loginUsingEmailPassword(context: context);
-                                print(user);
+                                print("user" + user.toString());
                                 if (user != null) {
                                   nextscreenwithoutback(
                                       context, NewBottomNavigator());

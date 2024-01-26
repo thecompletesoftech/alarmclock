@@ -68,8 +68,8 @@ class _AlramCardState extends State<AlramCard> {
             ),
             widget.showswitchorsubtile
                 ? FlutterSwitch(
-                    width: 70.0,
-                    height: 26.0,
+                    width: 60.0,
+                    height: 25.0,
                     valueFontSize: 25.0,
                     toggleSize: 25.0,
                     value: widget.swicthvalue!,

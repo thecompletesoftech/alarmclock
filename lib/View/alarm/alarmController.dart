@@ -17,7 +17,7 @@ class AlramController extends GetxController {
     final alarmSettings = AlarmSettings(
         id: Random().nextInt(100),
         dateTime: dateTime,
-        assetAudioPath: 'assets/ringtone/immigrate.mp3',
+        assetAudioPath: 'assets/ImmigrantSong.mp3',
         loopAudio: snooze,
         vibrate: true,
         // volumeMax: true,
