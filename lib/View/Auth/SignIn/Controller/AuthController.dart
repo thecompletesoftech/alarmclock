@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,39 +10,86 @@ class AuthController extends GetxController {
   final signUpemail = TextEditingController();
   final signuppassword = TextEditingController();
   final signupconfirmpass = TextEditingController();
+  var loginloader = false.obs;
+  var signuploader = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
-  Future<User?> loginUsingEmailPassword(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
+  Future<User?> loginUsingEmailPassword({required BuildContext context}) async {
     User? user;
-    try {
-      print(email);
-      print(password);
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      user = userCredential.user;
-      log("user ==>>>" + user.toString());
-    } on FirebaseAuthException catch (e) {
-      print('object' + e.toString());
-      if (e.code == "user-not-found") {
-        print('No user  found  for that email');
+    loginloader.value = true;
+    ApiHelper().Api().then((value) async {
+      if (value) {
+        try {
+          UserCredential userCredential = await auth.signInWithEmailAndPassword(
+              email: (emailController.text.replaceAll(RegExp(r"\s+"), "")),
+              password: passwordController.text);
+          user = userCredential.user;
+          log("userDetails ==>>>" + user.toString());
+        } catch (e) {
+          log("Error" + e.toString());
+          if (e is FirebaseAuthException) {
+            print('Login Catch===> ' + e.code.toString());
+            print('FirebaseAuthException - ${e.code}: ${e.message}');
+            switch (e.code) {
+              case 'invalid-email':
+                Mysnack(retry, invalidemail, context);
+                break;
+              case 'user-disabled':
+                Mysnack(retry, deactive, context);
+                break;
+              case 'invalid-credential':
+                Mysnack(retry, invalidcredential, context);
+                break;
+              case 'wrong-password':
+                Mysnack(retry, wrongpassword, context);
+                break;
+              case 'too-many-requests':
+                Mysnack(retry, tomanytry, context);
+                break;
+              default:
+                Mysnack(retry, somethingwrong, context);
+            }
+          }
+        }
       }
-    }
+    });
+    loginloader.value = false;
     return user;
   }
 
-  signUp() async {
-    try {
-      await auth.createUserWithEmailAndPassword(
-        email: signUpemail.text,
-        password: signupconfirmpass.text,
-      );
-      // User signed up successfully
-      // You can navigate to the next screen or perform other actions here
-    } catch (e) {
-      // Handle sign-up errors
-      print("Error during sign up: $e");
-    }
+  signUp(cntx) async {
+    User? user;
+    signuploader.value = true;
+    ApiHelper().Api().then((value) async {
+      if (value) {
+        try {
+          UserCredential userCredential =
+              await auth.createUserWithEmailAndPassword(
+            email: signUpemail.text.replaceAll(RegExp(r"\s+"), ""),
+            password: signupconfirmpass.text.replaceAll(RegExp(r"\s+"), ""),
+          );
+          user = userCredential.user;
+          log("userDetails ==>>>" + user.toString());
+        } catch (e) {
+          print('Error during user registration: $e');
+          if (e is FirebaseAuthException) {
+            print('FirebaseAuthException - ${e.code}: ${e.message}');
+            switch (e.code) {
+              case 'email-already-in-use':
+                Mysnack(retry, emailalreadyinuse, cntx);
+                break;
+              case 'invalid-email':
+                Mysnack(retry, invalidemail, cntx);
+                break;
+              default:
+                Mysnack(retry, somethingwrong, cntx);
+            }
+          }
+          print("Error during sign up: $e");
+        }
+      }
+    });
+    signuploader.value = false;
   }
+
+  Adduser() {}
 }

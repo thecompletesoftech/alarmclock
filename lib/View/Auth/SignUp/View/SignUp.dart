@@ -1,8 +1,8 @@
+import 'dart:developer';
+
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/gestures.dart';
-
-import '../../../BottomNavigation/BottomNavigation.dart';
 import '../../SignIn/Controller/AuthController.dart';
 
 class SignUp extends StatefulWidget {
@@ -13,15 +13,103 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  AuthController controller = Get.put(AuthController());
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  var nameerror = false;
+  var nameerrmsg = '';
+  var emailerror = false;
+  var emailerrmsg = '';
+  var passworderror = false;
+  var passerrormsg = '';
+  var Cnfpassworderror = false;
+  var Cnfpasserrormsg = '';
+
+  Future CheckValidation() async {
+    final bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(controller.signUpemail.text);
+    // Name
+    if (controller.nameController.text.length < 1) {
+      setState(() {
+        nameerror = true;
+        nameerrmsg = requiredtext + fullname;
+      });
+      return true;
+    } else if (controller.nameController.text.length > 0) {
+      setState(() {
+        nameerror = false;
+        nameerrmsg = '';
+      });
+    }
+    // Email
+    if (controller.signUpemail.text.length < 1) {
+      setState(() {
+        emailerror = true;
+        emailerrmsg = requiredtext + email;
+      });
+      return true;
+    } else if (controller.signUpemail.text.length > 0) {
+      setState(() {
+        emailerror = false;
+        emailerrmsg = '';
+      });
+    }
+    if (emailValid == false) {
+      setState(() {
+        emailerror = true;
+        emailerrmsg = requiredtext + emailerrormsg;
+      });
+      return true;
+    } else if (emailValid == true) {
+      setState(() {
+        emailerror = false;
+        emailerrmsg = '';
+      });
+    }
+    // Password
+    if (controller.signuppassword.text.length < 1) {
+      setState(() {
+        passworderror = true;
+        passerrormsg = requiredtext + password;
+      });
+      return true;
+    } else if (controller.signuppassword.text.length > 0) {
+      setState(() {
+        passworderror = false;
+        passerrormsg = '';
+      });
+    }
+    // Confirm passowrd
+    if (controller.signupconfirmpass.text.length < 1) {
+      setState(() {
+        Cnfpassworderror = true;
+        Cnfpasserrormsg = requiredtext + confirmpassword;
+      });
+      return true;
+    } else if (controller.signupconfirmpass.text.length > 0) {
+      setState(() {
+        Cnfpassworderror = false;
+        Cnfpasserrormsg = '';
+      });
+    }
+    if (controller.signuppassword.text != controller.signupconfirmpass.text) {
+      setState(() {
+        Cnfpassworderror = true;
+        Cnfpasserrormsg = sameconfirmpassword;
+      });
+      return true;
+    } else if (controller.signuppassword.text ==
+        controller.signupconfirmpass.text) {
+      setState(() {
+        Cnfpassworderror = false;
+        Cnfpasserrormsg = '';
+      });
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    AuthController controller = Get.put(AuthController());
-    GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-    var emailerror = false;
-    var emailerrmsg = '';
-
-    var passworderror = false;
-    var passerrormsg = '';
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -53,30 +141,14 @@ class _SignUpState extends State<SignUp> {
                       return "Please enter name";
                     }
                   },
+                  showerror: nameerror,
+                  errormsg: nameerrmsg,
                 ),
                 SizedBox(height: 24),
                 TextBoxwidget(
                   controller: controller.signUpemail,
                   hinttext: email,
                   validator: (e) {
-                    final bool emailValid = RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(e!);
-
-                    if (e.isEmpty) {
-                      setState(() {
-                        emailerror = true;
-                        emailerrmsg = requiredtext + email;
-                      });
-                      return emailerrmsg;
-                    }
-                    if (emailValid == false) {
-                      setState(() {
-                        emailerror = true;
-                        emailerrmsg = requiredtext + emailerrormsg;
-                      });
-                      return emailerrmsg;
-                    }
                     return null;
                   },
                   showerror: emailerror,
@@ -87,23 +159,6 @@ class _SignUpState extends State<SignUp> {
                   controller: controller.signuppassword,
                   hinttext: password,
                   validator: (e) {
-                    var regex = RegExp(
-                            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                        .hasMatch(e!);
-                    if (e.isEmpty) {
-                      setState(() {
-                        passworderror = true;
-                        passerrormsg = requiredtext + password;
-                      });
-                      return passerrormsg;
-                    }
-                    if (regex == false) {
-                      setState(() {
-                        passworderror = true;
-                        passerrormsg = requiredtext + passworderrormsg;
-                      });
-                      return passerrormsg;
-                    }
                     return null;
                   },
                   showerror: passworderror,
@@ -113,7 +168,11 @@ class _SignUpState extends State<SignUp> {
                 TextBoxwidget(
                   controller: controller.signupconfirmpass,
                   hinttext: confirmpassword,
-                  validator: (e) {},
+                  validator: (e) {
+                    return null;
+                  },
+                  showerror: Cnfpassworderror,
+                  errormsg: Cnfpasserrormsg,
                 ),
                 SizedBox(height: 30),
                 Center(
@@ -122,15 +181,10 @@ class _SignUpState extends State<SignUp> {
                     width: 0.87,
                     name: register,
                     onTap: () {
-                      final isvalidForm = _formkey.currentState!.validate();
-                      if (isvalidForm) {
-                        setState(() {
-                          emailerror = false;
-                          passworderror = false;
-                          // controller.signUp();
-                          // nextscreen(context, NewBottomNavigator());
-                        });
-                      }
+                      CheckValidation()
+                          .then((value) => {if (value == false) {
+                            controller.signUp(context )
+                          }});
                     },
                   ),
                 ),

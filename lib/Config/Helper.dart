@@ -47,3 +47,22 @@ String formatDateTime(String? dateString) {
     return "date";
   }
 }
+
+Mysnack(title, msg, cntx) {
+  Get.snackbar(
+    title,
+    msg,
+    colorText: NeumorphicTheme.accentColor(cntx),
+    backgroundColor: NeumorphicTheme.baseColor(cntx),
+    borderRadius: 15,
+    snackPosition: SnackPosition.TOP,
+    duration: Duration(seconds: 3),
+    margin: EdgeInsets.all(20),
+    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+    borderColor: Colors.grey[400],
+    borderWidth: 1,
+    isDismissible: true,
+    // dismissDirection: SnackDismissDirection.HORIZONTAL,
+    forwardAnimationCurve: Curves.easeOutBack,
+  );
+}

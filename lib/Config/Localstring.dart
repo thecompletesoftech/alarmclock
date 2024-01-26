@@ -5,6 +5,7 @@ const fullname = 'Full Name';
 const email = 'Email';
 const password = 'Password';
 const confirmpassword = 'Confirm Password';
+const sameconfirmpassword = 'Password and Confirm Password Should be Same';
 const signup = 'Sign Up';
 const login = 'Login';
 const none = 'None';
@@ -74,4 +75,15 @@ const gallarytext = 'Gallary';
 const selectprofiletext = 'Select your profile from Camera or Gallary';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
-    
+const nointernet = 'No Internet';
+const checknet = 'Please check your internet connection';
+final retry = 'Retry';
+const noemailfound = 'No user found for that email';
+const wrongpassword = 'Wrong password provided for that user';
+const somethingwrong = 'Something went wrong';
+const emailalreadyinuse = 'The account already exists for that email';
+const invalidcredential = 'Invalid Credential';
+const invalidemail = 'Invalid email';
+const tomanytry = 'We have blocked all requests from this device due to unusual activity. Try again later.';
+const deactive =
+    'Your account is deactive please contact admin to activate';
