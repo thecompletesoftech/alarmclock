@@ -10,6 +10,7 @@ class StopwatchClock extends StatefulWidget {
 class _StopwatchClockState extends State<StopwatchClock> {
   @override
   Widget build(BuildContext context) {
+      Stopwatch _stopwatch = Stopwatch();
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Stack(
@@ -25,7 +26,7 @@ class _StopwatchClockState extends State<StopwatchClock> {
                     isdark: NeumorphicTheme.isUsingDark(context),
                     radius: 250.0 * fem),
                 child: Text(
-                  "10:00:00",
+             formatTime(_stopwatch.elapsedMilliseconds),
                   style: MyTextStyle.Dynamic(
                       style: MyTextStyle.mw70036,
                       color: NeumorphicTheme.accentColor(context)),
@@ -34,7 +35,7 @@ class _StopwatchClockState extends State<StopwatchClock> {
             : Image.asset("assets/stopwatch.png",height: 250),
         if (NeumorphicTheme.isUsingDark(context) == false)
           Text(
-            "10:00:00",
+         formatTime(_stopwatch.elapsedMilliseconds),
             style: MyTextStyle.Dynamic(
                 style: MyTextStyle.mw70036,
                 color: NeumorphicTheme.accentColor(context)),

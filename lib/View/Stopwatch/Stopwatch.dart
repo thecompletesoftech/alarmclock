@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
 
@@ -10,6 +12,15 @@ class StopwatchScreen extends StatefulWidget {
 
 class _StopwatchScreenState extends State<StopwatchScreen> {
   bool isSwitched = false;
+  Stopwatch _stopwatch = Stopwatch();
+  List<String> _lapTimes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _stopwatch = Stopwatch();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +36,9 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
             SizedBox(height: 10),
             Center(child: StopwatchClock()),
             SizedBox(height: 50),
+            Text(
+              formatTime(_stopwatch.elapsedMilliseconds),
+            ),
             Row(
               children: [
                 Expanded(
@@ -33,7 +47,11 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                     txtstyle: MyTextStyle.mw40024,
                     issmall: true,
                     borderRadius: 20.0,
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        _lap();
+                      });
+                    },
                   ),
                 ),
                 SizedBox(width: 20),
@@ -43,32 +61,64 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                     issmall: true,
                     txtstyle: MyTextStyle.mw40024,
                     borderRadius: 20.0,
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        _start();
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: ButtonWidget(
+                    name: 'stop',
+                    txtstyle: MyTextStyle.mw40024,
+                    issmall: true,
+                    borderRadius: 20.0,
+                    onTap: () {
+                      setState(() {
+                        _stop();
+                      });
+                    },
                   ),
                 ),
               ],
             ).paddingSymmetric(horizontal: 10),
+            // _lapTimes.isNotEmpty
+            //     ? Column(
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: _lapTimes
+            //             .map((lapTime) => Text(
+            //                   'Lap: $lapTime',
+            //                   style: MyTextStyle.Dynamic(
+            //                       style: MyTextStyle.mw60016,
+            //                       color: NeumorphicTheme.accentColor(context)),
+            //                 ))
+            //             .toList(),
+            //       )
+            //     : Container(),
+            SizedBox(height: 20),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 1,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return AlramCard(
-                    showmedium: true,
-                    medium: 'Lap',
-                    subtitlecolor: NeumorphicTheme.accentColor(context),
-                    onchange: (value) {
-                      setState(() {
-                        isSwitched = !isSwitched;
-                      });
-                    },
-                    swicthvalue: isSwitched,
-                    subtitlestyle: MyTextStyle.mw70018,
-                    time: '1 ',
-                    showswitchorsubtile: false,
-                    subtitle: "00:60:02",
-                  ).paddingOnly(bottom: 10);
+                  return _lapTimes.isNotEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: _lapTimes
+                              .map((lapTime) => CardBackground(
+                                    child: Text(
+                                      'Lap: $lapTime',
+                                      style: MyTextStyle.Dynamic(
+                                          style: MyTextStyle.mw60016,
+                                          color: NeumorphicTheme.accentColor(
+                                              context)),
+                                    ),
+                                  ))
+                              .toList(),
+                        )
+                      : Container();
                 }),
           ],
         ),

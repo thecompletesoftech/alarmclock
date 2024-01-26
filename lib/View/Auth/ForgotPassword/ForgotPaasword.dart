@@ -1,3 +1,4 @@
+import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
 import 'package:flutter/gestures.dart';
 
 import "../../../Config/Import.dart";
@@ -92,13 +93,13 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                       width: 0.87,
                       name: resetpass,
                       onTap: () {
-                        final isvalidForm = _formkey.currentState!.validate();
-                        if (isvalidForm) {
-                          setState(() {
-                            emailerror = false;
-                          });
-                          nextscreen(context, SignIn());
-                        }
+                        // final isvalidForm = _formkey.currentState!.validate();
+                        // if (isvalidForm) {
+                        //   setState(() {
+                        //     emailerror = false;
+                        //   });
+                        // }
+                        nextscreen(context, NewBottomNavigator());
                       },
                     ),
                     SizedBox(
