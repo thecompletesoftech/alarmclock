@@ -4,6 +4,7 @@ import 'package:clockalarm/Config/Import.dart';
 class AlramController extends GetxController {
   var alarms = <AlarmSettings>[].obs;
   var switchlist = [].obs;
+  var currenttime = "".obs;
   setAlarm(TimeOfDay time, snooze, BuildContext context) {
     final timeOfDay = time;
     final nextDay = DateTime.now().add(const Duration(days: 1));
@@ -13,21 +14,21 @@ class AlramController extends GetxController {
       dateTime = nextDay;
     }
     final alarmSettings = AlarmSettings(
-      id: Random().nextInt(100),
-      dateTime: dateTime,
-      assetAudioPath: 'assets/immigrate.mp3',
-      loopAudio: snooze,
-      vibrate: true,
-      // volumeMax: true,
-      fadeDuration: 3.0,
-      notificationTitle: 'Alarm is Playing',
-      notificationBody: 'Tap to stop',
-      enableNotificationOnKill: true,
-      // stopOnNotificationOpen: true,
-    );
+        id: Random().nextInt(100),
+        dateTime: dateTime,
+        assetAudioPath: 'assets/immigrate.mp3',
+        loopAudio: snooze,
+        vibrate: true,
+        // volumeMax: true,
+        fadeDuration: 3.0,
+        notificationTitle: 'Alarm is Playing',
+        notificationBody: 'Tap to stop',
+        enableNotificationOnKill: true,
+        // stopOnNotificationOpen: true,
+        androidFullScreenIntent: true);
     Alarm.set(alarmSettings: alarmSettings).then((value) {
       print(value.toString());
-      getalram();
+
       //insert to firebase
     }).then((value) {
       //get data of firebase

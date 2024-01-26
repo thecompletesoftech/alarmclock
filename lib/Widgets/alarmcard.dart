@@ -66,50 +66,52 @@ class _AlramCardState extends State<AlramCard> {
                   ),
               ],
             ),
-            FlutterSwitch(
-              width: 70.0,
-              height: 26.0,
-              valueFontSize: 25.0,
-              toggleSize: 25.0,
-              value: widget.swicthvalue!,
-              borderRadius: 30.0,
-              padding: 1.0,
-              showOnOff: false,
-              inactiveColor: !NeumorphicTheme.isUsingDark(context)
-                  ? mycolor().greyscreen
-                  : mycolor().darkbalck,
-              onToggle: (val) {
-                widget.onchange!(val);
-              },
-            ),
             widget.showswitchorsubtile
-                ? Container(
-                    width: 30.0,
-                    height: 10.0,
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: Switch(
-                        onChanged: ((value) {
-                          widget.onchange!(value);
-                        }),
-                        value: widget.swicthvalue!,
-                        inactiveThumbColor: mycolor().darkgreen,
-                        inactiveTrackColor:
-                            !NeumorphicTheme.isUsingDark(context)
-                                ? mycolor().greyscreen
-                                : mycolor().darkbalck,
-                        trackOutlineColor:
-                            MaterialStateProperty.resolveWith((states) {
-                          // If the button is pressed, return green, otherwise blue
-                          if (states.contains(MaterialState.pressed)) {
-                            return Colors.transparent;
-                          }
-                          return Colors.transparent;
-                        }),
-                        activeColor: mycolor().darkgreen,
-                      ),
-                    ),
-                  ).paddingOnly(right: 5)
+                ? FlutterSwitch(
+                    width: 70.0,
+                    height: 26.0,
+                    valueFontSize: 25.0,
+                    toggleSize: 25.0,
+                    value: widget.swicthvalue!,
+                    borderRadius: 30.0,
+                    padding: 1.0,
+                    showOnOff: false,
+                    activeColor: mycolor().darkgreen,
+                    inactiveColor: !NeumorphicTheme.isUsingDark(context)
+                        ? mycolor().greyscreen
+                        : mycolor().darkbalck,
+                    onToggle: (val) {
+                      widget.onchange!(val);
+                    },
+                  )
+
+                // Container(
+                //     width: 30.0,
+                //     height: 10.0,
+                //     child: Transform.scale(
+                //       scale: 0.8,
+                //       child: Switch(
+                //         onChanged: ((value) {
+                //           widget.onchange!(value);
+                //         }),
+                //         value: widget.swicthvalue!,
+                //         inactiveThumbColor: mycolor().darkgreen,
+                //         inactiveTrackColor:
+                //             !NeumorphicTheme.isUsingDark(context)
+                //                 ? mycolor().greyscreen
+                //                 : mycolor().darkbalck,
+                //         trackOutlineColor:
+                //             MaterialStateProperty.resolveWith((states) {
+                //           // If the button is pressed, return green, otherwise blue
+                //           if (states.contains(MaterialState.pressed)) {
+                //             return Colors.transparent;
+                //           }
+                //           return Colors.transparent;
+                //         }),
+                //         activeColor: mycolor().darkgreen,
+                //       ),
+                //     ),
+                //   ).paddingOnly(right: 5)
                 : Row(
                     children: [
                       Container(

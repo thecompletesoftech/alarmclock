@@ -14,7 +14,7 @@ class _AlarmHomeState extends State<AlarmHome> {
   @override
   void initState() {
     _alramController.getalram();
-
+    // _alramController.currenttime.value = DateTime.now().toString();
     super.initState();
   }
 
@@ -33,7 +33,14 @@ class _AlarmHomeState extends State<AlarmHome> {
         child: Column(
           children: [
             SizedBox(height: 10),
-            Clock(),
+            Obx(
+              () => Clock(
+                time: _alramController.currenttime.value == null ||
+                        _alramController.currenttime.value == ""
+                    ? DateTime.now()
+                    : DateTime.parse(_alramController.currenttime.value),
+              ),
+            ),
             SizedBox(height: 50),
             Obx(
               () => _alramController.alarms.length == 0
@@ -50,10 +57,18 @@ class _AlarmHomeState extends State<AlarmHome> {
                             onchange: (value) async {
                               await Alarm.stop(
                                   _alramController.alarms[index].id);
+
+                              _alramController.switchlist[index] =
+                                  !_alramController.switchlist[index];
+                            },
+                            ontapcard: () async {
                               setState(() {
-                                _alramController.switchlist[index] =
-                                    !_alramController.switchlist[index];
+                                _alramController.currenttime.value =
+                                    _alramController.alarms[index].dateTime
+                                        .toString();
                               });
+
+                              await _alramController.getalram();
                             },
                             swicthvalue: _alramController.switchlist[index],
                             time: _alramController.alarms[index].dateTime.hour
