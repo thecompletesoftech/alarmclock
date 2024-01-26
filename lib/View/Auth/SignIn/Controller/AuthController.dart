@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController extends GetxController {
   final emailController = TextEditingController();
@@ -13,6 +12,8 @@ class AuthController extends GetxController {
   var loginloader = false.obs;
   var signuploader = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
+  var box = GetStorage();
+
   Future<User?> loginUsingEmailPassword({required BuildContext context}) async {
     User? user;
     loginloader.value = true;
@@ -23,6 +24,9 @@ class AuthController extends GetxController {
               email: (emailController.text.replaceAll(RegExp(r"\s+"), "")),
               password: passwordController.text);
           user = userCredential.user;
+          if (user != null) {
+            box.write('uid', user!.uid);
+          }
           log("userDetails ==>>>" + user.toString());
         } catch (e) {
           log("Error" + e.toString());
@@ -57,8 +61,8 @@ class AuthController extends GetxController {
   }
 
   signUp(cntx) async {
-    User? user;
     signuploader.value = true;
+    User? user;
     ApiHelper().Api().then((value) async {
       if (value) {
         try {
@@ -68,8 +72,14 @@ class AuthController extends GetxController {
             password: signupconfirmpass.text.replaceAll(RegExp(r"\s+"), ""),
           );
           user = userCredential.user;
+          if (user != null) {
+            Adduser(user, cntx);
+            box.write(
+                'email', (signUpemail.text.replaceAll(RegExp(r"\s+"), "")));
+          }
           log("userDetails ==>>>" + user.toString());
         } catch (e) {
+          signuploader.value = false;
           print('Error during user registration: $e');
           if (e is FirebaseAuthException) {
             print('FirebaseAuthException - ${e.code}: ${e.message}');
@@ -88,8 +98,50 @@ class AuthController extends GetxController {
         }
       }
     });
-    signuploader.value = false;
   }
 
-  Adduser() {}
+  Adduser(user, cntx) {
+    var userdata = {
+      'uid': user.uid,
+      'name': nameController.text,
+      'email': signUpemail.text,
+      'fcm': box.read('fcmtoken'),
+    };
+    log("UserDetail" + userdata.toString());
+    try {
+      FirebaseFirestore.instance
+          .collection("users")
+          .add(userdata)
+          .then((value) {
+        // log("values" + value.id.toString());
+        box.write('userid', user.uid);
+        clearsignupdata();
+        nextscreenwithoutback(cntx, NewBottomNavigator());
+        signuploader.value = false;
+      });
+    } on Exception catch (e) {
+      signuploader.value = false;
+      log("add user Error ==>" + e.toString());
+      Mysnack(retry, e, cntx);
+    }
+  }
+
+  getuserdata(user) async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .where('email', isEqualTo: user.email)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      if (querySnapshot.docs.length < 1) {
+        log('Userdatatata==>');
+      }
+    });
+  }
+
+  clearsignupdata() {
+    nameController.clear();
+    signUpemail.clear();
+    signuppassword.clear();
+    signupconfirmpass.clear();
+  }
 }

@@ -24,6 +24,12 @@ class _SignUpState extends State<SignUp> {
   var Cnfpassworderror = false;
   var Cnfpasserrormsg = '';
 
+  @override
+  void initState() {
+    controller.clearsignupdata();
+    super.initState();
+  }
+
   Future CheckValidation() async {
     final bool emailValid = RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -175,17 +181,21 @@ class _SignUpState extends State<SignUp> {
                   errormsg: Cnfpasserrormsg,
                 ),
                 SizedBox(height: 30),
-                Center(
-                  child: ButtonWidget(
-                    height: 60.0,
-                    width: 0.87,
-                    name: register,
-                    onTap: () {
-                      CheckValidation()
-                          .then((value) => {if (value == false) {
-                            controller.signUp(context )
-                          }});
-                    },
+                Obx(
+                  () => Center(
+                    child: ButtonWidget(
+                      height: 60.0,
+                      width: 0.87,
+                      name: register,
+                      loading: controller.signuploader.value,
+                      onTap: () {
+                        if (controller.signuploader.value == false) {
+                          CheckValidation().then((value) => {
+                                if (value == false) {controller.signUp(context)}
+                              });
+                        }
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: 24),
