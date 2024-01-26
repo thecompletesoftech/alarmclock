@@ -29,7 +29,8 @@ class Utils {
               BoxShadow(
                 color: Color(0x875c5c5c),
                 offset: Offset(-2 * fem, -2 * fem),
-                blurRadius: 5 * fem,
+                blurRadius: 6 * fem,
+                spreadRadius: 1
               ),
             ],
     );

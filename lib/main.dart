@@ -5,6 +5,7 @@ import 'package:timezone/data/latest.dart' as tz;
 void main() async {
   await GetStorage.init();
   tz.initializeTimeZones();
+  await Alarm.init();
   runApp(const MyApp());
 }
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       home: NeumorphicApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        themeMode: MediaQuery.of(context).platformBrightness == Brightness.dark
+        themeMode: MediaQuery.of(context).platformBrightness == Brightness.light
             ? ThemeMode.dark
             : ThemeMode.light,
         theme: NeumorphicThemeData(
