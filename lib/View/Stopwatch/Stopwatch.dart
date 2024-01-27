@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
 
@@ -44,7 +43,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 child: StopwatchClock(
               watchtime: _formattedTime.toString(),
             )),
-            SizedBox(height: 50),
+            SizedBox(height: 10),
             // Text(
             //   _formattedTime,
             //   style: TextStyle(fontSize: 40),
@@ -59,9 +58,10 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                     issmall: true,
                     borderRadius: 20.0,
                     onTap: () {
-                      // setState(() {
-                      //   _lap();
-                      // });
+                      setState(() {
+                        print('object');
+                        _lap();
+                      });
                     },
                   ),
                 ),
@@ -94,36 +94,65 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 ),
               ],
             ).paddingSymmetric(horizontal: 10),
-            _lapTimes.isNotEmpty
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _lapTimes
-                        .map((lapTime) => Text('Lap: $lapTime',
-                            style: TextStyle(fontSize: 16)))
-                        .toList(),
-                  )
-                : Container(),
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 1,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  return AlramCard(
-                    showmedium: true,
-                    medium: 'Lap',
-                    subtitlecolor: NeumorphicTheme.accentColor(context),
-                    onchange: (value) {
-                      setState(() {
-                        isSwitched = !isSwitched;
-                      });
-                    },
-                    swicthvalue: isSwitched,
-                    subtitlestyle: MyTextStyle.mw70018,
-                    time: '1 ',
-                    showswitchorsubtile: false,
-                    subtitle: "00:60:02",
-                  ).paddingOnly(bottom: 10);
+                  return _lapTimes.isNotEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: _lapTimes
+                                  .map((lapTime) => CardBackground(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    '${_lapTimes.indexOf(lapTime) + 1}',
+                                                    style: MyTextStyle.Dynamic(
+                                                        style:
+                                                            MyTextStyle.mw40020,
+                                                        color: NeumorphicTheme
+                                                            .accentColor(
+                                                                context)),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    'Lap',
+                                                    style: MyTextStyle.Dynamic(
+                                                        style:
+                                                            MyTextStyle.mw70014,
+                                                        color: mycolor()
+                                                            .greenlightcolor),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Text(
+                                              '$lapTime',
+                                              style: MyTextStyle.Dynamic(
+                                                  style: MyTextStyle.mw40018,
+                                                  color: NeumorphicTheme
+                                                      .accentColor(context)),
+                                            ),
+                                          ],
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                          ],
+                        )
+                      : Container();
                 }),
           ],
         ),
@@ -146,13 +175,11 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   //   });
   // }
 
-  // void _lap() {
-  //   if (_stopwatch.isRunning) {
-  //     setState(() {
-  //       _lapTimes.insert(0, formatTime(_stopwatch.elapsedMilliseconds));
-  //     });
-  //   }
-  // }
+  void _lap() {
+    if (_stopwatch.elapsedMilliseconds > 0) {
+      _lapTimes.insert(0, formatTime(_stopwatch.elapsedMilliseconds));
+    }
+  }
 
   // String formatTime(milisecond) {
   //   final hours = _stopwatch.elapsed.inHours % 24;
@@ -177,20 +204,26 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     });
   }
 
-  void _reset() {
-    setState(() {
-      _stopwatch.reset();
-    });
-  }
+  // void _reset() {
+  //   setState(() {
+  //     _stopwatch.reset();
+  //   });
+  // }
 
   void _updateTime() {
     final hours = _stopwatch.elapsed.inHours % 24;
     final minutes = _stopwatch.elapsed.inMinutes % 60;
     final seconds = _stopwatch.elapsed.inSeconds % 60;
-
     setState(() {
       _formattedTime =
           '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
     });
+  }
+
+  String formatTime(int milliseconds) {
+    final hours = (milliseconds ~/ Duration.millisecondsPerHour) % 24;
+    final minutes = (milliseconds ~/ Duration.millisecondsPerMinute) % 60;
+    final seconds = (milliseconds ~/ Duration.millisecondsPerSecond) % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}.${(milliseconds % 1000).toString().padLeft(3, '0')}';
   }
 }

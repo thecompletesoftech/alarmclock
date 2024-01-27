@@ -35,7 +35,7 @@ class _StopwatchClockState extends State<StopwatchClock> {
             : Image.asset("assets/stopwatch.png", height: 250),
         if (NeumorphicTheme.isUsingDark(context) == false)
           Text(
-            "10:00:00",
+            widget.watchtime..toString(),
             style: MyTextStyle.Dynamic(
                 style: MyTextStyle.mw70036,
                 color: NeumorphicTheme.accentColor(context)),
