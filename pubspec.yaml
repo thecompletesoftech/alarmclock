@@ -50,6 +50,7 @@ dependencies:
   alarm: ^3.0.6
   flutter_switch: ^0.3.2
   cloud_firestore:
+  fluttertoast: ^8.2.4
 
   
 dev_dependencies:

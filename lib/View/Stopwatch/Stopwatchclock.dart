@@ -1,7 +1,8 @@
 import '../../Config/Import.dart';
 
 class StopwatchClock extends StatefulWidget {
-  const StopwatchClock({super.key});
+  final watchtime;
+  const StopwatchClock({super.key, this.watchtime});
 
   @override
   State<StopwatchClock> createState() => _StopwatchClockState();
@@ -25,13 +26,13 @@ class _StopwatchClockState extends State<StopwatchClock> {
                     isdark: NeumorphicTheme.isUsingDark(context),
                     radius: 250.0 * fem),
                 child: Text(
-                  "10:00:00",
+                  widget.watchtime..toString(),
                   style: MyTextStyle.Dynamic(
                       style: MyTextStyle.mw70036,
                       color: NeumorphicTheme.accentColor(context)),
                 ),
               )
-            : Image.asset("assets/stopwatch.png",height: 250),
+            : Image.asset("assets/stopwatch.png", height: 250),
         if (NeumorphicTheme.isUsingDark(context) == false)
           Text(
             "10:00:00",
