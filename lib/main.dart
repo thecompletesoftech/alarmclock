@@ -1,7 +1,10 @@
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
+
+import 'Config/Notification_firebase.dart';
 
 void main() async {
   await GetStorage.init();
@@ -9,7 +12,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Alarm.init();
+ await PushNotificationService().setupInteractedMessage();
+
+  // Initialize the plugin
+  
+
   runApp(const MyApp());
+}
+
+onSelectNotification(String? payload) async {
+  // Handle the selection of the notification
+  print('Notification selected: $payload');
 }
 
 class MyApp extends StatelessWidget {

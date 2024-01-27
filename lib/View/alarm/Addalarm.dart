@@ -73,9 +73,8 @@ class _AddAlramState extends State<AddAlram> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    var timeofday = TimeOfDay.fromDateTime(_selectedTime);
-                    await _alramController.setAlarm(
-                        timeofday, isSwitched, context);
+                    await _alramController.setAlarm(_selectedTime, isSwitched,
+                        'assets/ImmigrantSong.mp3', context);
 
                     backscreen(context);
                     _alramController.getalram();
