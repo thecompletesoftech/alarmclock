@@ -119,7 +119,7 @@ class AuthController extends GetxController {
           .add(userdata)
           .then((value) {
         // log("values" + value.id.toString());
-        box.write('userid', user.uid);
+        box.write('uid', user.uid);
         clearsignupdata();
         nextscreenwithoutback(cntx, NewBottomNavigator());
         signuploader.value = false;

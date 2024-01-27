@@ -19,6 +19,13 @@ buttonradius({r}) {
   NeumorphicBoxShape.roundRect(BorderRadius.circular(r ?? 15.0));
 }
 
+convert24to12(time) {
+  return DateFormat("hh:mm").format(DateFormat('HH').parse(time));
+}
+getAmPm(time) {
+  return DateFormat("a").format(DateFormat('HH').parse(time));
+}
+
 String formatDate(String? dateString) {
   if (dateString != null) {
     DateTime dateTime = DateTime.parse(dateString);
