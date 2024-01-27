@@ -223,25 +223,22 @@ class _WorldClockState extends State<WorldClock> {
                                   Row(
                                     children: [
                                       Text(
-                                        // formatTime(newitem['time'])
-                                        //     .split(' ')[0],
                                         convert24to12(newitem['time'])
                                             .toString(),
                                         style: MyTextStyle.Dynamic(
-                                            style: MyTextStyle.mw40010,
+                                            style: MyTextStyle.mw40018,
                                             color: NeumorphicTheme.accentColor(
                                                 context)),
                                       ),
                                       SizedBox(
                                         width: 8,
                                       ),
-                                      // Text(
-                                      //   formatTime(newitem['time'])
-                                      //       .split(' ')[1],
-                                      //   style: MyTextStyle.Dynamic(
-                                      //       style: MyTextStyle.mw70014,
-                                      //       color: mycolor().greenlightcolor),
-                                      // ),
+                                      Text(
+                                        getAmPm(newitem['time']).toString(),
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw70014,
+                                            color: mycolor().greenlightcolor),
+                                      ),
                                     ],
                                   ),
                                 ],

@@ -20,7 +20,10 @@ buttonradius({r}) {
 }
 
 convert24to12(time) {
-  return DateFormat("hh:mm a").format(DateFormat('HH').parse(time));
+  return DateFormat("hh:mm").format(DateFormat('HH').parse(time));
+}
+getAmPm(time) {
+  return DateFormat("a").format(DateFormat('HH').parse(time));
 }
 
 String formatDate(String? dateString) {
