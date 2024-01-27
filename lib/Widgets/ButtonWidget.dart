@@ -20,6 +20,7 @@ class ButtonWidget extends StatefulWidget {
   final showon;
   final issmall;
   final bool loading;
+  final child;
 
   ButtonWidget(
       {Key? key,
@@ -38,7 +39,7 @@ class ButtonWidget extends StatefulWidget {
       this.txtcolor,
       this.showarrow = false,
       this.txtstyle,
-      this.issmall = false})
+      this.issmall = false, this.child})
       : super(key: key);
   @override
   State<ButtonWidget> createState() => _ButtonWidgetState();

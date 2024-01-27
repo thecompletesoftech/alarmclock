@@ -44,11 +44,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
               watchtime: _formattedTime.toString(),
             )),
             SizedBox(height: 10),
-            // Text(
-            //   _formattedTime,
-            //   style: TextStyle(fontSize: 40),
-            // ),
-            // Text(_formattedTime.toString()),
             Row(
               children: [
                 Expanded(
@@ -68,26 +63,26 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 SizedBox(width: 20),
                 Expanded(
                   child: ButtonWidget(
-                    name: start,
+                    name: isSwitched ? 'Stop' : 'Start',
                     issmall: true,
                     txtstyle: MyTextStyle.mw40024,
                     borderRadius: 20.0,
                     onTap: () {
                       setState(() {
-                        _start();
+                        toggleTimer();
                       });
                     },
                   ),
                 ),
-                Expanded(
+                Expanded( 
                   child: ButtonWidget(
-                    name: 'stop',
-                    txtstyle: MyTextStyle.mw40024,
+                    name: 'Reset',
                     issmall: true,
+                    txtstyle: MyTextStyle.mw40024,
                     borderRadius: 20.0,
                     onTap: () {
                       setState(() {
-                        _stop();
+                        _reset();
                       });
                     },
                   ),
@@ -150,30 +145,43 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                                       ))
                                   .toList(),
                             ),
+                            SizedBox(
+                              height: 20,
+                            )
                           ],
                         )
                       : Container();
                 }),
+            SizedBox(height: 20)
           ],
         ),
       ),
     );
   }
 
-  // void _start() {
-  //   setState(() {
-  //     _stopwatch.start();
-  //   });
-  // }
+  void _pause() {
+    setState(() {
+      _stopwatch.stop();
+      isSwitched = false;
+    });
+  }
 
-  // void _stop() {
-  //   setState(() {
-  //     _stopwatch.stop();
-  //     if (_stopwatch.elapsedMilliseconds > 0) {
-  //       _lapTimes.insert(0, formatTime(_stopwatch.elapsedMilliseconds));
-  //     }
-  //   });
-  // }
+  void _reset() {
+    setState(() {
+      _stopwatch.reset();
+      _lapTimes.clear();
+      _formattedTime = '00:00:00';
+      isSwitched = false;
+    });
+  }
+
+  void toggleTimer() {
+    if (_stopwatch.isRunning) {
+      _pause();
+    } else {
+      _start();
+    }
+  }
 
   void _lap() {
     if (_stopwatch.elapsedMilliseconds > 0) {
@@ -181,34 +189,20 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     }
   }
 
-  // String formatTime(milisecond) {
-  //   final hours = _stopwatch.elapsed.inHours % 24;
-  //   final minutes = _stopwatch.elapsed.inMinutes % 60;
-  //   final seconds = _stopwatch.elapsed.inSeconds % 60;
-  //   // int minutes = (milliseconds / 60000).floor();
-  //   // int seconds = ((milliseconds % 60000) / 1000).floor();
-  //   // int millisecondsPart = (milliseconds % 1000);
-  //   return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  // }
-
   void _start() {
     setState(() {
       _stopwatch.start();
       _updateTime();
+      isSwitched = true;
     });
   }
 
   void _stop() {
     setState(() {
       _stopwatch.stop();
+      isSwitched = false;
     });
   }
-
-  // void _reset() {
-  //   setState(() {
-  //     _stopwatch.reset();
-  //   });
-  // }
 
   void _updateTime() {
     final hours = _stopwatch.elapsed.inHours % 24;
@@ -221,9 +215,14 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   }
 
   String formatTime(int milliseconds) {
-    final hours = (milliseconds ~/ Duration.millisecondsPerHour) % 24;
+    final hours = milliseconds ~/ Duration.millisecondsPerHour;
     final minutes = (milliseconds ~/ Duration.millisecondsPerMinute) % 60;
     final seconds = (milliseconds ~/ Duration.millisecondsPerSecond) % 60;
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}.${(milliseconds % 1000).toString().padLeft(3, '0')}';
+
+    String hoursStr = hours.toString().padLeft(2, '0');
+    String minutesStr = minutes.toString().padLeft(2, '0');
+    String secondsStr = seconds.toString().padLeft(2, '0');
+
+    return '$hoursStr:$minutesStr:$secondsStr';
   }
 }
