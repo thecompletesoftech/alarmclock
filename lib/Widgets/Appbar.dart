@@ -52,7 +52,6 @@ class CustomeAppbar extends StatelessWidget {
                         style: MyTextStyle.mw60030,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
-                  SizedBox(width: 7),
                   if (showsubtitle)
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
