@@ -36,3 +36,5 @@ export 'package:alarm/alarm.dart';
 export 'package:alarm/model/alarm_settings.dart';
 export 'package:clockalarm/View/alarm/alarmController.dart';
 export 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:firebase_auth/firebase_auth.dart';
