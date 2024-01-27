@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/ForgotPassword/ForgotPaasword.dart';
-import 'package:clockalarm/View/Auth/SignIn/Controller/AuthController.dart';
-import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
+import 'package:clockalarm/View/Auth/Controller/AuthController.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 
 class SignIn extends StatefulWidget {

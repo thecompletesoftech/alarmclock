@@ -19,7 +19,7 @@ class _WorldClockState extends State<WorldClock> {
     super.initState();
     controller.searchlist.clear();
     controller.searchlist.value = Searchlist;
-    controller.setup('Europe/Istanbul');
+    controller.setups('Europe/Istanbul', context);
   }
 
   @override
@@ -186,52 +186,66 @@ class _WorldClockState extends State<WorldClock> {
                 height: 30,
               ),
               if (controller.currentcitytime.length > 0)
-                ListView.builder(
-                    itemCount: controller.currentcitytime.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      var newitem = controller.currentcitytime[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: CardBackground(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  newitem['name'],
-                                  style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw40020,
-                                      color:
-                                          NeumorphicTheme.accentColor(context)),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  formatTime(newitem['time']).split(' ')[0],
-                                  style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw40020,
-                                      color:
-                                          NeumorphicTheme.accentColor(context)),
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  formatTime(newitem['time']).split(' ')[1],
-                                  style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw70014,
-                                      color: mycolor().greenlightcolor),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
-                      );
+                StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection("worldclocklist")
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      }
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            DocumentSnapshot newitem = snapshot.data!.docs[index];
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: CardBackground(
+                                  child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        newitem['placename'],
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw40020,
+                                            color: NeumorphicTheme.accentColor(
+                                                context)),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        // formatTime(newitem['time'])
+                                        //     .split(' ')[0],
+                                        newitem['time'].toString(),
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw40010,
+                                            color: NeumorphicTheme.accentColor(
+                                                context)),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      // Text(
+                                      //   formatTime(newitem['time'])
+                                      //       .split(' ')[1],
+                                      //   style: MyTextStyle.Dynamic(
+                                      //       style: MyTextStyle.mw70014,
+                                      //       color: mycolor().greenlightcolor),
+                                      // ),
+                                    ],
+                                  ),
+                                ],
+                              )),
+                            );
+                          });
                     }),
             ],
           ),

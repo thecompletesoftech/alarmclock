@@ -10,12 +10,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  var box = GetStorage();
   void initState() {
-    super.initState();
-    Timer(
+    Timer(  
       Duration(seconds: 3),
-      () => nextscreenwithoutback(context, SignIn()),
+      () => nextscreenwithoutback(
+          context, box.read('uid') != null ? NewBottomNavigator() : SignIn()),
     );
+    super.initState();
   }
 
   @override

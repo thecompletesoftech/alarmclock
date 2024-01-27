@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/gestures.dart';
-import '../../SignIn/Controller/AuthController.dart';
+import '../../Controller/AuthController.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
