@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController extends GetxController {
@@ -13,22 +14,22 @@ class AuthController extends GetxController {
   var loginloader = false.obs;
   var signuploader = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
-  Future<User?> loginUsingEmailPassword({required BuildContext context}) async {
+  loginUsingEmailPassword({required BuildContext context}) async {
     User? user;
     loginloader.value = true;
-    ApiHelper().Api().then((value) async {
+    return ApiHelper().Api().then((value) async {
       if (value) {
         try {
           UserCredential userCredential = await auth.signInWithEmailAndPassword(
               email: (emailController.text.replaceAll(RegExp(r"\s+"), "")),
               password: passwordController.text);
-          user = userCredential.user;
-          log("userDetails ==>>>" + user.toString());
+          return userCredential.user;
+          // loginloader.value = false;
         } catch (e) {
-          log("Error" + e.toString());
           if (e is FirebaseAuthException) {
             print('Login Catch===> ' + e.code.toString());
             print('FirebaseAuthException - ${e.code}: ${e.message}');
+
             switch (e.code) {
               case 'invalid-email':
                 Mysnack(retry, invalidemail, context);
@@ -48,12 +49,14 @@ class AuthController extends GetxController {
               default:
                 Mysnack(retry, somethingwrong, context);
             }
+            loginloader.value = false;
           }
         }
       }
     });
-    loginloader.value = false;
-    return user;
+    // loginloader.value = false;
+
+    // return user;
   }
 
   signUp(cntx) async {
