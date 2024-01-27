@@ -6,6 +6,8 @@ class AlramController extends GetxController {
   var switchlist = [].obs;
   var currenttime = "".obs;
   var currentsound = "".obs;
+  var alarmisloading = false.obs;
+  var box = GetStorage();
 
   setAlarm(TimeOfDay time, snooze, BuildContext context) {
     final timeOfDay = time;
@@ -28,9 +30,8 @@ class AlramController extends GetxController {
         enableNotificationOnKill: true,
         // stopOnNotificationOpen: true,
         androidFullScreenIntent: true);
-    Alarm.set(alarmSettings: alarmSettings).then((value) {
-      print(value.toString());
-
+    Alarm.set(alarmSettings: alarmSettings).then((value) async {
+      await AddAlramtime(dateTime, snooze, 'assets/ImmigrantSong.mp3', context);
       //insert to firebase
     }).then((value) {
       //get data of firebase
@@ -45,4 +46,37 @@ class AlramController extends GetxController {
     alarms.sort((a, b) => a.dateTime.isBefore(b.dateTime) ? 0 : 1);
   }
 
+  AddAlramtime(dateTime, snooze, audio, cntx) {
+    alarmisloading.value = true;
+    var uid = box.read('uid');
+
+    var alramdata = {
+      "uid": uid,
+      "id": Random().nextInt(100),
+      "dateTime": dateTime,
+      "assetAudioPath": audio,
+      "loopAudio": snooze,
+      "vibrate": true,
+      "fadeDuration": 3.0,
+      "notificationTitle": 'Alarm is Playing',
+      "notificationBody": 'Tap to stop',
+      "enableNotificationOnKill": true,
+      "androidFullScreenIntent": true
+    };
+    // log("UserDetail" + userdata.toString());
+    try {
+      FirebaseFirestore.instance
+          .collection("alarm")
+          .add(alramdata)
+          .then((value) {
+        // log("values" + value.id.toString());
+
+        alarmisloading.value = false;
+      });
+    } on Exception catch (e) {
+      // log("Add WorldClock Error ==>" + e.toString());
+      alarmisloading.value = false;
+      Mysnack(retry, e, cntx);
+    }
+  }
 }

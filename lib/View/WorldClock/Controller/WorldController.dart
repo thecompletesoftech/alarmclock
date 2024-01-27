@@ -1,8 +1,6 @@
 import 'dart:developer';
-
 import 'package:clockalarm/Config/Import.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
 
 class WorldController extends GetxController {
   final searchlist = [].obs;
@@ -18,11 +16,13 @@ class WorldController extends GetxController {
         .toList();
     if (add.length < 1) {
       currentcitytime.add({'name': location, 'time': now});
-      AddWorldtime(location, now, cntx);
+      AddWorldtime(
+          location, now.hour.toString() + ":" + now.minute.toString(), cntx);
     } else {
       Mysnack(retry, alreadyaddedclock, cntx);
     }
   }
+
   setups(location, cntx) async {
     var istanbulTimeZone = tz.getLocation(location);
     var now = tz.TZDateTime.now(istanbulTimeZone);
@@ -40,6 +40,7 @@ class WorldController extends GetxController {
   AddWorldtime(location, time, cntx) {
     addclockloading.value = true;
     var uid = box.read('uid');
+
     var userdata = {
       'uid': uid,
       'placename': location,

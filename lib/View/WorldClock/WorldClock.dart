@@ -199,7 +199,8 @@ class _WorldClockState extends State<WorldClock> {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
-                            DocumentSnapshot newitem = snapshot.data!.docs[index];
+                            DocumentSnapshot newitem =
+                                snapshot.data!.docs[index];
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15.0),
@@ -224,7 +225,8 @@ class _WorldClockState extends State<WorldClock> {
                                       Text(
                                         // formatTime(newitem['time'])
                                         //     .split(' ')[0],
-                                        newitem['time'].toString(),
+                                        convert24to12(newitem['time'])
+                                            .toString(),
                                         style: MyTextStyle.Dynamic(
                                             style: MyTextStyle.mw40010,
                                             color: NeumorphicTheme.accentColor(
