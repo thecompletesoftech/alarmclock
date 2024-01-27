@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController extends GetxController {
   final emailController = TextEditingController();
@@ -13,6 +12,9 @@ class AuthController extends GetxController {
   var loginloader = false.obs;
   var signuploader = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  var box = GetStorage();
+
   Future<User?> loginUsingEmailPassword({required BuildContext context}) async {
     User? user;
     loginloader.value = true;
@@ -23,7 +25,12 @@ class AuthController extends GetxController {
               email: (emailController.text.replaceAll(RegExp(r"\s+"), "")),
               password: passwordController.text);
           user = userCredential.user;
+          if (user != null) {
+            box.write('uid', user!.uid);
+          }
           log("userDetails ==>>>" + user.toString());
+          return userCredential.user;
+          // loginloader.value = false;
         } catch (e) {
           if (e is FirebaseAuthException) {
             print('Login Catch===> ' + e.code.toString());
