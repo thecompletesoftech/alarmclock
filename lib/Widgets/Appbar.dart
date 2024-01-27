@@ -46,12 +46,12 @@ class CustomeAppbar extends StatelessWidget {
                               color: NeumorphicTheme.defaultTextColor(context))
                           .paddingOnly(bottom: 10, right: 20),
                     ),
-                  Text(
-                    titletext,
-                    style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw60030,
-                        color: NeumorphicTheme.accentColor(context)),
-                  ),
+                  Text(titletext,
+                  maxLines: 1,
+                      style: MyTextStyle.Dynamic(
+                          style: MyTextStyle.mw60030,
+                          color: NeumorphicTheme.accentColor(context)),
+                      overflow: TextOverflow.ellipsis),
                   SizedBox(width: 7),
                   if (showsubtitle)
                     Padding(

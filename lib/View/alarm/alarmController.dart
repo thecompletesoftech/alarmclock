@@ -6,6 +6,7 @@ class AlramController extends GetxController {
   var switchlist = [].obs;
   var currenttime = "".obs;
   var currentsound = "".obs;
+
   setAlarm(TimeOfDay time, snooze, BuildContext context) {
     final timeOfDay = time;
     final nextDay = DateTime.now().add(const Duration(days: 1));
@@ -43,4 +44,5 @@ class AlramController extends GetxController {
     print(alarms.toString());
     alarms.sort((a, b) => a.dateTime.isBefore(b.dateTime) ? 0 : 1);
   }
+
 }
