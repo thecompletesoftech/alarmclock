@@ -9,18 +9,12 @@ class AlramController extends GetxController {
   var alarmisloading = false.obs;
   var box = GetStorage();
 
-  setAlarm(TimeOfDay time, snooze, BuildContext context) {
-    final timeOfDay = time;
-    final nextDay = DateTime.now().add(const Duration(days: 1));
-    var dateTime = DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day, timeOfDay.hour, timeOfDay.minute);
-    if (dateTime.isBefore(DateTime.now())) {
-      dateTime = nextDay;
-    }
+  setAlarm(time, snooze, audio, BuildContext context) {
+    print("dateTime" + time.toString());
     final alarmSettings = AlarmSettings(
         id: Random().nextInt(100),
-        dateTime: dateTime,
-        assetAudioPath: 'assets/ImmigrantSong.mp3',
+        dateTime: time,
+        assetAudioPath: audio,
         loopAudio: snooze,
         vibrate: true,
         // volumeMax: true,
@@ -31,20 +25,53 @@ class AlramController extends GetxController {
         // stopOnNotificationOpen: true,
         androidFullScreenIntent: true);
     Alarm.set(alarmSettings: alarmSettings).then((value) async {
-      await AddAlramtime(dateTime, snooze, 'assets/ImmigrantSong.mp3', context);
+      await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
+          snooze, audio, context);
+
       //insert to firebase
     }).then((value) {
       //get data of firebase
     });
   }
 
-  getalram() {
+  getalram() async {
+    print("dashkjas");
     switchlist.value = [];
     alarms.value = Alarm.getAlarms();
-    switchlist.value = List.filled(alarms.length, true);
+    final int documents =
+        await FirebaseFirestore.instance.collection('alarm').snapshots().length;
+    print("documents length" + documents.toString());
+    switchlist.value = List.filled(documents, true);
     print(alarms.toString());
     alarms.sort((a, b) => a.dateTime.isBefore(b.dateTime) ? 0 : 1);
   }
+
+  // Future<void> scheduleRepeatingAlarm() async {
+  //   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  //       FlutterLocalNotificationsPlugin();
+  //   var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+  //     'repeating_channel_id',
+  //     'Repeating Channel Name',
+  //     'Repeating Channel Description',
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //     enableVibration: true,
+  //   );
+  //   var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+  //   var platformChannelSpecifics = NotificationDetails(
+  //       android: androidPlatformChannelSpecifics,
+  //       iOS: iOSPlatformChannelSpecifics);
+
+  //   // Schedule the repeating alarm
+  //   await flutterLocalNotificationsPlugin.periodicallyShow(
+  //     0,
+  //     'Repeating Alarm Title',
+  //     'Repeating Alarm Body',
+  //     RepeatInterval.hourly,
+  //     platformChannelSpecifics,
+  //     payload: 'Repeating Alarm Payload',
+  //   );
+  // }
 
   AddAlramtime(dateTime, snooze, audio, cntx) {
     alarmisloading.value = true;

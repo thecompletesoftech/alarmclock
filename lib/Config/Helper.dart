@@ -22,6 +22,11 @@ buttonradius({r}) {
 convert24to12(time) {
   return DateFormat("hh:mm").format(DateFormat('HH').parse(time));
 }
+
+convert12to24(time) {
+  return DateFormat("hh:mm").format(DateFormat('HH:mm').parse(time));
+}
+
 getAmPm(time) {
   return DateFormat("a").format(DateFormat('HH').parse(time));
 }
