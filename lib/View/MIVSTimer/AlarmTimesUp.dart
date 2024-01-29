@@ -22,11 +22,11 @@ class _AlramTimesupState extends State<AlramTimesup> {
     },
     {
       'id': 2,
-      'name': 'Start Next Interval Increase Interval by Snooze Duration',
+      'name': 'Start Next Interval Increase Interval \n by Snooze Duration',
     },
     {
       'id': 3,
-      'name': 'Start Next Interval Decrease Interval by Snooze Duration',
+      'name': 'Start Next Interval Decrease Interval \n  by Snooze Duration',
     },
     {
       'id': 4,

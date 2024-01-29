@@ -53,6 +53,7 @@ dependencies:
   fluttertoast: ^8.2.4
   flutter_local_notifications: ^5.0.0
   firebase_messaging:
+  audioplayers: ^5.2.1
   
 dev_dependencies:
   flutter_test:
