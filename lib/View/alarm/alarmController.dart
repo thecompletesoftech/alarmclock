@@ -6,7 +6,9 @@ class AlramController extends GetxController {
   var switchlist = [].obs;
   var currenttime = "".obs;
   var currentsound = "".obs;
+  var currentsoundpath = "".obs;
   var alarmisloading = false.obs;
+  var getalarmisloading = false.obs;
   var box = GetStorage();
 
   setAlarm(time, snooze, audio, BuildContext context) {
@@ -26,7 +28,7 @@ class AlramController extends GetxController {
         androidFullScreenIntent: true);
     Alarm.set(alarmSettings: alarmSettings).then((value) async {
       await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
-          snooze, audio, context);
+          time.toString(), snooze, audio, context);
 
       //insert to firebase
     }).then((value) {
@@ -34,16 +36,32 @@ class AlramController extends GetxController {
     });
   }
 
+  alramstatus(uid, status) async {
+    QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
+        .collection("alarm")
+        .where("id", isEqualTo: uid)
+        .get();
+    if (_querySnapshot.docs.isNotEmpty) {
+      FirebaseFirestore.instance
+          .collection("alarm")
+          .doc(_querySnapshot.docs[0].id)
+          .update({"alarmstatus": status});
+      print(_querySnapshot.docs[0].id.toString());
+    }
+  }
+
   getalram() async {
-    print("dashkjas");
+    getalarmisloading.value = true;
     switchlist.value = [];
     alarms.value = Alarm.getAlarms();
-    final int documents =
-        await FirebaseFirestore.instance.collection('alarm').snapshots().length;
+    final QuerySnapshot qSnap =
+        await FirebaseFirestore.instance.collection('alarm').get();
+    final int documents = qSnap.docs.length;
     print("documents length" + documents.toString());
     switchlist.value = List.filled(documents, true);
-    print(alarms.toString());
+    print("alarams" + alarms.toString());
     alarms.sort((a, b) => a.dateTime.isBefore(b.dateTime) ? 0 : 1);
+    getalarmisloading.value = false;
   }
 
   // Future<void> scheduleRepeatingAlarm() async {
@@ -73,7 +91,7 @@ class AlramController extends GetxController {
   //   );
   // }
 
-  AddAlramtime(dateTime, snooze, audio, cntx) {
+  AddAlramtime(dateTime, date, snooze, audio, cntx) {
     alarmisloading.value = true;
     var uid = box.read('uid');
 
@@ -81,9 +99,11 @@ class AlramController extends GetxController {
       "uid": uid,
       "id": Random().nextInt(100),
       "dateTime": dateTime,
+      "date": date,
       "assetAudioPath": audio,
       "loopAudio": snooze,
       "vibrate": true,
+      "alarmstatus": true,
       "fadeDuration": 3.0,
       "notificationTitle": 'Alarm is Playing',
       "notificationBody": 'Tap to stop',
