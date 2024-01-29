@@ -59,8 +59,7 @@ class _WorldClockState extends State<WorldClock> {
               CarouselSlider(
                 options: CarouselOptions(
                   reverse: false,
-                 
-                  height: 280,
+                 height: 280,
                   initialPage: currentindex,
                   onPageChanged: (index, reason) {
                     setState(() {
