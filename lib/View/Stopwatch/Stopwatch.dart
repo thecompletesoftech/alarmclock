@@ -45,50 +45,90 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
             )),
             SizedBox(height: 10),
             Row(
-              children: [
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
                 Expanded(
                   child: ButtonWidget(
-                    name: lap,
+                    width: 60.0,
                     txtstyle: MyTextStyle.mw40024,
                     issmall: true,
                     borderRadius: 20.0,
-                    onTap: () {
-                      setState(() {
-                        print('object');
-                        _lap();
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: ButtonWidget(
+                    onTap: isSwitched ? stop : start,
                     name: isSwitched ? 'Stop' : 'Start',
-                    issmall: true,
-                    txtstyle: MyTextStyle.mw40024,
-                    borderRadius: 20.0,
-                    onTap: () {
-                      setState(() {
-                        toggleTimer();
-                      });
-                    },
                   ),
                 ),
-                Expanded( 
-                  child: ButtonWidget(
-                    name: 'Reset',
-                    issmall: true,
-                    txtstyle: MyTextStyle.mw40024,
-                    borderRadius: 20.0,
-                    onTap: () {
-                      setState(() {
-                        _reset();
-                      });
-                    },
+                if (isSwitched)
+                  Expanded(
+                    child: ButtonWidget(
+                      width: 60.0,
+                      txtstyle: MyTextStyle.mw40024,
+                      issmall: true,
+                      borderRadius: 20.0,
+                      onTap: reset,
+                      name: 'Reset',
+                      child: Text('Reset'),
+                    ),
+                  )
+                else
+                  Expanded(
+                    child: ButtonWidget(
+                      txtstyle: MyTextStyle.mw40024,
+                      issmall: true,
+                      borderRadius: 20.0,
+                      onTap: lap,
+                      name: 'Lap',
+                      child: Text('Lap'),
+                    ),
                   ),
-                ),
               ],
             ).paddingSymmetric(horizontal: 10),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: ButtonWidget(
+            //         name: lap,
+            //         txtstyle: MyTextStyle.mw40024,
+            //         issmall: true,
+            //         borderRadius: 20.0,
+            //         onTap: () {
+            //           setState(() {
+            //             print('object');
+            //             _lap();
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //     SizedBox(width: 20),
+            //     Expanded(
+            //       child: ButtonWidget(
+            //         name: isSwitched ? 'Stop' : 'Start',
+            //         issmall: true,
+            //         txtstyle: MyTextStyle.mw40024,
+            //         borderRadius: 20.0,
+            //         onTap: () {
+            //           setState(() {
+            //             isSwitched ?
+            //             // toggleTimer();
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: ButtonWidget(
+            //         name: 'Reset',
+            //         issmall: true,
+            //         txtstyle: MyTextStyle.mw40024,
+            //         borderRadius: 20.0,
+            //         onTap: () {
+            //           setState(() {
+            //             _reset();
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //   ],
+            // ).paddingSymmetric(horizontal: 10),
+
             ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -151,7 +191,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                           ],
                         )
                       : Container();
-                }),
+                }).paddingSymmetric(horizontal: 10),
             SizedBox(height: 20)
           ],
         ),
@@ -159,48 +199,34 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     );
   }
 
-  void _pause() {
-    setState(() {
-      _stopwatch.stop();
-      isSwitched = false;
-    });
-  }
-
-  void _reset() {
-    setState(() {
-      _stopwatch.reset();
-      _lapTimes.clear();
-      _formattedTime = '00:00:00';
-      isSwitched = false;
-    });
-  }
-
-  void toggleTimer() {
-    if (_stopwatch.isRunning) {
-      _pause();
-    } else {
-      _start();
-    }
-  }
-
-  void _lap() {
-    if (_stopwatch.elapsedMilliseconds > 0) {
-      _lapTimes.insert(0, formatTime(_stopwatch.elapsedMilliseconds));
-    }
-  }
-
-  void _start() {
+  void start() {
     setState(() {
       _stopwatch.start();
-      _updateTime();
       isSwitched = true;
     });
   }
 
-  void _stop() {
+  void stop() {
     setState(() {
       _stopwatch.stop();
       isSwitched = false;
+    });
+  }
+
+  void reset() {
+    setState(() {
+      _stopwatch.reset();
+      _lapTimes.clear();
+      isSwitched = false;
+      // _stopwatch.stop();
+    });
+  }
+
+  void lap() {
+    setState(() {
+      if (_stopwatch.elapsedMilliseconds > 0) {
+        _lapTimes.insert(0, formatTime(_stopwatch.elapsedMilliseconds));
+      }
     });
   }
 
