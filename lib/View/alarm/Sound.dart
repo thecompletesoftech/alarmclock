@@ -10,9 +10,9 @@ class Sound extends StatefulWidget {
 
 class _SoundState extends State<Sound> {
   var soundlist = [
-    {"title": "Immigrant Song"},
-    {"title": "Super Mario"},
-    {"title": "Breaking"},
+    {"title": "Immigrant Song", "path": "assets/ringtone/ImmigrantSong.mp3"},
+    {"title": "Super Mario", "path": "assets/ringtone/Super-Mario.mp3"},
+    {"title": "Breaking", "path": "assets/ringtone/Breaking-Me-Tik-Tok.mp3"},
     {"title": "Canopy"},
     {"title": "Thursday"},
     {"title": "Chalet"},
@@ -21,7 +21,7 @@ class _SoundState extends State<Sound> {
     {"title": "Chirp"},
     {"title": "Valley"}
   ];
-
+  AlramController _alramController = Get.put(AlramController());
   String time = "-";
   bool isSwitched = false;
   @override
@@ -81,6 +81,11 @@ class _SoundState extends State<Sound> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
+                      _alramController.currentsound.value =
+                          soundlist[index]['title'].toString();
+                      _alramController.currentsoundpath.value =
+                          soundlist[index]['path'].toString();
+                      backscreen(context);
                       // if (index == 0) {
                       //   // final player = AudioCache();
                       //   // player.play('assets/ImmigrantSong.mp3');

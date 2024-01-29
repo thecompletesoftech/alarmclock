@@ -45,102 +45,60 @@ class _AlarmHomeState extends State<AlarmHome> {
               ),
             ),
             SizedBox(height: 50),
-            StreamBuilder<QuerySnapshot>(
-                stream:
-                    FirebaseFirestore.instance.collection("alarm").snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: Text(
-                        noanyalarfound,
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw50018,
-                            color: NeumorphicTheme.defaultTextColor(context)),
-                      ),
-                    );
-                  }
-                  return ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        DocumentSnapshot newitem = snapshot.data!.docs[index];
-                        return AlramCard(
-                          showmedium: true,
-                          medium: getAmPm(newitem['dateTime']).toString(),
-                          onchange: (value) async {
-                            await Alarm.stop(_alramController.alarms[index].id);
+            Obx(
+              () => _alramController.getalarmisloading.value
+                  ? Center(child: CircularProgressIndicator())
+                  : StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection("alarm")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: Text(
+                              noanyalarfound,
+                              style: MyTextStyle.Dynamic(
+                                  style: MyTextStyle.mw50018,
+                                  color: NeumorphicTheme.defaultTextColor(
+                                      context)),
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                            itemCount: snapshot.data!.docs.length,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              DocumentSnapshot newitem =
+                                  snapshot.data!.docs[index];
+                              return AlramCard(
+                                showmedium: true,
+                                medium: getAmPm(newitem['dateTime']).toString(),
+                                onchange: (value) async {
+                                  await Alarm.stop(newitem['id']);
+                                  _alramController.alramstatus(
+                                      newitem['id'],
+                                      newitem['alarmstatus'] == true
+                                          ? false
+                                          : true);
+                                },
+                                ontapcard: () async {
+                                  setState(() {
+                                    _alramController.currenttime.value =
+                                        newitem['date'].toString();
+                                  });
 
-                            _alramController.switchlist[index] =
-                                !_alramController.switchlist[index];
-                          },
-                          ontapcard: () async {
-                            setState(() {
-                              _alramController.currenttime.value =
-                                  _alramController.alarms[index].dateTime
-                                      .toString();
+                                  await _alramController.getalram();
+                                },
+                                swicthvalue: newitem['alarmstatus'],
+                                time: convert12to24(newitem['dateTime'])
+                                    .toString(),
+                                showswitchorsubtile: true,
+                                subtitle: "",
+                              ).paddingOnly(bottom: 10, top: 5);
                             });
-
-                            await _alramController.getalram();
-                          },
-                          swicthvalue: true,
-                          time: convert12to24(newitem['dateTime']).toString(),
-
-                          // convert12to24(_alramController
-                          //         .alarms[index].dateTime.hour
-                          //         .toString() +
-                          //     ":" +
-                          //     _alramController
-                          //         .alarms[index].dateTime.minute
-                          //         .toString()),
-                          showswitchorsubtile: true,
-                          subtitle: "",
-                        ).paddingOnly(bottom: 10, top: 5);
-                      });
-                }),
-
-            //  ListView.builder(
-            //     physics: NeverScrollableScrollPhysics(),
-            //     shrinkWrap: true,
-            //     itemCount: _alramController.alarms.length,
-            //     itemBuilder: (context, index) {
-            //       return Obx(
-            //         () => AlramCard(
-            //           showmedium: true,
-            //           medium: getAmPm(_alramController
-            //                   .alarms[index].dateTime.hour
-            //                   .toString())
-            //               .toString()
-            //               .toLowerCase(),
-            //           onchange: (value) async {
-            //             await Alarm.stop(
-            //                 _alramController.alarms[index].id);
-
-            //             _alramController.switchlist[index] =
-            //                 !_alramController.switchlist[index];
-            //           },
-            //           ontapcard: () async {
-            //             setState(() {
-            //               _alramController.currenttime.value =
-            //                   _alramController.alarms[index].dateTime
-            //                       .toString();
-            //             });
-
-            //             await _alramController.getalram();
-            //           },
-            //           swicthvalue: _alramController.switchlist[index],
-            //           time: convert12to24(_alramController
-            //                   .alarms[index].dateTime.hour
-            //                   .toString() +
-            //               ":" +
-            //               _alramController.alarms[index].dateTime.minute
-            //                   .toString()),
-            //           showswitchorsubtile: true,
-            //           subtitle: "",
-            //         ).paddingOnly(bottom: 10, top: 5),
-            //       );
-            //     },
-            //   ),
+                      }),
+            ),
           ],
         ),
       ),
