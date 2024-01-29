@@ -73,7 +73,10 @@ class _AlarmHomeState extends State<AlarmHome> {
                                   snapshot.data!.docs[index];
                               return AlramCard(
                                 showmedium: true,
-                                medium: getAmPm(newitem['dateTime']).toString(),
+                                medium: "   " +
+                                    getAmPm(newitem['dateTime'])
+                                        .toString()
+                                        .toLowerCase(),
                                 onchange: (value) async {
                                   await Alarm.stop(newitem['id']);
                                   _alramController.alramstatus(
@@ -95,7 +98,17 @@ class _AlarmHomeState extends State<AlarmHome> {
                                     .toString(),
                                 showswitchorsubtile: true,
                                 subtitle: "",
-                              ).paddingOnly(bottom: 10, top: 5);
+                              ).paddingOnly(
+                                bottom: NeumorphicTheme.isUsingDark(context)
+                                    ? 20
+                                    : 0,
+                                left: NeumorphicTheme.isUsingDark(context)
+                                    ? 5
+                                    : 0,
+                                right: NeumorphicTheme.isUsingDark(context)
+                                    ? 5
+                                    : 0,
+                              );
                             });
                       }),
             ),

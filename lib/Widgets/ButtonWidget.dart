@@ -39,7 +39,8 @@ class ButtonWidget extends StatefulWidget {
       this.txtcolor,
       this.showarrow = false,
       this.txtstyle,
-      this.issmall = false, this.child})
+      this.issmall = false,
+      this.child})
       : super(key: key);
   @override
   State<ButtonWidget> createState() => _ButtonWidgetState();
@@ -52,6 +53,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     var size = MediaQuery.of(context).size;
     return BtnBackground(
+      borderRadius: widget.borderRadius,
       width: size.width * widget.width,
       height: widget.height,
       issmall: widget.issmall,

@@ -59,7 +59,8 @@ class _WorldClockState extends State<WorldClock> {
               CarouselSlider(
                 options: CarouselOptions(
                   reverse: false,
-                  height: 250,
+                 
+                  height: 280,
                   initialPage: currentindex,
                   onPageChanged: (index, reason) {
                     setState(() {
@@ -243,7 +244,7 @@ class _WorldClockState extends State<WorldClock> {
                                     ],
                                   ),
                                 ],
-                              )),
+                              )).paddingOnly(bottom: 20),
                             );
                           });
                     }),
