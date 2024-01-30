@@ -107,6 +107,7 @@ class AuthController extends GetxController {
 
   Adduser(user, cntx) {
     var userdata = {
+      'id': "",
       'uid': user.uid,
       'name': nameController.text,
       'email': signUpemail.text,
@@ -119,7 +120,13 @@ class AuthController extends GetxController {
           .collection("users")
           .add(userdata)
           .then((value) {
-        // log("values" + value.id.toString());
+        log("values" + value.id.toString());
+
+        FirebaseFirestore.instance
+            .collection("users")
+            .doc(value.id)
+            .update({"id": value.id.toString()});
+
         box.write('uid', user.uid);
         box.write('name', (nameController.text));
         box.write('email', (signUpemail.text.replaceAll(RegExp(r"\s+"), "")));

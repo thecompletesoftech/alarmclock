@@ -55,6 +55,10 @@ class _ProfileState extends State<Profile> {
               onTap: () async {
                 String downloadURL = await uploadImage(selectimage!);
                 print('Image uploaded. Download URL: $downloadURL');
+                // FirebaseFirestore.instance
+                //     .collection("users")
+                //     .doc(value.id)
+                //     .update({"id": value.id.toString()});
                 // nextscreen(context, WorldClock());
               },
               child: Text(
