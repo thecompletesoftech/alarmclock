@@ -12,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   var box = GetStorage();
   void initState() {
-    Timer(  
+    Timer(
       Duration(seconds: 3),
       () => nextscreenwithoutback(
           context, box.read('uid') != null ? NewBottomNavigator() : SignIn()),
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset("assets/TivalLogo.png"),
+        child: SvgPicture.string(TivalLogo),
       ),
     );
   }

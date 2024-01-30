@@ -41,7 +41,7 @@ class _WorldClockState extends State<WorldClock> {
                   nextscreen(context, SearchScreen());
                   break;
                 case 1:
-                  nextscreen(context, "");
+                  nextscreen(context, TimeList());
                   break;
                 case 2:
                   nextscreen(context, Profile());
@@ -58,7 +58,8 @@ class _WorldClockState extends State<WorldClock> {
             children: [
               CarouselSlider(
                 options: CarouselOptions(
-                  height: 280,
+                  reverse: false,
+                 height: 280,
                   initialPage: currentindex,
                   onPageChanged: (index, reason) {
                     setState(() {

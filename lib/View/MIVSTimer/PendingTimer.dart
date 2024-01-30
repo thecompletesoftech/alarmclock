@@ -1,3 +1,5 @@
+import 'package:percent_indicator/linear_percent_indicator.dart';
+
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
 import '../../Widgets/TimerCard.dart';
@@ -36,7 +38,7 @@ class _PendingTimerState extends State<PendingTimer> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+                    padding: const EdgeInsets.only(left: 10.0, right: 110.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -82,6 +84,40 @@ class _PendingTimerState extends State<PendingTimer> {
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Stack(
+                          alignment: Alignment.centerLeft,
+                          children: [
+                            Container(
+                              width: MediaQuery.sizeOf(context).width,
+                              // height: 50,
+                              child: Image.asset(
+                                fit: BoxFit.fill,
+                                "assets/ProgressBar.png",
+
+                                // scale: 0.1,
+                              ),
+                            ),
+                            LinearPercentIndicator(
+                              padding: EdgeInsets.zero,
+                              barRadius: Radius.circular(10),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              curve: Curves.easeInOut,
+                              backgroundColor: mycolor().Transparent,
+                              width: 150.0,
+                              lineHeight: 50.0,
+                              percent: 0.9,
+                              progressColor: mycolor().darktxtcolor,
+                            )
+                          ],
+                        ),
+                      ),
+                      Image.asset("assets/Play.png")
+                    ],
                   ),
                   SizedBox(height: 10),
                   Timercard(
