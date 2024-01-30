@@ -49,7 +49,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                 children: <Widget>[
                   Expanded(
                     child: ButtonWidget(
-                      width: 60.0,
                       txtstyle: MyTextStyle.mw40024,
                       issmall: true,
                       borderRadius: 15.0,
@@ -61,7 +60,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   if (isSwitched)
                     Expanded(
                       child: ButtonWidget(
-                        width: 60.0,
                         txtstyle: MyTextStyle.mw40024,
                         issmall: true,
                         borderRadius: 15.0,

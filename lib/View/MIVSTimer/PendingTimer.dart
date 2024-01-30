@@ -98,7 +98,6 @@ class _PendingTimerState extends State<PendingTimer> {
                               child: Image.asset(
                                 fit: BoxFit.fill,
                                 "assets/ProgressBar.png",
-
                                 // scale: 0.1,
                               ),
                             ),
@@ -108,7 +107,7 @@ class _PendingTimerState extends State<PendingTimer> {
                               linearStrokeCap: LinearStrokeCap.roundAll,
                               curve: Curves.easeInOut,
                               backgroundColor: mycolor().Transparent,
-                              width: 150.0,
+                              // width: 150.0,
                               lineHeight: 50.0,
                               percent: 0.9,
                               progressColor: mycolor().darktxtcolor,
