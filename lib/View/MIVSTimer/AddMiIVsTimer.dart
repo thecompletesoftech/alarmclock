@@ -161,7 +161,8 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         issmall: true,
                         borderRadius: 20.0,
                         onTap: () {
-                          nextscreen(context, PendingTimer());
+                          _mivsctrl.AddMIVStime(context);
+                          // nextscreen(context, PendingTimer());
                         },
                       ),
                     ),
