@@ -68,15 +68,16 @@ class _AlramCardState extends State<AlramCard> {
             ),
             widget.showswitchorsubtile
                 ? FlutterSwitch(
-                    width: 60.0,
-                    height: 25.0,
+                    width: 50.0,
+                    height: 20.0,
                     valueFontSize: 25.0,
-                    toggleSize: 25.0,
+                    toggleSize: 20.0,
+                    toggleColor: mycolor().darkgreen,
                     value: widget.swicthvalue!,
                     borderRadius: 30.0,
                     padding: 1.0,
                     showOnOff: false,
-                    activeColor: mycolor().darkgreen,
+                    activeColor: mycolor().lighttxtcolor,
                     inactiveColor: !NeumorphicTheme.isUsingDark(context)
                         ? mycolor().greyscreen
                         : mycolor().darkbalck,

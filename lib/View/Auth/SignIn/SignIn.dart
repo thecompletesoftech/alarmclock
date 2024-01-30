@@ -145,8 +145,7 @@ class _SignInState extends State<SignIn> {
                     SizedBox(height: 51),
                     Obx(
                       () => ButtonWidget(
-                        height: 60.0,
-                        width: 0.87,
+                        borderRadius: 25.0,
                         name: login,
                         loading: controller.loginloader.value,
                         onTap: () async {

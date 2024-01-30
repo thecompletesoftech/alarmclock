@@ -3,10 +3,12 @@ import '../Config/Import.dart';
 class CardBackground extends StatelessWidget {
   final child;
   final backgroundimage;
+  final radius;
   const CardBackground({
     super.key,
     this.child,
     this.backgroundimage = null,
+    this.radius = 18.0,
   });
 
   @override
@@ -21,7 +23,7 @@ class CardBackground extends StatelessWidget {
             decoration: Utils().decoration(
                 cntx: context,
                 isdark: NeumorphicTheme.isUsingDark(context),
-                radius: 18.0 * fem),
+                radius: radius * fem),
             child: child,
           )
         : Stack(

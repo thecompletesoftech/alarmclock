@@ -126,4 +126,5 @@ class AlramController extends GetxController {
       Mysnack(retry, e, cntx);
     }
   }
+
 }
