@@ -31,6 +31,16 @@ getAmPm(time) {
   return DateFormat("a").format(DateFormat('HH').parse(time));
 }
 
+dynamic datTime2(dtime) {
+  return DateFormat("hh:mm a dd MMM").format(datTimefrommilli(dtime));
+}
+
+DateTime datTimefrommilli(dtime) {
+  return DateTime.fromMillisecondsSinceEpoch(
+      int.parse(dtime.toString().substring(0, dtime.toString().length - 3)) *
+          1000);
+}
+
 String formatDate(String? dateString) {
   if (dateString != null) {
     DateTime dateTime = DateTime.parse(dateString);

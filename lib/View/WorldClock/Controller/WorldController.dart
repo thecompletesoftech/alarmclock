@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -8,52 +9,35 @@ class WorldController extends GetxController {
   final currentcitytime = [].obs;
   var box = GetStorage();
   var addclockloading = false.obs;
+  var db = FirebaseFirestore.instance;
   setup(location, cntx) async {
     var istanbulTimeZone = tz.getLocation(location);
     var now = tz.TZDateTime.now(istanbulTimeZone);
-    var add = currentcitytime
-        .where((element) => element['name'] == location)
-        .toList();
-    if (add.length < 1) {
-      currentcitytime.add({'name': location, 'time': now});
-      AddWorldtime(
-          location, now.hour.toString() + ":" + now.minute.toString(), cntx);
-    } else {
-      Mysnack(retry, alreadyaddedclock, cntx);
-    }
+    log("ddhs------> " + now.millisecondsSinceEpoch.toString());
+
+    AddWorldtime(location, cntx);
   }
 
-  setups(location, cntx) async {
-    var istanbulTimeZone = tz.getLocation(location);
-    var now = tz.TZDateTime.now(istanbulTimeZone);
-    var add = currentcitytime
-        .where((element) => element['name'] == location)
-        .toList();
-    if (add.length < 1) {
-      currentcitytime.add({'name': location, 'time': now});
-      // AddWorldtime(location, now, cntx);
-    } else {
-      Mysnack(retry, alreadyaddedclock, cntx);
-    }
-  }
-
-  AddWorldtime(location, time, cntx) {
+  AddWorldtime(location, cntx) {
     addclockloading.value = true;
     var uid = box.read('uid');
-
     var userdata = {
+      'id': '',
       'uid': uid,
       'placename': location,
-      'time': time,
     };
     log("UserDetail" + userdata.toString());
     try {
-      FirebaseFirestore.instance
-          .collection("worldclocklist")
-          .add(userdata)
+      ApiHelper()
+          .whereCollection('worldclocklist', 'placename', location)
           .then((value) {
-        // log("values" + value.id.toString());
-        Navigator.pop(cntx);
+        if (value < 1) {
+          ApiHelper().AddCollection("worldclocklist", userdata).then((value) {
+            Navigator.pop(cntx);
+          });
+        } else {
+          Mysnack(retry, alreadyaddedclock, cntx);
+        }
         addclockloading.value = false;
       });
     } on Exception catch (e) {
@@ -61,5 +45,17 @@ class WorldController extends GetxController {
       addclockloading.value = false;
       Mysnack(retry, e, cntx);
     }
+  }
+
+  gettime(location) {
+    var istanbulTimeZone = tz.getLocation(location);
+    var now = tz.TZDateTime.now(istanbulTimeZone);
+    return now;
+  }
+
+  Stream<QuerySnapshot> FetchWorldlist() async* {
+    var snapshot =
+        FirebaseFirestore.instance.collection("worldclocklist").snapshots();
+    yield* snapshot;
   }
 }
