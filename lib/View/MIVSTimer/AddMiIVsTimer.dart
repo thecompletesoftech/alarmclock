@@ -58,6 +58,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
               SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
               Timercard(
                   title: snoozetxt, hour: "00", minute: "00", second: "00"),
+                  SizedBox(height: 30),
               Row(
                 children: [
                   Expanded(
