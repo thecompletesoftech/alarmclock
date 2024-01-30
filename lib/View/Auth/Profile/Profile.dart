@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Controller/AuthController.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
@@ -18,8 +20,10 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   AuthController controller = Get.put(AuthController());
   File? selectimage;
+  var profileimage = "";
   @override
   void initState() {
+    getimage();
     var mail = GetStorage().read("email");
     var name = GetStorage().read("name");
     log("mail =>>>>>" + mail);
@@ -53,12 +57,16 @@ class _ProfileState extends State<Profile> {
             ),
             GestureDetector(
               onTap: () async {
+                var setimageid = await ApiHelper()
+                    .getdatabyuserid('users', GetStorage().read("uid"));
+                log("message" + setimageid.docs[0]['id'].toString());
                 String downloadURL = await uploadImage(selectimage!);
                 print('Image uploaded. Download URL: $downloadURL');
-                // FirebaseFirestore.instance
-                //     .collection("users")
-                //     .doc(value.id)
-                //     .update({"id": value.id.toString()});
+
+                FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(setimageid.docs[0]['id'])
+                    .update({"image": downloadURL.toString()});
                 // nextscreen(context, WorldClock());
               },
               child: Text(
@@ -91,22 +99,21 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     )
-                  : selectimage != null
-                      ? GestureDetector(
-                          onTap: () {
-                            _imagepicker(NeumorphicTheme.isUsingDark(context));
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50.0),
-                            child: Image.file(
-                              selectimage!,
-                              height: 100,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
-                      : Container(),
+                  : GestureDetector(
+                      onTap: () {
+                        _imagepicker(NeumorphicTheme.isUsingDark(context));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50.0),
+                        child: CachedNetworkImage(
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                          imageUrl: profileimage,
+                        ),
+                      ),
+                    ),
+              // : Container(),
               SizedBox(height: 32),
               CardWidget(
                 title: GetStorage().read("name"),
@@ -393,5 +400,12 @@ class _ProfileState extends State<Profile> {
         await uploadTask.whenComplete(() => print('Upload complete'));
     String downloadURL = await taskSnapshot.ref.getDownloadURL();
     return downloadURL;
+  }
+
+  getimage() async {
+    var setimageid =
+        await ApiHelper().getdatabyuserid('users', GetStorage().read("uid"));
+    log("message" + setimageid.docs[0]['image'].toString());
+    profileimage = setimageid.docs[0]['image'];
   }
 }
