@@ -110,6 +110,7 @@ class AuthController extends GetxController {
       'uid': user.uid,
       'name': nameController.text,
       'email': signUpemail.text,
+      'image': '',
       'fcm': box.read('fcmtoken'),
     };
     log("UserDetail" + userdata.toString());
@@ -120,6 +121,8 @@ class AuthController extends GetxController {
           .then((value) {
         // log("values" + value.id.toString());
         box.write('uid', user.uid);
+        box.write('name', (nameController.text));
+        box.write('email', (signUpemail.text.replaceAll(RegExp(r"\s+"), "")));
         clearsignupdata();
         nextscreenwithoutback(cntx, NewBottomNavigator());
         signuploader.value = false;

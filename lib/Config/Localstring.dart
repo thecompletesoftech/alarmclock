@@ -74,7 +74,7 @@ const cameratext = 'Camera';
 const gallarytext = 'Gallary';
 const noanyalarfound = 'No any Alarm found';
 const comingSoon = 'Coming soon';
-const selectprofiletext = 'Select your profile from Camera or Gallary';
+const selectprofiletext = 'Select your profile';
 const longtext =
     'Enter the email associated with your account and we’ll send an email with instructions to reset your password.';
 const nointernet = 'No Internet';

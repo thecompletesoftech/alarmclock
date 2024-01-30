@@ -41,29 +41,29 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: 87),
               Center(
                   child: StopwatchClock(
                 watchtime: _formattedTime.toString(),
               )),
-              SizedBox(height: 40),
+              SizedBox(height: 97),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Expanded(
                     child: ButtonWidget(
-                      txtstyle: MyTextStyle.mw40024,
+                      txtstyle: MyTextStyle.mw40018,
                       issmall: true,
                       borderRadius: 15.0,
                       onTap: isSwitched ? stop : start,
                       name: isSwitched ? 'Stop' : 'Start',
                     ),
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: 30),
                   if (currentstate == Stopwatchenum.stop)
                     Expanded(
                       child: ButtonWidget(
-                        txtstyle: MyTextStyle.mw40024,
+                        txtstyle: MyTextStyle.mw40018,
                         issmall: true,
                         borderRadius: 15.0,
                         onTap: reset,
@@ -74,7 +74,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   else if (currentstate == Stopwatchenum.start)
                     Expanded(
                       child: ButtonWidget(
-                        txtstyle: MyTextStyle.mw40024,
+                        txtstyle: MyTextStyle.mw40018,
                         issmall: true,
                         borderRadius: 20.0,
                         onTap: lap,
@@ -85,7 +85,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   else if (currentstate == Stopwatchenum.reset)
                     Expanded(
                       child: ButtonWidget(
-                        txtstyle: MyTextStyle.mw40024,
+                        txtstyle: MyTextStyle.mw40018,
                         issmall: true,
                         borderRadius: 20.0,
                         onTap: lap,

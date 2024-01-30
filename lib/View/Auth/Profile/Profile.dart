@@ -2,8 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/View/Auth/Controller/AuthController.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
@@ -14,7 +16,17 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  AuthController controller = Get.put(AuthController());
   File? selectimage;
+  @override
+  void initState() {
+    var mail = GetStorage().read("email");
+    var name = GetStorage().read("name");
+    log("mail =>>>>>" + mail);
+    log("name =>>>>>" + name);
+    log('Mail');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +51,19 @@ class _ProfileState extends State<Profile> {
                   style: MyTextStyle.mw60030,
                   color: NeumorphicTheme.accentColor(context)),
             ),
-            Container(),
+            GestureDetector(
+              onTap: () async {
+                String downloadURL = await uploadImage(selectimage!);
+                print('Image uploaded. Download URL: $downloadURL');
+                // nextscreen(context, WorldClock());
+              },
+              child: Text(
+                'Save',
+                style: MyTextStyle.Dynamic(
+                    style: MyTextStyle.mw40020,
+                    color: NeumorphicTheme.accentColor(context)),
+              ),
+            ),
           ],
         ),
       ),
@@ -81,11 +105,11 @@ class _ProfileState extends State<Profile> {
                       : Container(),
               SizedBox(height: 32),
               CardWidget(
-                title: bruceBanner,
+                title: GetStorage().read("name"),
               ),
               SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 28 : 20),
               CardWidget(
-                title: mailtext,
+                title: GetStorage().read("email"),
               ),
               SizedBox(height: 32),
               Padding(
@@ -354,5 +378,16 @@ class _ProfileState extends State<Profile> {
             ),
           )),
     );
+  }
+
+  Future<String> uploadImage(File imageFile) async {
+    String fileName = (imageFile.path);
+    Reference storageReference =
+        FirebaseStorage.instance.ref().child('images/$fileName');
+    UploadTask uploadTask = storageReference.putFile(imageFile);
+    TaskSnapshot taskSnapshot =
+        await uploadTask.whenComplete(() => print('Upload complete'));
+    String downloadURL = await taskSnapshot.ref.getDownloadURL();
+    return downloadURL;
   }
 }

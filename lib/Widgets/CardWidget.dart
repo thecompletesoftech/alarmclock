@@ -3,7 +3,8 @@ import 'package:clockalarm/Config/Import.dart';
 class CardWidget extends StatelessWidget {
   final title;
   final Function? ontap;
-  const CardWidget({super.key, this.title = '', this.ontap});
+  final controller;
+  const CardWidget({super.key, this.title = '', this.ontap, this.controller});
 
   @override
   Widget build(BuildContext context) {
