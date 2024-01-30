@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: NeumorphicApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Tival',
         themeMode: MediaQuery.of(context).platformBrightness == Brightness.dark
             ? ThemeMode.dark
             : ThemeMode.light,

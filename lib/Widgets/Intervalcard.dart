@@ -28,7 +28,7 @@ class IntervalCard extends StatelessWidget {
                     boxShape: buttonradius(),
                   ),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Text(
                       interval.toString(),
                       style: MyTextStyle.Dynamic(

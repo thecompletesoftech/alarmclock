@@ -2,6 +2,8 @@ import 'dart:async';
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
 
+enum Stopwatchenum { start, stop, resume, reset }
+
 class StopwatchScreen extends StatefulWidget {
   const StopwatchScreen({super.key});
 
@@ -12,6 +14,7 @@ class StopwatchScreen extends StatefulWidget {
 class _StopwatchScreenState extends State<StopwatchScreen> {
   bool isSwitched = false;
   Stopwatch _stopwatch = Stopwatch();
+  var currentstate = Stopwatchenum.start;
   List<String> _lapTimes = [];
   String _formattedTime = '00:00:00';
   @override
@@ -57,7 +60,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                     ),
                   ),
                   SizedBox(width: 20),
-                  if (isSwitched)
+                  if (currentstate == Stopwatchenum.stop)
                     Expanded(
                       child: ButtonWidget(
                         txtstyle: MyTextStyle.mw40024,
@@ -68,7 +71,18 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                         child: Text('Reset'),
                       ),
                     )
-                  else
+                  else if (currentstate == Stopwatchenum.start)
+                    Expanded(
+                      child: ButtonWidget(
+                        txtstyle: MyTextStyle.mw40024,
+                        issmall: true,
+                        borderRadius: 20.0,
+                        onTap: lap,
+                        name: 'Lap',
+                        child: Text('Lap'),
+                      ),
+                    )
+                  else if (currentstate == Stopwatchenum.reset)
                     Expanded(
                       child: ButtonWidget(
                         txtstyle: MyTextStyle.mw40024,
@@ -139,61 +153,56 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: _lapTimes
-                                        .map((lapTime) => CardBackground(
-                                              radius: 15.0,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          '${_lapTimes.indexOf(lapTime) + 1}',
-                                                          style: MyTextStyle.Dynamic(
-                                                              style: MyTextStyle
-                                                                  .mw40020,
-                                                              color: NeumorphicTheme
-                                                                  .accentColor(
-                                                                      context)),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Text(
-                                                          'Lap',
-                                                          style: MyTextStyle.Dynamic(
-                                                              style: MyTextStyle
-                                                                  .mw70014,
-                                                              color: mycolor()
-                                                                  .greenlightcolor),
-                                                        ),
-                                                      ],
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: _lapTimes.map((lapTime) {
+                                        return CardBackground(
+                                          radius: 15.0,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      '${_lapTimes.indexOf(lapTime) + 1}',
+                                                      style: MyTextStyle.Dynamic(
+                                                          style: MyTextStyle
+                                                              .mw40020,
+                                                          color: NeumorphicTheme
+                                                              .accentColor(
+                                                                  context)),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    '$lapTime',
-                                                    style: MyTextStyle.Dynamic(
-                                                        style:
-                                                            MyTextStyle.mw40018,
-                                                        color: NeumorphicTheme
-                                                            .accentColor(
-                                                                context)),
-                                                  ),
-                                                ],
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      'Lap',
+                                                      style: MyTextStyle.Dynamic(
+                                                          style: MyTextStyle
+                                                              .mw70014,
+                                                          color: mycolor()
+                                                              .greenlightcolor),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ).paddingOnly(
-                                                top:
-                                                    NeumorphicTheme.isUsingDark(
-                                                            context)
-                                                        ? 20
-                                                        : 0))
-                                        .toList(),
-                                  ),
+                                              Text(
+                                                '$lapTime',
+                                                style: MyTextStyle.Dynamic(
+                                                    style: MyTextStyle.mw40018,
+                                                    color: NeumorphicTheme
+                                                        .accentColor(context)),
+                                              ),
+                                            ],
+                                          ),
+                                        ).paddingOnly(
+                                            top: NeumorphicTheme.isUsingDark(
+                                                    context)
+                                                ? 20
+                                                : 0);
+                                      }).toList()),
                                   SizedBox(
                                     height: 20,
                                   )
@@ -215,12 +224,14 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     setState(() {
       _stopwatch.start();
       isSwitched = true;
+      currentstate = Stopwatchenum.start;
     });
   }
 
   void stop() {
     setState(() {
       _stopwatch.stop();
+      currentstate = Stopwatchenum.stop;
       isSwitched = false;
     });
   }
@@ -229,6 +240,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     setState(() {
       _stopwatch.reset();
       _lapTimes.clear();
+      currentstate = Stopwatchenum.reset;
       isSwitched = false;
       // _stopwatch.stop();
     });
