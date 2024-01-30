@@ -83,7 +83,9 @@ class _RepeatState extends State<Repeat> {
                     });
                   },
                   swicthvalue: isSwitched,
-                ).paddingOnly(bottom: 15, top: 10);
+                ).paddingOnly(
+                    bottom: 15,
+                    top: NeumorphicTheme.isUsingDark(context) ? 10 : 0,left: 5,right: 5);
               },
             )
           ],

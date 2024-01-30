@@ -16,5 +16,6 @@ class mycolor {
   var gradient2 = Color(0xFF222222);
   var Redcolor = Colors.red;
   var darkshadow = Color.fromRGBO(67, 67, 67, 0.68);
+  var shadowcolordark = Color(0xFF2B2A2A);
   var Transparent = Colors.transparent;
 }

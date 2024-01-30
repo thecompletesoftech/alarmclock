@@ -58,7 +58,7 @@ class _AddAlramState extends State<AddAlram> {
                   onTap: () async {
                     await _alramController.setAlarm(_selectedTime, isSwitched,
                         _alramController.currentsoundpath.value, context);
-                    await _alramController.getalram();
+                    await _alramController.getalram(context);
 
                     backscreen(context);
                   },

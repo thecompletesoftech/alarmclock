@@ -12,7 +12,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(80),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": AddMIVSTimer()},
@@ -26,11 +26,12 @@ class _MIVSTimerState extends State<MIVSTimer> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 5,
+                padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return Mivstimer(
                     alarmtime: '05:15 pm',

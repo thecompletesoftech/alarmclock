@@ -1,4 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/Json/Json.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -14,13 +15,19 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void updateSearchResults(keyword) {
     setState(() {
-      filteredCategories = controller.searchlist
-          .where((category) => category['name']
-              .toString()
-              .toLowerCase()
-              .contains(keyword.toLowerCase()))
-          .toList();
+      filteredCategories = Searchlist.where((category) => category['name']
+          .toString()
+          .toLowerCase()
+          .contains(keyword.toLowerCase())).toList();
     });
+  }
+
+  @override
+  void initState() {
+    // setState(() {
+    //   filteredCategories.addAll(Searchlist);
+    // });
+    super.initState();
   }
 
   void _deleteText() {
@@ -96,12 +103,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: ListView.builder(
                     itemCount: filteredCategories.length > 0
                         ? filteredCategories.length
-                        : controller.searchlist.length,
+                        : Searchlist.length,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       var items = filteredCategories.length > 0
                           ? filteredCategories[index]
-                          : controller.searchlist[index];
+                          : Searchlist[index];
                       return Column(
                         children: [
                           InkWell(
@@ -111,7 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  items['name'],
+                                  items['timezone'],
                                   style: MyTextStyle.Dynamic(
                                       style: MyTextStyle.mw40018,
                                       color:

@@ -1,5 +1,4 @@
 import '../../Config/Import.dart';
-import 'alarmController.dart';
 
 class AlarmHome extends StatefulWidget {
   const AlarmHome({super.key});
@@ -14,7 +13,7 @@ class _AlarmHomeState extends State<AlarmHome> {
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 1), () {
-      _alramController.getalram();
+      _alramController.getalram(context);
     });
 
     // _alramController.currenttime.value = DateTime.now().toString();
@@ -91,7 +90,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                                         newitem['date'].toString();
                                   });
 
-                                  await _alramController.getalram();
+                                  await _alramController.getalram(context);
                                 },
                                 swicthvalue: newitem['alarmstatus'],
                                 time: convert12to24(newitem['dateTime'])
