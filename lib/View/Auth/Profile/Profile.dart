@@ -21,13 +21,14 @@ class _ProfileState extends State<Profile> {
   AuthController controller = Get.put(AuthController());
   File? selectimage;
   var profileimage = "";
+  var box = GetStorage();
   @override
   void initState() {
     getimage();
-    var mail = GetStorage().read("email");
-    var name = GetStorage().read("name");
-    log("mail =>>>>>" + mail);
-    log("name =>>>>>" + name);
+    var mail = box.read("email");
+    var name = box.read("name");
+    log("mail =>>>>>" + mail.toString());
+    log("name =>>>>>" + name.toString());
     log('Mail');
     super.initState();
   }

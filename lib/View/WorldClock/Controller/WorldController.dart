@@ -14,9 +14,8 @@ class WorldController extends GetxController {
     var istanbulTimeZone = tz.getLocation(location);
     var now = tz.TZDateTime.now(istanbulTimeZone);
     log("ddhs------> " + now.millisecondsSinceEpoch.toString());
-
     AddWorldtime(location, cntx);
-  }
+  } 
 
   AddWorldtime(location, cntx) {
     addclockloading.value = true;

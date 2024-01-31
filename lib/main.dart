@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Alarm.init();
- await PushNotificationService().setupInteractedMessage();
+  await PushNotificationService().setupInteractedMessage();
   // Initialize the plugin
   runApp(const MyApp());
 }

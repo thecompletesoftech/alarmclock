@@ -64,7 +64,7 @@ class _WorldClockState extends State<WorldClock> {
                     if ((snapshot.data == null) ||
                         (snapshot.data!.docs.length < 1)) {
                       return CarouselSlider(
-                        options: CarouselOptions(
+                        options: CarouselOptions( 
                           reverse: false,
                           height: 280,
                           initialPage: 0,
