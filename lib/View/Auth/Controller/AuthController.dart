@@ -118,7 +118,7 @@ class AuthController extends GetxController {
           .collection("users")
           .add(userdata)
           .then((value) {
-        // log("values" + value.id.toString());
+        log("values" + value.id.toString());
         box.write('uid', user.uid);
         clearsignupdata();
         nextscreenwithoutback(cntx, NewBottomNavigator());

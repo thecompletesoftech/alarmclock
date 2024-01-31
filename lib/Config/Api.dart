@@ -29,4 +29,10 @@ class ApiHelper {
         await db.collection(collectionname).where(key, isEqualTo: val).get();
     return data.docs.length;
   }
+
+  getdatabyuserid(collectionname, uid) async {
+    var data =
+        await db.collection(collectionname).where("uid", isEqualTo: uid).get();
+    return data;
+  }
 }
