@@ -51,7 +51,7 @@ class Mivsctrl extends GetxController {
   getmivstime(cntx) {
     var uid = box.read('uid');
     try {
-      ApiHelper().getdatabyuserid("mivstime", uid).then((value) {
+      ApiHelper().getdatabyuserid("mivstime").then((value) {
         value.docs.forEach((element) async {
           var index = value.docs.indexOf(element);
 

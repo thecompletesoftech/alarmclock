@@ -128,8 +128,7 @@ class AuthController extends GetxController {
             .update({"id": value.id.toString()});
 
         box.write('uid', user.uid);
-        box.write('name', (nameController.text));
-        box.write('email', (signUpemail.text.replaceAll(RegExp(r"\s+"), "")));
+      
         clearsignupdata();
         nextscreenwithoutback(cntx, NewBottomNavigator());
         signuploader.value = false;

@@ -4,6 +4,7 @@ import 'package:clockalarm/Config/Import.dart';
 
 class ApiHelper {
   var db = FirebaseFirestore.instance;
+  var uid = GetStorage().read('uid');
   Future Api() async {
     final result = await InternetAddress.lookup('google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -30,9 +31,17 @@ class ApiHelper {
     return data.docs.length;
   }
 
-  getdatabyuserid(collectionname, uid) async {
+  getdatabyuserid(collectionname) async {
     var data =
         await db.collection(collectionname).where("uid", isEqualTo: uid).get();
     return data;
+  }
+
+  Stream<QuerySnapshot> getsnapshotbyuserid(collectionname) async* {
+    var data = await db
+        .collection(collectionname)
+        .where("uid", isEqualTo: uid)
+        .snapshots();
+    yield* data;
   }
 }
