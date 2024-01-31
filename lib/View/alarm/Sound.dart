@@ -15,13 +15,13 @@ class _SoundState extends State<Sound> {
     {"title": "Immigrant Song", "path": "assets/ringtone/ImmigrantSong.mp3"},
     {"title": "Super Mario", "path": "assets/ringtone/Super-Mario.mp3"},
     {"title": "Breaking", "path": "assets/ringtone/Breaking-Me-Tik-Tok.mp3"},
-    {"title": "Canopy"},
-    {"title": "Thursday"},
-    {"title": "Chalet"},
-    {"title": "Quad"},
-    {"title": "Steps"},
-    {"title": "Chirp"},
-    {"title": "Valley"}
+    // {"title": "Canopy"},
+    // {"title": "Thursday"},
+    // {"title": "Chalet"},
+    // {"title": "Quad"},
+    // {"title": "Steps"},
+    // {"title": "Chirp"},
+    // {"title": "Valley"}
   ];
   var isplaying = false;
   AlramController _alramController = Get.put(AlramController());
@@ -136,10 +136,12 @@ class _SoundState extends State<Sound> {
             SizedBox(height: 58),
             ButtonWidget(
               width: 68.0,
-              name: none,
+              name: done,
               txtstyle: MyTextStyle.mw40020,
               borderRadius: 20.0,
-              onTap: () {},
+              onTap: () {
+                backscreen(context);
+              },
             ),
             SizedBox(height: 20),
           ],

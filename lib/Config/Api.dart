@@ -15,19 +15,23 @@ class ApiHelper {
   Future AddCollection(collectionname, data) async {
     await db.collection(collectionname).add(data).then((value) async {
       log("values" + value.id.toString());
-      AddDocid(collectionname, value.id);
+      var updatedata = {'id': value.id};
+      Updatedata(collectionname, value.id, updatedata);
     });
     return;
   }
 
-  AddDocid(collectionname, docid) {
-    db.collection(collectionname).doc(docid).update({'id': docid});
+  Updatedata(collectionname, docid, updatejson) {
+    db.collection(collectionname).doc(docid).update(updatejson);
     return;
   }
 
   Future whereCollection(collectionname, key, val) async {
-    var data =
-        await db.collection(collectionname).where(key, isEqualTo: val).get();
+    var data = await db
+        .collection(collectionname)
+        .where('uid', isEqualTo: uid)
+        .where(key, isEqualTo: val)
+        .get();
     return data.docs.length;
   }
 
@@ -41,6 +45,16 @@ class ApiHelper {
     var data = await db
         .collection(collectionname)
         .where("uid", isEqualTo: uid)
+        .snapshots();
+    yield* data;
+  }
+
+  Stream<QuerySnapshot> getsnapshotbyorderbyuserid(
+      collectionname, field, des) async* {
+    var data = await db
+        .collection(collectionname)
+        .where("uid", isEqualTo: uid)
+        .orderBy(field, descending: des)
         .snapshots();
     yield* data;
   }

@@ -11,9 +11,11 @@ class AlramController extends GetxController {
   var currentsoundpath = "".obs;
   var alarmisloading = false.obs;
   var getalarmisloading = false.obs;
+  var addalarmisloading = false.obs;
   var box = GetStorage();
 
   setAlarm(time, snooze, audio, BuildContext context) {
+    addalarmisloading.value = true;
     print("dateTime" + time.toString());
     final alarmSettings = AlarmSettings(
         id: Random().nextInt(100),
@@ -31,8 +33,10 @@ class AlramController extends GetxController {
     Alarm.set(alarmSettings: alarmSettings).then((value) async {
       await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
           time.toString(), snooze, audio, context);
+      addalarmisloading.value = false;
       //insert to firebase
     }).then((value) {
+      addalarmisloading.value = false;
       //get data of firebase
     });
   }
@@ -63,7 +67,7 @@ class AlramController extends GetxController {
     }
   }
 
-  alramstatus(uid, status) async {
+  alramstatus(uid, status, cntx) async {
     QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
         .collection("alarm")
         .where("id", isEqualTo: uid)
@@ -75,11 +79,7 @@ class AlramController extends GetxController {
           .update({"alarmstatus": status});
       print(_querySnapshot.docs[0].id.toString());
     }
-  }
-
-  getalram(cntx) async {
-    getalarmisloading.value = true;
-    switchlist.value = [];
+    clearalramlist();
     await setalarmfalse();
     await setstorealramtolocal(cntx);
     final QuerySnapshot qSnap = await FirebaseFirestore.instance
@@ -88,8 +88,28 @@ class AlramController extends GetxController {
         .get();
     final int documents = qSnap.docs.length;
     print("documents length" + documents.toString());
-    switchlist.value = List.filled(documents, true);
+  }
+
+  getalram(cntx) async {
+    getalarmisloading.value = true;
+    clearalramlist();
+    await setalarmfalse();
+    await setstorealramtolocal(cntx);
+    final QuerySnapshot qSnap = await FirebaseFirestore.instance
+        .collection('alarm')
+        .where("uid", isEqualTo: box.read('uid'))
+        .get();
+    final int documents = qSnap.docs.length;
+    print("documents length" + documents.toString());
     getalarmisloading.value = false;
+  }
+
+  clearalramlist() async {
+    var alarms = await Alarm.getAlarms();
+    print("alarams" + alarms.toString());
+    for (var i = 0; i < alarms.length; i++) {
+      Alarm.stop(alarms[i].id);
+    }
   }
 
   // scheduleNotification(
@@ -175,6 +195,7 @@ class AlramController extends GetxController {
   }
 
   setstorealramtolocal(cntx) async {
+    clearalramlist();
     var uid = box.read('uid');
     print("uid" + uid.toString());
     QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
@@ -183,6 +204,7 @@ class AlramController extends GetxController {
         .get();
     _querySnapshot.docs.forEach((element) async {
       if (element['alarmstatus'] == true) {
+        print("insert -------------------");
         final alarmSettings = AlarmSettings(
             id: element['id'],
             dateTime: DateTime.parse(element['date']),

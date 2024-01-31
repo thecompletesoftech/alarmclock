@@ -52,7 +52,8 @@ class _AlarmHomeState extends State<AlarmHome> {
               () => _alramController.getalarmisloading.value
                   ? Center(child: CircularProgressIndicator())
                   : StreamBuilder<QuerySnapshot>(
-                      stream: ApiHelper().getsnapshotbyuserid("alarm"),
+                      stream: ApiHelper()
+                          .getsnapshotbyorderbyuserid("alarm", "date",true),
                       builder: (context, snapshot) {
                         if ((snapshot.data == null) ||
                             (snapshot.data!.docs.length < 1)) {
@@ -85,7 +86,8 @@ class _AlarmHomeState extends State<AlarmHome> {
                                       newitem['id'],
                                       newitem['alarmstatus'] == true
                                           ? false
-                                          : true);
+                                          : true,
+                                      context);
                                 },
                                 ontapcard: () async {
                                   setState(() {

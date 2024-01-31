@@ -15,7 +15,7 @@ class WorldController extends GetxController {
     var now = tz.TZDateTime.now(istanbulTimeZone);
     log("ddhs------> " + now.millisecondsSinceEpoch.toString());
     AddWorldtime(location, cntx);
-  } 
+  }
 
   AddWorldtime(location, cntx) {
     addclockloading.value = true;
@@ -50,11 +50,5 @@ class WorldController extends GetxController {
     var istanbulTimeZone = tz.getLocation(location);
     var now = tz.TZDateTime.now(istanbulTimeZone);
     return now;
-  }
-
-  Stream<QuerySnapshot> FetchWorldlist() async* {
-    var snapshot =
-        FirebaseFirestore.instance.collection("worldclocklist").snapshots();
-    yield* snapshot;
   }
 }
