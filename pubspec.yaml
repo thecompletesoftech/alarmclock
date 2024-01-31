@@ -55,7 +55,8 @@ dependencies:
   firebase_messaging:
   assets_audio_player: 
   percent_indicator: ^4.2.3
-  
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

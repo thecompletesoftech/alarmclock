@@ -36,6 +36,26 @@ class AlramController extends GetxController {
     });
   }
 
+  setalarmfalse() async {
+    DateTime now = DateTime.now();
+    var uid = box.read('uid');
+    QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
+        .collection("alarm")
+        .where("id", isEqualTo: uid)
+        .get();
+    if (_querySnapshot.docs.isNotEmpty) {
+      _querySnapshot.docs.forEach((element) async {
+        var index = _querySnapshot.docs.indexOf(element);
+        if (DateTime.parse(element['date']).compareTo(now) < 0) {
+          FirebaseFirestore.instance
+              .collection("alarm")
+              .doc(_querySnapshot.docs[index].id)
+              .update({"alarmstatus": false});
+        }
+      });
+    }
+  }
+
   alramstatus(uid, status) async {
     QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
         .collection("alarm")
@@ -50,17 +70,16 @@ class AlramController extends GetxController {
     }
   }
 
-  getalram() async {
+  getalram(cntx) async {
     getalarmisloading.value = true;
     switchlist.value = [];
-    alarms.value = Alarm.getAlarms();
+    await setalarmfalse();
+    await setstorealramtolocal(cntx);
     final QuerySnapshot qSnap =
         await FirebaseFirestore.instance.collection('alarm').get();
     final int documents = qSnap.docs.length;
     print("documents length" + documents.toString());
     switchlist.value = List.filled(documents, true);
-    print("alarams" + alarms.toString());
-    alarms.sort((a, b) => a.dateTime.isBefore(b.dateTime) ? 0 : 1);
     getalarmisloading.value = false;
   }
 
@@ -127,4 +146,35 @@ class AlramController extends GetxController {
     }
   }
 
+  setstorealramtolocal(cntx) async {
+    var uid = box.read('uid');
+    print("uid" + uid.toString());
+    QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
+        .collection("alarm")
+        .where("uid", isEqualTo: uid)
+        .get();
+    _querySnapshot.docs.forEach((element) async {
+      if (element['alarmstatus'] == true) {
+        final alarmSettings = AlarmSettings(
+            id: element['id'],
+            dateTime: DateTime.parse(element['date']),
+            assetAudioPath: element['assetAudioPath'],
+            loopAudio: element['loopAudio'],
+            vibrate: true,
+            // volumeMax: true,
+            fadeDuration: 3.0,
+            notificationTitle: 'Alarm is Playing',
+            notificationBody: 'Tap to stop',
+            enableNotificationOnKill: true,
+            // stopOnNotificationOpen: true,
+            androidFullScreenIntent: true);
+        await Alarm.set(alarmSettings: alarmSettings).then((value) async {
+          print("alarm set to local");
+          //insert to firebase
+        }).then((value) {});
+      }
+    });
+    alarms.value = await Alarm.getAlarms();
+    print("alarams" + alarms.toString());
+  }
 }
