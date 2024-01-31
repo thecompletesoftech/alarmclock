@@ -161,7 +161,20 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         issmall: true,
                         borderRadius: 20.0,
                         onTap: () {
-                          _mivsctrl.AddMIVStime(context);
+                          if (_mivsctrl.intervalduration.value == "00:00:00") {
+                            Mysnack(req, pleaseselectintervalduration, context);
+                          } else if (_mivsctrl.intervalend.value ==
+                              "00:00:00") {
+                            Mysnack(req, pleaseselectintervalend, context);
+                          } else if (_mivsctrl.totalduration.value ==
+                              "00:00:00") {
+                            Mysnack(req, pleaseselecttotalduration, context);
+                          } else if (_mivsctrl.snoozetime.value == "00:00:00") {
+                            Mysnack(req, pleaseselectsnoozeduration, context);
+                          } else {
+                            _mivsctrl.AddMIVStime(context);
+                          }
+
                           // nextscreen(context, PendingTimer());
                         },
                       ),
@@ -173,7 +186,9 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         issmall: true,
                         txtstyle: MyTextStyle.mw40020,
                         borderRadius: 15.0,
-                        onTap: () {},
+                        onTap: () {
+                          _mivsctrl.clerdata();
+                        },
                       ),
                     ),
                   ],
@@ -211,6 +226,6 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
       print("Time is not selected");
     }
     print("result" + result.toString());
-    return result;
+    return result == null ? "00:00:00" : result;
   }
 }

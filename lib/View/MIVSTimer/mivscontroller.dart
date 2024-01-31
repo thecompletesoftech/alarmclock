@@ -16,10 +16,10 @@ class Mivsctrl extends GetxController {
   var box = GetStorage();
 
   clerdata() {
-     snoozetime = "00:00:00".obs;
-     totalduration = "00:00:00".obs;
-     intervalend = "00:00:00".obs;
-     intervalduration = "00:00:00".obs;
+    snoozetime.value = "00:00:00";
+    totalduration.value = "00:00:00";
+    intervalend.value = "00:00:00";
+    intervalduration.value = "00:00:00";
   }
 
   AddMIVStime(cntx) {
