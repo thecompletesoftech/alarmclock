@@ -20,17 +20,17 @@ class _AlarmHomeState extends State<AlarmHome> {
   AlramController _alramController = Get.put(AlramController());
   @override
   void initState() {
-    AwesomeNotifications().setListeners(
-        onActionReceivedMethod: (ReceivedAction receivedAction) async {
-          print("action -----" + receivedAction.toString());
+    // AwesomeNotifications().setListeners(
+    //     onActionReceivedMethod: (ReceivedAction receivedAction) async {
+    //       print("action -----" + receivedAction.toString());
           
-        },
-        onNotificationCreatedMethod:
-            (ReceivedNotification receivedNotification) async {},
-        onNotificationDisplayedMethod:
-            (ReceivedNotification receivedNotification) async {},
-        onDismissActionReceivedMethod:
-            (ReceivedAction receivedAction) async {});
+    //     },
+    //     onNotificationCreatedMethod:
+    //         (ReceivedNotification receivedNotification) async {},
+    //     onNotificationDisplayedMethod:
+    //         (ReceivedNotification receivedNotification) async {},
+    //     onDismissActionReceivedMethod:
+    //         (ReceivedAction receivedAction) async {});
     Future.delayed(const Duration(milliseconds: 1), () {
       _alramController.getalram(context);
       GetFirebasetoken().getfirebasetoken();
@@ -82,8 +82,8 @@ class _AlarmHomeState extends State<AlarmHome> {
                       stream: ApiHelper()
                           .getsnapshotbyorderbyuserid("alarm", "date", true),
                       builder: (context, snapshot) {
-                        if ((snapshot.data == null) ||
-                            (snapshot.data!.docs.length < 1)) {
+                        if ((snapshot.data == null) 
+                            ) {
                           return Center(
                             child: Text(
                               noanyalarfound,
