@@ -28,9 +28,10 @@ class AuthController extends GetxController {
           user = userCredential.user;
           if (user != null) {
             box.write('uid', user!.uid);
+            clearsignindata();
+            log("userDetails ==>>>" + user.toString());
+            loginloader.value = false;
           }
-          log("userDetails ==>>>" + user.toString());
-          loginloader.value = false;
           return userCredential.user;
         } catch (e) {
           if (e is FirebaseAuthException) {
@@ -79,6 +80,7 @@ class AuthController extends GetxController {
             Adduser(user, cntx);
             box.write(
                 'email', (signUpemail.text.replaceAll(RegExp(r"\s+"), "")));
+            clearsignupdata();
           }
           log("userDetails ==>>>" + user.toString());
           signuploader.value = false;
@@ -149,6 +151,11 @@ class AuthController extends GetxController {
         log('Userdatatata==>');
       }
     });
+  }
+
+  clearsignindata() {
+    emailController.clear();
+    passwordController.clear();
   }
 
   clearsignupdata() {
