@@ -22,10 +22,10 @@ class _ProfileState extends State<Profile> {
   File? selectimage;
   var profileimage = "";
   var box = GetStorage();
+  var box = GetStorage();
   @override
   void initState() {
     getimage();
-
     super.initState();
   }
 

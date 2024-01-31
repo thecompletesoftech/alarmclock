@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class PushNotificationService {
-// It is assumed that all messages contain a data field with the key 'type'
 
   Future<void> setupInteractedMessage() async {
     await Firebase.initializeApp();
@@ -28,18 +27,18 @@ class PushNotificationService {
         ?.createNotificationChannel(channel);
     const AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    // const DarwinInitializationSettings iOSSettings =
-    //     DarwinInitializationSettings(
-    //   requestSoundPermission: false,
-    //   requestBadgePermission: false,
-    //   requestAlertPermission: false,
-    // );
-    // const InitializationSettings initSettings =
-    //     InitializationSettings(android: androidSettings, iOS: iOSSettings);
-    // flutterLocalNotificationsPlugin.initialize(
-    //   initSettings,
-    //   onDidReceiveNotificationResponse: (NotificationResponse details) {},
-    // );
+    const DarwinInitializationSettings iOSSettings =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+    const InitializationSettings initSettings =
+        InitializationSettings(android: androidSettings, iOS: iOSSettings);
+    flutterLocalNotificationsPlugin.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse details) {},
+    );
 // onMessage is called when the app is in foreground and a notification is received
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
       // homeController.getHomeData(
@@ -48,8 +47,6 @@ class PushNotificationService {
       // log(message, key: 'firebase_message');
       final RemoteNotification? notification = message!.notification;
       final AndroidNotification? android = message.notification?.android;
-// If `onMessage` is triggered with a notification, construct our own
-      // local notification to show to users using the created channel.
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(
           notification.hashCode,
@@ -59,13 +56,34 @@ class PushNotificationService {
             android: AndroidNotificationDetails(
               channel.id,
               channel.name,
-              // channel.description, 
+              channelDescription: channel.description,
               icon: android.smallIcon,
             ),
           ),
         );
       }
     });
+
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
   }
 
   Future<void> enableIOSNotifications() async {
@@ -81,8 +99,8 @@ class PushNotificationService {
       const AndroidNotificationChannel(
         'high_importance_channel', // id
         'High Importance Notifications', // title
-
-        // 'This channel is used for important notifications.', // description
+        description:
+            'This channel is used for important notifications.', // description
         importance: Importance.max,
       );
 }

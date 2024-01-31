@@ -113,7 +113,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         children: [
                           InkWell(
                             onTap: () {
-                              controller.setup(items['timezone'], context);
+                              if (controller.addclockloading.value == false) {
+                                controller.setup(items['timezone'], context);
+                              }
                             },
                             child: Row(
                               children: [
