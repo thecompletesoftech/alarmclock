@@ -373,6 +373,8 @@ class _ProfileState extends State<Profile> {
                             isDark ? mycolor().darkbalck : mycolor().lightWhite,
                       ),
                       onPressed: () {
+                        box.erase();
+                        Navigator.pop(context);
                         nextscreenwithoutback(context, SignIn());
                       },
                       child: Text(
