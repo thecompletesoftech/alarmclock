@@ -13,10 +13,7 @@ void main() async {
   await Firebase.initializeApp();
   await Alarm.init();
  await PushNotificationService().setupInteractedMessage();
-
   // Initialize the plugin
-  
-
   runApp(const MyApp());
 }
 

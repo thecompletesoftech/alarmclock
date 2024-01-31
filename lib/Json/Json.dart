@@ -37,7 +37,7 @@
     },
     {
       'name': 'Mountain Standard Time(Mexico)',
-      'timezone': '	America/Chihuahua',
+      'timezone': 'America/Chihuahua',
       'utc': 'UTC - 07:00'
     },
     {
