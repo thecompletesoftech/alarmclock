@@ -228,6 +228,7 @@ class _ProfileState extends State<Profile> {
                                       log("dncds" + value.toString());
                                       if (value == true) {
                                         box.erase();
+                                        Navigator.pop(context);
                                         nextscreenwithoutback(
                                             context, SignIn());
                                       }
