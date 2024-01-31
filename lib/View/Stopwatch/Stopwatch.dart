@@ -76,7 +76,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                       child: ButtonWidget(
                         txtstyle: MyTextStyle.mw40018,
                         issmall: true,
-                        borderRadius: 20.0,
+                        borderRadius: 15.0,
                         onTap: lap,
                         name: 'Lap',
                         child: Text('Lap'),
