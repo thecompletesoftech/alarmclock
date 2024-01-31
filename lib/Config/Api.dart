@@ -48,4 +48,14 @@ class ApiHelper {
         .snapshots();
     yield* data;
   }
+
+  Stream<QuerySnapshot> getsnapshotbyorderbyuserid(
+      collectionname, field, des) async* {
+    var data = await db
+        .collection(collectionname)
+        .where("uid", isEqualTo: uid)
+        .orderBy(field, descending: des)
+        .snapshots();
+    yield* data;
+  }
 }

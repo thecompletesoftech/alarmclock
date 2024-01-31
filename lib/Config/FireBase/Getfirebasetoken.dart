@@ -8,6 +8,6 @@ class GetFirebasetoken {
     box.remove("fcmtoken");
     var token = (await FirebaseMessaging.instance.getToken());
     box.write("fcmtoken", token);
-    log("fcmtoken-===> " + box.read('fcmtoken').toString());
+    print("fcmtoken-===> " + box.read('fcmtoken').toString());
   }
 }
