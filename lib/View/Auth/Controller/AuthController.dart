@@ -30,8 +30,8 @@ class AuthController extends GetxController {
             box.write('uid', user!.uid);
           }
           log("userDetails ==>>>" + user.toString());
+          loginloader.value = false;
           return userCredential.user;
-          // loginloader.value = false;
         } catch (e) {
           if (e is FirebaseAuthException) {
             print('Login Catch===> ' + e.code.toString());
@@ -56,14 +56,11 @@ class AuthController extends GetxController {
               default:
                 Mysnack(retry, somethingwrong, context);
             }
-            loginloader.value = false;
           }
+          loginloader.value = false;
         }
       }
     });
-    // loginloader.value = false;
-
-    // return user;
   }
 
   signUp(cntx) async {
@@ -84,8 +81,8 @@ class AuthController extends GetxController {
                 'email', (signUpemail.text.replaceAll(RegExp(r"\s+"), "")));
           }
           log("userDetails ==>>>" + user.toString());
-        } catch (e) {
           signuploader.value = false;
+        } catch (e) {
           print('Error during user registration: $e');
           if (e is FirebaseAuthException) {
             print('FirebaseAuthException - ${e.code}: ${e.message}');
@@ -100,6 +97,7 @@ class AuthController extends GetxController {
                 Mysnack(retry, somethingwrong, cntx);
             }
           }
+          signuploader.value = false;
           print("Error during sign up: $e");
         }
       }
@@ -129,7 +127,7 @@ class AuthController extends GetxController {
             .update({"id": value.id.toString()});
 
         box.write('uid', user.uid);
-      
+
         clearsignupdata();
         nextscreenwithoutback(cntx, NewBottomNavigator());
         signuploader.value = false;
