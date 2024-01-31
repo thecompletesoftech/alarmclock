@@ -19,13 +19,12 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   ProfileController controller = Get.put(ProfileController());
-  File? selectimage;
+
   var profileimage = "";
   var box = GetStorage();
   // var box = GetStorage();
   @override
   void initState() {
-    getimage();
     super.initState();
   }
 
@@ -54,16 +53,7 @@ class _ProfileState extends State<Profile> {
             ),
             GestureDetector(
               onTap: () async {
-                var setimageid = await ApiHelper().getdatabyuserid('users');
-                log("message" + setimageid.docs[0]['id'].toString());
-                String downloadURL = await uploadImage(selectimage!);
-                print('Image uploaded. Download URL: $downloadURL');
-
-                FirebaseFirestore.instance
-                    .collection("users")
-                    .doc(setimageid.docs[0]['id'])
-                    .update({"image": downloadURL.toString()});
-                nextscreen(context, WorldClock());
+               controller.updateprofile(context);
               },
               child: Text(
                 'Save',
@@ -81,7 +71,6 @@ class _ProfileState extends State<Profile> {
           child: StreamBuilder<QuerySnapshot>(
               stream: ApiHelper().getsnapshotbyuserid('users'),
               builder: (context, snapshot) {
-                log("snanpshot==>>>" + snapshot.data!.docs.length.toString());
                 if ((snapshot.data == null) ||
                     (snapshot.data!.docs.length < 1)) {
                   return Container();
@@ -94,47 +83,69 @@ class _ProfileState extends State<Profile> {
                       var item = snapshot.data!.docs[index];
                       return Column(
                         children: [
-                          selectimage == null
+                          controller.selectimage != null
                               ? GestureDetector(
-                                  onTap: () {
-                                    _imagepicker(
-                                        NeumorphicTheme.isUsingDark(context));
-                                  },
-                                  child: Center(
-                                    child: CircleAvatar(
-                                      radius: 60.0,
-                                      backgroundImage: AssetImage(
-                                        "assets/profile.png",
-                                      ),
-                                      backgroundColor: mycolor().Transparent,
-                                    ),
-                                  ),
-                                )
-                              : GestureDetector(
                                   onTap: () {
                                     _imagepicker(
                                         NeumorphicTheme.isUsingDark(context));
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50.0),
-                                    child: CachedNetworkImage(
+                                    child: Image.file(
+                                      File(controller.selectimage),
                                       height: 100,
                                       width: 100,
                                       fit: BoxFit.cover,
-                                      imageUrl: profileimage,
                                     ),
                                   ),
-                                ),
+                                )
+                              : ((item['image'] == null) ||
+                                      (item['image'].length < 1) ||
+                                      (item['image'] == ""))
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        _imagepicker(
+                                            NeumorphicTheme.isUsingDark(
+                                                context));
+                                      },
+                                      child: Center(
+                                        child: CircleAvatar(
+                                          radius: 60.0,
+                                          backgroundImage: AssetImage(
+                                            "assets/profile.png",
+                                          ),
+                                          backgroundColor:
+                                              mycolor().Transparent,
+                                        ),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {
+                                        _imagepicker(
+                                            NeumorphicTheme.isUsingDark(
+                                                context));
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        child: CachedNetworkImage(
+                                          height: 100,
+                                          width: 100,
+                                          fit: BoxFit.cover,
+                                          imageUrl: controller.selectimage!,
+                                        ),
+                                      ),
+                                    ),
                           // : Container(),
                           SizedBox(height: 32),
                           CardWidget(
-                            title: item['name'],
+                            title: item['name'] ?? '',
                           ),
                           SizedBox(
                               height: NeumorphicTheme.isUsingDark(context)
                                   ? 28
                                   : 20),
-                          CardWidget(title: item['email']),
+                          CardWidget(title: item['email'] ?? ''),
                           SizedBox(height: 32),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
@@ -270,20 +281,17 @@ class _ProfileState extends State<Profile> {
     final returnediImage =
         await ImagePicker().pickImage(source: ImageSource.camera);
     setState(() {
-      selectimage = File(returnediImage!.path);
-      // print("imgpath" + _selectedImage.toString());
-      log("imag" + selectimage.toString());
+      controller.selectimage = returnediImage!.path;
+      log("imag" + controller.selectimage.toString());
     });
   }
 
   Future _pickgallary() async {
     final returnediImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-
     setState(() {
-      selectimage = File(returnediImage!.path);
-      // print("imgpath" + _selectedImage.toString());
-      print("imag" + selectimage.toString());
+      controller.selectimage = returnediImage!.path;
+      print("imag" + controller.selectimage.toString());
     });
   }
 
@@ -418,22 +426,5 @@ class _ProfileState extends State<Profile> {
             ),
           )),
     );
-  }
-
-  Future<String> uploadImage(File imageFile) async {
-    String fileName = (imageFile.path);
-    Reference storageReference =
-        FirebaseStorage.instance.ref().child('images/$fileName');
-    UploadTask uploadTask = storageReference.putFile(imageFile);
-    TaskSnapshot taskSnapshot =
-        await uploadTask.whenComplete(() => print('Upload complete'));
-    String downloadURL = await taskSnapshot.ref.getDownloadURL();
-    return downloadURL;
-  }
-
-  getimage() async {
-    var setimageid = await ApiHelper().getdatabyuserid('users');
-    log("message" + setimageid.docs[0]['image'].toString());
-    profileimage = setimageid.docs[0]['image'];
   }
 }
