@@ -36,7 +36,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              SizedBox(height: 15),
+              SizedBox(height: 20),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("mivstime")

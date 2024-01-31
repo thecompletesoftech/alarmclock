@@ -1,3 +1,4 @@
+import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
 import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
 import 'package:flutter/gestures.dart';
 
@@ -53,7 +54,7 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                       textAlign: TextAlign.start,
                       style: MyTextStyle.Dynamic(
                           style: MyTextStyle.mw40014,
-                          color: NeumorphicTheme.accentColor(context)),
+                          color: mycolor().greenlightcolor),
                     ),
                     SizedBox(
                       height: 19,
@@ -90,7 +91,7 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                     ),
                     ButtonWidget(
                       height: 60.0,
-                      width: 0.87,
+                      // width: 0.60,
                       name: resetpass,
                       onTap: () {
                         // final isvalidForm = _formkey.currentState!.validate();
@@ -99,7 +100,7 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                         //     emailerror = false;
                         //   });
                         // }
-                        nextscreen(context, NewBottomNavigator());
+                        nextscreen(context, ResetPassword());
                       },
                     ),
                     SizedBox(

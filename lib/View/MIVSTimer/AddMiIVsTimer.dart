@@ -33,7 +33,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
           child: Obx(
             () => Column(
               children: [
-                SizedBox(height: 25),
+                SizedBox(height: 24),
                 IntervalCard(
                   title: reperatinterval,
                   interval: alphatext,
@@ -175,7 +175,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                             _mivsctrl.AddMIVStime(context);
                           }
 
-                          // nextscreen(context, PendingTimer());
+                          nextscreen(context, PendingTimer());
                         },
                       ),
                     ),

@@ -9,6 +9,7 @@ class AuthController extends GetxController {
   final signUpemail = TextEditingController();
   final signuppassword = TextEditingController();
   final signupconfirmpass = TextEditingController();
+  final currentpass = TextEditingController();
   var loginloader = false.obs;
   var signuploader = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
