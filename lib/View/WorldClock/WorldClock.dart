@@ -1,3 +1,4 @@
+import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/Json/Json.dart';
 import 'package:clockalarm/View/WorldClock/Clock.dart';
@@ -59,12 +60,12 @@ class _WorldClockState extends State<WorldClock> {
           child: Column(
             children: [
               StreamBuilder<QuerySnapshot>(
-                  stream: controller.FetchWorldlist(),
+                  stream: ApiHelper().getsnapshotbyuserid('worldclocklist'),
                   builder: (context, snapshot) {
                     if ((snapshot.data == null) ||
                         (snapshot.data!.docs.length < 1)) {
                       return CarouselSlider(
-                        options: CarouselOptions( 
+                        options: CarouselOptions(
                           reverse: false,
                           height: 280,
                           initialPage: 0,
@@ -209,7 +210,7 @@ class _WorldClockState extends State<WorldClock> {
                 height: 30,
               ),
               StreamBuilder<QuerySnapshot>(
-                  stream: controller.FetchWorldlist(),
+                  stream: ApiHelper().getsnapshotbyuserid('worldclocklist'),
                   builder: (context, snapshot) {
                     if ((snapshot.data == null) ||
                         (snapshot.data!.docs.length < 1)) {
@@ -231,7 +232,7 @@ class _WorldClockState extends State<WorldClock> {
                 height: 30,
               ),
               StreamBuilder<QuerySnapshot>(
-                  stream: controller.FetchWorldlist(),
+                  stream: ApiHelper().getsnapshotbyuserid('worldclocklist'),
                   builder: (context, snapshot) {
                     if ((snapshot.data == null) ||
                         (snapshot.data!.docs.length < 1)) {

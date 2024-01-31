@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clockalarm/Config/Api.dart';
+import 'package:clockalarm/Config/CheckPermissions.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Profile/Controller/ProfileController.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
@@ -19,180 +20,240 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   ProfileController controller = Get.put(ProfileController());
-  File? selectimage;
+
   var profileimage = "";
   var box = GetStorage();
   // var box = GetStorage();
   @override
   void initState() {
-    getimage();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NeumorphicAppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                backscreen(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: NeumorphicTheme.defaultTextColor(context),
+    return Obx(
+      () => Scaffold(
+        appBar: NeumorphicAppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  backscreen(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: NeumorphicTheme.defaultTextColor(context),
+                ),
               ),
-            ),
-            Text(
-              profiletext,
-              style: MyTextStyle.Dynamic(
-                  style: MyTextStyle.mw60030,
-                  color: NeumorphicTheme.accentColor(context)),
-            ),
-            GestureDetector(
-              onTap: () async {
-                var setimageid = await ApiHelper().getdatabyuserid('users');
-                log("message" + setimageid.docs[0]['id'].toString());
-                String downloadURL = await uploadImage(selectimage!);
-                print('Image uploaded. Download URL: $downloadURL');
-
-                FirebaseFirestore.instance
-                    .collection("users")
-                    .doc(setimageid.docs[0]['id'])
-                    .update({"image": downloadURL.toString()});
-                nextscreen(context, WorldClock());
-              },
-              child: Text(
-                'Save',
+              Text(
+                profiletext,
                 style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw40020,
+                    style: MyTextStyle.mw60030,
                     color: NeumorphicTheme.accentColor(context)),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () async {
+                  if (controller.profileloading.value == false) {
+                    controller.updateprofile(context);
+                  }
+                },
+                child: Text(
+                  'Save',
+                  style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw40020,
+                      color: NeumorphicTheme.accentColor(context)),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: StreamBuilder<QuerySnapshot>(
-              stream: ApiHelper().getsnapshotbyuserid('users'),
-              builder: (context, snapshot) {
-                log("snanpshot==>>>" + snapshot.data!.docs.length.toString());
-                if ((snapshot.data == null) ||
-                    (snapshot.data!.docs.length < 1)) {
-                  return Container();
-                }
-                return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = snapshot.data!.docs[index];
-                      return Column(
-                        children: [
-                          selectimage == null
-                              ? GestureDetector(
-                                  onTap: () {
-                                    _imagepicker(
-                                        NeumorphicTheme.isUsingDark(context));
-                                  },
-                                  child: Center(
-                                    child: CircleAvatar(
-                                      radius: 60.0,
-                                      backgroundImage: AssetImage(
-                                        "assets/profile.png",
-                                      ),
-                                      backgroundColor: mycolor().Transparent,
-                                    ),
-                                  ),
-                                )
-                              : GestureDetector(
-                                  onTap: () {
-                                    _imagepicker(
-                                        NeumorphicTheme.isUsingDark(context));
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    child: CachedNetworkImage(
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                      imageUrl: profileimage,
-                                    ),
-                                  ),
-                                ),
-                          // : Container(),
-                          SizedBox(height: 32),
-                          CardWidget(
-                            title: item['name'],
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(title: item['email']),
-                          SizedBox(height: 32),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: ApiHelper().getsnapshotbyuserid('users'),
+                    builder: (context, snapshot) {
+                      if ((snapshot.data == null) ||
+                          (snapshot.data!.docs.length < 1)) {
+                        return Container();
+                      }
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            var item = snapshot.data!.docs[index];
+                            return Column(
                               children: [
-                                Text(
-                                  generalsettings,
-                                  style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw70020,
-                                      color:
-                                          NeumorphicTheme.accentColor(context)),
+                                controller.selectimage != null
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          Permissions()
+                                              .checkCamerapermission()
+                                              .then((value) {
+                                            if (value) {
+                                              _imagepicker(
+                                                  NeumorphicTheme.isUsingDark(
+                                                      context));
+                                            }
+                                          });
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          child: Image.file(
+                                            File(controller.selectimage),
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      )
+                                    : ((item['image'] == null) ||
+                                            (item['image'].length < 1) ||
+                                            (item['image'] == ""))
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              Permissions()
+                                                  .checkCamerapermission()
+                                                  .then((value) {
+                                                if (value) {
+                                                  _imagepicker(NeumorphicTheme
+                                                      .isUsingDark(context));
+                                                }
+                                              });
+                                            },
+                                            child: Center(
+                                              child: CircleAvatar(
+                                                radius: 60.0,
+                                                backgroundImage: AssetImage(
+                                                  "assets/profile.png",
+                                                ),
+                                                backgroundColor:
+                                                    mycolor().Transparent,
+                                              ),
+                                            ),
+                                          )
+                                        : GestureDetector(
+                                            onTap: () {
+                                              Permissions()
+                                                  .checkCamerapermission()
+                                                  .then((value) {
+                                                if (value) {
+                                                  _imagepicker(NeumorphicTheme
+                                                      .isUsingDark(context));
+                                                }
+                                              });
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0),
+                                              child: CachedNetworkImage(
+                                                height: 100,
+                                                width: 100,
+                                                fit: BoxFit.cover,
+                                                imageUrl: item['image'],
+                                                progressIndicatorBuilder:
+                                                    (context, url,
+                                                            downloadProgress) =>
+                                                        Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                          color: NeumorphicTheme
+                                                              .accentColor(
+                                                                  context),
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                // : Container(),
+                                SizedBox(height: 32),
+                                CardWidget(
+                                  title: item['name'] ?? '',
                                 ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(title: item['email'] ?? ''),
+                                SizedBox(height: 32),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        generalsettings,
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw70020,
+                                            color: NeumorphicTheme.accentColor(
+                                                context)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 17),
+                                CardWidget(
+                                  title: historytext,
+                                  ontap: () {
+                                    nextscreen(context, History());
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  title: resetpassword,
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  title: logout,
+                                  ontap: () {
+                                    showLogOut(
+                                        NeumorphicTheme.isUsingDark(context));
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  title: deleteaccount,
+                                  ontap: () {
+                                    showDeleteaccout(
+                                        NeumorphicTheme.isUsingDark(context));
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
                               ],
-                            ),
-                          ),
-                          SizedBox(height: 17),
-                          CardWidget(
-                            title: historytext,
-                            ontap: () {
-                              nextscreen(context, History());
-                            },
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(
-                            title: resetpassword,
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(
-                            title: logout,
-                            ontap: () {
-                              showLogOut(NeumorphicTheme.isUsingDark(context));
-                            },
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(
-                            title: deleteaccount,
-                            ontap: () {
-                              showDeleteaccout(
-                                  NeumorphicTheme.isUsingDark(context));
-                            },
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                        ],
-                      );
-                    });
-              }),
+                            );
+                          });
+                    }),
+              ),
+            ),
+            if (controller.profileloading.value)
+              Center(
+                child: CircularProgressIndicator(
+                  color: NeumorphicTheme.accentColor(context),
+                ),
+              )
+          ],
         ),
       ),
     );
@@ -270,20 +331,17 @@ class _ProfileState extends State<Profile> {
     final returnediImage =
         await ImagePicker().pickImage(source: ImageSource.camera);
     setState(() {
-      selectimage = File(returnediImage!.path);
-      // print("imgpath" + _selectedImage.toString());
-      log("imag" + selectimage.toString());
+      controller.selectimage = returnediImage!.path;
+      log("imag" + controller.selectimage.toString());
     });
   }
 
   Future _pickgallary() async {
     final returnediImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-
     setState(() {
-      selectimage = File(returnediImage!.path);
-      // print("imgpath" + _selectedImage.toString());
-      print("imag" + selectimage.toString());
+      controller.selectimage = returnediImage!.path;
+      print("imag" + controller.selectimage.toString());
     });
   }
 
@@ -418,22 +476,5 @@ class _ProfileState extends State<Profile> {
             ),
           )),
     );
-  }
-
-  Future<String> uploadImage(File imageFile) async {
-    String fileName = (imageFile.path);
-    Reference storageReference =
-        FirebaseStorage.instance.ref().child('images/$fileName');
-    UploadTask uploadTask = storageReference.putFile(imageFile);
-    TaskSnapshot taskSnapshot =
-        await uploadTask.whenComplete(() => print('Upload complete'));
-    String downloadURL = await taskSnapshot.ref.getDownloadURL();
-    return downloadURL;
-  }
-
-  getimage() async {
-    var setimageid = await ApiHelper().getdatabyuserid('users');
-    log("message" + setimageid.docs[0]['image'].toString());
-    profileimage = setimageid.docs[0]['image'];
   }
 }
