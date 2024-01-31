@@ -222,8 +222,16 @@ class _ProfileState extends State<Profile> {
                                 CardWidget(
                                   title: logout,
                                   ontap: () {
-                                    showLogOut(
-                                        NeumorphicTheme.isUsingDark(context));
+                                    showLogOut(NeumorphicTheme.isUsingDark(
+                                            context))
+                                        .then((value) {
+                                      log("dncds" + value.toString());
+                                      if (value == true) {
+                                        box.erase();
+                                        nextscreenwithoutback(
+                                            context, SignIn());
+                                      }
+                                    });
                                   },
                                 ),
                                 SizedBox(
@@ -345,8 +353,8 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  showLogOut(isDark) async {
-    showDialog(
+  Future showLogOut(isDark) async {
+    return showDialog(
       context: context,
       builder: (context) => AlertDialog(
           backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
@@ -373,9 +381,7 @@ class _ProfileState extends State<Profile> {
                             isDark ? mycolor().darkbalck : mycolor().lightWhite,
                       ),
                       onPressed: () {
-                        box.erase();
-                        Navigator.pop(context);
-                        nextscreenwithoutback(context, SignIn());
+                        Navigator.pop(context, true);
                       },
                       child: Text(
                         "Yes",
@@ -392,7 +398,7 @@ class _ProfileState extends State<Profile> {
                             isDark ? mycolor().darkbalck : mycolor().lightWhite,
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, false);
                       },
                       child: Text(
                         "No",
