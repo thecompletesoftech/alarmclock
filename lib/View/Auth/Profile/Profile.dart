@@ -7,6 +7,7 @@ import 'package:clockalarm/Config/CheckPermissions.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Profile/Controller/ProfileController.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
+import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -214,6 +215,9 @@ class _ProfileState extends State<Profile> {
                                         : 20),
                                 CardWidget(
                                   title: resetpassword,
+                                  ontap: () {
+                                    nextscreen(context, ResetPassword());
+                                  },
                                 ),
                                 SizedBox(
                                     height: NeumorphicTheme.isUsingDark(context)
@@ -225,7 +229,6 @@ class _ProfileState extends State<Profile> {
                                     showLogOut(NeumorphicTheme.isUsingDark(
                                             context))
                                         .then((value) {
-                                      log("dncds" + value.toString());
                                       if (value == true) {
                                         box.erase();
                                         Navigator.pop(context);
