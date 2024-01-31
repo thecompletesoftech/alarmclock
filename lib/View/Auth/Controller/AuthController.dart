@@ -162,12 +162,12 @@ class AuthController extends GetxController {
       passwordloading.value = true;
       log("email" + box.read('email').toString());
       await auth.signInWithEmailAndPassword(
-        email: box.read('email').toString(),
-        password: currentpass.text,
+        email: box.read('email'),
+        password: oldpass.text,
       );
       auth.currentUser!.updatePassword(confirmpass.text).then((_) {
         clearChangepassdata();
-        Mysnack(retry, passwordchanged, cntx);
+        Mysnack(successfull, passwordchanged, cntx);
         passwordloading.value = false;
         Navigator.pop(cntx);
       }).catchError((error) {

@@ -98,3 +98,4 @@ const deactive = 'Your account is deactive please contact admin to activate';
 const alreadyaddedclock = 'Selected country already exists';
 const passwordchanged = "Successfully changed password";
 const passwordnotchange = "Password can't be changed";
+const successfull = "Successfull";
