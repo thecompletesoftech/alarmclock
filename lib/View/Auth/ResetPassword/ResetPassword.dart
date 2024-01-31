@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Controller/AuthController.dart';
 
@@ -11,6 +13,75 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   AuthController controller = Get.put(AuthController());
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  var oldpasserror = false;
+  var oldpassmsg = '';
+  var currentpasserror = false;
+  var currentpassmsg = '';
+  var confirmpasserror = false;
+  var confirmpassmsg = '';
+
+  @override
+  void initState() {
+    // controller.clearChangepassdata();
+    controller.passwordloading.value = false;
+    super.initState();
+  }
+
+  Future CheckValidation() async {
+    if (controller.oldpass.text.length < 1) {
+      setState(() {
+        oldpasserror = true;
+        oldpassmsg = requiredtext + password;
+      });
+      return true;
+    } else if (controller.oldpass.text.length > 0) {
+      setState(() {
+        oldpasserror = false;
+        oldpassmsg = '';
+      });
+    }
+
+    if (controller.currentpass.text.length < 1) {
+      setState(() {
+        currentpasserror = true;
+        currentpassmsg = requiredtext + password;
+      });
+      return true;
+    } else if (controller.currentpass.text.length > 0) {
+      setState(() {
+        currentpasserror = false;
+        currentpassmsg = '';
+      });
+    }
+
+    if (controller.confirmpass.text.length < 1) {
+      setState(() {
+        confirmpasserror = true;
+        confirmpassmsg = requiredtext + confirmpassword;
+      });
+      return true;
+    } else if (controller.confirmpass.text.length > 0) {
+      setState(() {
+        confirmpasserror = false;
+        confirmpassmsg = '';
+      });
+    }
+
+    if (controller.currentpass.text != controller.confirmpass.text) {
+      setState(() {
+        confirmpasserror = true;
+        confirmpassmsg = sameconfirmpassword;
+      });
+      return true;
+    } else if (controller.currentpass.text == controller.confirmpass.text) {
+      setState(() {
+        confirmpasserror = false;
+        confirmpassmsg = '';
+      });
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +133,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 SizedBox(height: 10),
                 TextBoxwidget(
-                  controller: controller.currentpass,
+                  controller: controller.oldpass,
                   hinttext: '******************',
                   validator: (e) {
                     return null;
                   },
+                  showerror: oldpasserror,
+                  errormsg: oldpassmsg,
                 ),
                 SizedBox(height: 20),
                 Padding(
@@ -90,6 +163,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   validator: (e) {
                     return null;
                   },
+                  showerror: currentpasserror,
+                  errormsg: currentpassmsg,
                 ),
                 SizedBox(height: 20),
                 Padding(
@@ -108,11 +183,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 SizedBox(height: 10),
                 TextBoxwidget(
-                  controller: controller.currentpass,
+                  controller: controller.confirmpass,
                   hinttext: '******************',
                   validator: (e) {
                     return null;
                   },
+                  showerror: confirmpasserror,
+                  errormsg: confirmpassmsg,
                 ),
                 SizedBox(height: 20),
               ],
@@ -120,24 +197,39 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Container(
+      bottomNavigationBar: Obx(
+        () => Container(
+          padding: EdgeInsets.all(16.0),
           child: Container(
-            height: 50,
-            width: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: NeumorphicTheme.accentColor(context),
+            child: Container(
+              height: 50,
+              width: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: NeumorphicTheme.accentColor(context),
+              ),
+              child: controller.passwordloading.value
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: NeumorphicTheme.defaultTextColor(context),
+                      ),
+                    )
+                  : TextButton(
+                      onPressed: () {
+                        if (controller.passwordloading.value == false) {
+                          CheckValidation().then((value) => {
+                                if (value == false)
+                                {controller.Changepassword(context)}
+                              });
+                        }
+                      },
+                      child: Text(
+                        'Save',
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw50018,
+                            color: NeumorphicTheme.baseColor(context)),
+                      )),
             ),
-            child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Save',
-                  style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw50018,
-                      color: NeumorphicTheme.baseColor(context)),
-                )),
           ),
         ),
       ),
