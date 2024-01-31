@@ -49,7 +49,7 @@ class CustomeAppbar extends StatelessWidget {
                   Text(
                     titletext,
                     style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw60030,
+                        style: MyTextStyle.mw60024,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                   SizedBox(width: 10),

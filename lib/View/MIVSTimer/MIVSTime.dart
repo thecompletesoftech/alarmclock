@@ -28,7 +28,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
               {"icon": "assets/add.png", "screenname": AddMIVSTimer()},
               {"icon": "assets/person.png", "screenname": Profile()},
             ],
-            titletext: timertext,
+            titletext: timerlist,
             showdivider: true,
           )),
       body: SingleChildScrollView(

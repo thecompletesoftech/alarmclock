@@ -20,7 +20,7 @@ class AlphaAlarmCard extends StatelessWidget {
     return CardBackground(
       backgroundimage: mediumcardbackground,
       child: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

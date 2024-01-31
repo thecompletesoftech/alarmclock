@@ -1,3 +1,5 @@
+import 'package:clockalarm/Widgets/TimeNameCard.dart';
+
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
 import '../../Widgets/TimerCard.dart';
@@ -34,8 +36,8 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
             () => Column(
               children: [
                 SizedBox(height: 24),
-                IntervalCard(
-                  title: reperatinterval,
+                TimeNameCard(
+                  title: timername,
                   interval: alphatext,
                 ),
                 SizedBox(
@@ -159,7 +161,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         name: go,
                         txtstyle: MyTextStyle.mw40020,
                         issmall: true,
-                        borderRadius: 20.0,
+                        borderRadius: 15.0,
                         onTap: () {
                           if (_mivsctrl.intervalduration.value == "00:00:00") {
                             Mysnack(req, pleaseselectintervalduration, context);
