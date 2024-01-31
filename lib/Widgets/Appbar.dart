@@ -44,7 +44,7 @@ class CustomeAppbar extends StatelessWidget {
                       }),
                       child: Icon(Icons.arrow_back_outlined,
                               color: NeumorphicTheme.defaultTextColor(context))
-                          .paddingOnly(bottom: 10, right: 20),
+                          .paddingOnly(bottom: 0, right: 20),
                     ),
                   Text(
                     titletext,

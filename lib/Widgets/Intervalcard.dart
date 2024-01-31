@@ -10,7 +10,6 @@ class IntervalCard extends StatelessWidget {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return CardBackground(
-      
       backgroundimage: mediumcardbackground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +48,7 @@ class IntervalCard extends StatelessWidget {
             ],
           ),
         ],
-      ),
+      ).paddingSymmetric(vertical: NeumorphicTheme.isUsingDark(context) ? 3: 0),
     );
   }
 }

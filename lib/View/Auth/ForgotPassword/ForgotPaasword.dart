@@ -16,9 +16,9 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
   var emailerror = false;
   var emailerrmsg = '';
   final emailController = TextEditingController();
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> _formkey = GlobalKey<FormState>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -91,7 +91,6 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                     ),
                     ButtonWidget(
                       height: 60.0,
-                      // width: 0.60,
                       name: resetpass,
                       onTap: () {
                         // final isvalidForm = _formkey.currentState!.validate();
@@ -102,7 +101,9 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                         // }
                         nextscreen(context, ResetPassword());
                       },
-                    ),
+                    ).paddingOnly(
+                        left: NeumorphicTheme.isUsingDark(context) ? 6 : 0,
+                        right: NeumorphicTheme.isUsingDark(context) ? 8 : 0),
                     SizedBox(
                       height: 119,
                     ),

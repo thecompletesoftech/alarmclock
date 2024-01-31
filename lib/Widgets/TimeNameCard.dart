@@ -42,7 +42,7 @@ class TimeNameCard extends StatelessWidget {
             ],
           ),
         ],
-      ),
+      ).paddingSymmetric(vertical:NeumorphicTheme.isUsingDark(context) ? 4 : 0),
     );
   }
 }

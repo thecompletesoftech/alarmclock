@@ -165,7 +165,9 @@ class _SignInState extends State<SignIn> {
                             });
                           }
                         },
-                      ),
+                      ).paddingOnly(
+                          left: NeumorphicTheme.isUsingDark(context) ? 6 : 0,
+                          right: NeumorphicTheme.isUsingDark(context) ? 8 : 0),
                     ),
                     SizedBox(height: 93),
                     RichText(

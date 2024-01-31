@@ -65,54 +65,69 @@ class _AlramTimesupState extends State<AlramTimesup> {
               SizedBox(height: 20),
               LargeCardBackground(
                 child: ListView.builder(
-                    padding: EdgeInsets.all(6.0),
-                    itemCount: list.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      var items = list[index];
-                      var show = checkdata
-                          .where((element) => element['id'] == items['id']);
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                show.length > 0
-                                    ? checkdata.remove(items)
-                                    : checkdata.add(items);
-                              });
-                            },
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(items['name'].toString(),
-                                      style: MyTextStyle.Dynamic(
-                                        style: MyTextStyle.mw50012,
-                                        color: NeumorphicTheme.accentColor(
-                                            context),
-                                      )),
-                                ),
-                                Stack(
-                                  alignment: Alignment.center,
-                                  children: [
+                        padding: EdgeInsets.all(6.0),
+                        itemCount: list.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          var items = list[index];
+                          var show = checkdata
+                              .where((element) => element['id'] == items['id']);
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
                                     show.length > 0
-                                        ? Image.asset('assets/checkboxbg.png')
-                                        : Image.asset('assets/uncheckbg.png'),
-                                    if (show.length > 0)
-                                      Icon(
-                                        Icons.done,
-                                        color: NeumorphicTheme.defaultTextColor(
-                                            context),
-                                      ),
+                                        ? checkdata.remove(items)
+                                        : checkdata.add(items);
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(items['name'].toString(),
+                                          style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw50012,
+                                            color: NeumorphicTheme.accentColor(
+                                                context),
+                                          )),
+                                    ),
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        show.length > 0
+                                            ? Image.asset(
+                                                NeumorphicTheme.isUsingDark(
+                                                        context)
+                                                    ? 'assets/uncheckbox.png'
+                                                    : 'assets/checkboxbg.png',
+                                                height: 30,
+                                              )
+                                            : Image.asset(
+                                                NeumorphicTheme.isUsingDark(
+                                                        context)
+                                                    ? 'assets/uncheckbox.png'
+                                                    : 'assets/uncheckbg.png',
+                                                height: 30,
+                                              ),
+                                        if (show.length > 0)
+                                          Icon(
+                                            Icons.done,
+                                            color: NeumorphicTheme
+                                                .defaultTextColor(context),
+                                          ),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ).paddingSymmetric(vertical: 15),
-                        ],
-                      );
-                    }),
+                              ).paddingSymmetric(vertical: 15),
+                            ],
+                          );
+                        })
+                    .paddingOnly(
+                        bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 20,
+                        top: NeumorphicTheme.isUsingDark(context) ? 0 : 20),
               ),
               SizedBox(height: 150),
               ButtonWidget(

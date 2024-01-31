@@ -21,14 +21,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   ProfileController controller = Get.put(ProfileController());
-
-  var profileimage = "";
   var box = GetStorage();
-  // var box = GetStorage();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

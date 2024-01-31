@@ -92,7 +92,7 @@ class Intervalend extends StatelessWidget {
             ],
           )
         ],
-      ),
+      ).paddingSymmetric(vertical: NeumorphicTheme.isUsingDark(context) ?8 : 0),
     );
   }
 }

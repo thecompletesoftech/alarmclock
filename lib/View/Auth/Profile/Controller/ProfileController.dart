@@ -27,8 +27,7 @@ class ProfileController extends GetxController {
     print('Image uploaded. Download URL: $downloadURL');
     var updatedata = {"image": downloadURL.toString()};
     await ApiHelper().Updatedata('users', setimageid.docs[0]['id'], updatedata);
-    log('mcvnevoveokvk');
-    nextscreen(cntx, WorldClock());
     profileloading.value = false;
+    nextscreen(cntx, NewBottomNavigator());
   }
 }

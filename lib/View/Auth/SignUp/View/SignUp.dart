@@ -195,7 +195,9 @@ class _SignUpState extends State<SignUp> {
                               });
                         }
                       },
-                    ),
+                    ).paddingOnly(
+                        left: NeumorphicTheme.isUsingDark(context) ? 6 : 0,
+                        right: NeumorphicTheme.isUsingDark(context) ? 8 : 0),
                   ),
                 ),
                 SizedBox(height: 24),
