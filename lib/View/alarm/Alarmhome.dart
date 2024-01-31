@@ -1,3 +1,5 @@
+import 'package:clockalarm/Config/Api.dart';
+
 import '../../Config/Import.dart';
 
 class AlarmHome extends StatefulWidget {
@@ -9,6 +11,8 @@ class AlarmHome extends StatefulWidget {
 
 class _AlarmHomeState extends State<AlarmHome> {
   bool isSwitched = false;
+  var box = GetStorage();
+
   AlramController _alramController = Get.put(AlramController());
   @override
   void initState() {
@@ -48,11 +52,10 @@ class _AlarmHomeState extends State<AlarmHome> {
               () => _alramController.getalarmisloading.value
                   ? Center(child: CircularProgressIndicator())
                   : StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection("alarm")
-                          .snapshots(),
+                      stream: ApiHelper().getsnapshotbyuserid("alarm"),
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
+                        if ((snapshot.data == null) ||
+                            (snapshot.data!.docs.length < 1)) {
                           return Center(
                             child: Text(
                               noanyalarfound,

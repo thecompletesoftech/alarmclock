@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:clockalarm/Config/Import.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class AlramController extends GetxController {
   var alarms = <AlarmSettings>[].obs;
@@ -17,7 +19,7 @@ class AlramController extends GetxController {
         id: Random().nextInt(100),
         dateTime: time,
         assetAudioPath: audio,
-        loopAudio: snooze,
+        loopAudio: true,
         vibrate: true,
         // volumeMax: true,
         fadeDuration: 3.0,
@@ -29,7 +31,6 @@ class AlramController extends GetxController {
     Alarm.set(alarmSettings: alarmSettings).then((value) async {
       await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
           time.toString(), snooze, audio, context);
-
       //insert to firebase
     }).then((value) {
       //get data of firebase
@@ -41,18 +42,24 @@ class AlramController extends GetxController {
     var uid = box.read('uid');
     QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
         .collection("alarm")
-        .where("id", isEqualTo: uid)
+        .where("uid", isEqualTo: uid)
         .get();
     if (_querySnapshot.docs.isNotEmpty) {
-      _querySnapshot.docs.forEach((element) async {
-        var index = _querySnapshot.docs.indexOf(element);
-        if (DateTime.parse(element['date']).compareTo(now) < 0) {
+      for (var i = 0; i < _querySnapshot.docs.length; i++) {
+        print("index" + i.toString());
+        print("-----------------------------------");
+        if (DateTime.parse(_querySnapshot.docs[i]['date']).compareTo(now) < 0) {
+          print("before-----");
           FirebaseFirestore.instance
               .collection("alarm")
-              .doc(_querySnapshot.docs[index].id)
+              .doc(_querySnapshot.docs[i].id)
               .update({"alarmstatus": false});
         }
-      });
+      }
+      // _querySnapshot.docs.map((element) async {
+      //   var index = _querySnapshot.docs.indexOf(element);
+
+      // });
     }
   }
 
@@ -75,13 +82,35 @@ class AlramController extends GetxController {
     switchlist.value = [];
     await setalarmfalse();
     await setstorealramtolocal(cntx);
-    final QuerySnapshot qSnap =
-        await FirebaseFirestore.instance.collection('alarm').get();
+    final QuerySnapshot qSnap = await FirebaseFirestore.instance
+        .collection('alarm')
+        .where("uid", isEqualTo: box.read('uid'))
+        .get();
     final int documents = qSnap.docs.length;
     print("documents length" + documents.toString());
     switchlist.value = List.filled(documents, true);
     getalarmisloading.value = false;
   }
+
+  // scheduleNotification(
+  //     {int id = 0,
+  //     String? title,
+  //     String? body,
+  //     String? payLoad,
+  //     required DateTime scheduledNotificationDateTime}) async {
+  //   return FlutterLocalNotificationsPlugin().zonedSchedule(
+  //       id,
+  //       title,
+  //       body,
+  //       tz.TZDateTime.from(
+  //         scheduledNotificationDateTime,
+  //         tz.local,
+  //       ),
+  //       await notificationDetails(),
+  //       androidAllowWhileIdle: true,
+  //       uiLocalNotificationDateInterpretation:
+  //           UILocalNotificationDateInterpretation.absoluteTime);
+  // }
 
   // Future<void> scheduleRepeatingAlarm() async {
   //   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -113,7 +142,6 @@ class AlramController extends GetxController {
   AddAlramtime(dateTime, date, snooze, audio, cntx) {
     alarmisloading.value = true;
     var uid = box.read('uid');
-
     var alramdata = {
       "uid": uid,
       "id": Random().nextInt(100),
@@ -159,7 +187,7 @@ class AlramController extends GetxController {
             id: element['id'],
             dateTime: DateTime.parse(element['date']),
             assetAudioPath: element['assetAudioPath'],
-            loopAudio: element['loopAudio'],
+            loopAudio: true,
             vibrate: true,
             // volumeMax: true,
             fadeDuration: 3.0,

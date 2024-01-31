@@ -75,7 +75,7 @@ class _RepeatState extends State<Repeat> {
                   time: alramlist[index]['title'].toString(),
                   subtitle: "",
                   ontapcard: () {
-                    nextscreen(context, Repeat());
+                    // nextscreen(context, Repeat());
                   },
                   onchange: (value) {
                     setState(() {

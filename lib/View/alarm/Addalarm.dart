@@ -1,9 +1,7 @@
 import 'package:clockalarm/View/alarm/Sound.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../../Config/Import.dart';
 import 'Repeat.dart';
-import 'alarmController.dart';
 
 class AddAlram extends StatefulWidget {
   const AddAlram({super.key});
@@ -28,8 +26,6 @@ class _AddAlramState extends State<AddAlram> {
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 390;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
