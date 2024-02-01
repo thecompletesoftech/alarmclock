@@ -24,7 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset("assets/NewLogo.png"),
+        child: NeumorphicTheme.isUsingDark(context)
+            ? Image.asset("assets/LogoBlackMode.png")
+            : Image.asset("assets/NewLogo.png"),
       ),
     );
   }
