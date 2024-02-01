@@ -103,6 +103,8 @@ class _SignInState extends State<SignIn> {
                     TextBoxwidget(
                       controller: controller.emailController,
                       hinttext: email,
+                      accentcolor: NeumorphicTheme.accentColor(context),
+                      basecolor: NeumorphicTheme.baseColor(context),
                       validator: (e) {
                         return null;
                       },
@@ -113,6 +115,8 @@ class _SignInState extends State<SignIn> {
                     TextBoxwidget(
                       controller: controller.passwordController,
                       hinttext: password,
+                      accentcolor: NeumorphicTheme.accentColor(context),
+                      basecolor: NeumorphicTheme.baseColor(context),
                       validator: (e) {
                         var regex = RegExp(
                                 r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')

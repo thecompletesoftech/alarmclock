@@ -66,6 +66,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           controller: searchController,
                           hinttext: 'Search',
                           validator: (p0) {},
+                          accentcolor: NeumorphicTheme.accentColor(context),
+                          basecolor: NeumorphicTheme.baseColor(context),
                           onchange: (e) {
                             updateSearchResults(e);
                           },
@@ -90,8 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             cancel,
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw40016,
-                                color:
-                                    mycolor().greenlightcolor),
+                                color: mycolor().greenlightcolor),
                           )),
                     )
                   ],
