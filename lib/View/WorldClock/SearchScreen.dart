@@ -91,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             style: MyTextStyle.Dynamic(
                                 style: MyTextStyle.mw40016,
                                 color:
-                                    NeumorphicTheme.defaultTextColor(context)),
+                                    mycolor().greenlightcolor),
                           )),
                     )
                   ],

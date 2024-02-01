@@ -1,4 +1,3 @@
-import 'package:clockalarm/View/alarm/Repeat.dart';
 
 const register = 'Register';
 const fullname = 'Full Name';
@@ -92,7 +91,12 @@ const somethingwrong = 'Something went wrong';
 const emailalreadyinuse = 'The account already exists for that email';
 const invalidcredential = 'Invalid Credential';
 const invalidemail = 'Invalid email';
+const timername = 'Timer Name';
+const timerlist = 'Timer List';
 const tomanytry =
     'We have blocked all requests from this device due to unusual activity. Try again later.';
 const deactive = 'Your account is deactive please contact admin to activate';
 const alreadyaddedclock = 'Selected country already exists';
+const passwordchanged = "Successfully changed password";
+const passwordnotchange = "Password can't be changed";
+const successfull = "Successfull";

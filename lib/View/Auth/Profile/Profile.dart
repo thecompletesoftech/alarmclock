@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clockalarm/Config/Api.dart';
+import 'package:clockalarm/Config/CheckPermissions.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Profile/Controller/ProfileController.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
+import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,180 +32,240 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: NeumorphicAppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                backscreen(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: NeumorphicTheme.defaultTextColor(context),
+    return Obx(
+      () => Scaffold(
+        appBar: NeumorphicAppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  backscreen(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: NeumorphicTheme.defaultTextColor(context),
+                ),
               ),
-            ),
-            Text(
-              profiletext,
-              style: MyTextStyle.Dynamic(
-                  style: MyTextStyle.mw60030,
-                  color: NeumorphicTheme.accentColor(context)),
-            ),
-            GestureDetector(
-              onTap: () async {
-               controller.updateprofile(context);
-              },
-              child: Text(
-                'Save',
+              Text(
+                profiletext,
                 style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw40020,
+                    style: MyTextStyle.mw60030,
                     color: NeumorphicTheme.accentColor(context)),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () async {
+                  if (controller.profileloading.value == false) {
+                    controller.updateprofile(context);
+                  }
+                },
+                child: Text(
+                  'Save',
+                  style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw40020,
+                      color: NeumorphicTheme.accentColor(context)),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: StreamBuilder<QuerySnapshot>(
-              stream: ApiHelper().getsnapshotbyuserid('users'),
-              builder: (context, snapshot) {
-                if ((snapshot.data == null) ||
-                    (snapshot.data!.docs.length < 1)) {
-                  return Container();
-                }
-                return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      var item = snapshot.data!.docs[index];
-                      return Column(
-                        children: [
-                          controller.selectimage != null
-                              ? GestureDetector(
-                                  onTap: () {
-                                    _imagepicker(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: ApiHelper().getsnapshotbyuserid('users'),
+                    builder: (context, snapshot) {
+                      if ((snapshot.data == null) ||
+                          (snapshot.data!.docs.length < 1)) {
+                        return Container();
+                      }
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            var item = snapshot.data!.docs[index];
+                            return Column(
+                              children: [
+                                controller.selectimage != null
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          Permissions()
+                                              .checkCamerapermission()
+                                              .then((value) {
+                                            if (value) {
+                                              _imagepicker(
+                                                  NeumorphicTheme.isUsingDark(
+                                                      context));
+                                            }
+                                          });
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          child: Image.file(
+                                            File(controller.selectimage),
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      )
+                                    : ((item['image'] == null) ||
+                                            (item['image'].length < 1) ||
+                                            (item['image'] == ""))
+                                        ? GestureDetector(
+                                            onTap: () {
+                                              Permissions()
+                                                  .checkCamerapermission()
+                                                  .then((value) {
+                                                if (value) {
+                                                  _imagepicker(NeumorphicTheme
+                                                      .isUsingDark(context));
+                                                }
+                                              });
+                                            },
+                                            child: Center(
+                                              child: CircleAvatar(
+                                                radius: 60.0,
+                                                backgroundImage: AssetImage(
+                                                  "assets/profile.png",
+                                                ),
+                                                backgroundColor:
+                                                    mycolor().Transparent,
+                                              ),
+                                            ),
+                                          )
+                                        : GestureDetector(
+                                            onTap: () {
+                                              Permissions()
+                                                  .checkCamerapermission()
+                                                  .then((value) {
+                                                if (value) {
+                                                  _imagepicker(NeumorphicTheme
+                                                      .isUsingDark(context));
+                                                }
+                                              });
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0),
+                                              child: CachedNetworkImage(
+                                                height: 100,
+                                                width: 100,
+                                                fit: BoxFit.cover,
+                                                imageUrl: item['image'],
+                                                progressIndicatorBuilder:
+                                                    (context, url,
+                                                            downloadProgress) =>
+                                                        Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                          color: NeumorphicTheme
+                                                              .accentColor(
+                                                                  context),
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                // : Container(),
+                                SizedBox(height: 32),
+                                CardWidget(
+                                  title: item['name'] ?? '',
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(title: item['email'] ?? ''),
+                                SizedBox(height: 32),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        generalsettings,
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw70020,
+                                            color: NeumorphicTheme.accentColor(
+                                                context)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 17),
+                                CardWidget(
+                                  title: historytext,
+                                  ontap: () {
+                                    nextscreen(context, History());
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  title: resetpassword,
+                                  ontap: () {
+                                    nextscreen(context, ResetPassword());
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  title: logout,
+                                  ontap: () {
+                                    showLogOut(NeumorphicTheme.isUsingDark(
+                                            context))
+                                        .then((value) {
+                                      if (value == true) {
+                                        box.erase();
+                                        Navigator.pop(context);
+                                        nextscreenwithoutback(
+                                            context, SignIn());
+                                      }
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  title: deleteaccount,
+                                  ontap: () {
+                                    showDeleteaccout(
                                         NeumorphicTheme.isUsingDark(context));
                                   },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    child: Image.file(
-                                      File(controller.selectimage),
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                )
-                              : ((item['image'] == null) ||
-                                      (item['image'].length < 1) ||
-                                      (item['image'] == ""))
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        _imagepicker(
-                                            NeumorphicTheme.isUsingDark(
-                                                context));
-                                      },
-                                      child: Center(
-                                        child: CircleAvatar(
-                                          radius: 60.0,
-                                          backgroundImage: AssetImage(
-                                            "assets/profile.png",
-                                          ),
-                                          backgroundColor:
-                                              mycolor().Transparent,
-                                        ),
-                                      ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () {
-                                        _imagepicker(
-                                            NeumorphicTheme.isUsingDark(
-                                                context));
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                        child: CachedNetworkImage(
-                                          height: 100,
-                                          width: 100,
-                                          fit: BoxFit.cover,
-                                          imageUrl: controller.selectimage!,
-                                        ),
-                                      ),
-                                    ),
-                          // : Container(),
-                          SizedBox(height: 32),
-                          CardWidget(
-                            title: item['name'] ?? '',
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(title: item['email'] ?? ''),
-                          SizedBox(height: 32),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  generalsettings,
-                                  style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw70020,
-                                      color:
-                                          NeumorphicTheme.accentColor(context)),
                                 ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
                               ],
-                            ),
-                          ),
-                          SizedBox(height: 17),
-                          CardWidget(
-                            title: historytext,
-                            ontap: () {
-                              nextscreen(context, History());
-                            },
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(
-                            title: resetpassword,
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(
-                            title: logout,
-                            ontap: () {
-                              showLogOut(NeumorphicTheme.isUsingDark(context));
-                            },
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                          CardWidget(
-                            title: deleteaccount,
-                            ontap: () {
-                              showDeleteaccout(
-                                  NeumorphicTheme.isUsingDark(context));
-                            },
-                          ),
-                          SizedBox(
-                              height: NeumorphicTheme.isUsingDark(context)
-                                  ? 28
-                                  : 20),
-                        ],
-                      );
-                    });
-              }),
+                            );
+                          });
+                    }),
+              ),
+            ),
+            if (controller.profileloading.value)
+              Center(
+                child: CircularProgressIndicator(
+                  color: NeumorphicTheme.accentColor(context),
+                ),
+              )
+          ],
         ),
       ),
     );
@@ -295,8 +357,8 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  showLogOut(isDark) async {
-    showDialog(
+  Future showLogOut(isDark) async {
+    return showDialog(
       context: context,
       builder: (context) => AlertDialog(
           backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
@@ -323,7 +385,7 @@ class _ProfileState extends State<Profile> {
                             isDark ? mycolor().darkbalck : mycolor().lightWhite,
                       ),
                       onPressed: () {
-                        nextscreenwithoutback(context, SignIn());
+                        Navigator.pop(context, true);
                       },
                       child: Text(
                         "Yes",
@@ -340,7 +402,7 @@ class _ProfileState extends State<Profile> {
                             isDark ? mycolor().darkbalck : mycolor().lightWhite,
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, false);
                       },
                       child: Text(
                         "No",

@@ -6,9 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class ProfileController extends GetxController {
   var selectimage;
-  var profileimage = "";
   var box = GetStorage();
-
+  var profileloading = false.obs;
   Future<String> uploadImage(imageFile) async {
     String fileName = (imageFile.path);
     Reference storageReference =
@@ -21,6 +20,7 @@ class ProfileController extends GetxController {
   }
 
   updateprofile(cntx) async {
+    profileloading.value = true;
     var setimageid = await ApiHelper().getdatabyuserid('users');
     log("message" + setimageid.docs[0]['id'].toString());
     String downloadURL = await uploadImage(File(selectimage!));
@@ -29,5 +29,6 @@ class ProfileController extends GetxController {
     await ApiHelper().Updatedata('users', setimageid.docs[0]['id'], updatedata);
     log('mcvnevoveokvk');
     nextscreen(cntx, WorldClock());
+    profileloading.value = false;
   }
 }

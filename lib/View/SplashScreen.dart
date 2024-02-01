@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SvgPicture.string(TivalLogo),
+        child: Image.asset("assets/NewLogo.png"),
       ),
     );
   }

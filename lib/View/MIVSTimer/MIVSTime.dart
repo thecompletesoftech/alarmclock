@@ -28,7 +28,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
               {"icon": "assets/add.png", "screenname": AddMIVSTimer()},
               {"icon": "assets/person.png", "screenname": Profile()},
             ],
-            titletext: timertext,
+            titletext: timerlist,
             showdivider: true,
           )),
       body: SingleChildScrollView(
@@ -36,7 +36,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              SizedBox(height: 15),
+              SizedBox(height: 20),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("mivstime")

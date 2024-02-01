@@ -1,16 +1,15 @@
 import '../Config/Import.dart';
 
-class IntervalCard extends StatelessWidget {
+class TimeNameCard extends StatelessWidget {
   final title;
   final interval;
-  const IntervalCard({super.key, this.title, this.interval});
+  const TimeNameCard({super.key, this.title, this.interval});
 
   @override
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return CardBackground(
-      
       backgroundimage: mediumcardbackground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,23 +28,17 @@ class IntervalCard extends StatelessWidget {
                     boxShape: buttonradius(),
                   ),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    // height: 50,
+                    width: 146,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: Text(
                       interval.toString(),
+                      textAlign: TextAlign.center,
                       style: MyTextStyle.Dynamic(
                           style: MyTextStyle.mw40018,
                           color: NeumorphicTheme.accentColor(context)),
                     ),
                   )),
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                times,
-                style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw40018,
-                    color: mycolor().greenlightcolor),
-              ),
             ],
           ),
         ],

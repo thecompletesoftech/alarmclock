@@ -9,8 +9,12 @@ class AuthController extends GetxController {
   final signUpemail = TextEditingController();
   final signuppassword = TextEditingController();
   final signupconfirmpass = TextEditingController();
+  final oldpass = TextEditingController();
+  final currentpass = TextEditingController();
+  final confirmpass = TextEditingController();
   var loginloader = false.obs;
   var signuploader = false.obs;
+  var passwordloading = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   var box = GetStorage();
@@ -27,10 +31,12 @@ class AuthController extends GetxController {
           user = userCredential.user;
           if (user != null) {
             box.write('uid', user!.uid);
+            box.write('email', user!.email);
+            clearsignindata();
+            log("userDetails ==>>>" + user.toString());
+            loginloader.value = false;
           }
-          log("userDetails ==>>>" + user.toString());
           return userCredential.user;
-          // loginloader.value = false;
         } catch (e) {
           if (e is FirebaseAuthException) {
             print('Login Catch===> ' + e.code.toString());
@@ -55,14 +61,11 @@ class AuthController extends GetxController {
               default:
                 Mysnack(retry, somethingwrong, context);
             }
-            loginloader.value = false;
           }
+          loginloader.value = false;
         }
       }
     });
-    // loginloader.value = false;
-
-    // return user;
   }
 
   signUp(cntx) async {
@@ -81,10 +84,11 @@ class AuthController extends GetxController {
             Adduser(user, cntx);
             box.write(
                 'email', (signUpemail.text.replaceAll(RegExp(r"\s+"), "")));
+            clearsignupdata();
           }
           log("userDetails ==>>>" + user.toString());
-        } catch (e) {
           signuploader.value = false;
+        } catch (e) {
           print('Error during user registration: $e');
           if (e is FirebaseAuthException) {
             print('FirebaseAuthException - ${e.code}: ${e.message}');
@@ -99,6 +103,7 @@ class AuthController extends GetxController {
                 Mysnack(retry, somethingwrong, cntx);
             }
           }
+          signuploader.value = false;
           print("Error during sign up: $e");
         }
       }
@@ -128,7 +133,7 @@ class AuthController extends GetxController {
             .update({"id": value.id.toString()});
 
         box.write('uid', user.uid);
-      
+
         clearsignupdata();
         nextscreenwithoutback(cntx, NewBottomNavigator());
         signuploader.value = false;
@@ -150,6 +155,48 @@ class AuthController extends GetxController {
         log('Userdatatata==>');
       }
     });
+  }
+
+  Changepassword(cntx) async {
+    try {
+      passwordloading.value = true;
+      log("email" + box.read('email').toString());
+      await auth.signInWithEmailAndPassword(
+        email: box.read('email'),
+        password: oldpass.text,
+      );
+      auth.currentUser!.updatePassword(confirmpass.text).then((_) {
+        clearChangepassdata();
+        Mysnack(successfull, passwordchanged, cntx);
+        passwordloading.value = false;
+        Navigator.pop(cntx);
+      }).catchError((error) {
+        passwordloading.value = false;
+        Mysnack(retry, passwordnotchange, cntx);
+        print(passwordnotchange + error.toString());
+      });
+    } on FirebaseAuthException catch (e) {
+      passwordloading.value = false;
+      log("Exception Code" + e.code.toString());
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        Mysnack(retry, somethingwrong, cntx);
+      } else if (e.code == 'invalid-credential') {
+        print('wrongpassword'.tr);
+        Mysnack(retry, wrongpassword, cntx);
+      }
+    }
+  }
+
+  clearsignindata() {
+    emailController.clear();
+    passwordController.clear();
+  }
+
+  clearChangepassdata() {
+    oldpass.clear();
+    currentpass.clear();
+    confirmpass.clear();
   }
 
   clearsignupdata() {

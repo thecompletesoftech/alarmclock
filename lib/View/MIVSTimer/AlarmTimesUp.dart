@@ -22,11 +22,11 @@ class _AlramTimesupState extends State<AlramTimesup> {
     },
     {
       'id': 2,
-      'name': 'Start Next Interval Increase Interval \n by Snooze Duration',
+      'name': 'Start Next Interval Increase Interval \nby Snooze Duration',
     },
     {
       'id': 3,
-      'name': 'Start Next Interval Decrease Interval \n  by Snooze Duration',
+      'name': 'Start Next Interval Decrease Interval \nby Snooze Duration',
     },
     {
       'id': 4,
@@ -65,6 +65,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
               SizedBox(height: 20),
               LargeCardBackground(
                 child: ListView.builder(
+                    padding: EdgeInsets.all(6.0),
                     itemCount: list.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -105,7 +106,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
                                             context),
                                       ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ).paddingSymmetric(vertical: 15),
