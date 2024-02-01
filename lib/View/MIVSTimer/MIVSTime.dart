@@ -56,7 +56,8 @@ class _MIVSTimerState extends State<MIVSTimer> {
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
+                      // itemCount: snapshot.data!.docs.length,
+                      itemCount: 2,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         DocumentSnapshot newitem = snapshot.data!.docs[index];
