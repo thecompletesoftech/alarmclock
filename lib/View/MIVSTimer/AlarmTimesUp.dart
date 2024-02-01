@@ -58,6 +58,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
           padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
+              SizedBox(height: 20),
               AlphaAlarmCard(
                   title: alarmeat, hour: '5', minute: '15', time: 'PM'),
               SizedBox(height: 20),
