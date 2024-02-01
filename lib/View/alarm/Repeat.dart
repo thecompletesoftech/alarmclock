@@ -23,19 +23,21 @@ class _RepeatState extends State<Repeat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
+      backgroundColor: NeumorphicTheme.isUsingDark(context)
+          ? mycolor().shadowcolordark
+          : mycolor().lighterWhite,
       body: Stack(
         children: [
           Container(
             height: 100,
-            color: NeumorphicTheme.isUsingDark(context)
-                ? mycolor().shadowcolordark
-                : mycolor().lighterWhite,
+            color: NeumorphicTheme.baseColor(context),
           ),
           Container(
             margin: EdgeInsets.only(top: 60),
             decoration: BoxDecoration(
-              color: NeumorphicTheme.baseColor(context),
+              color: NeumorphicTheme.isUsingDark(context)
+                  ? mycolor().shadowcolordark
+                  : mycolor().lighterWhite,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0)),
@@ -90,6 +92,7 @@ class _RepeatState extends State<Repeat> {
                         showmedium: false,
                         showswitchorsubtile: false,
                         showarrowicon: false,
+                        bgshow: true,
                         time: alramlist[index]['title'].toString(),
                         subtitle: "",
                         ontapcard: () {

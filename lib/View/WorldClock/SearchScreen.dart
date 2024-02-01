@@ -39,20 +39,22 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
+      backgroundColor: NeumorphicTheme.isUsingDark(context)
+          ? mycolor().shadowcolordark
+          : mycolor().lighterWhite,
       body: Obx(
         () => Stack(
           children: [
             Container(
               height: 100,
-              color: NeumorphicTheme.isUsingDark(context)
-                  ? mycolor().shadowcolordark
-                  : mycolor().lighterWhite,
+              color: NeumorphicTheme.baseColor(context),
             ),
             Container(
               margin: EdgeInsets.only(top: 50),
               decoration: BoxDecoration(
-                color: NeumorphicTheme.baseColor(context),
+                color: NeumorphicTheme.isUsingDark(context)
+                    ? mycolor().shadowcolordark
+                    : mycolor().lighterWhite,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0)),

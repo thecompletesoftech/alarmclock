@@ -26,19 +26,21 @@ class _AddAlramState extends State<AddAlram> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
+      backgroundColor: NeumorphicTheme.isUsingDark(context)
+          ? mycolor().shadowcolordark
+          : mycolor().lighterWhite,
       body: Stack(
         children: [
           Container(
             height: 100,
-            color: NeumorphicTheme.isUsingDark(context)
-                ? mycolor().shadowcolordark
-                : mycolor().lighterWhite,
+            color: NeumorphicTheme.baseColor(context),
           ),
           Container(
             margin: EdgeInsets.only(top: 60),
             decoration: BoxDecoration(
-              color: NeumorphicTheme.baseColor(context),
+              color: NeumorphicTheme.isUsingDark(context)
+                  ? mycolor().shadowcolordark
+                  : mycolor().lighterWhite,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0)),
@@ -114,6 +116,7 @@ class _AddAlramState extends State<AddAlram> {
                     showarrowicon: true,
                     time: "Repeat",
                     subtitle: "Never",
+                    bgshow: true,
                     ontapcard: () {
                       Navigator.of(context).push(createRoutes(Repeat()));
                     },
@@ -124,6 +127,7 @@ class _AddAlramState extends State<AddAlram> {
                     showarrowicon: false,
                     time: "Label",
                     subtitle: "Alarm",
+                    bgshow: true,
                     ontapcard: () {},
                   ).paddingOnly(bottom: 10, top: 10),
                   Obx(
@@ -131,6 +135,7 @@ class _AddAlramState extends State<AddAlram> {
                       showmedium: false,
                       showswitchorsubtile: false,
                       showarrowicon: true,
+                      bgshow: true,
                       time: "Sound",
                       subtitle: _alramController.currentsound.value.toString(),
                       ontapcard: () {
@@ -142,6 +147,7 @@ class _AddAlramState extends State<AddAlram> {
                     showmedium: false,
                     showswitchorsubtile: true,
                     showarrowicon: false,
+                    bgshow: true,
                     time: "Snooze",
                     subtitle: "",
                     ontapcard: () {},

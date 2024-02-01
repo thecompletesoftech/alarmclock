@@ -14,6 +14,7 @@ class AlramCard extends StatefulWidget {
   final Function? onchange;
   final Function? ontapcard;
   final bool? swicthvalue;
+  final bgshow;
   const AlramCard(
       {super.key,
       required this.time,
@@ -26,7 +27,8 @@ class AlramCard extends StatefulWidget {
       this.swicthvalue = true,
       this.ontapcard,
       this.subtitlestyle,
-      this.subtitlecolor});
+      this.subtitlecolor,
+      this.bgshow = false});
 
   @override
   State<AlramCard> createState() => _AlramCardState();
@@ -42,6 +44,7 @@ class _AlramCardState extends State<AlramCard> {
         widget.ontapcard!();
       }),
       child: CardBackground(
+        backgroundimage: widget.bgshow == true ? cardbackground2 : cardbackground,
         child: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

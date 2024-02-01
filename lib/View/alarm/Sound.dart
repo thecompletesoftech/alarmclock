@@ -33,19 +33,21 @@ class _SoundState extends State<Sound> {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
+      backgroundColor: NeumorphicTheme.isUsingDark(context)
+          ? mycolor().shadowcolordark
+          : mycolor().lighterWhite,
       body: Stack(
         children: [
           Container(
             height: 100,
-            color: NeumorphicTheme.isUsingDark(context)
-                ? mycolor().shadowcolordark
-                : mycolor().lighterWhite,
+            color: NeumorphicTheme.baseColor(context),
           ),
           Container(
             margin: EdgeInsets.only(top: 60),
             decoration: BoxDecoration(
-              color: NeumorphicTheme.baseColor(context),
+              color: NeumorphicTheme.isUsingDark(context)
+                  ? mycolor().shadowcolordark
+                  : mycolor().lighterWhite,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0)),
