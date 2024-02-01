@@ -23,7 +23,6 @@ class _AlarmHomeState extends State<AlarmHome> {
     // AwesomeNotifications().setListeners(
     //     onActionReceivedMethod: (ReceivedAction receivedAction) async {
     //       print("action -----" + receivedAction.toString());
-          
     //     },
     //     onNotificationCreatedMethod:
     //         (ReceivedNotification receivedNotification) async {},
@@ -50,11 +49,28 @@ class _AlarmHomeState extends State<AlarmHome> {
               // print("adsddsaf");
               // AwesomeNotifications().cancel(123);
             }),
-            child: CustomeAppbar(list: [
-              {"icon": "assets/add.png", "screenname": AddAlram()},
-              {"icon": "assets/edit.png", "screenname": EditAlarm()},
-              {"icon": "assets/person.png", "screenname": Profile()},
-            ], titletext: alarm),
+            child: CustomeAppbar(
+              list: [
+                {"icon": "assets/add.png", "screenname": AddAlram()},
+                {"icon": "assets/edit.png", "screenname": EditAlarm()},
+                {"icon": "assets/person.png", "screenname": Profile()},
+              ],
+              ontapnavigate: (value) {
+                switch (value) {
+                  case 0:
+                    Navigator.of(context).push(createRoutes(AddAlram()));
+                    break;
+                  case 1:
+                    nextscreen(context, EditAlarm());
+                    break;
+                  case 2:
+                    nextscreen(context, Profile());
+                    break;
+                }
+              },
+              titletext: alarm,
+              ontapornavigate: true,
+            ),
           )),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -82,8 +98,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                       stream: ApiHelper()
                           .getsnapshotbyorderbyuserid("alarm", "date", true),
                       builder: (context, snapshot) {
-                        if ((snapshot.data == null) 
-                            ) {
+                        if ((snapshot.data == null)) {
                           return Center(
                             child: Text(
                               noanyalarfound,

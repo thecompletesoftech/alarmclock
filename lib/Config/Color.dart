@@ -3,6 +3,7 @@ import '../Config/Import.dart';
 class mycolor {
   var White = Color(0xFFFFFFFF);
   var lightWhite = Color(0xFFEBEBEB);
+  var lighterWhite = Color(0xFFDFDFDF);
   var Black = Color(0xFF000000);
   var lightBlack = Color(0xFF333333);
   var lighttxtcolor = Color(0xFF53967A);
