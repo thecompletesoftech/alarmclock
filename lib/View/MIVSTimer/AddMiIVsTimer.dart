@@ -153,8 +153,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                           .split(":")[2]
                           .toString()),
                 ),
-                SizedBox(
-                    height: NeumorphicTheme.isUsingDark(context) ? 80 : 40),
+                SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 50 : 0),
                 Row(
                   children: [
                     Expanded(
@@ -194,11 +193,9 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         },
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    )
                   ],
                 ),
+                // SizedBox(height: 20),
               ],
             ),
           ),

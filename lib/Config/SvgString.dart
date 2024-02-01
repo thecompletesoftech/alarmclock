@@ -67,24 +67,24 @@ final mediumcardbackground =
 </svg>
 ''';
 final cardbackground =
-    '''<svg width="357" height="63" viewBox="0 0 357 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_53_1045)">
-<rect width="349" height="55" rx="10" fill="#DFDFDF"/>
-<rect x="1.5" y="1.5" width="346" height="52" rx="8.5" stroke="url(#paint0_linear_53_1045)" stroke-width="3"/>
+    '''<svg width="357" height="62" viewBox="0 0 357 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_53_593)">
+<rect width="349" height="50" rx="10" fill="#EBEBEB"/>
+<rect x="1.5" y="1.5" width="346" height="57" rx="8.5" stroke="url(#paint0_linear_53_593)" stroke-width="3"/>
 </g>
 <defs>
-<filter id="filter0_d_53_1045" x="0" y="0" width="357" height="63" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_53_593" x="0" y="0" width="357" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dx="4" dy="4"/>
 <feGaussianBlur stdDeviation="2"/>
 <feComposite in2="hardAlpha" operator="out"/>
 <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"/>
-<feBlend mode="darken" in2="BackgroundImageFix" result="effect1_dropShadow_53_1045"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_53_1045" result="shape"/>
+<feBlend mode="darken" in2="BackgroundImageFix" result="effect1_dropShadow_53_593"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_53_593" result="shape"/>
 </filter>
-<linearGradient id="paint0_linear_53_1045" x1="241.615" y1="4.45946" x2="260.181" y2="114.634" gradientUnits="userSpaceOnUse">
-<stop stop-color="#E8E8E8"/>
+<linearGradient id="paint0_linear_53_593" x1="241.615" y1="4.05406" x2="257.033" y2="104.695" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
 <stop offset="1" stop-color="#8D8D8D" stop-opacity="0"/>
 </linearGradient>
 </defs>
