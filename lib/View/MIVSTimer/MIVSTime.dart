@@ -1,7 +1,4 @@
 import 'package:clockalarm/Config/Import.dart';
-
-import '../../Config/Api.dart';
-
 class MIVSTimer extends StatefulWidget {
   const MIVSTimer({super.key});
 
@@ -25,7 +22,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
           preferredSize: Size.fromHeight(80),
           child: CustomeAppbar(
             list: [
-              {"icon": "assets/add.png", "screenname": AddMIVSTimer()},
+              {"icon": "assets/TimeMachine.png", "screenname": PendingTimer()},
               {"icon": "assets/person.png", "screenname": Profile()},
             ],
             titletext: timerlist,
@@ -40,7 +37,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("mivstime")
-                      .where("uid", isEqualTo: box.read('uid'))
+                      // .where("uid", isEqualTo: box.read('uid'))
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -57,7 +54,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       // itemCount: snapshot.data!.docs.length,
-                      itemCount: 2,
+                      itemCount: snapshot.data!.docs.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         DocumentSnapshot newitem = snapshot.data!.docs[index];
@@ -78,6 +75,27 @@ class _MIVSTimerState extends State<MIVSTimer> {
           ),
         ),
       ),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          nextscreen(context, AddMIVSTimer());
+        },
+        child: Container(
+            height: 60,
+            width: 60,
+            alignment: Alignment.center,
+            decoration: Utils().decoration(
+                shadow: true,
+                shadowwithcolor:
+                    NeumorphicTheme.isUsingDark(context) ? true : false,
+                cntx: context,
+                isdark: NeumorphicTheme.isUsingDark(context),
+                radius: 32.5),
+            child: Icon(
+              Icons.add,
+              color: NeumorphicTheme.accentColor(context),
+            )),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

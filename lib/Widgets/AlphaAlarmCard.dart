@@ -21,8 +21,8 @@ class AlphaAlarmCard extends StatelessWidget {
       backgroundimage: mediumcardbackground,
       child: Padding(
         padding: EdgeInsets.only(
-            left: 12.0,
-            right: 12.0,
+            left: 8.0,
+            right: 14.0,
             top: NeumorphicTheme.isUsingDark(context) ? 6 : 0,
             bottom: NeumorphicTheme.isUsingDark(context) ? 6 : 0),
         child: Row(

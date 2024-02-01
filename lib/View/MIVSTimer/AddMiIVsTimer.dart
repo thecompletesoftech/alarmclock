@@ -35,7 +35,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
           child: Obx(
             () => Column(
               children: [
-                SizedBox(height: 24),
+                SizedBox(height: 20),
                 TimeNameCard(
                   title: timername,
                   interval: alphatext,
@@ -153,7 +153,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                           .split(":")[2]
                           .toString()),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height:  NeumorphicTheme.isUsingDark(context) ? 80 : 40),
                 Row(
                   children: [
                     Expanded(
@@ -192,7 +192,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                           _mivsctrl.clerdata();
                         },
                       ),
-                    ),
+                    ),SizedBox(height: 20,)
                   ],
                 ),
               ],

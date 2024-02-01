@@ -88,11 +88,13 @@ class Intervalend extends StatelessWidget {
                         color: mycolor().greenlightcolor),
                   ),
                 ],
-              ),
+              ).paddingSymmetric(
+                  horizontal: NeumorphicTheme.isUsingDark(context) ? 8 : 8.0),
             ],
           )
         ],
-      ).paddingSymmetric(vertical: NeumorphicTheme.isUsingDark(context) ?8 : 0),
+      ).paddingSymmetric(
+          vertical: NeumorphicTheme.isUsingDark(context) ? 8 : 0),
     );
   }
 }
