@@ -1,4 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:clockalarm/Widgets/largeCardBackground.dart';
 
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
@@ -138,14 +139,16 @@ class _SoundState extends State<Sound> {
               width: 68.0,
               name: done,
               txtstyle: MyTextStyle.mw40020,
-              borderRadius: 20.0,
+              borderRadius: 15.0,
               onTap: () {
                 backscreen(context);
               },
-            ),
+            ).paddingSymmetric(
+                horizontal: NeumorphicTheme.isUsingDark(context) ? 2.0 : 0.0),
             SizedBox(height: 20),
           ],
-        ).paddingSymmetric(horizontal: 20),
+        ).paddingSymmetric(
+            horizontal: NeumorphicTheme.isUsingDark(context) ? 20.0 : 18.0),
       ),
     );
   }
