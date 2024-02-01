@@ -192,8 +192,7 @@ class _ProfileState extends State<Profile> {
                                         generalsettings,
                                         style: MyTextStyle.Dynamic(
                                             style: MyTextStyle.mw70020,
-                                            color: NeumorphicTheme.accentColor(
-                                                context)),
+                                            color: mycolor().greenlightcolor),
                                       ),
                                     ],
                                   ),
@@ -359,7 +358,7 @@ class _ProfileState extends State<Profile> {
       builder: (context) => AlertDialog(
           backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
           content: Container(
-            height: 100,
+            height: 130,
             child: Column(
               children: [
                 Text(

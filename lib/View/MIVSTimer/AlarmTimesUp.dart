@@ -53,9 +53,9 @@ class _AlramTimesupState extends State<AlramTimesup> {
             showsubtitle: true,
             subtitle: timeuptext,
           )),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
               AlphaAlarmCard(
@@ -65,7 +65,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
               SizedBox(height: 20),
               LargeCardBackground(
                 child: ListView.builder(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(10.0),
                         itemCount: list.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -123,7 +123,9 @@ class _AlramTimesupState extends State<AlramTimesup> {
                                     ),
                                   ],
                                 ),
-                              ).paddingSymmetric(vertical: 15),
+                              ).paddingSymmetric(
+                                vertical: 15,
+                              ),
                             ],
                           );
                         })

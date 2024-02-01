@@ -42,10 +42,9 @@ class _TimerHistoryCardState extends State<TimerHistoryCard> {
                   Text(
                     widget.title.toString(),
                     style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw60024,
+                        style: MyTextStyle.mw60022,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
-
                   Container(
                       height: 50,
                       width: 100,
@@ -114,7 +113,7 @@ class _TimerHistoryCardState extends State<TimerHistoryCard> {
                   Text(
                     widget.alarmtime,
                     style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw50018,
+                        style: MyTextStyle.mw50016,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                 ],
@@ -137,16 +136,18 @@ class _TimerHistoryCardState extends State<TimerHistoryCard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: MyTextStyle.Dynamic(
-              style: MyTextStyle.mw40018,
-              color: NeumorphicTheme.defaultTextColor(context)),
+        Expanded(
+          child: Text(
+            title,
+            style: MyTextStyle.Dynamic(
+                style: MyTextStyle.mw40016,
+                color: NeumorphicTheme.defaultTextColor(context)),
+          ),
         ),
         Text(
           value,
           style: MyTextStyle.Dynamic(
-              style: MyTextStyle.mw40020,
+              style: MyTextStyle.mw40018,
               color: NeumorphicTheme.accentColor(context)),
         )
       ],

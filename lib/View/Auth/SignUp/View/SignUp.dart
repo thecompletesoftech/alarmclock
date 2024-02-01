@@ -124,7 +124,10 @@ class _SignUpState extends State<SignUp> {
             key: _formkey,
             child: Column(
               children: [
-                Center(child: Image.asset("assets/TivalLogo.png")),
+                Center(
+                    child: NeumorphicTheme.isUsingDark(context)
+                        ? Image.asset("assets/LogoDarkMode.png")
+                        : Image.asset("assets/NewLogo.png")),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: Row(
