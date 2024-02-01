@@ -114,21 +114,23 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: mycolor().lightBlack,
+              color: widget.basecolor,
               boxShadow: [
                 BoxShadow(
                     blurRadius: 5.0,
-                    offset: -Offset(8, 8),
-                    color: Color.fromRGBO(56, 56, 56, 0.68),
+                    offset: -Offset(9, 9),
+                    color: widget.basecolor == mycolor().lightBlack
+                        ? Color.fromRGBO(56, 56, 56, 0.68)
+                        : Color.fromRGBO(255, 255, 255, 0.68),
                     inset: true),
                 BoxShadow(
                     blurRadius: 5.0,
-                    offset: Offset(8, 8),
-                    color: Color.fromRGBO(0, 0, 0, 0.32),
+                    offset: Offset(9, 9),
+                    color: Color.fromRGBO(0, 0, 0, 0.35),
                     inset: true),
               ]),
           child: TextFormField(
@@ -163,12 +165,7 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
                           ),
                         )
                       : InputBorder.none,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: widget.outerborderclr ?? widget.basecolor,
-                    width: 2.0),
-                borderRadius: BorderRadius.circular(10),
-              ),
+              focusedBorder: InputBorder.none,
               prefixIconConstraints: BoxConstraints(
                 maxWidth: widget.showprefixicon ? 80 : 0,
                 maxHeight: widget.showprefixicon ? 70 : 0,

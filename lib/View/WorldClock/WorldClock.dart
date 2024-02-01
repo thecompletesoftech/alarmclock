@@ -41,7 +41,7 @@ class _WorldClockState extends State<WorldClock> {
             ontapnavigate: (value) {
               switch (value) {
                 case 0:
-                  nextscreen(context, SearchScreen());
+                  Navigator.of(context).push(createRoutes(SearchScreen()));
                   break;
                 case 1:
                   nextscreen(context, TimeList());

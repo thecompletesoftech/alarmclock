@@ -1,4 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/View/WorldClock/SearchScreen.dart';
 import 'package:intl/intl.dart';
 
 nextscreenwithoutback(cntx, screenname) {
@@ -26,7 +27,6 @@ convert24to12(time) {
 convert12to24(time) {
   return DateFormat("hh:mm").format(DateFormat('HH:mm').parse(time));
 }
-
 
 getAmPm(time) {
   return DateFormat("a").format(DateFormat('HH').parse(time));
@@ -87,5 +87,21 @@ Mysnack(title, msg, cntx) {
     isDismissible: true,
     // dismissDirection: SnackDismissDirection.HORIZONTAL,
     forwardAnimationCurve: Curves.easeOutBack,
+  );
+}
+
+Route createRoutes(screen) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => screen,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
   );
 }
