@@ -54,7 +54,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
             subtitle: timeuptext,
           )),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
