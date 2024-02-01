@@ -41,6 +41,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
                       return Center(
                         child: Text(
                           noanyalarfound,

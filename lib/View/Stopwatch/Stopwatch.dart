@@ -46,7 +46,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                   child: StopwatchClock(
                 watchtime: _formattedTime.toString(),
               )),
-              SizedBox(height: 30),
+              SizedBox(height: 70),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
