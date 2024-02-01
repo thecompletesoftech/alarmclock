@@ -92,6 +92,7 @@ Mysnack(title, msg, cntx) {
 
 Route createRoutes(screen) {
   return PageRouteBuilder(
+    transitionDuration: Duration(seconds: 1),
     pageBuilder: (context, animation, secondaryAnimation) => screen,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
