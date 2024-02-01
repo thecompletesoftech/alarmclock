@@ -1,4 +1,7 @@
-import '../Config/Import.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import '../Config/Color.dart';
+import '../Config/TextStyle.dart';
 
 class TextBoxwidget extends StatefulWidget {
   final labeltxt;
@@ -45,6 +48,8 @@ class TextBoxwidget extends StatefulWidget {
   final neumormarginbottom;
   final textboxvertival;
   final neumormarginleft;
+  final accentcolor;
+  final basecolor;
 
   TextBoxwidget({
     Key? key,
@@ -93,6 +98,8 @@ class TextBoxwidget extends StatefulWidget {
     this.neumormargintop = 2.0,
     this.neumormarginbottom = 4.0,
     this.textboxvertival = 2.0,
+    required this.accentcolor,
+    required this.basecolor,
   }) : super(key: key);
 
   @override
@@ -106,24 +113,29 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Neumorphic(
-          margin: EdgeInsets.only(
-              left: widget.neumormarginleft,
-              right: 8,
-              top: widget.neumormargintop,
-              bottom: widget.neumormarginbottom),
-          style: NeumorphicStyle(
-            depth: NeumorphicTheme.embossDepth(context),
-            boxShape: NeumorphicBoxShape.roundRect(
-                BorderRadius.circular(widget.radius)),
-          ),
-          padding: EdgeInsets.symmetric(
-              vertical: widget.textboxvertival, horizontal: 18),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: mycolor().lightBlack,
+              boxShadow: [
+                BoxShadow(
+                    blurRadius: 5.0,
+                    offset: -Offset(8, 8),
+                    color: Color.fromRGBO(56, 56, 56, 0.68),
+                    inset: true),
+                BoxShadow(
+                    blurRadius: 5.0,
+                    offset: Offset(8, 8),
+                    color: Color.fromRGBO(0, 0, 0, 0.32),
+                    inset: true),
+              ]),
           child: TextFormField(
             onChanged: (value) {
               widget.onchange(value);
             },
-            cursorColor: NeumorphicTheme.accentColor(context),
+            cursorColor: widget.accentcolor,
             inputFormatters: widget.inputformate,
             validator: widget.validator,
             maxLines: widget.maxline,
@@ -141,22 +153,19 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
               enabledBorder: widget.showoutlineborder
                   ? OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: widget.outerborderclr ??
-                            NeumorphicTheme.baseColor(context),
+                        color: widget.outerborderclr ?? widget.basecolor,
                       ),
                       borderRadius: BorderRadius.circular(10))
                   : widget.showborder
                       ? UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: widget.outerborderclr ??
-                                NeumorphicTheme.baseColor(context),
+                            color: widget.outerborderclr ?? widget.basecolor,
                           ),
                         )
                       : InputBorder.none,
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: widget.outerborderclr ??
-                        NeumorphicTheme.baseColor(context),
+                    color: widget.outerborderclr ?? widget.basecolor,
                     width: 2.0),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -173,13 +182,13 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
               border: widget.showborder
                   ? UnderlineInputBorder(
                       borderSide: BorderSide(
-                        color: NeumorphicTheme.baseColor(context),
+                        color: widget.basecolor,
                       ),
                     )
                   : widget.showoutlineborder
                       ? OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: NeumorphicTheme.baseColor(context),
+                            color: widget.basecolor,
                           ),
                           borderRadius: BorderRadius.circular(15))
                       : InputBorder.none,
@@ -188,8 +197,9 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
               hintText: widget.hinttext,
               hintStyle: widget.hintstyle ??
                   MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw40018,
-                      color: NeumorphicTheme.accentColor(context)),
+                    style: MyTextStyle.mw40018,
+                    color: widget.accentcolor,
+                  ),
               suffixIconConstraints: BoxConstraints(
                 maxWidth: widget.suffixshowicon ? 30 : 0,
                 maxHeight: widget.suffixshowicon ? 20 : 0,
@@ -213,7 +223,7 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
                             child: Icon(
                               widget.suffixicon,
                               color: widget.suffix_icon_color ??
-                                  NeumorphicTheme.accentColor(context),
+                                  widget.accentcolor,
                               size: widget.size,
                             ),
                           ),

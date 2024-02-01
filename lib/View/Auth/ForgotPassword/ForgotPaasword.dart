@@ -1,5 +1,4 @@
 import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
-import 'package:clockalarm/View/BottomNavigation/BottomNavigation.dart';
 import 'package:flutter/gestures.dart';
 
 import "../../../Config/Import.dart";
@@ -62,6 +61,8 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                     TextBoxwidget(
                       controller: emailController,
                       hinttext: email,
+                      accentcolor: NeumorphicTheme.accentColor(context),
+                      basecolor: NeumorphicTheme.baseColor(context),
                       validator: (e) {
                         final bool emailValid = RegExp(
                                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")

@@ -142,6 +142,8 @@ class _SignUpState extends State<SignUp> {
                 TextBoxwidget(
                   controller: controller.nameController,
                   hinttext: fullname,
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
                   validator: (Value) {
                     if (Value!.isEmpty) {
                       return "Please enter name";
@@ -154,6 +156,8 @@ class _SignUpState extends State<SignUp> {
                 TextBoxwidget(
                   controller: controller.signUpemail,
                   hinttext: email,
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
                   validator: (e) {
                     return null;
                   },
@@ -164,6 +168,8 @@ class _SignUpState extends State<SignUp> {
                 TextBoxwidget(
                   controller: controller.signuppassword,
                   hinttext: password,
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
                   validator: (e) {
                     return null;
                   },
@@ -174,6 +180,8 @@ class _SignUpState extends State<SignUp> {
                 TextBoxwidget(
                   controller: controller.signupconfirmpass,
                   hinttext: confirmpassword,
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
                   validator: (e) {
                     return null;
                   },
