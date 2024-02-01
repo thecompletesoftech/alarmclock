@@ -12,7 +12,7 @@ class RepeatIntervalCard extends StatelessWidget {
     return CardBackground(
       backgroundimage: mediumcardbackground,
       child: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        padding: const EdgeInsets.only(left: 8.0, right: 14.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -31,7 +31,7 @@ class RepeatIntervalCard extends StatelessWidget {
                     ),
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 8.0),
                       child: Text(
                         interval.toString(),
                         style: MyTextStyle.Dynamic(

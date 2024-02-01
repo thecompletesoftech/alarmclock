@@ -28,7 +28,7 @@ class TimeNameCard extends StatelessWidget {
                     boxShape: buttonradius(),
                   ),
                   child: Container(
-                    // height: 50,
+                    height: 40,
                     width: 146,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: Text(
@@ -42,7 +42,7 @@ class TimeNameCard extends StatelessWidget {
             ],
           ),
         ],
-      ).paddingSymmetric(vertical:NeumorphicTheme.isUsingDark(context) ? 4 : 0),
+      ).paddingSymmetric(vertical:NeumorphicTheme.isUsingDark(context) ? 3 : 5),
     );
   }
 }

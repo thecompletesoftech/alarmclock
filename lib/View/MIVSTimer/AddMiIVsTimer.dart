@@ -35,7 +35,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
           child: Obx(
             () => Column(
               children: [
-                SizedBox(height: 24),
+                SizedBox(height: 20),
                 TimeNameCard(
                   title: timername,
                   interval: alphatext,

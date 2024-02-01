@@ -65,7 +65,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
               SizedBox(height: 20),
               LargeCardBackground(
                 child: ListView.builder(
-                        padding: EdgeInsets.all(6.0),
+                        padding: EdgeInsets.all(8.0),
                         itemCount: list.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -89,8 +89,10 @@ class _AlramTimesupState extends State<AlramTimesup> {
                                       child: Text(items['name'].toString(),
                                           style: MyTextStyle.Dynamic(
                                             style: MyTextStyle.mw50012,
-                                            color: NeumorphicTheme.accentColor(
-                                                context),
+                                            color: NeumorphicTheme.isUsingDark(
+                                                    context)
+                                                ? mycolor().White
+                                                : mycolor().lighttxtcolor,
                                           )),
                                     ),
                                     Stack(
