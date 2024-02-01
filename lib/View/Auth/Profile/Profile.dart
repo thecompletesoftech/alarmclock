@@ -9,7 +9,6 @@ import 'package:clockalarm/View/Auth/Profile/Controller/ProfileController.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
@@ -50,7 +49,11 @@ class _ProfileState extends State<Profile> {
               GestureDetector(
                 onTap: () async {
                   if (controller.profileloading.value == false) {
-                    controller.updateprofile(context);
+                    if (controller.selectimage != null) {
+                      controller.updateprofile(context);
+                    } else {
+                      Navigator.pop(context);
+                    }
                   }
                 },
                 child: Text(
