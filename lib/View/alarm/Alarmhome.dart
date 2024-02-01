@@ -1,5 +1,9 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Api.dart';
-
+import 'package:clockalarm/Config/FireBase/localnotification.dart';
+import '../../Config/FireBase/Getfirebasetoken.dart';
+import '../../Config/Import.dart';
+import '../../Config/Import.dart';
 import '../../Config/Import.dart';
 
 class AlarmHome extends StatefulWidget {
@@ -16,8 +20,20 @@ class _AlarmHomeState extends State<AlarmHome> {
   AlramController _alramController = Get.put(AlramController());
   @override
   void initState() {
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: (ReceivedAction receivedAction) async {
+          print("action -----" + receivedAction.toString());
+          
+        },
+        onNotificationCreatedMethod:
+            (ReceivedNotification receivedNotification) async {},
+        onNotificationDisplayedMethod:
+            (ReceivedNotification receivedNotification) async {},
+        onDismissActionReceivedMethod:
+            (ReceivedAction receivedAction) async {});
     Future.delayed(const Duration(milliseconds: 1), () {
       _alramController.getalram(context);
+      GetFirebasetoken().getfirebasetoken();
     });
 
     // _alramController.currenttime.value = DateTime.now().toString();
@@ -29,22 +45,33 @@ class _AlarmHomeState extends State<AlarmHome> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
-          child: CustomeAppbar(list: [
-            {"icon": "assets/add.png", "screenname": AddAlram()},
-            {"icon": "assets/edit.png", "screenname": EditAlarm()},
-            {"icon": "assets/person.png", "screenname": Profile()},
-          ], titletext: alarm)),
+          child: GestureDetector(
+            onTap: (() {
+              // print("adsddsaf");
+              // AwesomeNotifications().cancel(123);
+            }),
+            child: CustomeAppbar(list: [
+              {"icon": "assets/add.png", "screenname": AddAlram()},
+              {"icon": "assets/edit.png", "screenname": EditAlarm()},
+              {"icon": "assets/person.png", "screenname": Profile()},
+            ], titletext: alarm),
+          )),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             SizedBox(height: 10),
             Obx(
-              () => Clock(
-                time: _alramController.currenttime.value == null ||
-                        _alramController.currenttime.value == ""
-                    ? DateTime.now()
-                    : DateTime.parse(_alramController.currenttime.value),
+              () => GestureDetector(
+                onTap: (() async {
+                  print("ssasa");
+                }),
+                child: Clock(
+                  time: _alramController.currenttime.value == null ||
+                          _alramController.currenttime.value == ""
+                      ? DateTime.now()
+                      : DateTime.parse(_alramController.currenttime.value),
+                ),
               ),
             ),
             SizedBox(height: 50),
@@ -53,7 +80,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                   ? Center(child: CircularProgressIndicator())
                   : StreamBuilder<QuerySnapshot>(
                       stream: ApiHelper()
-                          .getsnapshotbyorderbyuserid("alarm", "date",true),
+                          .getsnapshotbyorderbyuserid("alarm", "date", true),
                       builder: (context, snapshot) {
                         if ((snapshot.data == null) ||
                             (snapshot.data!.docs.length < 1)) {

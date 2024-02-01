@@ -12,9 +12,9 @@ class Sound extends StatefulWidget {
 
 class _SoundState extends State<Sound> {
   var soundlist = [
-    {"title": "Immigrant Song", "path": "assets/ringtone/ImmigrantSong.mp3"},
-    {"title": "Super Mario", "path": "assets/ringtone/Super-Mario.mp3"},
-    {"title": "Breaking", "path": "assets/ringtone/Breaking-Me-Tik-Tok.mp3"},
+    {"title": "Immigrant Song", "path": "resource://raw/immigrantsong"},
+    {"title": "Super Mario", "path": "resource://raw/breaktime"},
+    {"title": "Breaking", "path": "resource://raw/breaktime"},
     // {"title": "Canopy"},
     // {"title": "Thursday"},
     // {"title": "Chalet"},

@@ -1,10 +1,10 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:clockalarm/Config/FireBase/localnotification.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
-
-import 'Config/FireBase/NotificationServices.dart';
 
 void main() async {
   await GetStorage.init();
@@ -12,7 +12,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Alarm.init();
-  await PushNotificationService().setupInteractedMessage();
+  // await PushNotificationService().setupInteractedMessage();
+  await NotificationService().initializePlatformNotifications();
+ 
   runApp(const MyApp());
 }
 

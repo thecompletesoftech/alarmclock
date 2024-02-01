@@ -1,7 +1,6 @@
 import 'dart:math';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Import.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 class AlramController extends GetxController {
   var alarms = <AlarmSettings>[].obs;
@@ -20,9 +19,10 @@ class AlramController extends GetxController {
     final alarmSettings = AlarmSettings(
         id: Random().nextInt(100),
         dateTime: time,
-        assetAudioPath: audio,
+        assetAudioPath: "assets/ringtone/ImmigrantSong.mp3+",
         loopAudio: true,
-        vibrate: true,
+        volume: 0.0,
+        vibrate: false,
         // volumeMax: true,
         fadeDuration: 3.0,
         notificationTitle: 'Alarm is Playing',
@@ -33,6 +33,8 @@ class AlramController extends GetxController {
     Alarm.set(alarmSettings: alarmSettings).then((value) async {
       await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
           time.toString(), snooze, audio, context);
+      print("time to" + time.toString());
+      shownotification(audio, snooze, DateTime.parse(time.toString()));
       addalarmisloading.value = false;
       //insert to firebase
     }).then((value) {
@@ -112,53 +114,6 @@ class AlramController extends GetxController {
     }
   }
 
-  // scheduleNotification(
-  //     {int id = 0,
-  //     String? title,
-  //     String? body,
-  //     String? payLoad,
-  //     required DateTime scheduledNotificationDateTime}) async {
-  //   return FlutterLocalNotificationsPlugin().zonedSchedule(
-  //       id,
-  //       title,
-  //       body,
-  //       tz.TZDateTime.from(
-  //         scheduledNotificationDateTime,
-  //         tz.local,
-  //       ),
-  //       await notificationDetails(),
-  //       androidAllowWhileIdle: true,
-  //       uiLocalNotificationDateInterpretation:
-  //           UILocalNotificationDateInterpretation.absoluteTime);
-  // }
-
-  // Future<void> scheduleRepeatingAlarm() async {
-  //   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  //       FlutterLocalNotificationsPlugin();
-  //   var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-  //     'repeating_channel_id',
-  //     'Repeating Channel Name',
-  //     'Repeating Channel Description',
-  //     importance: Importance.max,
-  //     priority: Priority.high,
-  //     enableVibration: true,
-  //   );
-  //   var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-  //   var platformChannelSpecifics = NotificationDetails(
-  //       android: androidPlatformChannelSpecifics,
-  //       iOS: iOSPlatformChannelSpecifics);
-
-  //   // Schedule the repeating alarm
-  //   await flutterLocalNotificationsPlugin.periodicallyShow(
-  //     0,
-  //     'Repeating Alarm Title',
-  //     'Repeating Alarm Body',
-  //     RepeatInterval.hourly,
-  //     platformChannelSpecifics,
-  //     payload: 'Repeating Alarm Payload',
-  //   );
-  // }
-
   AddAlramtime(dateTime, date, snooze, audio, cntx) {
     alarmisloading.value = true;
     var uid = box.read('uid');
@@ -226,5 +181,55 @@ class AlramController extends GetxController {
     });
     alarms.value = await Alarm.getAlarms();
     print("alarams" + alarms.toString());
+  }
+
+  shownotification(soundname, snooze, dateTime) async {
+    await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
+      // notification icon
+      NotificationChannel(
+          channelGroupKey: 'basic_test',
+          channelKey: 'basic',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          channelShowBadge: false,
+          importance: NotificationImportance.High,
+          enableVibration: true,
+          playSound: true,
+          soundSource: soundname),
+    ]);
+    bool isallowed = await AwesomeNotifications().isNotificationAllowed();
+    if (!isallowed) {
+      //no permission of local notification
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    } else {
+      //show notification
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 123,
+              channelKey: 'basic', //set configuration wuth key "basic"
+              title: 'Alarm is playing',
+              body: '',
+              payload: {"name": "FlutterCampus"},
+              autoDismissible: false,
+              customSound: soundname),
+          schedule: NotificationCalendar.fromDate(date: dateTime),
+          actionButtons: snooze
+              ? [
+                  NotificationActionButton(
+                    key: "stop",
+                    label: "Stop alram",
+                  ),
+                  NotificationActionButton(
+                    key: "snooze",
+                    label: "Snooze",
+                  )
+                ]
+              : [
+                  NotificationActionButton(
+                    key: "stop",
+                    label: "Stop alram",
+                  ),
+                ]);
+    }
   }
 }

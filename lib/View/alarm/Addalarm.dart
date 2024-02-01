@@ -19,7 +19,7 @@ class _AddAlramState extends State<AddAlram> {
   @override
   void initState() {
     _alramController.currentsoundpath.value =
-        "assets/ringtone/ImmigrantSong.mp3";
+        "resource://raw/immigrantsong";
     _alramController.currentsound.value = "Immigrant Song";
     super.initState();
   }
