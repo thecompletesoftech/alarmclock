@@ -134,6 +134,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                 SizedBox(height: 10),
                 TextBoxwidget(
                   controller: controller.oldpass,
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
                   hinttext: '******************',
                   validator: (e) {
                     return null;
@@ -159,6 +161,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                 SizedBox(height: 10),
                 TextBoxwidget(
                   controller: controller.currentpass,
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
                   hinttext: '******************',
                   validator: (e) {
                     return null;
@@ -184,6 +188,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                 SizedBox(height: 10),
                 TextBoxwidget(
                   controller: controller.confirmpass,
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
                   hinttext: '******************',
                   validator: (e) {
                     return null;
@@ -219,7 +225,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         if (controller.passwordloading.value == false) {
                           CheckValidation().then((value) => {
                                 if (value == false)
-                                {controller.Changepassword(context)}
+                                  {controller.Changepassword(context)}
                               });
                         }
                       },

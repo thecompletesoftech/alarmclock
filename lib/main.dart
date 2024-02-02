@@ -14,7 +14,7 @@ void main() async {
   await Alarm.init();
   // await PushNotificationService().setupInteractedMessage();
   await NotificationService().initializePlatformNotifications();
- 
+
   runApp(const MyApp());
 }
 

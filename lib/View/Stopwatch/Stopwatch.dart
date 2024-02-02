@@ -41,12 +41,12 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(height: 87),
+              SizedBox(height: 30),
               Center(
                   child: StopwatchClock(
                 watchtime: _formattedTime.toString(),
               )),
-              SizedBox(height: 97),
+              SizedBox(height: 70),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
