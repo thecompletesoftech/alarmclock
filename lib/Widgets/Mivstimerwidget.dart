@@ -42,7 +42,7 @@ class _MivstimerState extends State<Mivstimer> {
                   Text(
                     widget.title.toString(),
                     style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw60024,
+                        style: MyTextStyle.mw60022,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                   Row(
@@ -108,7 +108,7 @@ class _MivstimerState extends State<Mivstimer> {
                   Text(
                     widget.alarmtime,
                     style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw50018,
+                        style: MyTextStyle.mw50016,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                 ],
@@ -134,13 +134,13 @@ class _MivstimerState extends State<Mivstimer> {
         Text(
           title,
           style: MyTextStyle.Dynamic(
-              style: MyTextStyle.mw40018,
+              style: MyTextStyle.mw40016,
               color: NeumorphicTheme.defaultTextColor(context)),
         ),
         Text(
           value,
           style: MyTextStyle.Dynamic(
-              style: MyTextStyle.mw40020,
+              style: MyTextStyle.mw40018,
               color: NeumorphicTheme.accentColor(context)),
         )
       ],

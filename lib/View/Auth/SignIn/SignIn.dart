@@ -83,7 +83,10 @@ class _SignInState extends State<SignIn> {
                     const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
                 child: Column(
                   children: [
-                    Center(child: Image.asset("assets/TivalLogo.png")),
+                    Center(
+                        child: NeumorphicTheme.isUsingDark(context)
+                            ? Image.asset("assets/LogoDarkMode.png")
+                            : Image.asset("assets/NewLogo.png")),
                     SizedBox(height: 24),
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),

@@ -42,101 +42,103 @@ class _AlramCardState extends State<AlramCard> {
         widget.ontapcard!();
       }),
       child: CardBackground(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    widget.time,
-                    style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw40020,
-                        color: NeumorphicTheme.accentColor(context)),
-                  ),
-                ),
-                if (widget.showmedium)
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                   Container(
-                    child: Text(widget.medium.toString(),
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw40018,
-                            color: mycolor().greenlightcolor)),
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      widget.time,
+                      style: MyTextStyle.Dynamic(
+                          style: MyTextStyle.mw40020,
+                          color: NeumorphicTheme.accentColor(context)),
+                    ),
                   ),
-              ],
-            ),
-            widget.showswitchorsubtile
-                ? FlutterSwitch(
-                    width: 50.0,
-                    height: 20.0,
-                    valueFontSize: 25.0,
-                    toggleSize: 20.0,
-                    toggleColor: mycolor().darkgreen,
-                    value: widget.swicthvalue!,
-                    borderRadius: 30.0,
-                    padding: 1.0,
-                    showOnOff: false,
-                    activeColor: mycolor().lighttxtcolor,
-                    inactiveColor: !NeumorphicTheme.isUsingDark(context)
-                        ? mycolor().greyscreen
-                        : mycolor().darkbalck,
-                    onToggle: (val) {
-                      widget.onchange!(val);
-                    },
-                  )
-
-                // Container(
-                //     width: 30.0,
-                //     height: 10.0,
-                //     child: Transform.scale(
-                //       scale: 0.8,
-                //       child: Switch(
-                //         onChanged: ((value) {
-                //           widget.onchange!(value);
-                //         }),
-                //         value: widget.swicthvalue!,
-                //         inactiveThumbColor: mycolor().darkgreen,
-                //         inactiveTrackColor:
-                //             !NeumorphicTheme.isUsingDark(context)
-                //                 ? mycolor().greyscreen
-                //                 : mycolor().darkbalck,
-                //         trackOutlineColor:
-                //             MaterialStateProperty.resolveWith((states) {
-                //           // If the button is pressed, return green, otherwise blue
-                //           if (states.contains(MaterialState.pressed)) {
-                //             return Colors.transparent;
-                //           }
-                //           return Colors.transparent;
-                //         }),
-                //         activeColor: mycolor().darkgreen,
-                //       ),
-                //     ),
-                //   ).paddingOnly(right: 5)
-                : Row(
-                    children: [
-                      Container(
-                        child: Text(
-                          widget.subtitle.toString(),
+                  if (widget.showmedium)
+                    Container(
+                      child: Text(widget.medium.toString(),
                           style: MyTextStyle.Dynamic(
-                              style:
-                                  widget.subtitlestyle ?? MyTextStyle.mw50014,
-                              color: widget.subtitlecolor ??
-                                  mycolor().greenlightcolor),
-                        ),
-                      ).paddingOnly(right: 15),
-                      if (widget.showarrowicon)
+                              style: MyTextStyle.mw40018,
+                              color: mycolor().greenlightcolor)),
+                    ),
+                ],
+              ),
+              widget.showswitchorsubtile
+                  ? FlutterSwitch(
+                      width: 50.0,
+                      height: 20.0,
+                      valueFontSize: 25.0,
+                      toggleSize: 20.0,
+                      toggleColor: mycolor().darkgreen,
+                      value: widget.swicthvalue!,
+                      borderRadius: 30.0,
+                      padding: 1.0,
+                      showOnOff: false,
+                      activeColor: mycolor().lighttxtcolor,
+                      inactiveColor: !NeumorphicTheme.isUsingDark(context)
+                          ? mycolor().greyscreen
+                          : mycolor().darkbalck,
+                      onToggle: (val) {
+                        widget.onchange!(val);
+                      },
+                    )
+
+                  // Container(
+                  //     width: 30.0,
+                  //     height: 10.0,
+                  //     child: Transform.scale(
+                  //       scale: 0.8,
+                  //       child: Switch(
+                  //         onChanged: ((value) {
+                  //           widget.onchange!(value);
+                  //         }),
+                  //         value: widget.swicthvalue!,
+                  //         inactiveThumbColor: mycolor().darkgreen,
+                  //         inactiveTrackColor:
+                  //             !NeumorphicTheme.isUsingDark(context)
+                  //                 ? mycolor().greyscreen
+                  //                 : mycolor().darkbalck,
+                  //         trackOutlineColor:
+                  //             MaterialStateProperty.resolveWith((states) {
+                  //           // If the button is pressed, return green, otherwise blue
+                  //           if (states.contains(MaterialState.pressed)) {
+                  //             return Colors.transparent;
+                  //           }
+                  //           return Colors.transparent;
+                  //         }),
+                  //         activeColor: mycolor().darkgreen,
+                  //       ),
+                  //     ),
+                  //   ).paddingOnly(right: 5)
+                  : Row(
+                      children: [
                         Container(
-                            margin: EdgeInsets.fromLTRB(
-                                0 * fem, 0 * fem, 6 * fem, 0 * fem),
-                            child: Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: mycolor().greenlightcolor,
-                              fill: 0.5,
-                            )),
-                    ],
-                  )
-          ],
+                          child: Text(
+                            widget.subtitle.toString(),
+                            style: MyTextStyle.Dynamic(
+                                style:
+                                    widget.subtitlestyle ?? MyTextStyle.mw50014,
+                                color: widget.subtitlecolor ??
+                                    mycolor().greenlightcolor),
+                          ),
+                        ).paddingOnly(right: 15),
+                        if (widget.showarrowicon)
+                          Container(
+                              margin: EdgeInsets.fromLTRB(
+                                  0 * fem, 0 * fem, 6 * fem, 0 * fem),
+                              child: Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: mycolor().greenlightcolor,
+                                fill: 0.5,
+                              )),
+                      ],
+                    )
+            ],
+          ),
         ),
       ).paddingSymmetric(horizontal: 10),
     );

@@ -30,7 +30,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
             showlistbtn: false,
           )),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: SingleChildScrollView(
           child: Obx(
             () => Column(
@@ -43,6 +43,37 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                 SizedBox(
                     height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
                 GestureDetector(
+                  onTap: () async {
+                    var picked = await setShowpicker();
+                    print("picked" + picked.toString());
+                    setState(() {
+                      _mivsctrl.intervalend.value = picked.toString();
+                    });
+                  },
+                  child: Timercard(
+                      title: interduration,
+                      hour: _mivsctrl.intervalend.value
+                          .toString()
+                          .split(":")[0]
+                          .toString(),
+                      minute: _mivsctrl.intervalend.value
+                          .toString()
+                          .split(":")[1]
+                          .toString(),
+                      second: _mivsctrl.intervalend.value
+                          .toString()
+                          .split(":")[2]
+                          .toString()),
+                ),
+                SizedBox(
+                    height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+                IntervalCard(
+                  title: reperatinterval,
+                  interval: 4,
+                ),
+                SizedBox(
+                    height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+                GestureDetector(
                   onTap: (() async {
                     var picked = await setShowpicker();
                     print("picked" + picked.toString());
@@ -51,7 +82,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                     });
                   }),
                   child: Intervalend(
-                    title: interduration,
+                    title: intervalend,
                     hour: _mivsctrl.intervalduration.value
                         .toString()
                         .split(":")[0]
@@ -69,37 +100,6 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         .split(":")[0]
                         .toString()),
                   ),
-                ),
-                SizedBox(
-                    height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
-                IntervalCard(
-                  title: reperatinterval,
-                  interval: 4,
-                ),
-                SizedBox(
-                    height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
-                GestureDetector(
-                  onTap: () async {
-                    var picked = await setShowpicker();
-                    print("picked" + picked.toString());
-                    setState(() {
-                      _mivsctrl.intervalend.value = picked.toString();
-                    });
-                  },
-                  child: Timercard(
-                      title: intervalend,
-                      hour: _mivsctrl.intervalend.value
-                          .toString()
-                          .split(":")[0]
-                          .toString(),
-                      minute: _mivsctrl.intervalend.value
-                          .toString()
-                          .split(":")[1]
-                          .toString(),
-                      second: _mivsctrl.intervalend.value
-                          .toString()
-                          .split(":")[2]
-                          .toString()),
                 ),
                 SizedBox(
                     height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
@@ -153,7 +153,8 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                           .split(":")[2]
                           .toString()),
                 ),
-                SizedBox(height:  NeumorphicTheme.isUsingDark(context) ? 80 : 40),
+                SizedBox(
+                    height: NeumorphicTheme.isUsingDark(context) ? 80 : 40),
                 Row(
                   children: [
                     Expanded(
@@ -192,7 +193,10 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                           _mivsctrl.clerdata();
                         },
                       ),
-                    ),SizedBox(height: 20,)
+                    ),
+                    SizedBox(
+                      height: 20,
+                    )
                   ],
                 ),
               ],

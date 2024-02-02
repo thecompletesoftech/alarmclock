@@ -48,9 +48,8 @@ class _PendingTimerState extends State<PendingTimer> {
                                   Text(
                                     "Started at",
                                     style: MyTextStyle.Dynamic(
-                                        style: MyTextStyle.mw40012,
-                                        color: NeumorphicTheme.accentColor(
-                                            context)),
+                                        style: MyTextStyle.mw40014,
+                                        color: mycolor().greenlightcolor),
                                   ),
                                   SizedBox(
                                     width: 5,
@@ -58,7 +57,7 @@ class _PendingTimerState extends State<PendingTimer> {
                                   Text(
                                     "4:30",
                                     style: MyTextStyle.Dynamic(
-                                        style: MyTextStyle.mw40012,
+                                        style: MyTextStyle.mw40014,
                                         color: NeumorphicTheme.defaultTextColor(
                                             context)),
                                   ),
@@ -72,28 +71,33 @@ class _PendingTimerState extends State<PendingTimer> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Started at",
+                                  "Alarm Time",
                                   style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw40012,
-                                      color:
-                                          NeumorphicTheme.accentColor(context)),
+                                      style: MyTextStyle.mw40014,
+                                      color: mycolor().greenlightcolor),
+                                ),
+                                SizedBox(
+                                  width: 5,
                                 ),
                                 Text(
-                                  "4:30",
+                                  "5:15",
                                   style: MyTextStyle.Dynamic(
-                                      style: MyTextStyle.mw40012,
+                                      style: MyTextStyle.mw40014,
                                       color: NeumorphicTheme.defaultTextColor(
                                           context)),
                                 ),
                               ],
-                            ).paddingOnly(right: NeumorphicTheme.isUsingDark(context) ? 10: 0),
-                             if (NeumorphicTheme.isUsingDark(context))
-                            Container(
-                              width: 90,
-                            )
+                            ).paddingOnly(
+                                right: NeumorphicTheme.isUsingDark(context)
+                                    ? 10
+                                    : 20.0),
+                            if (NeumorphicTheme.isUsingDark(context))
+                              Container(
+                                width: 90,
+                              )
                           ],
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: 10),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -137,11 +141,11 @@ class _PendingTimerState extends State<PendingTimer> {
                                 ],
                               ),
                             ),
-                             if (NeumorphicTheme.isUsingDark(context))
-                            Container(
-                              height: 80,
-                              width: 90,
-                            ),
+                            if (NeumorphicTheme.isUsingDark(context))
+                              Container(
+                                height: 80,
+                                width: 90,
+                              ),
                           ],
                         ).paddingOnly(
                             left: NeumorphicTheme.isUsingDark(context) ? 3 : 0),
@@ -161,7 +165,10 @@ class _PendingTimerState extends State<PendingTimer> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(height: 10),
+                      SizedBox(
+                        height:
+                            NeumorphicTheme.isUsingDark(context) ? 5.0 : 20.0,
+                      ),
                       Timercard(
                           title: timeReaming,
                           hour: "00",

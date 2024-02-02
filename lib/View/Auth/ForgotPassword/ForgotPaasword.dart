@@ -30,7 +30,9 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                     const EdgeInsets.only(top: 100.0, left: 16.0, right: 16.0),
                 child: Column(
                   children: [
-                    Center(child: Image.asset("assets/TivalLogo.png")),
+                    Center(child: NeumorphicTheme.isUsingDark(context)
+              ? Image.asset("assets/LogoDarkMode.png")
+              : Image.asset("assets/NewLogo.png")),
                     SizedBox(
                       height: 51,
                     ),
