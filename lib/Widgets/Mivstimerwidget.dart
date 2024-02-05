@@ -1,3 +1,4 @@
+import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
 import '../Config/Import.dart';
@@ -24,6 +25,8 @@ class Mivstimer extends StatefulWidget {
 }
 
 class _MivstimerState extends State<Mivstimer> {
+  final CountdownController _controller = CountdownController(autoStart: false);
+  var hideplayicon = false;
   @override
   Widget build(BuildContext context) {
     double baseWidth = 390;
@@ -50,26 +53,36 @@ class _MivstimerState extends State<Mivstimer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                          height: 45,
-                          width: 45,
-                          alignment: Alignment.center,
-                          decoration: Utils().decoration(
-                              shadow: false,
-                              shadowwithcolor:
-                                  NeumorphicTheme.isUsingDark(context)
-                                      ? true
-                                      : false,
-                              cntx: context,
-                              isdark: NeumorphicTheme.isUsingDark(context),
-                              radius: 32.5 * fem),
-                          child: Image.asset(
-                            "assets/pause.png",
-                            color: NeumorphicTheme.accentColor(context),
-                            height: 20,
-                            fit: BoxFit.fill,
-                            width: 20,
-                          )),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            hideplayicon = !hideplayicon;
+                          });
+                          hideplayicon
+                              ? _controller.pause()
+                              : _controller.resume();
+                        },
+                        child: Container(
+                            height: 45,
+                            width: 45,
+                            alignment: Alignment.center,
+                            decoration: Utils().decoration(
+                                shadow: false,
+                                shadowwithcolor:
+                                    NeumorphicTheme.isUsingDark(context)
+                                        ? true
+                                        : false,
+                                cntx: context,
+                                isdark: NeumorphicTheme.isUsingDark(context),
+                                radius: 32.5 * fem),
+                            child: Image.asset(
+                              "assets/pause.png",
+                              color: NeumorphicTheme.accentColor(context),
+                              height: 20,
+                              fit: BoxFit.fill,
+                              width: 20,
+                            )),
+                      ),
                       SizedBox(width: 15),
                       Container(
                           height: 45,
@@ -116,20 +129,21 @@ class _MivstimerState extends State<Mivstimer> {
                 ],
               ),
               SizedBox(height: 28),
-              titlewidgte(duration, int.parse(widget.duration.toString())),
+              newtitlewidget(duration, widget.duration),
               SizedBox(height: 20),
-              // titlewidgte(remianingtext, widget.remaining),
-              // SizedBox(height: 20),
-              // titlewidgte(snoozetext, widget.snooze),
-              // SizedBox(height: 20),
-              // titlewidgte(repeattext, widget.repeat),
-              // SizedBox(height: 20),
+              titlewidget(
+                  remianingtext, int.parse(widget.remaining.toString())),
+              SizedBox(height: 20),
+              newtitlewidget(snoozetext, widget.snooze),
+              SizedBox(height: 20),
+              newtitlewidget(repeattext, widget.repeat),
+              SizedBox(height: 20),
             ],
           )),
     );
   }
 
-  titlewidgte(title, value) {
+  titlewidget(title, value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -140,7 +154,7 @@ class _MivstimerState extends State<Mivstimer> {
               color: NeumorphicTheme.defaultTextColor(context)),
         ),
         Countdown(
-          // controller: _controller,
+          controller: _controller,
           seconds: value,
           build: (_, double time) => Text(
             time.toString(),
@@ -156,6 +170,26 @@ class _MivstimerState extends State<Mivstimer> {
               ),
             );
           },
+        ),
+      ],
+    );
+  }
+
+  newtitlewidget(title, value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: MyTextStyle.Dynamic(
+              style: MyTextStyle.mw40016,
+              color: NeumorphicTheme.defaultTextColor(context)),
+        ),
+        Text(
+          value,
+          style: MyTextStyle.Dynamic(
+              style: MyTextStyle.mw40018,
+              color: NeumorphicTheme.accentColor(context)),
         ),
       ],
     );

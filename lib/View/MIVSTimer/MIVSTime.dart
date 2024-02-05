@@ -65,7 +65,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
                         return Mivstimer(
                           alarmtime: '05:15 pm',
                           duration: '1000',
-                          remaining: newitem['intervalDuration'],
+                          remaining: '1000',
                           repeat: newitem['intervalEnd'],
                           snooze: newitem['snoozeDuration'],
                           title: 'Alpha',
