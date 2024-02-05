@@ -41,8 +41,10 @@ class _MIVSTimerState extends State<MIVSTimer> {
                       // .where("uid", isEqualTo: box.read('uid'))
                       .snapshots(),
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
+                    }
+                    if (!snapshot.hasData) {
                       return Center(
                         child: Text(
                           noanyalarfound,
@@ -62,7 +64,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
                         DocumentSnapshot newitem = snapshot.data!.docs[index];
                         return Mivstimer(
                           alarmtime: '05:15 pm',
-                          duration: newitem['totalDuration'],
+                          duration: '1000',
                           remaining: newitem['intervalDuration'],
                           repeat: newitem['intervalEnd'],
                           snooze: newitem['snoozeDuration'],

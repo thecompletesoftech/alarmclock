@@ -1,3 +1,5 @@
+import 'package:timer_count_down/timer_count_down.dart';
+
 import '../Config/Import.dart';
 
 class Mivstimer extends StatefulWidget {
@@ -114,14 +116,14 @@ class _MivstimerState extends State<Mivstimer> {
                 ],
               ),
               SizedBox(height: 28),
-              titlewidgte(duration, widget.duration),
+              titlewidgte(duration, int.parse(widget.duration.toString())),
               SizedBox(height: 20),
-              titlewidgte(remianingtext, widget.remaining),
-              SizedBox(height: 20),
-              titlewidgte(snoozetext, widget.snooze),
-              SizedBox(height: 20),
-              titlewidgte(repeattext, widget.repeat),
-              SizedBox(height: 20),
+              // titlewidgte(remianingtext, widget.remaining),
+              // SizedBox(height: 20),
+              // titlewidgte(snoozetext, widget.snooze),
+              // SizedBox(height: 20),
+              // titlewidgte(repeattext, widget.repeat),
+              // SizedBox(height: 20),
             ],
           )),
     );
@@ -137,12 +139,24 @@ class _MivstimerState extends State<Mivstimer> {
               style: MyTextStyle.mw40016,
               color: NeumorphicTheme.defaultTextColor(context)),
         ),
-        Text(
-          value,
-          style: MyTextStyle.Dynamic(
-              style: MyTextStyle.mw40018,
-              color: NeumorphicTheme.accentColor(context)),
-        )
+        Countdown(
+          // controller: _controller,
+          seconds: value,
+          build: (_, double time) => Text(
+            time.toString(),
+            style: MyTextStyle.Dynamic(
+                style: MyTextStyle.mw40018,
+                color: NeumorphicTheme.accentColor(context)),
+          ),
+          interval: Duration(milliseconds: 100),
+          onFinished: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Timer is done!'),
+              ),
+            );
+          },
+        ),
       ],
     );
   }

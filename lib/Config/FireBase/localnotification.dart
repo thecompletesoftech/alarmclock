@@ -42,7 +42,7 @@ class NotificationService {
 
   void selectNotification(String? payload) {
     if (payload != null && payload.isNotEmpty) {
-      behaviorSubject.add(payload);
+      // behaviorSubject.add(payload);
     }
   }
 
