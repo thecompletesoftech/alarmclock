@@ -1,4 +1,4 @@
-import 'package:clockalarm/Widgets/TimeNameCard.dart';
+import 'package:clockalarm/Widgets/TimeNameCard.dart' show TimeNameCard;
 
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
@@ -156,21 +156,20 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                       issmall: true,
                       borderRadius: 15.0,
                       onTap: () {
-                        // if (_mivsctrl.intervalduration.value == "00:00:00") {
-                        //   Mysnack(req, pleaseselectintervalduration, context);
-                        // } else if (_mivsctrl.intervalend.value ==
-                        //     "00:00:00") {
-                        //   Mysnack(req, pleaseselectintervalend, context);
-                        // } else if (_mivsctrl.totalduration.value ==
-                        //     "00:00:00") {
-                        //   Mysnack(req, pleaseselecttotalduration, context);
-                        // } else if (_mivsctrl.snoozetime.value == "00:00:00") {
-                        //   Mysnack(req, pleaseselectsnoozeduration, context);
-                        // } else {
-                        //   _mivsctrl.AddMIVStime(context);
-                        // }
+                        if (_mivsctrl.intervalduration.value == "00:00:00") {
+                          Mysnack(req, pleaseselectintervalduration, context);
+                        } else if (_mivsctrl.intervalend.value == "00:00:00") {
+                          Mysnack(req, pleaseselectintervalend, context);
+                        } else if (_mivsctrl.totalduration.value ==
+                            "00:00:00") {
+                          Mysnack(req, pleaseselecttotalduration, context);
+                        } else if (_mivsctrl.snoozetime.value == "00:00:00") {
+                          Mysnack(req, pleaseselectsnoozeduration, context);
+                        } else {
+                          _mivsctrl.AddMIVStime(context);
+                        }
 
-                        nextscreen(context, PendingTimer());
+                        // nextscreen(context, PendingTimer());
                       },
                     ),
                   ),
