@@ -216,9 +216,9 @@ class AlramController extends GetxController {
           actionButtons: snooze
               ? [
                   NotificationActionButton(
-                    key: "stop",
-                    label: "Stop alram",
-                  ),
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
                   NotificationActionButton(
                     key: "snooze",
                     label: "Snooze",
@@ -226,9 +226,9 @@ class AlramController extends GetxController {
                 ]
               : [
                   NotificationActionButton(
-                    key: "stop",
-                    label: "Stop alram",
-                  ),
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
                 ]);
     }
   }
