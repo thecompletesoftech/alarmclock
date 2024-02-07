@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
@@ -75,13 +77,21 @@ class _MivstimerState extends State<Mivstimer> {
                                 cntx: context,
                                 isdark: NeumorphicTheme.isUsingDark(context),
                                 radius: 32.5 * fem),
-                            child: Image.asset(
-                              "assets/pause.png",
-                              color: NeumorphicTheme.accentColor(context),
-                              height: 20,
-                              fit: BoxFit.fill,
-                              width: 20,
-                            )),
+                            child: hideplayicon
+                                ? Image.asset(
+                                    "assets/pause.png",
+                                    color: NeumorphicTheme.accentColor(context),
+                                    height: 20,
+                                    fit: BoxFit.fill,
+                                    width: 20,
+                                  )
+                                : Image.asset(
+                                    "assets/power.png",
+                                    color: NeumorphicTheme.accentColor(context),
+                                    height: 20,
+                                    fit: BoxFit.fill,
+                                    width: 20,
+                                  )),
                       ),
                       SizedBox(width: 15),
                       Container(
@@ -131,8 +141,7 @@ class _MivstimerState extends State<Mivstimer> {
               SizedBox(height: 28),
               newtitlewidget(duration, widget.duration),
               SizedBox(height: 20),
-              titlewidget(
-                  remianingtext, int.parse(widget.remaining.toString())),
+              titlewidget(remianingtext, widget.remaining.toString()),
               SizedBox(height: 20),
               newtitlewidget(snoozetext, widget.snooze),
               SizedBox(height: 20),
@@ -144,6 +153,10 @@ class _MivstimerState extends State<Mivstimer> {
   }
 
   titlewidget(title, value) {
+    var newvalue = value.split(':');
+    var hrssec = int.parse(newvalue[0].toString()) * 3600;
+    var minsec = int.parse(newvalue[1].toString()) * 60;
+    var newsec = hrssec + minsec + int.parse(newvalue[2]);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -155,14 +168,21 @@ class _MivstimerState extends State<Mivstimer> {
         ),
         Countdown(
           controller: _controller,
-          seconds: value,
-          build: (_, double time) => Text(
-            time.toString(),
-            style: MyTextStyle.Dynamic(
-                style: MyTextStyle.mw40018,
-                color: NeumorphicTheme.accentColor(context)),
-          ),
-          interval: Duration(milliseconds: 100),
+          seconds: newsec,
+          build: (_, double time) {
+            int hrs = (time / 3600).truncate();
+            var newsec = time - (hrs * 3600);
+            int minutes = (newsec / 60).truncate();
+            var currentsec = time - (minutes * 60 + hrs * 3600).truncate();
+            var currentsecond = currentsec.toStringAsFixed(0);
+            return Text(
+              '${hrs} : ${minutes} : ${currentsecond.length > 1 ? currentsecond : '0' + currentsecond}',
+              style: MyTextStyle.Dynamic(
+                  style: MyTextStyle.mw40018,
+                  color: NeumorphicTheme.accentColor(context)),
+            );
+          },
+          interval: Duration(seconds: 1),
           onFinished: () {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
