@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Controller/AuthController.dart';
 

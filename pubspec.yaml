@@ -63,6 +63,7 @@ dependencies:
   permission_handler: ^11.2.0
   flutter_inset_box_shadow: ^1.0.8
   timer_count_down: ^2.2.0
+  firebase_app_check: ^0.2.1+12
   
 dev_dependencies:
   flutter_test:
