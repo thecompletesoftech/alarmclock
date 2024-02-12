@@ -57,15 +57,14 @@ class _MIVSTimerState extends State<MIVSTimer> {
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      // itemCount: snapshot.data!.docs.length,
                       itemCount: snapshot.data!.docs.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         DocumentSnapshot newitem = snapshot.data!.docs[index];
                         return Mivstimer(
                           alarmtime: '05:15 pm',
-                          duration: '1000',
-                          remaining: '1000',
+                          duration: newitem['totalDuration'],
+                          remaining: newitem['totalDuration'].toString(),
                           repeat: newitem['intervalEnd'],
                           snooze: newitem['snoozeDuration'],
                           title: 'Alpha',

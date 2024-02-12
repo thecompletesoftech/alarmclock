@@ -14,18 +14,39 @@ class _AlarmHomeState extends State<AlarmHome> {
   var box = GetStorage();
 
   AlramController _alramController = Get.put(AlramController());
+
+  add5Minutes(String timeString) {
+    DateTime currentTime = DateTime.parse(timeString);
+    DateTime updatedTime = currentTime.add(Duration(minutes: 5));
+    String formattedTime = updatedTime.toString();
+    DateTime newtime = DateTime.parse(formattedTime);
+    return newtime;
+  }
+
   @override
   void initState() {
-    // AwesomeNotifications().setListeners(
-    //     onActionReceivedMethod: (ReceivedAction receivedAction) async {
-    //       print("action -----" + receivedAction.toString());
-    //     },
-    //     onNotificationCreatedMethod:
-    //         (ReceivedNotification receivedNotification) async {},
-    //     onNotificationDisplayedMethod:
-    //         (ReceivedNotification receivedNotification) async {},
-    //     onDismissActionReceivedMethod:
-    //         (ReceivedAction receivedAction) async {});
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: (ReceivedAction receivedAction) async {
+          print("action -----" + receivedAction.toString());
+          print("Payload===>>>>>>>>>>" +
+              receivedAction.payload!['currentTime'].toString());
+          var updatedTime =
+              add5Minutes(receivedAction.payload!['currentTime'].toString());
+          print("Updated Time: $updatedTime");
+          if (bool.parse(receivedAction.payload!['snooze'].toString()) ==
+              true) {
+            shownotification(
+                receivedAction.payload!['sound'],
+                bool.parse(receivedAction.payload!['snooze'].toString()),
+                updatedTime);
+          }
+        },
+        onNotificationCreatedMethod:
+            (ReceivedNotification receivedNotification) async {},
+        onNotificationDisplayedMethod:
+            (ReceivedNotification receivedNotification) async {},
+        onDismissActionReceivedMethod:
+            (ReceivedAction receivedAction) async {});
     Future.delayed(const Duration(milliseconds: 1), () {
       _alramController.getalram(context);
       GetFirebasetoken().getfirebasetoken();
@@ -159,5 +180,63 @@ class _AlarmHomeState extends State<AlarmHome> {
         ),
       ),
     );
+  }
+
+  shownotification(soundname, snooze, dateTime) async {
+    DateTime currentTime = DateTime.now();
+    await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
+      // notification icon
+      NotificationChannel(
+          channelGroupKey: 'basic_test',
+          channelKey: 'basic',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          channelShowBadge: false,
+          importance: NotificationImportance.High,
+          enableVibration: true,
+          playSound: true,
+          soundSource: soundname),
+    ]);
+    bool isallowed = await AwesomeNotifications().isNotificationAllowed();
+
+    if (!isallowed) {
+      print("object===>>>>>>>>>>");
+      //no permission of local notification
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    } else {
+      //show notification
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 123,
+              channelKey: 'basic', //set configuration wuth key "basic"
+              title: 'Alarm is playing',
+              body: '',
+              payload: {
+                "name": "FlutterCampus",
+                "currentTime": currentTime.toString(),
+                "sound": soundname.toString(),
+                "snooze": snooze.toString()
+              },
+              autoDismissible: false,
+              customSound: soundname),
+          schedule: NotificationCalendar.fromDate(date: dateTime),
+          actionButtons: snooze
+              ? [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
+                  NotificationActionButton(
+                    key: "snooze",
+                    label: "Snooze",
+                  )
+                ]
+              : [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
+                ]);
+    }
   }
 }

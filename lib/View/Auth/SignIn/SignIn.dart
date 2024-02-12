@@ -80,14 +80,19 @@ class _SignInState extends State<SignIn> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
+                    const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
                 child: Column(
                   children: [
                     Center(
                         child: NeumorphicTheme.isUsingDark(context)
-                            ? Image.asset("assets/LogoDarkMode.png")
-                            : Image.asset("assets/NewLogo.png")),
-                    SizedBox(height: 24),
+                            ? Image.asset(
+                                "assets/BlackModeLogo.png",
+                                height: 250,
+                              )
+                            : Image.asset(
+                                "assets/NewLogo.png",
+                                height: 250,
+                              )),
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),
                       child: Row(
@@ -104,6 +109,11 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
+                      
+                      suffixshowicon: true,
+                      suffixicon: NeumorphicTheme.isUsingDark(context)
+                          ? Icons.alternate_email_sharp
+                          : Icons.piano,
                       controller: controller.emailController,
                       hinttext: email,
                       accentcolor: NeumorphicTheme.accentColor(context),

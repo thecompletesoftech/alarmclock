@@ -1,4 +1,4 @@
-import 'package:clockalarm/Widgets/TimeNameCard.dart';
+import 'package:clockalarm/Widgets/TimeNameCard.dart' show TimeNameCard;
 
 import '../../Config/Import.dart';
 import '../../Widgets/ButtonWidget.dart';
@@ -13,6 +13,11 @@ class AddMIVSTimer extends StatefulWidget {
 
 class _AddMIVSTimerState extends State<AddMIVSTimer> {
   Mivsctrl _mivsctrl = Get.put(Mivsctrl());
+  @override void initState() {
+    
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,21 +161,20 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                       issmall: true,
                       borderRadius: 15.0,
                       onTap: () {
-                        // if (_mivsctrl.intervalduration.value == "00:00:00") {
-                        //   Mysnack(req, pleaseselectintervalduration, context);
-                        // } else if (_mivsctrl.intervalend.value ==
-                        //     "00:00:00") {
-                        //   Mysnack(req, pleaseselectintervalend, context);
-                        // } else if (_mivsctrl.totalduration.value ==
-                        //     "00:00:00") {
-                        //   Mysnack(req, pleaseselecttotalduration, context);
-                        // } else if (_mivsctrl.snoozetime.value == "00:00:00") {
-                        //   Mysnack(req, pleaseselectsnoozeduration, context);
-                        // } else {
-                        //   _mivsctrl.AddMIVStime(context);
-                        // }
+                        if (_mivsctrl.intervalduration.value == "00:00:00") {
+                          Mysnack(req, pleaseselectintervalduration, context);
+                        } else if (_mivsctrl.intervalend.value == "00:00:00") {
+                          Mysnack(req, pleaseselectintervalend, context);
+                        } else if (_mivsctrl.totalduration.value ==
+                            "00:00:00") {
+                          Mysnack(req, pleaseselecttotalduration, context);
+                        } else if (_mivsctrl.snoozetime.value == "00:00:00") {
+                          Mysnack(req, pleaseselectsnoozeduration, context);
+                        } else {
+                          _mivsctrl.AddMIVStime(context);
+                        }
 
-                        nextscreen(context, PendingTimer());
+                        // nextscreen(context, PendingTimer());
                       },
                     ),
                   ),
@@ -221,5 +225,21 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
     }
     print("result" + result.toString());
     return result == null ? "00:00:00" : result;
+  }
+
+  String formatHHMMSS(int seconds) {
+    int hours = (seconds / 3600).truncate();
+    seconds = (seconds % 3600).truncate();
+    int minutes = (seconds / 60).truncate();
+
+    String hoursStr = (hours).toString().padLeft(2, '0');
+    String minutesStr = (minutes).toString().padLeft(2, '0');
+    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+    if (hours == 0) {
+      return "$minutesStr:$secondsStr";
+    }
+
+    return "$hoursStr:$minutesStr:$secondsStr";
   }
 }

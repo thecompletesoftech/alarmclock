@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
@@ -12,9 +13,11 @@ class AuthController extends GetxController {
   final oldpass = TextEditingController();
   final currentpass = TextEditingController();
   final confirmpass = TextEditingController();
+  final resetpassemail = TextEditingController();
   var loginloader = false.obs;
   var signuploader = false.obs;
   var passwordloading = false.obs;
+  var forgotpassloader = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   var box = GetStorage();
@@ -197,6 +200,8 @@ class AuthController extends GetxController {
     oldpass.clear();
     currentpass.clear();
     confirmpass.clear();
+    emailController.clear();
+    resetpassemail.clear();
   }
 
   clearsignupdata() {
@@ -204,5 +209,146 @@ class AuthController extends GetxController {
     signUpemail.clear();
     signuppassword.clear();
     signupconfirmpass.clear();
+  }
+
+  Future forgotpassword(context) async {
+    try {
+      forgotpassloader.value = true;
+      await auth.sendPasswordResetEmail(email: resetpassemail.text.trim());
+      bool isEmailRegistered = await checkuserfoundnotfound();
+      if (!isEmailRegistered) {
+        Mysnack(retry, notfoundemail, context);
+      } else {
+        resetpopup(context).then((value) {
+          if (value == true) {
+            log("data=====>>>" + value.toString());
+            nextscreenwithoutback(context, SignIn());
+          }
+        });
+      }
+      forgotpassloader.value = false;
+      clearChangepassdata();
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        forgotpassloader.value = false;
+        print("Error" + e.toString());
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: Text('Error: ${e.message}'),
+        //   ),
+        // );
+      }
+    }
+    // try {
+    //   forgotpassloader.value = true;
+    //   await auth.sendPasswordResetEmail(email: resetpassemail.text.trim());
+    //   checkuserfoundnotfound();
+    //   resetpopup(context).then((value) {
+    //     if (value == true) {
+    //       log("data=====>>>" + value.toString());
+    //       nextscreenwithoutback(context, SignIn());
+    //     }
+    //   });
+    //   forgotpassloader.value = false;
+    //   clearChangepassdata();
+    //   // Mysnack(successfull, resetpass, context);
+    //   // nextscreenwithoutback(context, SignIn());
+    // } catch (e) {
+    //   if (e is FirebaseAuthException) {
+    //     log("message" + e.code);
+    //     forgotpassloader.value = false;
+    //     print("Error" + e.toString());
+    //     // Mysnack(retry, somethingwrong, context);
+    //     // Navigator.pop(context);
+    //   }
+    // }
+  }
+
+  checkuserfoundnotfound() async {
+    var emailToCheck = resetpassemail.text.trim();
+    bool emailFound = false;
+
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: emailToCheck)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        emailFound = true;
+      }
+    } catch (error) {
+      print('Failed to retrieve data: $error');
+    }
+
+    return emailFound;
+    // var result = false;
+    // await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .get()
+    //     .then((QuerySnapshot queryDocumentSnapshot) async {
+    //   log("Email data ==>>>" + queryDocumentSnapshot.toString());
+
+    //   for (var i = 0; i < queryDocumentSnapshot.docs.length; i++) {
+    //     var data =
+    //         await jsonDecode(queryDocumentSnapshot.docs[i].data().toString());
+    //     log("email found===>>>>" + data!['email']);
+    //   }
+    // }).catchError((error) {
+    //   log('Failed to retrieve data: $error');
+    // });
+  }
+
+  Future resetpopup(context) async {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          // backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
+          content: Container(
+        height: 120,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Send password reset link',
+              textAlign: TextAlign.center,
+              style: MyTextStyle.Dynamic(
+                style: MyTextStyle.mw40018,
+                // color:
+                //     isDark ? mycolor().lightWhite : mycolor().darkgreen
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    // backgroundColor:
+                    //     isDark ? mycolor().darkbalck : mycolor().lightWhite,
+                    ),
+                onPressed: () {
+                  Navigator.pop(context, true);
+                  // nextscreenwithoutback(context, SignIn());
+                  // nextscreenwithoutback(context, SignIn());
+                },
+                child: Text(
+                  "Ok",
+                  style: MyTextStyle.Dynamic(
+                    style: MyTextStyle.mw40018,
+                    // color: isDark
+                    //     ? mycolor().lightWhite
+                    //     : mycolor().darkgreen
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }
