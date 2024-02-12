@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
+
 import '../Config/Import.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,6 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: NeumorphicTheme.baseColor(context),
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: NeumorphicTheme.isUsingDark(context)
+            ? Brightness.light
+            : Brightness.dark));
     return Scaffold(
       body: Center(
           child: NeumorphicTheme.isUsingDark(context)

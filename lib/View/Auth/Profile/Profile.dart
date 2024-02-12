@@ -26,44 +26,48 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        appBar: NeumorphicAppBar(
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  backscreen(context);
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: NeumorphicTheme.defaultTextColor(context),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
+          child: Padding(
+            padding: EdgeInsets.only(top: 18.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    backscreen(context);
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: NeumorphicTheme.defaultTextColor(context),
+                  ),
                 ),
-              ),
-              Text(
-                profiletext,
-                style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw60030,
-                    color: NeumorphicTheme.accentColor(context)),
-              ),
-              GestureDetector(
-                onTap: () async {
-                  if (controller.profileloading.value == false) {
-                    if (controller.selectimage != null) {
-                      controller.updateprofile(context);
-                    } else {
-                      Navigator.pop(context);
-                    }
-                  }
-                },
-                child: Text(
-                  'Save',
+                Text(
+                  profiletext,
                   style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw40020,
+                      style: MyTextStyle.mw60022,
                       color: NeumorphicTheme.accentColor(context)),
                 ),
-              ),
-            ],
+                GestureDetector(
+                  onTap: () async {
+                    if (controller.profileloading.value == false) {
+                      if (controller.selectimage != null) {
+                        controller.updateprofile(context);
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
+                  child: Text(
+                    'Save',
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw40020,
+                        color: NeumorphicTheme.accentColor(context)),
+                  ),
+                ),
+              ],
+            ).paddingSymmetric(horizontal: 10, vertical: 5),
           ),
         ),
         body: Stack(
