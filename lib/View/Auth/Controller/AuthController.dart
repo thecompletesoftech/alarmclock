@@ -217,7 +217,7 @@ class AuthController extends GetxController {
       await auth.sendPasswordResetEmail(email: resetpassemail.text.trim());
       bool isEmailRegistered = await checkuserfoundnotfound();
       if (!isEmailRegistered) {
-        Mysnack(retry, somethingwrong, context);
+        Mysnack(retry, notfoundemail, context);
       } else {
         resetpopup(context).then((value) {
           if (value == true) {

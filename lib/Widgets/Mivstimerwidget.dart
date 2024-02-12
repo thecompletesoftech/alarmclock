@@ -77,21 +77,13 @@ class _MivstimerState extends State<Mivstimer> {
                                 cntx: context,
                                 isdark: NeumorphicTheme.isUsingDark(context),
                                 radius: 32.5 * fem),
-                            child: hideplayicon
-                                ? Image.asset(
-                                    "assets/pause.png",
-                                    color: NeumorphicTheme.accentColor(context),
-                                    height: 20,
-                                    fit: BoxFit.fill,
-                                    width: 20,
-                                  )
-                                : Image.asset(
-                                    "assets/power.png",
-                                    color: NeumorphicTheme.accentColor(context),
-                                    height: 20,
-                                    fit: BoxFit.fill,
-                                    width: 20,
-                                  )),
+                            child: Image.asset(
+                              "assets/pause.png",
+                              color: NeumorphicTheme.accentColor(context),
+                              height: 20,
+                              fit: BoxFit.fill,
+                              width: 20,
+                            )),
                       ),
                       SizedBox(width: 15),
                       Container(
@@ -175,8 +167,10 @@ class _MivstimerState extends State<Mivstimer> {
             int minutes = (newsec / 60).truncate();
             var currentsec = time - (minutes * 60 + hrs * 3600).truncate();
             var currentsecond = currentsec.toStringAsFixed(0);
+            var currenthrs = hrs.toString();
+            var currentmin = minutes.toString();
             return Text(
-              '${hrs} : ${minutes} : ${currentsecond.length > 1 ? currentsecond : '0' + currentsecond}',
+              '${currenthrs.length > 1 ? currenthrs : '0' + currenthrs} : ${currentmin.length > 1 ? currentmin : '0' + currentmin} : ${currentsecond.length > 1 ? currentsecond : '0' + currentsecond}',
               style: MyTextStyle.Dynamic(
                   style: MyTextStyle.mw40018,
                   color: NeumorphicTheme.accentColor(context)),

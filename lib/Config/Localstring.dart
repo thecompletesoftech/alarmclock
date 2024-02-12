@@ -100,3 +100,4 @@ const alreadyaddedclock = 'Selected country already exists';
 const passwordchanged = "Successfully changed password";
 const passwordnotchange = "Password can't be changed";
 const successfull = "Successfull";
+const notfoundemail = 'Email not found';

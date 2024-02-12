@@ -184,6 +184,7 @@ class AlramController extends GetxController {
   }
 
   shownotification(soundname, snooze, dateTime) async {
+    DateTime currentTime = DateTime.now();
     await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
       // notification icon
       NotificationChannel(
@@ -198,7 +199,9 @@ class AlramController extends GetxController {
           soundSource: soundname),
     ]);
     bool isallowed = await AwesomeNotifications().isNotificationAllowed();
+
     if (!isallowed) {
+      print("object===>>>>>>>>>>");
       //no permission of local notification
       AwesomeNotifications().requestPermissionToSendNotifications();
     } else {
@@ -209,7 +212,12 @@ class AlramController extends GetxController {
               channelKey: 'basic', //set configuration wuth key "basic"
               title: 'Alarm is playing',
               body: '',
-              payload: {"name": "FlutterCampus"},
+              payload: {
+                "name": "FlutterCampus",
+                "currentTime": currentTime.toString(),
+                "sound": soundname.toString(),
+                "snooze": snooze.toString()
+              },
               autoDismissible: false,
               customSound: soundname),
           schedule: NotificationCalendar.fromDate(date: dateTime),

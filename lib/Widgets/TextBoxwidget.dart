@@ -114,7 +114,9 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10,),
+          padding: EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
@@ -194,7 +196,7 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
               hintText: widget.hinttext,
               hintStyle: widget.hintstyle ??
                   MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw40018,
+                    style: MyTextStyle.mw40016,
                     color: widget.accentcolor,
                   ),
               suffixIconConstraints: BoxConstraints(
