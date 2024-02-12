@@ -83,15 +83,16 @@ class NotificationService {
     tz.initializeTimeZones();
 
     final platformChannelSpecifics = await _notificationDetails();
-    await _localNotifications.zonedSchedule(
-        0,
-        'scheduled title',
-        'scheduled body',
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
-        platformChannelSpecifics,
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
+    await _localNotifications.periodicallyShow(id, title, body, RepeatInterval.daily, platformChannelSpecifics);
+    // await _localNotifications.zonedSchedule(
+    //     0,
+    //     'scheduled title',
+    //     'scheduled body',
+    //     tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
+    //     platformChannelSpecifics,
+    //     androidAllowWhileIdle: true,
+    //     uiLocalNotificationDateInterpretation:
+    //         UILocalNotificationDateInterpretation.absoluteTime);
 
     // await _localNotifications.zonedSchedule(
     //     id, title, body, tz.TZDateTime.now(tz.local), platformChannelSpecifics,

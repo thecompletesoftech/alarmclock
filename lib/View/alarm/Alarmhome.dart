@@ -1,9 +1,5 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Api.dart';
-import 'package:clockalarm/Config/FireBase/localnotification.dart';
 import '../../Config/FireBase/Getfirebasetoken.dart';
-import '../../Config/Import.dart';
-import '../../Config/Import.dart';
 import '../../Config/Import.dart';
 
 class AlarmHome extends StatefulWidget {
@@ -59,7 +55,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                 switch (value) {
                   case 0:
                     Navigator.of(context).push(createRoutes(AddAlram()));
-                    break;
+                    break;  
                   case 1:
                     nextscreen(context, EditAlarm());
                     break;
@@ -98,7 +94,8 @@ class _AlarmHomeState extends State<AlarmHome> {
                       stream: ApiHelper()
                           .getsnapshotbyorderbyuserid("alarm", "date", true),
                       builder: (context, snapshot) {
-                        if ((snapshot.data == null)) {
+                        if ((snapshot.data == null) ||
+                            (snapshot.data!.docs.length < 1)) {
                           return Center(
                             child: Text(
                               noanyalarfound,

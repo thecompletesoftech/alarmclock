@@ -8,15 +8,7 @@ class Repeat extends StatefulWidget {
 }
 
 class _RepeatState extends State<Repeat> {
-  var alramlist = [
-    {"title": "Sunday"},
-    {"title": "Monday"},
-    {"title": "Tuesday"},
-    {"title": "Wednesday"},
-    {"title": "Thursday"},
-    {"title": "Friday"},
-    {"title": "Saturday"}
-  ];
+  AlramController _alramController = Get.put(AlramController());
 
   String time = "-";
   bool isSwitched = false;
@@ -86,16 +78,27 @@ class _RepeatState extends State<Repeat> {
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
-                    itemCount: alramlist.length,
+                    itemCount: _alramController.alramlist.length,
                     itemBuilder: (context, index) {
                       return AlramCard(
                         showmedium: false,
                         showswitchorsubtile: false,
                         showarrowicon: false,
                         bgshow: true,
-                        time: alramlist[index]['title'].toString(),
+                        time: _alramController.alramlist[index]['title']
+                            .toString(),
                         subtitle: "",
                         ontapcard: () {
+                          if (_alramController.selectedweekdaylist.contains(
+                                  _alramController.alramlist[index]['id']) ==
+                              true) {
+                            _alramController.selectedweekdaylist.remove(
+                                _alramController.alramlist[index]['id']);
+                          } else
+                            _alramController.selectedweekdaylist
+                                .add(_alramController.alramlist[index]['id']);
+                          print(
+                              _alramController.selectedweekdaylist.toString());
                           // nextscreen(context, Repeat());
                         },
                         onchange: (value) {
