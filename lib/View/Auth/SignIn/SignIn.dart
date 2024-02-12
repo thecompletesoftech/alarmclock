@@ -67,7 +67,7 @@ class _SignInState extends State<SignIn> {
       return false;
     }
   }
-
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +109,6 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
-                      
                       suffixshowicon: true,
                       suffixicon: NeumorphicTheme.isUsingDark(context)
                           ? Icons.alternate_email_sharp
@@ -126,6 +125,10 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
+                      suffixshowicon: true,
+                      suffixicon: NeumorphicTheme.isUsingDark(context)
+                          ? Icons.visibility
+                          : Icons.visibility,
                       controller: controller.passwordController,
                       hinttext: password,
                       accentcolor: NeumorphicTheme.accentColor(context),
