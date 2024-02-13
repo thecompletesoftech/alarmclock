@@ -28,61 +28,48 @@ class _ProfileState extends State<Profile> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Obx(
       () => Scaffold(
-        appBar: NeumorphicAppBar(
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  backscreen(context);
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: NeumorphicTheme.defaultTextColor(context),
-                ),
-              ),
-              Text(
-                profiletext,
-                style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw60024,
-                    color: NeumorphicTheme.accentColor(context)),
-              ),
-              GestureDetector(
-                  onTap: () async {
-                    // if (controller.profileloading.value == false) {
-                    //   if (controller.selectimage != null) {
-                    //     controller.updateprofile(context);
-                    //   } else {
-                    //     Navigator.pop(context);
-                    //   }
-                    // }
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
+          child: Padding(
+            padding: EdgeInsets.only(top: 18.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    backscreen(context);
                   },
-                  child: Container(
-                      height: 40,
-                      width: 40,
-                      alignment: Alignment.center,
-                      decoration: Utils().decoration(
-                          cntx: context,
-                          isdark: NeumorphicTheme.isUsingDark(context),
-                          radius: 32.5 * fem),
-                      child: NeumorphicTheme.isUsingDark(context)
-                          ? Image.asset(
-                              "assets/Settings.png",
-                              color: NeumorphicTheme.accentColor(context),
-                              height: 20,
-                              width: 20,
-                            )
-                          : Image.asset(
-                              "assets/LightSetting.png",
-                              color: NeumorphicTheme.accentColor(context),
-                              height: 20,
-                              width: 20,
-                            ))
-
-                  // .paddingOnly(left: 10),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: NeumorphicTheme.defaultTextColor(context),
                   ),
-            ],
+                ),
+                Text(
+                  profiletext,
+                  style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw60022,
+                      color: NeumorphicTheme.accentColor(context)),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    if (controller.profileloading.value == false) {
+                      if (controller.selectimage != null) {
+                        controller.updateprofile(context);
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
+                  child: Text(
+                    'Save',
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw40020,
+                        color: NeumorphicTheme.accentColor(context)),
+                  ),
+                ),
+              ],
+            ).paddingSymmetric(horizontal: 10, vertical: 5),
           ),
         ),
         body: Stack(

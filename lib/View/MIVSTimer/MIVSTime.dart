@@ -20,7 +20,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: Size.fromHeight(60),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/TimeMachine.png", "screenname": PendingTimer()},
@@ -34,7 +34,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("mivstime")

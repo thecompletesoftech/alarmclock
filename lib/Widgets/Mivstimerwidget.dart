@@ -37,7 +37,7 @@ class _MivstimerState extends State<Mivstimer> {
       backgroundimage: bigcardsvg,
       child: Container(
           width: MediaQuery.sizeOf(context).width,
-          padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0),
+          padding: EdgeInsets.only(left: 16.0, top: 10.0, right: 16.0),
           alignment: Alignment.topLeft,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

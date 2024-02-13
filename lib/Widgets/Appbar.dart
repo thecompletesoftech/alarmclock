@@ -133,6 +133,6 @@ class CustomeAppbar extends StatelessWidget {
             ),
         ],
       ),
-    ).paddingOnly(left: 20, right: 20, top: 40);
+    ).paddingOnly(left: 20, right: 20, top: 30);
   }
 }
