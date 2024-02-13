@@ -83,17 +83,19 @@ class _MIVSTimerState extends State<MIVSTimer> {
           nextscreen(context, AddMIVSTimer());
         },
         child: Container(
-            height: 60,
-            width: 60,
+            height: 50,
+            width: 50,
             alignment: Alignment.center,
             decoration: Utils().decoration(
                 shadow: true,
                 shadowwithcolor:
                     NeumorphicTheme.isUsingDark(context) ? true : false,
+                backgroundcolor: NeumorphicTheme.accentColor(context),
                 cntx: context,
                 isdark: NeumorphicTheme.isUsingDark(context),
                 radius: 32.5),
             child: Icon(Icons.add,
+                size: 25,
                 color: NeumorphicTheme.isUsingDark(context)
                     ? mycolor().Black
                     : mycolor().White)),

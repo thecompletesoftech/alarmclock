@@ -141,22 +141,26 @@ class _PendingTimerState extends State<PendingTimer> {
                                 ],
                               ),
                             ),
-                            if (NeumorphicTheme.isUsingDark(context))
-                              Container(
-                                height: 80,
-                                width: 90,
-                              ),
+                            Container(
+                              height: 85,
+                              width: 90,
+                            ),
                           ],
                         ).paddingOnly(
                             left: NeumorphicTheme.isUsingDark(context) ? 3 : 0),
                       ],
                     ),
-                    if (NeumorphicTheme.isUsingDark(context))
-                      Positioned(
-                          bottom: 0,
-                          right: -8,
-                          top: 2,
-                          child: Image.asset("assets/Play.png"))
+                    NeumorphicTheme.isUsingDark(context)
+                        ? Positioned(
+                            bottom: 0,
+                            right: -8,
+                            top: 2,
+                            child: Image.asset("assets/Play.png"))
+                        : Positioned(
+                            bottom: 0,
+                            right: -10,
+                            top: 10,
+                            child: Image.asset("assets/lightpause.png"))
                   ],
                 ),
                 Padding(
