@@ -6,6 +6,7 @@ import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/CheckPermissions.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Profile/Controller/ProfileController.dart';
+import 'package:clockalarm/View/Auth/Profile/EditProfile.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
@@ -53,20 +54,31 @@ class _ProfileState extends State<Profile> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    if (controller.profileloading.value == false) {
-                      if (controller.selectimage != null) {
-                        controller.updateprofile(context);
-                      } else {
-                        Navigator.pop(context);
-                      }
-                    }
+                    MediaQuery.of(context).platformBrightness == Brightness.dark
+                        ? ThemeMode.dark
+                        : ThemeMode.light;
+                    // if (controller.profileloading.value == false) {
+                    //   if (controller.selectimage != null) {
+                    //     controller.updateprofile(context);
+                    //   } else {
+                    //     Navigator.pop(context);
+                    //   }
+                    // }
                   },
-                  child: Text(
-                    'Save',
-                    style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw40020,
-                        color: NeumorphicTheme.accentColor(context)),
-                  ),
+                  child: Container(
+                      height: 40,
+                      width: 40,
+                      alignment: Alignment.center,
+                      decoration: Utils().decoration(
+                          cntx: context,
+                          isdark: NeumorphicTheme.isUsingDark(context),
+                          radius: 32.5 * fem),
+                      child: Image.asset(
+                        'assets/Settings.png',
+                        color: NeumorphicTheme.accentColor(context),
+                        height: 20,
+                        width: 20,
+                      )).paddingOnly(left: 10),
                 ),
               ],
             ).paddingSymmetric(horizontal: 10, vertical: 5),
@@ -208,6 +220,16 @@ class _ProfileState extends State<Profile> {
                                   title: historytext,
                                   ontap: () {
                                     nextscreen(context, History());
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  title: editprofiletext,
+                                  ontap: () {
+                                    nextscreen(context, EditProfile());
                                   },
                                 ),
                                 SizedBox(
@@ -490,4 +512,6 @@ class _ProfileState extends State<Profile> {
           )),
     );
   }
+
+
 }

@@ -243,7 +243,7 @@ class _SignUpState extends State<SignUp> {
                   showerror: Cnfpassworderror,
                   errormsg: Cnfpasserrormsg,
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 50),
                 Obx(
                   () => Center(
                     child: ButtonWidget(
@@ -263,7 +263,7 @@ class _SignUpState extends State<SignUp> {
                         right: NeumorphicTheme.isUsingDark(context) ? 8 : 0),
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 30),
                 RichText(
                   text: TextSpan(
                       text: alreadyaccount,

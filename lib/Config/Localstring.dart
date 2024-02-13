@@ -101,3 +101,5 @@ const passwordchanged = "Successfully changed password";
 const passwordnotchange = "Password can't be changed";
 const successfull = "Successfull";
 const notfoundemail = 'Email not found';
+const editprofiletext = 'Edit Profile';
+const emailaddtext = 'Email Address';

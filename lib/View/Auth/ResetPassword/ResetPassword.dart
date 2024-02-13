@@ -80,6 +80,9 @@ class _ResetPasswordState extends State<ResetPassword> {
     }
   }
 
+  bool currentobscureText = true;
+  bool newobscureText = true;
+  bool confirmobsureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +117,7 @@ class _ResetPasswordState extends State<ResetPassword> {
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               children: [
-                SizedBox(height: 150),
+                SizedBox(height: 120),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: Row(
@@ -131,6 +134,22 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 SizedBox(height: 10),
                 TextBoxwidget(
+                  obsecuretext: currentobscureText,
+                  suffixshowicon: true,
+                  iconorimage: true,
+                  child: (currentobscureText
+                      ? Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Eye.png"
+                          : "assets/LightEyes.png")
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Hide.png"
+                          : 'assets/LightHide.png')),
+                  ontapsufixicon: () {
+                    print("object==>>>>>>>>>");
+                    setState(() {
+                      currentobscureText = !currentobscureText;
+                    });
+                  },
                   controller: controller.oldpass,
                   accentcolor: NeumorphicTheme.accentColor(context),
                   basecolor: NeumorphicTheme.baseColor(context),
@@ -158,6 +177,22 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 SizedBox(height: 10),
                 TextBoxwidget(
+                  obsecuretext: newobscureText,
+                  suffixshowicon: true,
+                  iconorimage: true,
+                  child: (newobscureText
+                      ? Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Eye.png"
+                          : "assets/LightEyes.png")
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Hide.png"
+                          : 'assets/LightHide.png')),
+                  ontapsufixicon: () {
+                    print("object==>>>>>>>>>");
+                    setState(() {
+                      newobscureText = !newobscureText;
+                    });
+                  },
                   controller: controller.currentpass,
                   accentcolor: NeumorphicTheme.accentColor(context),
                   basecolor: NeumorphicTheme.baseColor(context),
@@ -185,6 +220,22 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ),
                 SizedBox(height: 10),
                 TextBoxwidget(
+                  obsecuretext: confirmobsureText,
+                  suffixshowicon: true,
+                  iconorimage: true,
+                  child: (confirmobsureText
+                      ? Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Eye.png"
+                          : "assets/LightEyes.png")
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Hide.png"
+                          : 'assets/LightHide.png')),
+                  ontapsufixicon: () {
+                    print("object==>>>>>>>>>");
+                    setState(() {
+                      confirmobsureText = !confirmobsureText;
+                    });
+                  },
                   controller: controller.confirmpass,
                   accentcolor: NeumorphicTheme.accentColor(context),
                   basecolor: NeumorphicTheme.baseColor(context),

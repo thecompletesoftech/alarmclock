@@ -30,4 +30,16 @@ class ProfileController extends GetxController {
     profileloading.value = false;
     nextscreen(cntx, NewBottomNavigator());
   }
+
+   EditProfileprofile(cntx) async {
+    profileloading.value = true;
+    var setimageid = await ApiHelper().getdatabyuserid('users');
+    log("message" + setimageid.docs[0]['id'].toString());
+    String downloadURL = await uploadImage(File(selectimage!));
+    print('Image uploaded. Download URL: $downloadURL');
+    var updatedata = {"image": downloadURL.toString()};
+    await ApiHelper().Updatedata('users', setimageid.docs[0]['id'], updatedata);
+    profileloading.value = false;
+    nextscreen(cntx, Profile());
+  }
 }
