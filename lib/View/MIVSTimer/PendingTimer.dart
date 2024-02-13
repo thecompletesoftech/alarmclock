@@ -17,7 +17,7 @@ class _PendingTimerState extends State<PendingTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(80),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": null},
@@ -171,7 +171,7 @@ class _PendingTimerState extends State<PendingTimer> {
                     children: [
                       SizedBox(
                         height:
-                            NeumorphicTheme.isUsingDark(context) ? 5.0 : 20.0,
+                            NeumorphicTheme.isUsingDark(context) ? 5.0 : 10.0,
                       ),
                       Timercard(
                           title: timeReaming,

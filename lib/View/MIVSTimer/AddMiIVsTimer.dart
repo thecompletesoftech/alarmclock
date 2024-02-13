@@ -13,11 +13,12 @@ class AddMIVSTimer extends StatefulWidget {
 
 class _AddMIVSTimerState extends State<AddMIVSTimer> {
   Mivsctrl _mivsctrl = Get.put(Mivsctrl());
-  @override void initState() {
-    
+  @override
+  void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
         child: Obx(
           () => Column(
             children: [
-              SizedBox(height: 20),
+              // SizedBox(height: 20),
               TimeNameCard(
                 title: timername,
                 interval: alphatext,

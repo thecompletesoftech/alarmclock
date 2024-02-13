@@ -22,20 +22,32 @@ class IntervalCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Neumorphic(
-                  style: NeumorphicStyle(
-                    depth: NeumorphicTheme.embossDepth(context),
-                    boxShape: buttonradius(),
-                  ),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    child: Text(
-                      interval.toString(),
-                      style: MyTextStyle.Dynamic(
-                          style: MyTextStyle.mw40018,
-                          color: NeumorphicTheme.accentColor(context)),
-                    ),
-                  )),
+              Container(
+                width: 50,
+                child: TextBoxwidget(
+                  iconorimage: true,
+                  suffixshowicon: true,
+                  hinttext: '4',
+                  hintstyle: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw40016,
+                      color: NeumorphicTheme.accentColor(context)),
+                  toppadding: 10.0,
+                  bottompadding: 10.0,
+                  leftpadding: 10.0,
+                  radius: 10.0,
+                  keyboradtype: TextInputType.number,
+                  style: MyTextStyle.Dynamic(
+                      style: MyTextStyle.mw40016,
+                      color: NeumorphicTheme.accentColor(context)),
+                  accentcolor: NeumorphicTheme.accentColor(context),
+                  basecolor: NeumorphicTheme.baseColor(context),
+                  validator: (e) {
+                    return null;
+                  },
+                  // showerror: emailerror,
+                  // errormsg: emailerrmsg,
+                ),
+              ).paddingOnly(right: 10),
               SizedBox(
                 width: 20,
               ),
@@ -48,7 +60,8 @@ class IntervalCard extends StatelessWidget {
             ],
           ),
         ],
-      ).paddingSymmetric(vertical: NeumorphicTheme.isUsingDark(context) ? 3: 0),
+      ).paddingSymmetric(
+          vertical: NeumorphicTheme.isUsingDark(context) ? 3 : 0),
     );
   }
 }

@@ -104,9 +104,9 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                     TextBoxwidget(
                       suffixshowicon: true,
                       iconorimage: true,
-                      child: NeumorphicTheme.isUsingDark(context)
-                          ? Image.asset('assets/Darkalternate.png')
-                          : Image.asset('assets/Lightalternate.png'),
+                      child: Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Darksign.png"
+                          : "assets/Lightsign.png"),
                       controller: controller.resetpassemail,
                       hinttext: email,
                       accentcolor: NeumorphicTheme.accentColor(context),

@@ -18,6 +18,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   ProfileController controller = Get.put(ProfileController());
+
   var box = GetStorage();
   @override
   Widget build(BuildContext context) {
@@ -206,13 +207,17 @@ class _EditProfileState extends State<EditProfile> {
                                     style: MyTextStyle.mw40018,
                                     color: NeumorphicTheme.defaultTextColor(
                                         context)),
-                                hinttext: item['name'] ?? '',
+                                controller: controller.nameContoller,
+                                hinttext: '',
                                 suffixshowicon: true,
                                 iconorimage: true,
-                                child: NeumorphicTheme.isUsingDark(context)
-                                    ? Image.asset('assets/DarkEdit.png')
-                                    : Image.asset('assets/LightEdit.png'),
-                                // controller: controller.resetpassemail,
+                                child: Image.asset(
+                                  NeumorphicTheme.isUsingDark(context)
+                                      ? 'assets/DarkEdit.png'
+                                      : 'assets/LightEdit.png',
+                                  height: 30,
+                                  width: 25,
+                                ),
                                 accentcolor:
                                     NeumorphicTheme.accentColor(context),
                                 basecolor: NeumorphicTheme.baseColor(context),

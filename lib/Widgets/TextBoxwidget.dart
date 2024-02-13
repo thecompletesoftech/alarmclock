@@ -119,7 +119,7 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
           ),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(widget.radius),
               color: widget.basecolor,
               boxShadow: [
                 BoxShadow(

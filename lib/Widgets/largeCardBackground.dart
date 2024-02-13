@@ -3,11 +3,14 @@ import '../Config/Import.dart';
 class LargeCardBackground extends StatelessWidget {
   final child;
   final backgroundimage;
+  final align;
   final height;
   const LargeCardBackground({
     super.key,
     this.child,
-    this.backgroundimage = null, this.height = 47.0,
+    this.backgroundimage = null,
+    this.height = 47.0,
+    this.align,
   });
 
   @override
@@ -26,11 +29,13 @@ class LargeCardBackground extends StatelessWidget {
             child: child,
           )
         : Stack(
-          alignment: Alignment.center,
+            alignment: align ?? Alignment.center,
             children: [
               Container(
                 child: Image.asset(
-                  'assets/largecard.png',
+                  backgroundimage != null
+                      ? backgroundimage
+                      : 'assets/largecard.png',
                   width: size.width,
                 ),
               ),

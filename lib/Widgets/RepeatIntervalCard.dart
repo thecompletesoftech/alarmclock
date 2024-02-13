@@ -21,7 +21,7 @@ class RepeatIntervalCard extends StatelessWidget {
               style: MyTextStyle.Dynamic(
                   style: MyTextStyle.mw40018,
                   color: NeumorphicTheme.accentColor(context)),
-            ),
+            ).paddingOnly(right: 5),
             Row(
               children: [
                 Neumorphic(

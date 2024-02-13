@@ -17,11 +17,11 @@ class _SoundState extends State<Sound> {
     {"title": "Super Mario", "path": "resource://raw/breaktime"},
     {"title": "Breaking", "path": "resource://raw/breaktime"},
     {"title": "Canopy"},
-    // {"title": "Thursday"},
-    // {"title": "Chalet"},
-    // {"title": "Quad"},
-    // {"title": "Steps"},
-    // {"title": "Chirp"},
+    {"title": "Thursday"},
+    {"title": "Chalet"},
+    {"title": "Quad"},
+    {"title": "Steps"},
+    {"title": "Chirp"},
     // {"title": "Valley"}
   ];
   var isplaying = false;
@@ -93,6 +93,8 @@ class _SoundState extends State<Sound> {
                   ),
                   SizedBox(height: 40),
                   LargeCardBackground(
+                    backgroundimage: 'assets/soundfullback.png',
+                    align: Alignment.topCenter,
                     child: Container(
                         child: StreamBuilder(
                             stream: AssetsAudioPlayer.newPlayer().isPlaying,
@@ -153,7 +155,7 @@ class _SoundState extends State<Sound> {
                                   );
                                 },
                               ).paddingOnly(top: 10, bottom: 5);
-                            })),
+                            })).paddingOnly(top: 10),
                   ),
                   SizedBox(height: 58),
                   ButtonWidget(
