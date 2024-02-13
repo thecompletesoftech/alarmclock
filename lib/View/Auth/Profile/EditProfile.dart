@@ -202,14 +202,8 @@ class _EditProfileState extends State<EditProfile> {
                                 suffixshowicon: true,
                                 iconorimage: true,
                                 child: NeumorphicTheme.isUsingDark(context)
-                                    ? Image.asset('assets/Darkalternate.png')
-                                    : Image.asset(
-                                        'assets/LightEdit.png',
-                                        height:
-                                            NeumorphicTheme.isUsingDark(context)
-                                                ? 100
-                                                : 100,
-                                      ),
+                                    ? Image.asset('assets/DarkEdit.png')
+                                    : Image.asset('assets/LightEdit.png'),
                                 // controller: controller.resetpassemail,
                                 accentcolor:
                                     NeumorphicTheme.accentColor(context),
