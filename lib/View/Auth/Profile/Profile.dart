@@ -194,6 +194,11 @@ class _ProfileState extends State<Profile> {
                                 // : Container(),
                                 SizedBox(height: 32),
                                 CardWidget(
+                                  child: Image.asset(
+                                    NeumorphicTheme.isUsingDark(context)
+                                        ? "assets/Eye.png"
+                                        : "assets/LightEyes.png",
+                                  ),
                                   title: item['name'] ?? '',
                                 ),
                                 SizedBox(
@@ -512,6 +517,4 @@ class _ProfileState extends State<Profile> {
           )),
     );
   }
-
-
 }

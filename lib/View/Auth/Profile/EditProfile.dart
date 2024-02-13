@@ -197,7 +197,15 @@ class _EditProfileState extends State<EditProfile> {
                                   ],
                                 ),
                               ),
+                              SizedBox(
+                                  height: NeumorphicTheme.isUsingDark(context)
+                                      ? 14
+                                      : 5),
                               TextBoxwidget(
+                                hintstyle: MyTextStyle.Dynamic(
+                                    style: MyTextStyle.mw40018,
+                                    color: NeumorphicTheme.defaultTextColor(
+                                        context)),
                                 hinttext: item['name'] ?? '',
                                 suffixshowicon: true,
                                 iconorimage: true,
@@ -230,7 +238,15 @@ class _EditProfileState extends State<EditProfile> {
                                   ],
                                 ),
                               ),
+                              SizedBox(
+                                  height: NeumorphicTheme.isUsingDark(context)
+                                      ? 14
+                                      : 5),
                               TextBoxwidget(
+                                hintstyle: MyTextStyle.Dynamic(
+                                    style: MyTextStyle.mw40018,
+                                    color: NeumorphicTheme.defaultTextColor(
+                                        context)),
                                 readtype: true,
                                 hinttext: item['email'] ?? '',
                                 accentcolor:
