@@ -67,6 +67,7 @@ class _SignInState extends State<SignIn> {
       return false;
     }
   }
+
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
@@ -80,18 +81,20 @@ class _SignInState extends State<SignIn> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
+                    const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
                 child: Column(
                   children: [
                     Center(
                         child: NeumorphicTheme.isUsingDark(context)
                             ? Image.asset(
-                                "assets/BlackModeLogo.png",
-                                height: 250,
+                                "assets/DarkMode.png",
+                                height: 200,
+                                width: 150,
                               )
                             : Image.asset(
-                                "assets/NewLogo.png",
-                                height: 250,
+                                "assets/LightMode.png",
+                                height: 200,
+                                width: 150,
                               )),
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0),
@@ -101,7 +104,7 @@ class _SignInState extends State<SignIn> {
                             login,
                             textAlign: TextAlign.start,
                             style: MyTextStyle.Dynamic(
-                                style: MyTextStyle.mw70024,
+                                style: MyTextStyle.mw60022,
                                 color: NeumorphicTheme.accentColor(context)),
                           ),
                         ],
@@ -112,7 +115,7 @@ class _SignInState extends State<SignIn> {
                       suffixshowicon: true,
                       suffixicon: NeumorphicTheme.isUsingDark(context)
                           ? Icons.alternate_email_sharp
-                          : Icons.piano,
+                          : Icons.alternate_email_sharp,
                       controller: controller.emailController,
                       hinttext: email,
                       accentcolor: NeumorphicTheme.accentColor(context),
@@ -125,10 +128,22 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
+                      obsecuretext: _obscureText,
                       suffixshowicon: true,
-                      suffixicon: NeumorphicTheme.isUsingDark(context)
-                          ? Icons.visibility
-                          : Icons.visibility,
+                      iconorimage: true,
+                      child: (_obscureText
+                          ? Image.asset(NeumorphicTheme.isUsingDark(context)
+                              ? "assets/Eye.png"
+                              : "assets/LightEyes.png")
+                          : Image.asset(NeumorphicTheme.isUsingDark(context)
+                              ? "assets/Hide.png"
+                              : 'assets/LightHide.png')),
+                      ontapsufixicon: () {
+                        print("object==>>>>>>>>>");
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
                       controller: controller.passwordController,
                       hinttext: password,
                       accentcolor: NeumorphicTheme.accentColor(context),
@@ -155,7 +170,7 @@ class _SignInState extends State<SignIn> {
                             child: Text(
                               forgotpassword,
                               style: MyTextStyle.Dynamic(
-                                  style: MyTextStyle.mw40016,
+                                  style: MyTextStyle.mw30016,
                                   color: NeumorphicTheme.accentColor(context)),
                             ),
                           ),
@@ -194,7 +209,7 @@ class _SignInState extends State<SignIn> {
                       text: TextSpan(
                           text: account,
                           style: MyTextStyle.Dynamic(
-                              style: MyTextStyle.mw50016,
+                              style: MyTextStyle.mw30016,
                               color: NeumorphicTheme.accentColor(context)),
                           children: [
                             TextSpan(

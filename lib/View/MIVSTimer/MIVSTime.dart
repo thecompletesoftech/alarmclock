@@ -93,10 +93,10 @@ class _MIVSTimerState extends State<MIVSTimer> {
                 cntx: context,
                 isdark: NeumorphicTheme.isUsingDark(context),
                 radius: 32.5),
-            child: Icon(
-              Icons.add,
-              color: NeumorphicTheme.accentColor(context),
-            )),
+            child: Icon(Icons.add,
+                color: NeumorphicTheme.isUsingDark(context)
+                    ? mycolor().Black
+                    : mycolor().White)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

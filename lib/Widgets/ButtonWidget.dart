@@ -74,7 +74,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                       child: Textwidget().text(
                           widget.name,
                           MyTextStyle.Dynamic(
-                            style: widget.txtstyle ?? MyTextStyle.mw40024,
+                            style: widget.txtstyle ?? MyTextStyle.mw50018,
                             color: widget.txtcolor ??
                                 NeumorphicTheme.accentColor(context),
                           )),

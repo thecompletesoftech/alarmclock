@@ -59,13 +59,21 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 100.0, left: 16.0, right: 16.0),
+                    const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
                 child: Column(
                   children: [
                     Center(
                         child: NeumorphicTheme.isUsingDark(context)
-                            ? Image.asset("assets/LogoDarkMode.png")
-                            : Image.asset("assets/NewLogo.png")),
+                            ? Image.asset(
+                                "assets/DarkMode.png",
+                                height: 200,
+                                width: 150,
+                              )
+                            : Image.asset(
+                                "assets/LightMode.png",
+                                height: 200,
+                                width: 150,
+                              )),
                     SizedBox(
                       height: 51,
                     ),
@@ -94,6 +102,11 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                       height: 19,
                     ),
                     TextBoxwidget(
+                      suffixshowicon: true,
+                      iconorimage: true,
+                      child: NeumorphicTheme.isUsingDark(context)
+                          ? Image.asset('assets/Darkalternate.png')
+                          : Image.asset('assets/Lightalternate.png'),
                       controller: controller.resetpassemail,
                       hinttext: email,
                       accentcolor: NeumorphicTheme.accentColor(context),

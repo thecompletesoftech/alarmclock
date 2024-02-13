@@ -25,8 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
           child: NeumorphicTheme.isUsingDark(context)
-              ? Image.asset("assets/BlackModeGif.gif")
-              : Image.asset("assets/LightModeGif.gif")),
+              ? Image.asset("assets/Lighttival.gif")
+              : Image.asset("assets/Lighttival.gif")),
     );
   }
 }

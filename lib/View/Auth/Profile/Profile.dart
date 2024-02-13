@@ -24,6 +24,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 390;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
     return Obx(
       () => Scaffold(
         appBar: NeumorphicAppBar(
@@ -43,26 +45,43 @@ class _ProfileState extends State<Profile> {
               Text(
                 profiletext,
                 style: MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw60030,
+                    style: MyTextStyle.mw60024,
                     color: NeumorphicTheme.accentColor(context)),
               ),
               GestureDetector(
-                onTap: () async {
-                  if (controller.profileloading.value == false) {
-                    if (controller.selectimage != null) {
-                      controller.updateprofile(context);
-                    } else {
-                      Navigator.pop(context);
-                    }
-                  }
-                },
-                child: Text(
-                  'Save',
-                  style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw40020,
-                      color: NeumorphicTheme.accentColor(context)),
-                ),
-              ),
+                  onTap: () async {
+                    // if (controller.profileloading.value == false) {
+                    //   if (controller.selectimage != null) {
+                    //     controller.updateprofile(context);
+                    //   } else {
+                    //     Navigator.pop(context);
+                    //   }
+                    // }
+                  },
+                  child: Container(
+                      height: 40,
+                      width: 40,
+                      alignment: Alignment.center,
+                      decoration: Utils().decoration(
+                          cntx: context,
+                          isdark: NeumorphicTheme.isUsingDark(context),
+                          radius: 32.5 * fem),
+                      child: NeumorphicTheme.isUsingDark(context)
+                          ? Image.asset(
+                              "assets/Settings.png",
+                              color: NeumorphicTheme.accentColor(context),
+                              height: 20,
+                              width: 20,
+                            )
+                          : Image.asset(
+                              "assets/LightSetting.png",
+                              color: NeumorphicTheme.accentColor(context),
+                              height: 20,
+                              width: 20,
+                            ))
+
+                  // .paddingOnly(left: 10),
+                  ),
             ],
           ),
         ),

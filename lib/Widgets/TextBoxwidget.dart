@@ -196,7 +196,7 @@ class _TextBoxwidgetState extends State<TextBoxwidget> {
               hintText: widget.hinttext,
               hintStyle: widget.hintstyle ??
                   MyTextStyle.Dynamic(
-                    style: MyTextStyle.mw40016,
+                    style: MyTextStyle.mw30016,
                     color: widget.accentcolor,
                   ),
               suffixIconConstraints: BoxConstraints(

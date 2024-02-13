@@ -114,20 +114,30 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  bool _obscureText = true;
+  bool obscureText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
           child: Form(
             key: _formkey,
             child: Column(
               children: [
                 Center(
                     child: NeumorphicTheme.isUsingDark(context)
-                        ? Image.asset("assets/LogoDarkMode.png")
-                        : Image.asset("assets/NewLogo.png")),
+                        ? Image.asset(
+                            "assets/DarkMode.png",
+                            height: 200,
+                            width: 150,
+                          )
+                        : Image.asset(
+                            "assets/LightMode.png",
+                            height: 200,
+                            width: 150,
+                          )),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: Row(
@@ -135,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                       Text(
                         register,
                         style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw70024,
+                            style: MyTextStyle.mw60022,
                             color: NeumorphicTheme.accentColor(context)),
                       ),
                     ],
@@ -147,6 +157,11 @@ class _SignUpState extends State<SignUp> {
                   hinttext: fullname,
                   accentcolor: NeumorphicTheme.accentColor(context),
                   basecolor: NeumorphicTheme.baseColor(context),
+                  suffixshowicon: true,
+                  iconorimage: true,
+                  child: NeumorphicTheme.isUsingDark(context)
+                      ? Image.asset('assets/Username.png')
+                      : Image.asset('assets/LightUser.png'),
                   validator: (Value) {
                     if (Value!.isEmpty) {
                       return "Please enter name";
@@ -161,6 +176,11 @@ class _SignUpState extends State<SignUp> {
                   hinttext: email,
                   accentcolor: NeumorphicTheme.accentColor(context),
                   basecolor: NeumorphicTheme.baseColor(context),
+                  suffixshowicon: true,
+                  iconorimage: true,
+                  child: NeumorphicTheme.isUsingDark(context)
+                      ? Image.asset('assets/Darkalternate.png')
+                      : Image.asset('assets/Lightalternate.png'),
                   validator: (e) {
                     return null;
                   },
@@ -173,6 +193,22 @@ class _SignUpState extends State<SignUp> {
                   hinttext: password,
                   accentcolor: NeumorphicTheme.accentColor(context),
                   basecolor: NeumorphicTheme.baseColor(context),
+                  obsecuretext: _obscureText,
+                  suffixshowicon: true,
+                  iconorimage: true,
+                  child: (_obscureText
+                      ? Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Eye.png"
+                          : "assets/LightEyes.png")
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Hide.png"
+                          : 'assets/LightHide.png')),
+                  ontapsufixicon: () {
+                    print("object==>>>>>>>>>");
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
                   validator: (e) {
                     return null;
                   },
@@ -185,6 +221,22 @@ class _SignUpState extends State<SignUp> {
                   hinttext: confirmpassword,
                   accentcolor: NeumorphicTheme.accentColor(context),
                   basecolor: NeumorphicTheme.baseColor(context),
+                  obsecuretext: obscureText,
+                  suffixshowicon: true,
+                  iconorimage: true,
+                  child: (obscureText
+                      ? Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Eye.png"
+                          : "assets/LightEyes.png")
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Hide.png"
+                          : 'assets/LightHide.png')),
+                  ontapsufixicon: () {
+                    print("object==>>>>>>>>>");
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
                   validator: (e) {
                     return null;
                   },
