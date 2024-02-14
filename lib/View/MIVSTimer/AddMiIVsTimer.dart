@@ -68,12 +68,12 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         .split(":")[2]
                         .toString()),
               ),
-              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 15),
               IntervalCard(
                 title: reperatinterval,
                 interval: 4,
               ),
-              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 15),
               GestureDetector(
                 onTap: (() async {
                   var picked = await setShowpicker();
@@ -102,7 +102,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                       .toString()),
                 ),
               ),
-              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 15),
               GestureDetector(
                 onTap: (() async {
                   var picked = await setShowpicker();
@@ -128,7 +128,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                           .toString()),
                 ),
               ),
-              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 20),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 15),
               GestureDetector(
                 onTap: (() async {
                   var picked = await setShowpicker();
@@ -194,7 +194,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                 ],
               ),
             ],
-          ).paddingOnly(left: 15, right: 15, bottom: 25),
+          ).paddingOnly(left: 15, right: 15, bottom: 15),
         ),
       ),
     );
