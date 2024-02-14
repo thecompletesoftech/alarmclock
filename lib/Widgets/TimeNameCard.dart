@@ -20,29 +20,27 @@ class TimeNameCard extends StatelessWidget {
                 style: MyTextStyle.mw40018,
                 color: NeumorphicTheme.defaultTextColor(context)),
           ),
-          Row(
-            children: [
-              Neumorphic(
-                  style: NeumorphicStyle(
-                    depth: NeumorphicTheme.embossDepth(context),
-                    boxShape: buttonradius(),
-                  ),
-                  child: Container(
-                    // height: 50,
-                    width: 146,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Text(
-                      interval.toString(),
-                      textAlign: TextAlign.center,
-                      style: MyTextStyle.Dynamic(
-                          style: MyTextStyle.mw40018,
-                          color: NeumorphicTheme.accentColor(context)),
-                    ),
-                  )),
-            ],
-          ),
+          Container(
+            width: 150,
+            child: TextBoxwidget(
+              iconorimage: true,
+              suffixshowicon: true,
+              hinttext: 'Alpha',
+              toppadding: 10.0,
+              bottompadding: 10.0,
+              radius: 10.0,
+              accentcolor: NeumorphicTheme.accentColor(context),
+              basecolor: NeumorphicTheme.baseColor(context),
+              validator: (e) {
+                return null;
+              },
+              // showerror: emailerror,
+              // errormsg: emailerrmsg,
+            ),
+          ).paddingOnly(right: 10),
         ],
-      ).paddingSymmetric(vertical:NeumorphicTheme.isUsingDark(context) ? 4 : 0),
+      ).paddingSymmetric(
+          vertical: NeumorphicTheme.isUsingDark(context) ? 4 : 0),
     );
   }
 }

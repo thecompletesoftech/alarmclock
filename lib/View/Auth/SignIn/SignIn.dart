@@ -112,10 +112,11 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 24),
                     TextBoxwidget(
+                      iconorimage: true,
                       suffixshowicon: true,
-                      suffixicon: NeumorphicTheme.isUsingDark(context)
-                          ? Icons.alternate_email_sharp
-                          : Icons.alternate_email_sharp,
+                      child: Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/Darksign.png"
+                          : "assets/Lightsign.png"),
                       controller: controller.emailController,
                       hinttext: email,
                       accentcolor: NeumorphicTheme.accentColor(context),
@@ -133,11 +134,11 @@ class _SignInState extends State<SignIn> {
                       iconorimage: true,
                       child: (_obscureText
                           ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                              ? "assets/Eye.png"
-                              : "assets/LightEyes.png")
+                              ? "assets/DarkEyes.png"
+                              : "assets/LightEye.png")
                           : Image.asset(NeumorphicTheme.isUsingDark(context)
-                              ? "assets/Hide.png"
-                              : 'assets/LightHide.png')),
+                              ? "assets/DarkHide.png"
+                              : 'assets/LightHides.png')),
                       ontapsufixicon: () {
                         print("object==>>>>>>>>>");
                         setState(() {

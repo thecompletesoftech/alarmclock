@@ -139,11 +139,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                   iconorimage: true,
                   child: (currentobscureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/Eye.png"
-                          : "assets/LightEyes.png")
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")
                       : Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/Hide.png"
-                          : 'assets/LightHide.png')),
+                          ? "assets/DarkHide.png"
+                          : 'assets/LightHides.png')),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {
@@ -182,11 +182,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                   iconorimage: true,
                   child: (newobscureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/Eye.png"
-                          : "assets/LightEyes.png")
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")
                       : Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/Hide.png"
-                          : 'assets/LightHide.png')),
+                          ? "assets/DarkHide.png"
+                          : 'assets/LightHides.png')),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {
@@ -225,11 +225,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                   iconorimage: true,
                   child: (confirmobsureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/Eye.png"
-                          : "assets/LightEyes.png")
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")
                       : Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/Hide.png"
-                          : 'assets/LightHide.png')),
+                          ? "assets/DarkHide.png"
+                          : 'assets/LightHides.png')),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {

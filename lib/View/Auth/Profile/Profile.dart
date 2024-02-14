@@ -11,6 +11,7 @@ import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -22,7 +23,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   ProfileController controller = Get.put(ProfileController());
   var box = GetStorage();
-
+  bool isDarkmode = false;
   @override
   Widget build(BuildContext context) {
     double baseWidth = 390;
@@ -46,17 +47,31 @@ class _ProfileState extends State<Profile> {
                     color: NeumorphicTheme.defaultTextColor(context),
                   ),
                 ),
-                Text(
-                  profiletext,
-                  style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw60022,
-                      color: NeumorphicTheme.accentColor(context)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25.0),
+                  child: Text(
+                    profiletext,
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw60022,
+                        color: NeumorphicTheme.accentColor(context)),
+                  ),
                 ),
                 GestureDetector(
                   onTap: () async {
-                    MediaQuery.of(context).platformBrightness == Brightness.dark
-                        ? ThemeMode.dark
-                        : ThemeMode.light;
+                    // final themeProvider = Provider.of<ThemeProvider>(context,
+                    //     listen:
+                    //         false); // get the provider, listen false is necessary cause is in a function
+
+                    // setState(() {
+                    //   isDarkmode = !isDarkmode;
+                    // }); // change the variable
+
+                    // isDarkmode // call the functions
+                    //     ? themeProvider.setDarkmode()
+                    //     : themeProvider.setLightMode();
+                    // MediaQuery.of(context).platformBrightness == Brightness.dark
+                    //     ? ThemeMode.dark
+                    //     : ThemeMode.light;
                     // if (controller.profileloading.value == false) {
                     //   if (controller.selectimage != null) {
                     //     controller.updateprofile(context);
@@ -74,7 +89,7 @@ class _ProfileState extends State<Profile> {
                           isdark: NeumorphicTheme.isUsingDark(context),
                           radius: 32.5 * fem),
                       child: Image.asset(
-                        'assets/Settings.png',
+                        'assets/ChangeTheme.png',
                         color: NeumorphicTheme.accentColor(context),
                         height: 20,
                         width: 20,
@@ -194,13 +209,35 @@ class _ProfileState extends State<Profile> {
                                 // : Container(),
                                 SizedBox(height: 32),
                                 CardWidget(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Image.asset(
+                                      NeumorphicTheme.isUsingDark(context)
+                                          ? "assets/DarkUser.png"
+                                          : "assets/WhiteUser.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
                                   title: item['name'] ?? '',
                                 ),
                                 SizedBox(
                                     height: NeumorphicTheme.isUsingDark(context)
                                         ? 28
                                         : 20),
-                                CardWidget(title: item['email'] ?? ''),
+                                CardWidget(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 10.0),
+                                      child: Image.asset(
+                                        NeumorphicTheme.isUsingDark(context)
+                                            ? "assets/Darksign.png"
+                                            : "assets/Lightsign.png",
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                    ),
+                                    title: item['email'] ?? ''),
                                 SizedBox(height: 32),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
@@ -210,13 +247,26 @@ class _ProfileState extends State<Profile> {
                                         generalsettings,
                                         style: MyTextStyle.Dynamic(
                                             style: MyTextStyle.mw70020,
-                                            color: mycolor().greenlightcolor),
+                                            color: NeumorphicTheme.isUsingDark(
+                                                    context)
+                                                ? mycolor().greenlightcolor
+                                                : mycolor().lighttxtcolor),
                                       ),
                                     ],
                                   ),
                                 ),
                                 SizedBox(height: 17),
                                 CardWidget(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Image.asset(
+                                      NeumorphicTheme.isUsingDark(context)
+                                          ? "assets/DarkTime.png"
+                                          : "assets/LightTime.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
                                   title: historytext,
                                   ontap: () {
                                     nextscreen(context, History());
@@ -227,6 +277,16 @@ class _ProfileState extends State<Profile> {
                                         ? 28
                                         : 20),
                                 CardWidget(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Image.asset(
+                                      NeumorphicTheme.isUsingDark(context)
+                                          ? "assets/DarkEdit.png"
+                                          : "assets/LightEdit.png",
+                                      height: 30,
+                                      width: 25,
+                                    ),
+                                  ),
                                   title: editprofiletext,
                                   ontap: () {
                                     nextscreen(context, EditProfile());
@@ -237,6 +297,16 @@ class _ProfileState extends State<Profile> {
                                         ? 28
                                         : 20),
                                 CardWidget(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Image.asset(
+                                      NeumorphicTheme.isUsingDark(context)
+                                          ? "assets/DarkReset.png"
+                                          : "assets/LightReset.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
                                   title: resetpassword,
                                   ontap: () {
                                     nextscreen(context, ResetPassword());
@@ -247,6 +317,16 @@ class _ProfileState extends State<Profile> {
                                         ? 28
                                         : 20),
                                 CardWidget(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Image.asset(
+                                      NeumorphicTheme.isUsingDark(context)
+                                          ? "assets/DarkLogout.png"
+                                          : "assets/LightLogout.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
                                   title: logout,
                                   ontap: () {
                                     showLogOut(NeumorphicTheme.isUsingDark(
@@ -266,6 +346,16 @@ class _ProfileState extends State<Profile> {
                                         ? 28
                                         : 20),
                                 CardWidget(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Image.asset(
+                                      NeumorphicTheme.isUsingDark(context)
+                                          ? "assets/DarkDelete.png"
+                                          : "assets/LightDelete.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
                                   title: deleteaccount,
                                   ontap: () {
                                     showDeleteaccout(
@@ -386,15 +476,23 @@ class _ProfileState extends State<Profile> {
       builder: (context) => AlertDialog(
           backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
           content: Container(
-            height: 130,
+            height: 120,
+            // height: MediaQuery.sizeOf(context).height,
+            padding: EdgeInsets.only(
+              left: 8.0,
+              right: 8.0,
+            ),
             child: Column(
               children: [
-                Text(
-                  logoutpopuptext,
-                  style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw40018,
-                      color:
-                          isDark ? mycolor().lightWhite : mycolor().darkgreen),
+                Expanded(
+                  child: Text(
+                    logoutpopuptext,
+                    style: MyTextStyle.Dynamic(
+                        style: MyTextStyle.mw40018,
+                        color: isDark
+                            ? mycolor().lightWhite
+                            : mycolor().darkgreen),
+                  ),
                 ),
                 SizedBox(
                   height: 20,
@@ -437,7 +535,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ],
-                ),
+                ).paddingAll(6.0),
               ],
             ),
           )),
@@ -512,6 +610,4 @@ class _ProfileState extends State<Profile> {
           )),
     );
   }
-
-
 }

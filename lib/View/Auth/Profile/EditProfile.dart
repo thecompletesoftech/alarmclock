@@ -18,6 +18,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   ProfileController controller = Get.put(ProfileController());
+
   var box = GetStorage();
   @override
   Widget build(BuildContext context) {
@@ -197,14 +198,26 @@ class _EditProfileState extends State<EditProfile> {
                                   ],
                                 ),
                               ),
+                              SizedBox(
+                                  height: NeumorphicTheme.isUsingDark(context)
+                                      ? 14
+                                      : 5),
                               TextBoxwidget(
-                                hinttext: item['name'] ?? '',
+                                hintstyle: MyTextStyle.Dynamic(
+                                    style: MyTextStyle.mw40018,
+                                    color: NeumorphicTheme.defaultTextColor(
+                                        context)),
+                                controller: controller.nameContoller,
+                                hinttext: '',
                                 suffixshowicon: true,
                                 iconorimage: true,
-                                child: NeumorphicTheme.isUsingDark(context)
-                                    ? Image.asset('assets/DarkEdit.png')
-                                    : Image.asset('assets/LightEdit.png'),
-                                // controller: controller.resetpassemail,
+                                child: Image.asset(
+                                  NeumorphicTheme.isUsingDark(context)
+                                      ? 'assets/DarkEdit.png'
+                                      : 'assets/LightEdit.png',
+                                  height: 30,
+                                  width: 25,
+                                ),
                                 accentcolor:
                                     NeumorphicTheme.accentColor(context),
                                 basecolor: NeumorphicTheme.baseColor(context),
@@ -230,7 +243,15 @@ class _EditProfileState extends State<EditProfile> {
                                   ],
                                 ),
                               ),
+                              SizedBox(
+                                  height: NeumorphicTheme.isUsingDark(context)
+                                      ? 14
+                                      : 5),
                               TextBoxwidget(
+                                hintstyle: MyTextStyle.Dynamic(
+                                    style: MyTextStyle.mw40018,
+                                    color: NeumorphicTheme.defaultTextColor(
+                                        context)),
                                 readtype: true,
                                 hinttext: item['email'] ?? '',
                                 accentcolor:

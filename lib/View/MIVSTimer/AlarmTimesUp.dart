@@ -40,7 +40,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(80),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/list.png", "screenname": TimeList()},
