@@ -21,6 +21,7 @@ class Intervalend extends StatelessWidget {
     return CardBackground(
       backgroundimage: mediumcardbackground,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
@@ -28,7 +29,7 @@ class Intervalend extends StatelessWidget {
             style: MyTextStyle.Dynamic(
                 style: MyTextStyle.mw40018,
                 color: NeumorphicTheme.defaultTextColor(context)),
-          ),
+          ).paddingOnly(right: 10),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +46,7 @@ class Intervalend extends StatelessWidget {
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Text(
                     ":",
@@ -54,7 +55,7 @@ class Intervalend extends StatelessWidget {
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Text(
                     minute,
@@ -63,7 +64,7 @@ class Intervalend extends StatelessWidget {
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Text(
                     ":",
@@ -72,7 +73,7 @@ class Intervalend extends StatelessWidget {
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Text(
                     second,
@@ -80,7 +81,7 @@ class Intervalend extends StatelessWidget {
                         style: MyTextStyle.mw40018,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
-                  SizedBox(width: 8),
+                  SizedBox(width: 5),
                   Text(
                     medium,
                     style: MyTextStyle.Dynamic(

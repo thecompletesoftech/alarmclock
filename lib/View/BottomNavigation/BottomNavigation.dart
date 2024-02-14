@@ -1,4 +1,5 @@
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/Config/insetDecoration.dart';
 
 class NewBottomNavigator extends StatefulWidget {
   NewBottomNavigator({super.key, this.passIndex, this.userId});
@@ -74,22 +75,19 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
               ),
               activeIcon: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Neumorphic(
-                  style: NeumorphicStyle(
-                      depth: NeumorphicTheme.embossDepth(context),
-                      boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(13.0))),
-                  child: Container(
-                    height: 56,
-                    width: 57,
-                    child: Center(
-                      child: SvgPicture.string(
-                        inactiveinternetsvg,
-                        color: NeumorphicTheme.isUsingDark(context)
-                            ? mycolor().lightWhite
-                            : mycolor().lightBlack,
-                        height: 30.0,
-                      ),
+                child: Container(
+                  decoration: dec().insetdeco(
+                      basecolor: NeumorphicTheme.baseColor(context),
+                      radius: 15.5 * fem),
+                  height: 57,
+                  width: 57,
+                  child: Center(
+                    child: SvgPicture.string(
+                      inactiveinternetsvg,
+                      color: NeumorphicTheme.isUsingDark(context)
+                          ? mycolor().lightWhite
+                          : mycolor().lightBlack,
+                      height: 30.0,
                     ),
                   ),
                 ),
@@ -117,22 +115,19 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
               ),
               activeIcon: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Neumorphic(
-                  style: NeumorphicStyle(
-                      depth: NeumorphicTheme.embossDepth(context),
-                      boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(13.0))),
-                  child: Container(
-                    height: 56,
-                    width: 57,
-                    child: Center(
-                      child: SvgPicture.string(
-                        inactivealarmsvg,
-                        color: NeumorphicTheme.isUsingDark(context)
-                            ? mycolor().lightWhite
-                            : mycolor().lightBlack,
-                        height: 30.0,
-                      ),
+                child: Container(
+                  decoration: dec().insetdeco(
+                      basecolor: NeumorphicTheme.baseColor(context),
+                      radius: 15.5 * fem),
+                  height: 57,
+                  width: 57,
+                  child: Center(
+                    child: SvgPicture.string(
+                      inactivealarmsvg,
+                      color: NeumorphicTheme.isUsingDark(context)
+                          ? mycolor().lightWhite
+                          : mycolor().lightBlack,
+                      height: 30.0,
                     ),
                   ),
                 ),
@@ -160,22 +155,19 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
               ),
               activeIcon: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Neumorphic(
-                  style: NeumorphicStyle(
-                      depth: NeumorphicTheme.embossDepth(context),
-                      boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(13.0))),
-                  child: Container(
-                    height: 56,
-                    width: 57,
-                    child: Center(
-                      child: SvgPicture.string(
-                        inactivestopwatchsvg,
-                        color: NeumorphicTheme.isUsingDark(context)
-                            ? mycolor().lightWhite
-                            : mycolor().lightBlack,
-                        height: 30.0,
-                      ),
+                child: Container(
+                  decoration: dec().insetdeco(
+                      basecolor: NeumorphicTheme.baseColor(context),
+                      radius: 15.5 * fem),
+                  height: 57,
+                  width: 57,
+                  child: Center(
+                    child: SvgPicture.string(
+                      inactivestopwatchsvg,
+                      color: NeumorphicTheme.isUsingDark(context)
+                          ? mycolor().lightWhite
+                          : mycolor().lightBlack,
+                      height: 30.0,
                     ),
                   ),
                 ),
@@ -203,22 +195,19 @@ class New_BottomNavigatorState extends State<NewBottomNavigator> {
               ),
               activeIcon: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Neumorphic(
-                  style: NeumorphicStyle(
-                      depth: NeumorphicTheme.embossDepth(context),
-                      boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(13.0))),
-                  child: Container(
-                    height: 56,
-                    width: 57,
-                    child: Center(
-                      child: SvgPicture.string(
-                        inactivetimersvg,
-                        color: NeumorphicTheme.isUsingDark(context)
-                            ? mycolor().lightWhite
-                            : mycolor().lightBlack,
-                        height: 30.0,
-                      ),
+                child: Container(
+                  decoration: dec().insetdeco(
+                      basecolor: NeumorphicTheme.baseColor(context),
+                      radius: 15.5 * fem),
+                  height: 57,
+                  width: 57,
+                  child: Center(
+                    child: SvgPicture.string(
+                      inactivetimersvg,
+                      color: NeumorphicTheme.isUsingDark(context)
+                          ? mycolor().lightWhite
+                          : mycolor().lightBlack,
+                      height: 30.0,
                     ),
                   ),
                 ),

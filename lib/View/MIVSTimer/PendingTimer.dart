@@ -17,7 +17,7 @@ class _PendingTimerState extends State<PendingTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: Size.fromHeight(55),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": null},
@@ -96,7 +96,7 @@ class _PendingTimerState extends State<PendingTimer> {
                                 width: 90,
                               )
                           ],
-                        ),
+                        ).paddingOnly(top: 10),
                         SizedBox(height: 10),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +142,7 @@ class _PendingTimerState extends State<PendingTimer> {
                               ),
                             ),
                             Container(
-                              height: 85,
+                              height: 90,
                               width: 90,
                             ),
                           ],
@@ -153,13 +153,13 @@ class _PendingTimerState extends State<PendingTimer> {
                     NeumorphicTheme.isUsingDark(context)
                         ? Positioned(
                             bottom: 0,
-                            right: -8,
-                            top: 2,
+                            right: -10,
+                            top: 12,
                             child: Image.asset("assets/Play.png"))
                         : Positioned(
                             bottom: 0,
                             right: -10,
-                            top: 10,
+                            top: 20,
                             child: Image.asset("assets/lightpause.png"))
                   ],
                 ),
@@ -171,7 +171,7 @@ class _PendingTimerState extends State<PendingTimer> {
                     children: [
                       SizedBox(
                         height:
-                            NeumorphicTheme.isUsingDark(context) ? 5.0 : 10.0,
+                            NeumorphicTheme.isUsingDark(context) ? 5.0 : 0.0,
                       ),
                       Timercard(
                           title: timeReaming,
@@ -214,7 +214,7 @@ class _PendingTimerState extends State<PendingTimer> {
                 ),
               ],
             ).paddingSymmetric(horizontal: 15),
-            SizedBox(height: 30),
+            SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 30 : 20),
             widget.showbtn == true
                 ? Row(
                     children: [
@@ -244,7 +244,7 @@ class _PendingTimerState extends State<PendingTimer> {
                       nextscreen(context, AlramTimesup());
                     },
                   ).paddingSymmetric(horizontal: 15.0),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
           ],
         ),
       ),

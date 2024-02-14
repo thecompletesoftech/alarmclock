@@ -44,7 +44,8 @@ class _AlramCardState extends State<AlramCard> {
         widget.ontapcard!();
       }),
       child: CardBackground(
-        backgroundimage: widget.bgshow == true ? cardbackground2 : cardbackground,
+        backgroundimage:
+            widget.bgshow == true ? cardbackground2 : cardbackground,
         child: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,7 +143,8 @@ class _AlramCardState extends State<AlramCard> {
                     )
             ],
           ),
-        ),
+        ).paddingSymmetric(
+            vertical: NeumorphicTheme.isUsingDark(context) ? 3 : 0),
       ).paddingSymmetric(horizontal: 10),
     );
   }

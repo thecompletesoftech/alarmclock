@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ).paddingSymmetric(horizontal: 10, vertical: 5),
-          ),
+          ).marginOnly(top: 8),
         ),
         body: Stack(
           children: [
@@ -122,24 +122,33 @@ class _ProfileState extends State<Profile> {
                                 controller.selectimage != null
                                     ? GestureDetector(
                                         onTap: () {
-                                          Permissions()
-                                              .checkCamerapermission()
-                                              .then((value) {
-                                            if (value) {
-                                              _imagepicker(
-                                                  NeumorphicTheme.isUsingDark(
-                                                      context));
-                                            }
-                                          });
+                                          // Permissions()
+                                          //     .checkCamerapermission()
+                                          //     .then((value) {
+                                          //   if (value) {
+                                          //     _imagepicker(
+                                          //         NeumorphicTheme.isUsingDark(
+                                          //             context));
+                                          //   }
+                                          // });
                                         },
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                          child: Image.file(
-                                            File(controller.selectimage),
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.cover,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(60.0),
+                                              border: Border.all(
+                                                  width: 9.0,
+                                                  color: NeumorphicTheme
+                                                      .accentColor(context))),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                            child: Image.file(
+                                              File(controller.selectimage),
+                                              height: 100,
+                                              width: 100,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                       )
@@ -148,65 +157,88 @@ class _ProfileState extends State<Profile> {
                                             (item['image'] == ""))
                                         ? GestureDetector(
                                             onTap: () {
-                                              Permissions()
-                                                  .checkCamerapermission()
-                                                  .then((value) {
-                                                if (value) {
-                                                  _imagepicker(NeumorphicTheme
-                                                      .isUsingDark(context));
-                                                }
-                                              });
+                                              // Permissions()
+                                              //     .checkCamerapermission()
+                                              //     .then((value) {
+                                              //   if (value) {
+                                              //     _imagepicker(NeumorphicTheme
+                                              //         .isUsingDark(context));
+                                              //   }
+                                              // });
                                             },
                                             child: Center(
-                                              child: CircleAvatar(
-                                                radius: 60.0,
-                                                backgroundImage: AssetImage(
-                                                  "assets/profile.png",
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            60.0),
+                                                    border: Border.all(
+                                                        width: 9.0,
+                                                        color: NeumorphicTheme
+                                                            .accentColor(
+                                                                context))),
+                                                child: CircleAvatar(
+                                                  radius: 50.0,
+                                                  backgroundImage: AssetImage(
+                                                    "assets/demouser.png",
+                                                  ),
+                                                  backgroundColor:
+                                                      NeumorphicTheme
+                                                          .accentColor(context),
                                                 ),
-                                                backgroundColor:
-                                                    mycolor().Transparent,
                                               ),
                                             ),
                                           )
                                         : GestureDetector(
                                             onTap: () {
-                                              Permissions()
-                                                  .checkCamerapermission()
-                                                  .then((value) {
-                                                if (value) {
-                                                  _imagepicker(NeumorphicTheme
-                                                      .isUsingDark(context));
-                                                }
-                                              });
+                                              // Permissions()
+                                              //     .checkCamerapermission()
+                                              //     .then((value) {
+                                              //   if (value) {
+                                              //     _imagepicker(NeumorphicTheme
+                                              //         .isUsingDark(context));
+                                              //   }
+                                              // });
                                             },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(50.0),
-                                              child: CachedNetworkImage(
-                                                height: 100,
-                                                width: 100,
-                                                fit: BoxFit.cover,
-                                                imageUrl: item['image'],
-                                                progressIndicatorBuilder:
-                                                    (context, url,
-                                                            downloadProgress) =>
-                                                        Center(
-                                                  child:
-                                                      CircularProgressIndicator(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          60.0),
+                                                  border: Border.all(
+                                                      width: 9.0,
+                                                      color: NeumorphicTheme
+                                                          .accentColor(
+                                                              context))),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                                child: Container(
+                                                  child: CachedNetworkImage(
+                                                    height: 100,
+                                                    width: 100,
+                                                    fit: BoxFit.cover,
+                                                    imageUrl: item['image'],
+                                                    progressIndicatorBuilder:
+                                                        (context, url,
+                                                                downloadProgress) =>
+                                                            Center(
+                                                      child: CircularProgressIndicator(
                                                           color: NeumorphicTheme
                                                               .accentColor(
                                                                   context),
                                                           value:
                                                               downloadProgress
                                                                   .progress),
+                                                    ),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
+                                                  ),
                                                 ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
                                               ),
                                             ),
-                                          ),
-                                // : Container(),
+                                          ).paddingOnly(top: 5),
                                 SizedBox(height: 32),
                                 CardWidget(
                                   child: Padding(
@@ -476,23 +508,23 @@ class _ProfileState extends State<Profile> {
       builder: (context) => AlertDialog(
           backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
           content: Container(
-            height: 120,
-            // height: MediaQuery.sizeOf(context).height,
-            padding: EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-            ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: Text(
-                    logoutpopuptext,
-                    style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw40018,
-                        color: isDark
-                            ? mycolor().lightWhite
-                            : mycolor().darkgreen),
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        logoutpopuptext,
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40018,
+                            color: isDark
+                                ? mycolor().lightWhite
+                                : mycolor().darkgreen),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 20,
@@ -548,17 +580,24 @@ class _ProfileState extends State<Profile> {
       builder: (context) => AlertDialog(
           backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
           content: Container(
-            height: 130,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  deleteacpoputext,
-                  textAlign: TextAlign.center,
-                  style: MyTextStyle.Dynamic(
-                      style: MyTextStyle.mw40018,
-                      color:
-                          isDark ? mycolor().lightWhite : mycolor().darkgreen),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        deleteacpoputext,
+                        textAlign: TextAlign.center,
+                        style: MyTextStyle.Dynamic(
+                            style: MyTextStyle.mw40018,
+                            color: isDark
+                                ? mycolor().lightWhite
+                                : mycolor().darkgreen),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 20,

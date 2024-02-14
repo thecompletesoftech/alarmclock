@@ -10,35 +10,40 @@ class History extends StatelessWidget {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
-      appBar: NeumorphicAppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: (() {
-                backscreen(context);
-              }),
-              child: Icon(
-                Icons.arrow_back,
-                color: NeumorphicTheme.defaultTextColor(context),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(40.0),
+        child: Padding(
+          padding: EdgeInsets.only(top: 18.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: (() {
+                  backscreen(context);
+                }),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: NeumorphicTheme.defaultTextColor(context),
+                ),
               ),
-            ),
-            Text(
-              timerhistory,
-              style: MyTextStyle.Dynamic(
-                  style: MyTextStyle.mw60024, color: mycolor().lighttxtcolor),
-            ),
-            Container(),
-          ],
-        ),
+              Text(
+                timerhistory,
+                style: MyTextStyle.Dynamic(
+                    style: MyTextStyle.mw60022,
+                    color: NeumorphicTheme.accentColor(context)),
+              ),
+              Container(),
+            ],
+          ).paddingSymmetric(horizontal: 15),
+        ).marginOnly(top: 8),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 20 : 0),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

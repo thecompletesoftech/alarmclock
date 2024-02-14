@@ -22,24 +22,31 @@ class RepeatIntervalCard extends StatelessWidget {
                   style: MyTextStyle.mw40018,
                   color: NeumorphicTheme.accentColor(context)),
             ).paddingOnly(right: 5),
-            Row(
-              children: [
-                Neumorphic(
-                    style: NeumorphicStyle(
-                      depth: NeumorphicTheme.embossDepth(context),
-                      boxShape: buttonradius(),
-                    ),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 8.0),
-                      child: Text(
-                        interval.toString(),
-                        style: MyTextStyle.Dynamic(
-                            style: MyTextStyle.mw40018,
-                            color: NeumorphicTheme.accentColor(context)),
-                      ),
-                    )),
-              ],
+            Container(
+              width: 50,
+              child: TextBoxwidget(
+                iconorimage: true,
+                suffixshowicon: true,
+                hinttext: '4',
+                hintstyle: MyTextStyle.Dynamic(
+                    style: MyTextStyle.mw40016,
+                    color: NeumorphicTheme.accentColor(context)),
+                toppadding: 10.0,
+                bottompadding: 10.0,
+                leftpadding: 10.0,
+                radius: 10.0,
+                keyboradtype: TextInputType.number,
+                style: MyTextStyle.Dynamic(
+                    style: MyTextStyle.mw40016,
+                    color: NeumorphicTheme.accentColor(context)),
+                accentcolor: NeumorphicTheme.accentColor(context),
+                basecolor: NeumorphicTheme.baseColor(context),
+                validator: (e) {
+                  return null;
+                },
+                // showerror: emailerror,
+                // errormsg: emailerrmsg,
+              ),
             ),
           ],
         ),

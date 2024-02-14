@@ -31,7 +31,7 @@ class _WorldClockState extends State<WorldClock> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(55),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": AddAlram()},
@@ -54,7 +54,7 @@ class _WorldClockState extends State<WorldClock> {
             titletext: worldclock,
             ontapornavigate: true,
             showarrow: false,
-          )),
+          ).marginOnly(top: 5)),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -247,50 +247,58 @@ class _WorldClockState extends State<WorldClock> {
                           var currenttime = controller
                               .gettime(snapshot.data!.docs[index]['placename']);
                           return Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.0,
+                                vertical: NeumorphicTheme.isUsingDark(context)
+                                    ? 5
+                                    : 0),
                             child: CardBackground(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      // datTime2(newitem['timestamp']).toString(),
-                                      newitem['placename'],
-                                      style: MyTextStyle.Dynamic(
-                                          style: MyTextStyle.mw40020,
-                                          color: NeumorphicTheme.accentColor(
-                                              context)),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      formatTime(currenttime)
-                                          .toString()
-                                          .split(' ')[0],
-                                      style: MyTextStyle.Dynamic(
-                                          style: MyTextStyle.mw40018,
-                                          color: NeumorphicTheme.accentColor(
-                                              context)),
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      formatTime(currenttime)
-                                          .toString()
-                                          .split(' ')[1],
-                                      style: MyTextStyle.Dynamic(
-                                          style: MyTextStyle.mw70014,
-                                          color: mycolor().greenlightcolor),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )).paddingOnly(bottom: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        // datTime2(newitem['timestamp']).toString(),
+                                        newitem['placename'],
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw40020,
+                                            color: NeumorphicTheme.accentColor(
+                                                context)),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        formatTime(currenttime)
+                                            .toString()
+                                            .split(' ')[0],
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw40018,
+                                            color: NeumorphicTheme.accentColor(
+                                                context)),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        formatTime(currenttime)
+                                            .toString()
+                                            .split(' ')[1],
+                                        style: MyTextStyle.Dynamic(
+                                            style: MyTextStyle.mw70014,
+                                            color: mycolor().greenlightcolor),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ).paddingSymmetric(
+                                  vertical: NeumorphicTheme.isUsingDark(context)
+                                      ? 3
+                                      : 0),
+                            ).paddingOnly(bottom: 20),
                           );
                         });
                   }),

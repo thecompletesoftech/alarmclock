@@ -21,27 +21,29 @@ class ButtonWidget extends StatefulWidget {
   final issmall;
   final bool loading;
   final child;
+  final showcard2;
 
-  ButtonWidget(
-      {Key? key,
-      required this.name,
-      this.onTap,
-      this.width = 0.9,
-      this.style,
-      this.colorbtn = Colors.transparent,
-      this.active = false,
-      this.borderRadius = 10.5,
-      this.height = 50,
-      this.elevation = 0,
-      this.bordercolor,
-      this.showon = true,
-      this.loading = false,
-      this.txtcolor,
-      this.showarrow = false,
-      this.txtstyle,
-      this.issmall = false,
-      this.child})
-      : super(key: key);
+  ButtonWidget({
+    Key? key,
+    required this.name,
+    this.onTap,
+    this.width = 0.9,
+    this.style,
+    this.colorbtn = Colors.transparent,
+    this.active = false,
+    this.borderRadius = 10.5,
+    this.height = 50,
+    this.elevation = 0,
+    this.bordercolor,
+    this.showon = true,
+    this.loading = false,
+    this.txtcolor,
+    this.showarrow = false,
+    this.txtstyle,
+    this.issmall = false,
+    this.child,
+    this.showcard2 = false,
+  }) : super(key: key);
   @override
   State<ButtonWidget> createState() => _ButtonWidgetState();
 }
@@ -57,6 +59,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       width: size.width * widget.width,
       height: widget.height,
       issmall: widget.issmall,
+      showcard2: widget.showcard2,
       child: InkWell(
         onTap: () {
           widget.onTap!();

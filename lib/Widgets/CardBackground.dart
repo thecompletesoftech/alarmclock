@@ -8,7 +8,7 @@ class CardBackground extends StatelessWidget {
     super.key,
     this.child,
     this.backgroundimage = null,
-    this.radius = 18.0,
+    this.radius = 15.0,
   });
 
   @override

@@ -6,6 +6,7 @@ class BtnBackground extends StatelessWidget {
   final borderRadius;
   final width;
   final height;
+  final showcard2;
   const BtnBackground({
     super.key,
     this.child,
@@ -13,6 +14,7 @@ class BtnBackground extends StatelessWidget {
     this.borderRadius = 10.5,
     this.width = 0.9,
     this.height = 50,
+    this.showcard2 = false,
   });
 
   @override
@@ -36,7 +38,11 @@ class BtnBackground extends StatelessWidget {
             children: [
               SvgPicture.string(
                 width: size.width,
-                issmall ? smallbtnbackground : cardbackground,
+                issmall
+                    ? smallbtnbackground
+                    : showcard2
+                        ? cardbackground2
+                        : cardbackground,
               ),
               Align(
                 alignment: Alignment.center,

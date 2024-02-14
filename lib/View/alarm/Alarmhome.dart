@@ -61,7 +61,7 @@ class _AlarmHomeState extends State<AlarmHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(55),
           child: GestureDetector(
             onTap: (() {
               // print("adsddsaf");
@@ -77,7 +77,7 @@ class _AlarmHomeState extends State<AlarmHome> {
                 switch (value) {
                   case 0:
                     Navigator.of(context).push(createRoutes(AddAlram()));
-                    break;  
+                    break;
                   case 1:
                     nextscreen(context, EditAlarm());
                     break;
@@ -89,7 +89,7 @@ class _AlarmHomeState extends State<AlarmHome> {
               titletext: alarm,
               ontapornavigate: true,
             ),
-          )),
+          ).marginOnly(top: 5)),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -164,16 +164,16 @@ class _AlarmHomeState extends State<AlarmHome> {
                                 showswitchorsubtile: true,
                                 subtitle: "",
                               ).paddingOnly(
-                                bottom: NeumorphicTheme.isUsingDark(context)
-                                    ? 20
-                                    : 0,
-                                left: NeumorphicTheme.isUsingDark(context)
-                                    ? 5
-                                    : 0,
-                                right: NeumorphicTheme.isUsingDark(context)
-                                    ? 5
-                                    : 0,
-                              );
+                                  bottom: NeumorphicTheme.isUsingDark(context)
+                                      ? 20
+                                      : 0,
+                                  left: NeumorphicTheme.isUsingDark(context)
+                                      ? 5
+                                      : 0,
+                                  right: NeumorphicTheme.isUsingDark(context)
+                                      ? 5
+                                      : 0,
+                                  top: 8);
                             });
                       }),
             ),

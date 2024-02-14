@@ -33,10 +33,11 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(55),
           child: CustomeAppbar(list: [
             {"icon": "assets/person.png", "screenname": Profile()},
-          ], titletext: stopwatch)),
+          ], titletext: stopwatch)
+              .marginOnly(top: 5)),
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
@@ -50,16 +51,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Expanded(
-                    child: ButtonWidget(
-                      txtstyle: MyTextStyle.mw40018,
-                      issmall: true,
-                      borderRadius: 15.0,
-                      onTap: isSwitched ? stop : start,
-                      name: isSwitched ? 'Stop' : 'Start',
-                    ),
-                  ),
-                  SizedBox(width: 30),
                   if (currentstate == Stopwatchenum.stop)
                     Expanded(
                       child: ButtonWidget(
@@ -93,6 +84,16 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                         child: Text('Lap'),
                       ),
                     ),
+                  SizedBox(width: 30),
+                  Expanded(
+                    child: ButtonWidget(
+                      txtstyle: MyTextStyle.mw40018,
+                      issmall: true,
+                      borderRadius: 15.0,
+                      onTap: isSwitched ? stop : start,
+                      name: isSwitched ? 'Stop' : 'Start',
+                    ),
+                  ),
                 ],
               ).paddingSymmetric(horizontal: 15),
               // Row(
@@ -201,7 +202,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                                             top: NeumorphicTheme.isUsingDark(
                                                     context)
                                                 ? 20
-                                                : 0);
+                                                : 10);
                                       }).toList()),
                                   SizedBox(
                                     height: 20,

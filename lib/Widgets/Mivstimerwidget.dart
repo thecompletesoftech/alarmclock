@@ -170,7 +170,7 @@ class _MivstimerState extends State<Mivstimer> {
             var currenthrs = hrs.toString();
             var currentmin = minutes.toString();
             return Text(
-              '${currenthrs.length > 1 ? currenthrs : '0' + currenthrs} : ${currentmin.length > 1 ? currentmin : '0' + currentmin} : ${currentsecond.length > 1 ? currentsecond : '0' + currentsecond}',
+              '${currenthrs.length > 1 ? currenthrs : '0' + currenthrs}:${currentmin.length > 1 ? currentmin : '0' + currentmin}:${currentsecond.length > 1 ? currentsecond : '0' + currentsecond}',
               style: MyTextStyle.Dynamic(
                   style: MyTextStyle.mw40018,
                   color: NeumorphicTheme.accentColor(context)),

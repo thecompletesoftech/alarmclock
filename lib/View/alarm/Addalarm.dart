@@ -120,7 +120,9 @@ class _AddAlramState extends State<AddAlram> {
                     ontapcard: () {
                       Navigator.of(context).push(createRoutes(Repeat()));
                     },
-                  ).paddingOnly(bottom: 10, top: 10),
+                  ).paddingOnly(
+                      bottom: NeumorphicTheme.isUsingDark(context) ? 15 : 5,
+                      top: NeumorphicTheme.isUsingDark(context) ? 15 : 5),
                   AlramCard(
                     showmedium: false,
                     showswitchorsubtile: false,
@@ -129,7 +131,9 @@ class _AddAlramState extends State<AddAlram> {
                     subtitle: "Alarm",
                     bgshow: true,
                     ontapcard: () {},
-                  ).paddingOnly(bottom: 10, top: 10),
+                  ).paddingOnly(
+                      bottom: NeumorphicTheme.isUsingDark(context) ? 15 : 5,
+                      top: NeumorphicTheme.isUsingDark(context) ? 15 : 5),
                   Obx(
                     () => AlramCard(
                       showmedium: false,
@@ -141,7 +145,9 @@ class _AddAlramState extends State<AddAlram> {
                       ontapcard: () {
                         Navigator.of(context).push(createRoutes(Sound()));
                       },
-                    ).paddingOnly(bottom: 10, top: 10),
+                    ).paddingOnly(
+                        bottom: NeumorphicTheme.isUsingDark(context) ? 15 : 5,
+                        top: NeumorphicTheme.isUsingDark(context) ? 15 : 5),
                   ),
                   AlramCard(
                     showmedium: false,
@@ -157,7 +163,9 @@ class _AddAlramState extends State<AddAlram> {
                       });
                     },
                     swicthvalue: isSwitched,
-                  ).paddingOnly(bottom: 10, top: 10),
+                  ).paddingOnly(
+                      bottom: NeumorphicTheme.isUsingDark(context) ? 15 : 5,
+                      top: NeumorphicTheme.isUsingDark(context) ? 15 : 5),
                 ],
               ),
             ),

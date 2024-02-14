@@ -178,7 +178,7 @@ class _SignInState extends State<SignIn> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 51),
+                    SizedBox(height: 40),
                     Obx(
                       () => ButtonWidget(
                         height: 60.0,
@@ -205,7 +205,7 @@ class _SignInState extends State<SignIn> {
                           left: NeumorphicTheme.isUsingDark(context) ? 6 : 0,
                           right: NeumorphicTheme.isUsingDark(context) ? 8 : 0),
                     ),
-                    SizedBox(height: 93),
+                    SizedBox(height: 50),
                     RichText(
                       text: TextSpan(
                           text: account,
@@ -223,7 +223,7 @@ class _SignInState extends State<SignIn> {
                                   ..onTap = () => nextscreen(context, SignUp()))
                           ]),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 20),
                   ],
                 ),
               )

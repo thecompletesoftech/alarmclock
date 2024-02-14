@@ -121,7 +121,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
+          padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
           child: Form(
             key: _formkey,
             child: Column(
@@ -243,7 +243,7 @@ class _SignUpState extends State<SignUp> {
                   showerror: Cnfpassworderror,
                   errormsg: Cnfpasserrormsg,
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 Obx(
                   () => Center(
                     child: ButtonWidget(
@@ -280,7 +280,7 @@ class _SignUpState extends State<SignUp> {
                               ..onTap = () => nextscreen(context, SignIn()))
                       ]),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 20),
               ],
             ),
           ),

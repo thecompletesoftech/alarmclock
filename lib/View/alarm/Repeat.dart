@@ -73,7 +73,7 @@ class _RepeatState extends State<Repeat> {
                       ).paddingSymmetric(horizontal: 20),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 20),
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -108,8 +108,8 @@ class _RepeatState extends State<Repeat> {
                         },
                         swicthvalue: isSwitched,
                       ).paddingOnly(
-                          bottom: 15,
-                          top: NeumorphicTheme.isUsingDark(context) ? 10 : 0,
+                          bottom: NeumorphicTheme.isUsingDark(context) ? 15 : 5,
+                          top: NeumorphicTheme.isUsingDark(context) ? 15 : 0,
                           left: 5,
                           right: 5);
                     },

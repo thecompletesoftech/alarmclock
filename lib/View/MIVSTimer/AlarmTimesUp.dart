@@ -40,7 +40,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: Size.fromHeight(62),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/list.png", "screenname": TimeList()},
@@ -58,15 +58,15 @@ class _AlramTimesupState extends State<AlramTimesup> {
           padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 20 : 10),
               AlphaAlarmCard(
                   title: alarmeat, hour: '5', minute: '15', time: 'PM'),
-              SizedBox(height: 20),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 30 : 10),
               RepeatIntervalCard(title: repeatinttext, interval: 4),
-              SizedBox(height: 20),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 30 : 10),
               LargeCardBackground(
                 child: ListView.builder(
-                        padding: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(0.0),
                         itemCount: list.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -134,7 +134,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
                         bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 20,
                         top: NeumorphicTheme.isUsingDark(context) ? 0 : 20),
               ),
-              SizedBox(height: 150),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 80 : 50),
               ButtonWidget(
                 name: proceed,
                 txtstyle: MyTextStyle.mw40020,

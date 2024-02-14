@@ -23,7 +23,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
+          preferredSize: Size.fromHeight(60),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": null},
@@ -34,12 +34,12 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
             showbtn: true,
             showarrow: true,
             showlistbtn: false,
-          )),
+          ).marginOnly(top: 5)),
       body: SingleChildScrollView(
         child: Obx(
           () => Column(
             children: [
-              // SizedBox(height: 20),
+              SizedBox(height: 25),
               TimeNameCard(
                 title: timername,
                 interval: alphatext,

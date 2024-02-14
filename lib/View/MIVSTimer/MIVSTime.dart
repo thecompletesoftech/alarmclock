@@ -28,13 +28,13 @@ class _MIVSTimerState extends State<MIVSTimer> {
             ],
             titletext: timerlist,
             showdivider: true,
-          )),
+          ).marginOnly(top: 5)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 10 : 0),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection("mivstime")
@@ -72,7 +72,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
                             bottom:
                                 NeumorphicTheme.isUsingDark(context) ? 30 : 0);
                       },
-                    );
+                    ).paddingOnly(top: 10);
                   }),
             ],
           ),
@@ -83,8 +83,8 @@ class _MIVSTimerState extends State<MIVSTimer> {
           nextscreen(context, AddMIVSTimer());
         },
         child: Container(
-            height: 50,
-            width: 50,
+            height: 60,
+            width: 60,
             alignment: Alignment.center,
             decoration: Utils().decoration(
                 shadow: true,

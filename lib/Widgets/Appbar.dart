@@ -49,7 +49,7 @@ class CustomeAppbar extends StatelessWidget {
                   Text(
                     titletext,
                     style: MyTextStyle.Dynamic(
-                        style: MyTextStyle.mw60024,
+                        style: MyTextStyle.mw60022,
                         color: NeumorphicTheme.accentColor(context)),
                   ),
                   SizedBox(width: 10),
@@ -126,11 +126,11 @@ class CustomeAppbar extends StatelessWidget {
                 ),
             ],
           ),
-          SizedBox(height: 10),
+          // SizedBox(height: 10),
           if (showdivider)
             Divider(
               color: mycolor().lighttxtcolor,
-            ),
+            ).paddingOnly(top: 5),
         ],
       ),
     ).paddingOnly(left: 20, right: 20, top: 30);

@@ -75,7 +75,7 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                                 width: 150,
                               )),
                     SizedBox(
-                      height: 51,
+                      height: 40,
                     ),
                     Row(
                       children: [
@@ -118,7 +118,7 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                       errormsg: emailerrmsg,
                     ),
                     SizedBox(
-                      height: 44,
+                      height: 40,
                     ),
                     Obx(
                       () => Center(
@@ -173,7 +173,7 @@ class _ForgotPaaswordState extends State<ForgotPaasword> {
                       ),
                     ),
                     SizedBox(
-                      height: 119,
+                      height: 50,
                     ),
                     RichText(
                       text: TextSpan(

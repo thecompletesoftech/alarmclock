@@ -99,14 +99,24 @@ class _EditProfileState extends State<EditProfile> {
                                           }
                                         });
                                       },
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                        child: Image.file(
-                                          File(controller.selectimage),
-                                          height: 100,
-                                          width: 100,
-                                          fit: BoxFit.cover,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(60.0),
+                                            border: Border.all(
+                                                width: 9.0,
+                                                color:
+                                                    NeumorphicTheme.accentColor(
+                                                        context))),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          child: Image.file(
+                                            File(controller.selectimage),
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     )
@@ -126,13 +136,25 @@ class _EditProfileState extends State<EditProfile> {
                                             });
                                           },
                                           child: Center(
-                                            child: CircleAvatar(
-                                              radius: 60.0,
-                                              backgroundImage: AssetImage(
-                                                "assets/profile.png",
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          60.0),
+                                                  border: Border.all(
+                                                      width: 9.0,
+                                                      color: NeumorphicTheme
+                                                          .accentColor(
+                                                              context))),
+                                              child: CircleAvatar(
+                                                radius: 50.0,
+                                                backgroundImage: AssetImage(
+                                                  "assets/demouser.png",
+                                                ),
+                                                backgroundColor:
+                                                    NeumorphicTheme.accentColor(
+                                                        context),
                                               ),
-                                              backgroundColor:
-                                                  mycolor().Transparent,
                                             ),
                                           ),
                                         )
@@ -148,40 +170,62 @@ class _EditProfileState extends State<EditProfile> {
                                               }
                                             });
                                           },
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(50.0),
-                                            child: CachedNetworkImage(
-                                              height: 100,
-                                              width: 100,
-                                              fit: BoxFit.cover,
-                                              imageUrl: item['image'],
-                                              progressIndicatorBuilder:
-                                                  (context, url,
-                                                          downloadProgress) =>
-                                                      Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                        color: NeumorphicTheme
-                                                            .accentColor(
-                                                                context),
-                                                        value: downloadProgress
-                                                            .progress),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(60.0),
+                                                border: Border.all(
+                                                    width: 9.0,
+                                                    color: NeumorphicTheme
+                                                        .accentColor(context))),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0),
+                                              child: CachedNetworkImage(
+                                                height: 100,
+                                                width: 100,
+                                                fit: BoxFit.cover,
+                                                imageUrl: item['image'],
+                                                progressIndicatorBuilder:
+                                                    (context, url,
+                                                            downloadProgress) =>
+                                                        Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                          color: NeumorphicTheme
+                                                              .accentColor(
+                                                                  context),
+                                                          value:
+                                                              downloadProgress
+                                                                  .progress),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
                                             ),
                                           ),
                                         ),
                               // SvgPicture.string(camera, color: mycolor().White,height: 50,),
-                              Image.asset(
-                                NeumorphicTheme.isUsingDark(context)
-                                    ? "assets/DarkCamera.png"
-                                    : 'assets/LightCamera.png',
-                                // height: NeumorphicTheme.isUsingDark(context)
-                                //     ? 50
-                                //     : 50
+                              Center(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Permissions()
+                                        .checkCamerapermission()
+                                        .then((value) {
+                                      if (value) {
+                                        _imagepicker(
+                                            NeumorphicTheme.isUsingDark(
+                                                context));
+                                      }
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.camera_alt_outlined,
+                                    size: 25,
+                                    color: NeumorphicTheme.accentColor(context),
+                                  ).paddingOnly(top: 20),
+                                ),
                               ),
                               SizedBox(height: 32),
                               Padding(
@@ -248,12 +292,12 @@ class _EditProfileState extends State<EditProfile> {
                                       ? 14
                                       : 5),
                               TextBoxwidget(
+                                readtype: true,
+                                hinttext: item['email'] ?? '',
                                 hintstyle: MyTextStyle.Dynamic(
                                     style: MyTextStyle.mw40018,
                                     color: NeumorphicTheme.defaultTextColor(
                                         context)),
-                                readtype: true,
-                                hinttext: item['email'] ?? '',
                                 accentcolor:
                                     NeumorphicTheme.accentColor(context),
                                 basecolor: NeumorphicTheme.baseColor(context),
@@ -261,7 +305,6 @@ class _EditProfileState extends State<EditProfile> {
                                   return null;
                                 },
                               ),
-                              // CardWidget(title: item['email'] ?? ''),
                             ],
                           );
                         });

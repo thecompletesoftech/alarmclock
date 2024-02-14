@@ -91,7 +91,7 @@ class _SoundState extends State<Sound> {
                       )
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 10),
                   LargeCardBackground(
                     backgroundimage: 'assets/soundfullback.png',
                     align: Alignment.topCenter,
@@ -157,18 +157,20 @@ class _SoundState extends State<Sound> {
                               ).paddingOnly(top: 10, bottom: 5);
                             })).paddingOnly(top: 10),
                   ),
-                  SizedBox(height: 58),
+                  SizedBox(
+                      height: NeumorphicTheme.isUsingDark(context) ? 50 : 20),
                   ButtonWidget(
                     width: 68.0,
                     name: done,
                     txtstyle: MyTextStyle.mw40020,
+                    showcard2: true,
                     borderRadius: 15.0,
                     onTap: () {
                       backscreen(context);
                     },
                   ).paddingSymmetric(
                       horizontal:
-                          NeumorphicTheme.isUsingDark(context) ? 2.0 : 0.0),
+                          NeumorphicTheme.isUsingDark(context) ? 2.0 : 2.0),
                   SizedBox(height: 20),
                 ],
               ).paddingSymmetric(
