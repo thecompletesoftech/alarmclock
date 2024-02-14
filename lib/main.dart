@@ -14,7 +14,6 @@ void main() async {
   await Alarm.init();
   // await PushNotificationService().setupInteractedMessage();
   await NotificationService().initializePlatformNotifications();
-
   runApp(const MyApp());
 }
 
@@ -23,9 +22,10 @@ onSelectNotification(String? payload) async {
   print('Notification selected: $payload');
 }
 
+var box = GetStorage();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           depth: 10,
         ),
         darkTheme: NeumorphicThemeData(
-          defaultTextColor: mycolor().White,    
+          defaultTextColor: mycolor().White,
           baseColor: mycolor().lightBlack,
           accentColor: mycolor().darktxtcolor,
           lightSource: LightSource.topLeft,
