@@ -46,6 +46,7 @@ class _AlramTimesupState extends State<AlramTimesup> {
               {"icon": "assets/list.png", "screenname": TimeList()},
               {"icon": "assets/add.png", "screenname": TimeList()},
             ],
+            borderonindex: 3,
             titletext: alarm,
             showdivider: true,
             showarrow: true,

@@ -39,7 +39,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
         child: Obx(
           () => Column(
             children: [
-              SizedBox(height: 25),
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 25 : 10),
               TimeNameCard(
                 title: timername,
                 interval: alphatext,
@@ -152,49 +152,56 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
                         .split(":")[2]
                         .toString()),
               ),
-              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 50 : 0),
-              Row(
-                children: [
-                  Expanded(
-                    child: ButtonWidget(
-                      name: go,
-                      txtstyle: MyTextStyle.mw40020,
-                      issmall: true,
-                      borderRadius: 15.0,
-                      onTap: () {
-                        if (_mivsctrl.intervalduration.value == "00:00:00") {
-                          Mysnack(req, pleaseselectintervalduration, context);
-                        } else if (_mivsctrl.intervalend.value == "00:00:00") {
-                          Mysnack(req, pleaseselectintervalend, context);
-                        } else if (_mivsctrl.totalduration.value ==
-                            "00:00:00") {
-                          Mysnack(req, pleaseselecttotalduration, context);
-                        } else if (_mivsctrl.snoozetime.value == "00:00:00") {
-                          Mysnack(req, pleaseselectsnoozeduration, context);
-                        } else {
-                          _mivsctrl.AddMIVStime(context);
-                        }
+              SizedBox(height: NeumorphicTheme.isUsingDark(context) ? 40 : 0),
+              Container(
+                height: NeumorphicTheme.isUsingDark(context) ? 50 : 80,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ButtonWidget(
+                        name: go,
+                        txtstyle: MyTextStyle.mw40020,
+                        issmall: true,
+                        borderRadius: 15.0,
+                        onTap: () {
+                          if (_mivsctrl.intervalduration.value == "00:00:00") {
+                            Mysnack(req, pleaseselectintervalduration, context);
+                          } else if (_mivsctrl.intervalend.value ==
+                              "00:00:00") {
+                            Mysnack(req, pleaseselectintervalend, context);
+                          } else if (_mivsctrl.totalduration.value ==
+                              "00:00:00") {
+                            Mysnack(req, pleaseselecttotalduration, context);
+                          } else if (_mivsctrl.snoozetime.value == "00:00:00") {
+                            Mysnack(req, pleaseselectsnoozeduration, context);
+                          } else {
+                            _mivsctrl.AddMIVStime(context);
+                          }
 
-                        // nextscreen(context, PendingTimer());
-                      },
+                          // nextscreen(context, PendingTimer());
+                        },
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: ButtonWidget(
-                      name: reset,
-                      issmall: true,
-                      txtstyle: MyTextStyle.mw40020,
-                      borderRadius: 15.0,
-                      onTap: () {
-                        _mivsctrl.clerdata();
-                      },
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: ButtonWidget(
+                        name: reset,
+                        issmall: true,
+                        txtstyle: MyTextStyle.mw40020,
+                        borderRadius: 15.0,
+                        onTap: () {
+                          _mivsctrl.clerdata();
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
-          ).paddingOnly(left: 15, right: 15, bottom: 15),
+          ).paddingOnly(
+              left: 15,
+              right: 15,
+              bottom: NeumorphicTheme.isUsingDark(context) ? 15 : 0),
         ),
       ),
     );

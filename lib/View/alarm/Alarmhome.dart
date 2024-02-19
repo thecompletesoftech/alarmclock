@@ -179,11 +179,16 @@ class _AlarmHomeState extends State<AlarmHome> {
                                               : 0,
                                       top: 8),
                                   Positioned(
-                                    right: 10,
-                                    top: 0,
+                                    right: NeumorphicTheme.isUsingDark(context)
+                                        ? 10
+                                        : 13,
+                                    top: NeumorphicTheme.isUsingDark(context)
+                                        ? 0
+                                        : 4,
                                     child: Icon(
                                       Icons.remove_circle,
                                       color: Colors.red,
+                                      size: 22,
                                     ),
                                   )
                                 ],

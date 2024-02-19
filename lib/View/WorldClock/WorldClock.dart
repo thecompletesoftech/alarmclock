@@ -305,7 +305,9 @@ class _WorldClockState extends State<WorldClock> {
                                 ).paddingOnly(bottom: 20),
                               ),
                               Positioned(
-                                right: 10,
+                                right: NeumorphicTheme.isUsingDark(context)
+                                    ? 10
+                                    : 18,
                                 top: 0,
                                 child: InkWell(
                                   onTap: () {
@@ -315,6 +317,7 @@ class _WorldClockState extends State<WorldClock> {
                                   child: Icon(
                                     Icons.remove_circle,
                                     color: Colors.red,
+                                    size: 22,
                                   ),
                                 ),
                               )
