@@ -23,7 +23,7 @@ class _AddMIVSTimerState extends State<AddMIVSTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60),
+          preferredSize: Size.fromHeight(82),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": null},

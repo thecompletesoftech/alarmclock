@@ -10,32 +10,33 @@ class WorldController extends GetxController {
   var box = GetStorage();
   var addclockloading = false.obs;
   var db = FirebaseFirestore.instance;
-  setup(location, cntx) async {
+  setup(location, label, cntx) async {
     var istanbulTimeZone = tz.getLocation(location);
     var now = tz.TZDateTime.now(istanbulTimeZone);
     log("ddhs------> " + now.millisecondsSinceEpoch.toString());
-    AddWorldtime(location, cntx);
+    AddWorldtime(location, label, cntx);
   }
 
-  AddWorldtime(location, cntx) {
+  AddWorldtime(location, label, cntx) {
     addclockloading.value = true;
     var uid = box.read('uid');
     var userdata = {
       'id': '',
       'uid': uid,
       'placename': location,
+      'label': label,
     };
     log("UserDetail" + userdata.toString());
     try {
       ApiHelper()
           .whereCollection('worldclocklist', 'placename', location)
           .then((value) {
-        if (value < 1) {
-          ApiHelper().AddCollection("worldclocklist", userdata).then((value) {
-            Navigator.pop(cntx);
+        if (value.length < 1) {
+          ApiHelper().AddCollection("worldclocklist", userdata).then((values) {
+            // Navigator.pop(cntx);
           });
         } else {
-          Mysnack(retry, alreadyaddedclock, cntx);
+          ApiHelper().deletedata('worldclocklist', value[0].id);
         }
         addclockloading.value = false;
       });

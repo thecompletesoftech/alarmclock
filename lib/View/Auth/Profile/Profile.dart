@@ -10,6 +10,8 @@ import 'package:clockalarm/View/Auth/Profile/EditProfile.dart';
 import 'package:clockalarm/View/Auth/Profile/History.dart';
 import 'package:clockalarm/View/Auth/ResetPassword/ResetPassword.dart';
 import 'package:clockalarm/Widgets/CardWidget.dart';
+import 'package:clockalarm/main.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -28,6 +30,15 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: controller.darktheme.value == true
+            ? mycolor().lightBlack
+            : mycolor().lightWhite,
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: controller.darktheme.value == true
+            ? Brightness.light
+            : Brightness.dark));
     return Obx(
       () => Scaffold(
         appBar: PreferredSize(
@@ -58,27 +69,12 @@ class _ProfileState extends State<Profile> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    // final themeProvider = Provider.of<ThemeProvider>(context,
-                    //     listen:
-                    //         false); // get the provider, listen false is necessary cause is in a function
-
-                    // setState(() {
-                    //   isDarkmode = !isDarkmode;
-                    // }); // change the variable
-
-                    // isDarkmode // call the functions
-                    //     ? themeProvider.setDarkmode()
-                    //     : themeProvider.setLightMode();
-                    // MediaQuery.of(context).platformBrightness == Brightness.dark
-                    //     ? ThemeMode.dark
-                    //     : ThemeMode.light;
-                    // if (controller.profileloading.value == false) {
-                    //   if (controller.selectimage != null) {
-                    //     controller.updateprofile(context);
-                    //   } else {
-                    //     Navigator.pop(context);
-                    //   }
-                    // }
+                    box.read('isdark') == true
+                        ? box.write('isdark', false)
+                        : box.write('isdark', true);
+                    setState(() {
+                      controller.darktheme.value = !controller.darktheme.value;
+                    });
                   },
                   child: Container(
                       height: 40,
@@ -287,27 +283,7 @@ class _ProfileState extends State<Profile> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 17),
-                                CardWidget(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Image.asset(
-                                      NeumorphicTheme.isUsingDark(context)
-                                          ? "assets/DarkTime.png"
-                                          : "assets/LightTime.png",
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
-                                  title: historytext,
-                                  ontap: () {
-                                    nextscreen(context, History());
-                                  },
-                                ),
-                                SizedBox(
-                                    height: NeumorphicTheme.isUsingDark(context)
-                                        ? 28
-                                        : 20),
+                                SizedBox(height: 20),
                                 CardWidget(
                                   child: Padding(
                                     padding: const EdgeInsets.only(right: 10.0),
@@ -322,6 +298,26 @@ class _ProfileState extends State<Profile> {
                                   title: editprofiletext,
                                   ontap: () {
                                     nextscreen(context, EditProfile());
+                                  },
+                                ),
+                                SizedBox(
+                                    height: NeumorphicTheme.isUsingDark(context)
+                                        ? 28
+                                        : 20),
+                                CardWidget(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Image.asset(
+                                      NeumorphicTheme.isUsingDark(context)
+                                          ? "assets/DarkTime.png"
+                                          : "assets/LightTime.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                  ),
+                                  title: historytext,
+                                  ontap: () {
+                                    nextscreen(context, History());
                                   },
                                 ),
                                 SizedBox(
@@ -506,7 +502,7 @@ class _ProfileState extends State<Profile> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-          backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
+          backgroundColor: isDark ? mycolor().lightBlack : mycolor().lightWhite,
           content: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -522,6 +518,7 @@ class _ProfileState extends State<Profile> {
                             color: isDark
                                 ? mycolor().lightWhite
                                 : mycolor().darkgreen),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],

@@ -4,10 +4,12 @@ import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../../../../main.dart';
+
 class ProfileController extends GetxController {
-    final nameContoller = TextEditingController();
+  final nameContoller = TextEditingController();
   var selectimage;
-  var box = GetStorage();
+  var darktheme = (box.read('isdark') == true ? true : false).obs;
   var profileloading = false.obs;
   Future<String> uploadImage(imageFile) async {
     String fileName = (imageFile.path);
@@ -32,7 +34,7 @@ class ProfileController extends GetxController {
     nextscreen(cntx, NewBottomNavigator());
   }
 
-   EditProfileprofile(cntx) async {
+  EditProfileprofile(cntx) async {
     profileloading.value = true;
     var setimageid = await ApiHelper().getdatabyuserid('users');
     log("message" + setimageid.docs[0]['id'].toString());

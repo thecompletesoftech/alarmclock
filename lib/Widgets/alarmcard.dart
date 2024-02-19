@@ -14,6 +14,7 @@ class AlramCard extends StatefulWidget {
   final Function? onchange;
   final Function? ontapcard;
   final bool? swicthvalue;
+  final bool showcheck;
   final bgshow;
   const AlramCard(
       {super.key,
@@ -28,7 +29,8 @@ class AlramCard extends StatefulWidget {
       this.ontapcard,
       this.subtitlestyle,
       this.subtitlecolor,
-      this.bgshow = false});
+      this.bgshow = false,
+      this.showcheck = false});
 
   @override
   State<AlramCard> createState() => _AlramCardState();
@@ -130,6 +132,15 @@ class _AlramCardState extends State<AlramCard> {
                                     mycolor().greenlightcolor),
                           ),
                         ).paddingOnly(right: 15),
+                        if (widget.showcheck)
+                          Container(
+                              margin: EdgeInsets.fromLTRB(
+                                  0 * fem, 0 * fem, 6 * fem, 0 * fem),
+                              child: Icon(
+                                Icons.check,
+                                color: NeumorphicTheme.accentColor(context),
+                                fill: 0.5,
+                              )),
                         if (widget.showarrowicon)
                           Container(
                               margin: EdgeInsets.fromLTRB(

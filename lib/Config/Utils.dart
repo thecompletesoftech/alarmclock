@@ -1,13 +1,15 @@
 import 'package:clockalarm/Config/Import.dart';
 
 class Utils {
-  BoxDecoration decoration(
-      {radius,
-      isdark,
-      cntx,
-      shadow = true,
-      shadowwithcolor = false,
-      backgroundcolor = null}) {
+  BoxDecoration decoration({
+    radius,
+    isdark,
+    cntx,
+    shadow = true,
+    shadowwithcolor = false,
+    backgroundcolor = null,
+    border,
+  }) {
     double baseWidth = 390;
     double fem = MediaQuery.of(cntx).size.width / baseWidth;
     return BoxDecoration(
@@ -17,6 +19,7 @@ class Utils {
               ? NeumorphicTheme.baseColor(cntx)
               : mycolor().shadowcolordark,
       borderRadius: BorderRadius.circular(radius),
+      border: border,
       boxShadow: !isdark
           ? [
               BoxShadow(

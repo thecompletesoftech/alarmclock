@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../Config/Import.dart';
 
 class Repeat extends StatefulWidget {
@@ -12,6 +14,31 @@ class _RepeatState extends State<Repeat> {
 
   String time = "-";
   bool isSwitched = false;
+  var selected = [];
+
+  @override
+  void initState() {
+    setState(() {
+      selected = List.filled(_alramController.alramlist.length, false);
+    });
+    setdata();
+    super.initState();
+  }
+
+  setdata() {
+    for (var i = 0; i < _alramController.alramlist.length; i++) {
+      _alramController.selectedweekdaylist
+                  .contains(_alramController.alramlist[i]['id']) ==
+              true
+          ? setState(() {
+              selected[i] = true;
+            })
+          : setState(() {
+              selected[i] = false;
+            });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,6 +111,7 @@ class _RepeatState extends State<Repeat> {
                         showmedium: false,
                         showswitchorsubtile: false,
                         showarrowicon: false,
+                        showcheck: selected[index],
                         bgshow: true,
                         time: _alramController.alramlist[index]['title']
                             .toString(),
@@ -92,11 +120,18 @@ class _RepeatState extends State<Repeat> {
                           if (_alramController.selectedweekdaylist.contains(
                                   _alramController.alramlist[index]['id']) ==
                               true) {
+                            setState(() {
+                              selected[index] = false;
+                            });
                             _alramController.selectedweekdaylist.remove(
                                 _alramController.alramlist[index]['id']);
-                          } else
+                          } else {
                             _alramController.selectedweekdaylist
                                 .add(_alramController.alramlist[index]['id']);
+                            setState(() {
+                              selected[index] = true;
+                            });
+                          }
                           print(
                               _alramController.selectedweekdaylist.toString());
                           // nextscreen(context, Repeat());

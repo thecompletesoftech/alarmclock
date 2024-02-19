@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/FireBase/localnotification.dart';
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/View/Auth/Profile/Controller/ProfileController.dart';
 import 'package:clockalarm/View/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -24,33 +28,46 @@ onSelectNotification(String? payload) async {
 
 var box = GetStorage();
 
+ProfileController profilecontroller = Get.put(ProfileController());
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: profilecontroller.darktheme.value == true
+            ? mycolor().lightBlack
+            : mycolor().lightWhite,
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: profilecontroller.darktheme.value == true
+            ? Brightness.light
+            : Brightness.dark));
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: NeumorphicApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Tival',
-        themeMode: MediaQuery.of(context).platformBrightness == Brightness.dark
-            ? ThemeMode.dark
-            : ThemeMode.light,
-        theme: NeumorphicThemeData(
-          defaultTextColor: mycolor().Black,
-          baseColor: mycolor().lightWhite,
-          lightSource: LightSource.topLeft,
-          accentColor: mycolor().lighttxtcolor,
-          depth: 10,
+      home: Obx(
+        () => NeumorphicApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Tival',
+          themeMode: profilecontroller.darktheme.value == true
+              ? ThemeMode.dark
+              : ThemeMode.light,
+          theme: NeumorphicThemeData(
+            defaultTextColor: mycolor().Black,
+            baseColor: mycolor().lightWhite,
+            lightSource: LightSource.topLeft,
+            accentColor: mycolor().lighttxtcolor,
+            depth: 10,
+          ),
+          darkTheme: NeumorphicThemeData(
+            defaultTextColor: mycolor().White,
+            baseColor: mycolor().lightBlack,
+            accentColor: mycolor().darktxtcolor,
+            lightSource: LightSource.topLeft,
+            depth: 6,
+          ),
+          home: SplashScreen(),
         ),
-        darkTheme: NeumorphicThemeData(
-          defaultTextColor: mycolor().White,
-          baseColor: mycolor().lightBlack,
-          accentColor: mycolor().darktxtcolor,
-          lightSource: LightSource.topLeft,
-          depth: 6,
-        ),
-        home: SplashScreen(),
       ),
     );
   }

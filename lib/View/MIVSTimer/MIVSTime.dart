@@ -20,7 +20,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60),
+          preferredSize: Size.fromHeight(70),
           child: CustomeAppbar(
             list: [
               {"icon": "assets/TimeMachine.png", "screenname": PendingTimer()},
@@ -28,6 +28,7 @@ class _MIVSTimerState extends State<MIVSTimer> {
             ],
             titletext: timerlist,
             showdivider: true,
+            borderonindex: 3,
           ).marginOnly(top: 5)),
       body: SingleChildScrollView(
         child: Padding(

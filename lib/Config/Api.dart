@@ -32,7 +32,7 @@ class ApiHelper {
         .where('uid', isEqualTo: uid)
         .where(key, isEqualTo: val)
         .get();
-    return data.docs.length;
+    return data.docs;
   }
 
   getdatabyuserid(collectionname) async {
@@ -57,5 +57,10 @@ class ApiHelper {
         .orderBy(field, descending: des)
         .snapshots();
     yield* data;
+  }
+
+  Future deletedata(collectionname, data) async {
+    await db.collection(collectionname).doc(data).delete();
+    return;
   }
 }

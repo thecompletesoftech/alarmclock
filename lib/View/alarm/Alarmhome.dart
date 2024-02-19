@@ -70,7 +70,7 @@ class _AlarmHomeState extends State<AlarmHome> {
             child: CustomeAppbar(
               list: [
                 {"icon": "assets/add.png", "screenname": AddAlram()},
-                {"icon": "assets/edit.png", "screenname": EditAlarm()},
+                {"icon": "assets/Save.png", "screenname": EditAlarm()},
                 {"icon": "assets/person.png", "screenname": Profile()},
               ],
               ontapnavigate: (value) {
@@ -135,45 +135,59 @@ class _AlarmHomeState extends State<AlarmHome> {
                             itemBuilder: (BuildContext context, int index) {
                               DocumentSnapshot newitem =
                                   snapshot.data!.docs[index];
-                              return AlramCard(
-                                showmedium: true,
-                                medium: "   " +
-                                    getAmPm(newitem['dateTime'])
-                                        .toString()
-                                        .toLowerCase(),
-                                onchange: (value) async {
-                                  await Alarm.stop(newitem['id']);
-                                  _alramController.alramstatus(
-                                      newitem['id'],
-                                      newitem['alarmstatus'] == true
-                                          ? false
-                                          : true,
-                                      context);
-                                },
-                                ontapcard: () async {
-                                  setState(() {
-                                    _alramController.currenttime.value =
-                                        newitem['date'].toString();
-                                  });
+                              return Stack(
+                                children: [
+                                  AlramCard(
+                                    showmedium: true,
+                                    medium: "   " +
+                                        getAmPm(newitem['dateTime'])
+                                            .toString()
+                                            .toLowerCase(),
+                                    onchange: (value) async {
+                                      await Alarm.stop(newitem['id']);
+                                      _alramController.alramstatus(
+                                          newitem['id'],
+                                          newitem['alarmstatus'] == true
+                                              ? false
+                                              : true,
+                                          context);
+                                    },
+                                    ontapcard: () async {
+                                      setState(() {
+                                        _alramController.currenttime.value =
+                                            newitem['date'].toString();
+                                      });
 
-                                  await _alramController.getalram(context);
-                                },
-                                swicthvalue: newitem['alarmstatus'],
-                                time: convert12to24(newitem['dateTime'])
-                                    .toString(),
-                                showswitchorsubtile: true,
-                                subtitle: "",
-                              ).paddingOnly(
-                                  bottom: NeumorphicTheme.isUsingDark(context)
-                                      ? 20
-                                      : 0,
-                                  left: NeumorphicTheme.isUsingDark(context)
-                                      ? 5
-                                      : 0,
-                                  right: NeumorphicTheme.isUsingDark(context)
-                                      ? 5
-                                      : 0,
-                                  top: 8);
+                                      await _alramController.getalram(context);
+                                    },
+                                    swicthvalue: newitem['alarmstatus'],
+                                    time: convert12to24(newitem['dateTime'])
+                                        .toString(),
+                                    showswitchorsubtile: true,
+                                    subtitle: "",
+                                  ).paddingOnly(
+                                      bottom:
+                                          NeumorphicTheme.isUsingDark(context)
+                                              ? 20
+                                              : 0,
+                                      left: NeumorphicTheme.isUsingDark(context)
+                                          ? 5
+                                          : 0,
+                                      right:
+                                          NeumorphicTheme.isUsingDark(context)
+                                              ? 5
+                                              : 0,
+                                      top: 8),
+                                  Positioned(
+                                    right: 10,
+                                    top: 0,
+                                    child: Icon(
+                                      Icons.remove_circle,
+                                      color: Colors.red,
+                                    ),
+                                  )
+                                ],
+                              );
                             });
                       }),
             ),

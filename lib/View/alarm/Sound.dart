@@ -28,6 +28,7 @@ class _SoundState extends State<Sound> {
   AlramController _alramController = Get.put(AlramController());
   String time = "-";
   bool isSwitched = false;
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 390;
@@ -107,51 +108,68 @@ class _SoundState extends State<Sound> {
                                 padding: EdgeInsets.zero,
                                 itemCount: soundlist.length,
                                 itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      _alramController.currentsound.value =
-                                          soundlist[index]['title'].toString();
-                                      _alramController.currentsoundpath.value =
-                                          soundlist[index]['path'].toString();
-                                      backscreen(context);
-                                      // if (index == 0) {
-                                      //   // final player = AudioCache();
-                                      //   // player.play('assets/ImmigrantSong.mp3');
-                                      // }
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 2),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                soundlist[index]['title']
-                                                    .toString(),
-                                                style: MyTextStyle.Dynamic(
-                                                    style: MyTextStyle.mw40020,
-                                                    color: NeumorphicTheme
-                                                        .accentColor(context)),
-                                              ),
-                                              // GestureDetector(
-                                              //     onTap: (() {
-                                              //       if (isPlaying == false) {
-                                              //         playaudio(index);
-                                              //       }
-                                              //     }),
-                                              //     child: Icon(Icons.play_arrow))
-                                            ],
-                                          ),
-                                          if (index != soundlist.length - 1)
-                                            Divider()
-                                        ],
-                                      ),
-                                    ).paddingOnly(top: 5),
+                                  return Obx(
+                                    () => InkWell(
+                                      onTap: () {
+                                        _alramController.currentsound.value =
+                                            soundlist[index]['title']
+                                                .toString();
+                                        _alramController
+                                                .currentsoundpath.value =
+                                            soundlist[index]['path'].toString();
+                                        // backscreen(context);
+                                        // if (index == 0) {
+                                        //   // final player = AudioCache();
+                                        //   // player.play('assets/ImmigrantSong.mp3');
+                                        // }
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 2),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  soundlist[index]['title']
+                                                      .toString(),
+                                                  style: MyTextStyle.Dynamic(
+                                                      style:
+                                                          MyTextStyle.mw40020,
+                                                      color: NeumorphicTheme
+                                                          .accentColor(
+                                                              context)),
+                                                ),
+                                                if (_alramController
+                                                        .currentsound.value ==
+                                                    soundlist[index]['title']
+                                                        .toString())
+                                                  GestureDetector(
+                                                      onTap: (() {
+                                                        // if (isPlaying == false) {
+                                                        //   playaudio(index);
+                                                        // }
+                                                      }),
+                                                      child: Icon(
+                                                        Icons.check,
+                                                        color: NeumorphicTheme
+                                                            .accentColor(
+                                                                context),
+                                                        fill: 0.5,
+                                                      ))
+                                              ],
+                                            ),
+                                            if (index != soundlist.length - 1)
+                                              Divider()
+                                          ],
+                                        ),
+                                      ).paddingOnly(top: 5),
+                                    ),
                                   );
                                 },
                               ).paddingOnly(top: 10, bottom: 5);

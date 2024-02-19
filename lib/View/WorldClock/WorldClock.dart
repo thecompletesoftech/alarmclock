@@ -19,9 +19,6 @@ class _WorldClockState extends State<WorldClock> {
   var currentindex = 0;
   void initState() {
     controller.currentcitytime.clear();
-    // controller.searchlist.clear();
-    // controller.searchlist.value = Searchlist;
-    // controller.setups('Europe/Istanbul', context);
     super.initState();
   }
 
@@ -35,7 +32,7 @@ class _WorldClockState extends State<WorldClock> {
           child: CustomeAppbar(
             list: [
               {"icon": "assets/add.png", "screenname": AddAlram()},
-              {"icon": "assets/edit.png", "screenname": TimeList()},
+              {"icon": "assets/Save.png", "screenname": TimeList()},
               {"icon": "assets/person.png", "screenname": Profile()},
             ],
             ontapnavigate: (value) {
@@ -54,7 +51,7 @@ class _WorldClockState extends State<WorldClock> {
             titletext: worldclock,
             ontapornavigate: true,
             showarrow: false,
-          ).marginOnly(top: 5)),
+          ).marginOnly(top: 8)),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -246,59 +243,82 @@ class _WorldClockState extends State<WorldClock> {
                           DocumentSnapshot newitem = snapshot.data!.docs[index];
                           var currenttime = controller
                               .gettime(snapshot.data!.docs[index]['placename']);
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.0,
-                                vertical: NeumorphicTheme.isUsingDark(context)
-                                    ? 5
-                                    : 0),
-                            child: CardBackground(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
+                          return Stack(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15.0,
+                                    vertical:
+                                        NeumorphicTheme.isUsingDark(context)
+                                            ? 5
+                                            : 0),
+                                child: CardBackground(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        // datTime2(newitem['timestamp']).toString(),
-                                        newitem['placename'],
-                                        style: MyTextStyle.Dynamic(
-                                            style: MyTextStyle.mw40020,
-                                            color: NeumorphicTheme.accentColor(
-                                                context)),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            // datTime2(newitem['timestamp']).toString(),
+                                            newitem['placename'],
+                                            style: MyTextStyle.Dynamic(
+                                                style: MyTextStyle.mw40020,
+                                                color:
+                                                    NeumorphicTheme.accentColor(
+                                                        context)),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            formatTime(currenttime)
+                                                .toString()
+                                                .split(' ')[0],
+                                            style: MyTextStyle.Dynamic(
+                                                style: MyTextStyle.mw40018,
+                                                color:
+                                                    NeumorphicTheme.accentColor(
+                                                        context)),
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            formatTime(currenttime)
+                                                .toString()
+                                                .split(' ')[1],
+                                            style: MyTextStyle.Dynamic(
+                                                style: MyTextStyle.mw70014,
+                                                color:
+                                                    mycolor().greenlightcolor),
+                                          ),
+                                        ],
                                       ),
                                     ],
+                                  ).paddingSymmetric(
+                                      vertical:
+                                          NeumorphicTheme.isUsingDark(context)
+                                              ? 3
+                                              : 0),
+                                ).paddingOnly(bottom: 20),
+                              ),
+                              Positioned(
+                                right: 10,
+                                top: 0,
+                                child: InkWell(
+                                  onTap: () {
+                                    ApiHelper().deletedata(
+                                        'worldclocklist', newitem['id']);
+                                  },
+                                  child: Icon(
+                                    Icons.remove_circle,
+                                    color: Colors.red,
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        formatTime(currenttime)
-                                            .toString()
-                                            .split(' ')[0],
-                                        style: MyTextStyle.Dynamic(
-                                            style: MyTextStyle.mw40018,
-                                            color: NeumorphicTheme.accentColor(
-                                                context)),
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        formatTime(currenttime)
-                                            .toString()
-                                            .split(' ')[1],
-                                        style: MyTextStyle.Dynamic(
-                                            style: MyTextStyle.mw70014,
-                                            color: mycolor().greenlightcolor),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ).paddingSymmetric(
-                                  vertical: NeumorphicTheme.isUsingDark(context)
-                                      ? 3
-                                      : 0),
-                            ).paddingOnly(bottom: 20),
+                                ),
+                              )
+                            ],
                           );
                         });
                   }),

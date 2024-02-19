@@ -11,6 +11,7 @@ class CustomeAppbar extends StatelessWidget {
   final showarrow;
   final ontapornavigate;
   final Function? ontapnavigate;
+  final borderonindex;
   const CustomeAppbar(
       {super.key,
       this.titletext,
@@ -22,7 +23,8 @@ class CustomeAppbar extends StatelessWidget {
       this.showbtn = false,
       this.showarrow = false,
       this.ontapornavigate = false,
-      this.ontapnavigate});
+      this.ontapnavigate,
+      this.borderonindex = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +88,12 @@ class CustomeAppbar extends StatelessWidget {
                                 alignment: Alignment.center,
                                 decoration: Utils().decoration(
                                     cntx: context,
+                                    border: Border.all(
+                                      width: 1.0,
+                                      color: index == borderonindex
+                                          ? NeumorphicTheme.accentColor(context)
+                                          : NeumorphicTheme.baseColor(context),
+                                    ),
                                     isdark:
                                         NeumorphicTheme.isUsingDark(context),
                                     radius: 32.5 * fem),

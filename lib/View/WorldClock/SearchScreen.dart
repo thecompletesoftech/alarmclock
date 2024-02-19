@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/Json/Json.dart';
 
@@ -12,6 +15,7 @@ class _SearchScreenState extends State<SearchScreen> {
   WorldController controller = Get.put(WorldController());
   TextEditingController searchController = TextEditingController();
   List filteredCategories = [];
+  var selected = [];
 
   void updateSearchResults(keyword) {
     setState(() {
@@ -24,10 +28,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    // setState(() {
-    //   filteredCategories.addAll(Searchlist);
-    // });
+    selected = List.filled(selected.length, false);
+    setdata();
     super.initState();
+  }
+
+  setdata() {
+    //  controller.searchlist
   }
 
   void _deleteText() {
@@ -119,42 +126,66 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: filteredCategories.length > 0
-                          ? filteredCategories.length
-                          : Searchlist.length,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        var items = filteredCategories.length > 0
-                            ? filteredCategories[index]
-                            : Searchlist[index];
-                        return Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                if (controller.addclockloading.value == false) {
-                                  controller.setup(items['timezone'], context);
-                                }
-                              },
-                              child: Row(
+                  StreamBuilder<QuerySnapshot>(
+                      stream: ApiHelper().getsnapshotbyuserid('worldclocklist'),
+                      builder: (context, snapshot) {
+                        var newdata = [];
+                        if (snapshot.data != null)
+                          for (var e = 0; e < snapshot.data!.docs.length; e++) {
+                            newdata.add(snapshot.data!.docs[e]['label']);
+                          }
+                        return Expanded(
+                          child: ListView.builder(
+                            itemCount: filteredCategories.length > 0
+                                ? filteredCategories.length
+                                : Searchlist.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              var items = filteredCategories.length > 0
+                                  ? filteredCategories[index]
+                                  : Searchlist[index];
+                              return Column(
                                 children: [
-                                  Text(
-                                    items['timezone'],
-                                    style: MyTextStyle.Dynamic(
-                                        style: MyTextStyle.mw40018,
-                                        color: NeumorphicTheme.accentColor(
-                                            context)),
+                                  InkWell(
+                                    onTap: () {
+                                      if (controller.addclockloading.value ==
+                                          false) {
+                                        controller.setup(items['timezone'],
+                                            items['label'], context);
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            items['label'],
+                                            style: MyTextStyle.Dynamic(
+                                                style: MyTextStyle.mw40018,
+                                                color:
+                                                    NeumorphicTheme.accentColor(
+                                                        context)),
+                                          ),
+                                        ),
+                                        if (snapshot.data != null)
+                                          if ((newdata
+                                              .contains(items['label'])))
+                                            Icon(
+                                              Icons.check,
+                                              color:
+                                                  NeumorphicTheme.accentColor(
+                                                      context),
+                                              fill: 0.5,
+                                            ).paddingOnly(right: 10)
+                                      ],
+                                    ),
                                   ),
+                                  Divider(),
                                 ],
-                              ),
-                            ),
-                            Divider(),
-                          ],
+                              );
+                            },
+                          ),
                         );
-                      },
-                    ),
-                  ),
+                      }),
                 ],
               ).paddingSymmetric(horizontal: 10),
             ),
