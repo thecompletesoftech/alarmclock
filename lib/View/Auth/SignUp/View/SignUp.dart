@@ -198,11 +198,11 @@ class _SignUpState extends State<SignUp> {
                   iconorimage: true,
                   child: (_obscureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/DarkEyes.png"
-                          : "assets/LightEye.png")
-                      : Image.asset(NeumorphicTheme.isUsingDark(context)
                           ? "assets/DarkHide.png"
-                          : 'assets/LightHides.png')),
+                          : 'assets/LightHides.png')
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {
@@ -224,13 +224,13 @@ class _SignUpState extends State<SignUp> {
                   obsecuretext: obscureText,
                   suffixshowicon: true,
                   iconorimage: true,
-                  child: (_obscureText
+                  child: (obscureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/DarkEyes.png"
-                          : "assets/LightEye.png")
-                      : Image.asset(NeumorphicTheme.isUsingDark(context)
                           ? "assets/DarkHide.png"
-                          : 'assets/LightHides.png')),
+                          : 'assets/LightHides.png')
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {

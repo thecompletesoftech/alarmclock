@@ -8,6 +8,7 @@ import '../../../../main.dart';
 
 class ProfileController extends GetxController {
   final nameContoller = TextEditingController();
+  final password = TextEditingController();
   var selectimage;
   var darktheme = (box.read('isdark') == true ? true : false).obs;
   var profileloading = false.obs;
@@ -47,5 +48,47 @@ class ProfileController extends GetxController {
     await ApiHelper().Updatedata('users', userdata['id'], updatedata);
     profileloading.value = false;
     nextscreen(cntx, Profile());
+  }
+
+  Future<bool?> deleteUserAccount(cntx) async {
+    try {
+      var userdata = await ApiHelper().getdatabyuserid('users');
+      var alarmdata = await ApiHelper().getdatabyuserid('alarm');
+      var mivsdata = await ApiHelper().getdatabyuserid('mivs');
+      var worldclockdata = await ApiHelper().getdatabyuserid('worldclocklist');
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: userdata.docs[0]['email'], password: password.text);
+      await Deletedata(alarmdata, mivsdata, worldclockdata, userdata)
+          .then((value) async {
+        if (alarmdata.docs.length > 0) {
+          log("alarm" + alarmdata.docs[0]['docid']);
+          await ApiHelper().deletedata('alarm', alarmdata.docs[0]['docid']);
+        }
+        if (mivsdata.docs.length > 0) {
+          await ApiHelper().deletedata('mivs', mivsdata.docs[0]['id']);
+        }
+        if (worldclockdata.docs.length > 0) {
+          await ApiHelper()
+              .deletedata('worldclocklist', worldclockdata.docs[0]['id']);
+        }
+        await ApiHelper().deletedata('users', userdata.docs[0]['id']);
+        return true;
+      });
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "requires-recent-login") {
+        log('Delete Account==> ' + e.toString());
+      } else {
+        Get.snackbar("Something went wrong", "Please retry after some time",
+            backgroundColor: NeumorphicTheme.accentColor(cntx));
+        log('Delete Account Error==> ' + e.toString());
+      }
+      return false;
+    }
+  }
+
+  Future Deletedata(alarmdata, mivsdata, worldclockdata, userdata) async {
+    await FirebaseAuth.instance.currentUser!.delete();
+    return true;
   }
 }

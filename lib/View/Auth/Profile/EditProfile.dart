@@ -1,12 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/CheckPermissions.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:clockalarm/View/Auth/Profile/Controller/ProfileController.dart';
-import 'package:clockalarm/Widgets/CardWidget.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfile extends StatefulWidget {

@@ -387,7 +387,22 @@ class _ProfileState extends State<Profile> {
                                   title: deleteaccount,
                                   ontap: () {
                                     showDeleteaccout(
-                                        NeumorphicTheme.isUsingDark(context));
+                                            NeumorphicTheme.isUsingDark(
+                                                context))
+                                        .then((value) {
+                                      if (value == true) {
+                                        relogin(NeumorphicTheme.isUsingDark(
+                                                context))
+                                            .then((value) {
+                                          if (value == true) {
+                                            box.erase();
+                                            Navigator.pop(context);
+                                            nextscreenwithoutback(
+                                                context, SignIn());
+                                          }
+                                        });
+                                      }
+                                    });
                                   },
                                 ),
                                 SizedBox(
@@ -571,8 +586,8 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  showDeleteaccout(isDark) async {
-    showDialog(
+  Future showDeleteaccout(isDark) async {
+    return showDialog(
       context: context,
       builder: (context) => AlertDialog(
           backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
@@ -608,7 +623,7 @@ class _ProfileState extends State<Profile> {
                             isDark ? mycolor().darkbalck : mycolor().lightWhite,
                       ),
                       onPressed: () {
-                        // nextscreenwithoutback(context, SignIn());
+                        Navigator.pop(context, true);
                       },
                       child: Text(
                         "Yes",
@@ -628,7 +643,7 @@ class _ProfileState extends State<Profile> {
                             isDark ? mycolor().darkbalck : mycolor().lightWhite,
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, false);
                       },
                       child: Text(
                         "No",
@@ -644,6 +659,117 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           )),
+    );
+  }
+
+  Future relogin(isDark) async {
+    bool _obscureText = true;
+    var passworderror = false;
+    var passerrormsg = '';
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          backgroundColor: isDark ? mycolor().darkbalck : mycolor().lightWhite,
+          content: StatefulBuilder(builder: (context, StateSetter setState) {
+            return Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          deleteloginmsg,
+                          textAlign: TextAlign.center,
+                          style: MyTextStyle.Dynamic(
+                              style: MyTextStyle.mw40018,
+                              color: isDark
+                                  ? mycolor().lightWhite
+                                  : mycolor().darkgreen),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextBoxwidget(
+                          obsecuretext: _obscureText,
+                          suffixshowicon: true,
+                          iconorimage: true,
+                          child: (_obscureText
+                              ? Image.asset(NeumorphicTheme.isUsingDark(context)
+                                  ? "assets/DarkHide.png"
+                                  : 'assets/LightHides.png')
+                              : Image.asset(NeumorphicTheme.isUsingDark(context)
+                                  ? "assets/DarkEyes.png"
+                                  : "assets/LightEye.png")),
+                          ontapsufixicon: () {
+                            print("object==>>>>>>>>>");
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          controller: controller.password,
+                          hinttext: password,
+                          accentcolor: NeumorphicTheme.isUsingDark(context)
+                              ? mycolor().darktxtcolor
+                              : mycolor().lighttxtcolor,
+                          basecolor: NeumorphicTheme.isUsingDark(context)
+                              ? mycolor().lightBlack
+                              : mycolor().lightWhite,
+                          validator: (e) {
+                            return null;
+                          },
+                          showerror: passworderror,
+                          errormsg: passerrormsg,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: isDark
+                              ? mycolor().darkbalck
+                              : mycolor().lightWhite,
+                        ),
+                        onPressed: () async {
+                          if (controller.password.text.length < 1) {
+                            setState(() {
+                              passworderror = true;
+                              passerrormsg = requiredtext + password;
+                            });
+                          } else {
+                            controller.deleteUserAccount(context).then((value) {
+                              if (value != null) {
+                                Navigator.pop(context, value);
+                              }
+                            });
+                          }
+                        },
+                        child: Text(
+                          deleteaccount,
+                          style: MyTextStyle.Dynamic(
+                              style: MyTextStyle.mw40018,
+                              color: isDark
+                                  ? mycolor().lightWhite
+                                  : mycolor().darkgreen),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          })),
     );
   }
 }

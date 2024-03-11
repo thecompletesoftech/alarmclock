@@ -35,7 +35,7 @@ class ApiHelper {
     return data.docs;
   }
 
-  getdatabyuserid(collectionname) async {
+  Future getdatabyuserid(collectionname) async {
     var data =
         await db.collection(collectionname).where("uid", isEqualTo: uid).get();
     return data;

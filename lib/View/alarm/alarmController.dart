@@ -126,6 +126,7 @@ class AlramController extends GetxController {
     var alramdata = {
       "uid": uid,
       "id": Random().nextInt(100),
+      'docid': '',
       "dateTime": dateTime,
       "date": date,
       "assetAudioPath": audio,
@@ -144,8 +145,10 @@ class AlramController extends GetxController {
           .collection("alarm")
           .add(alramdata)
           .then((value) {
-        // log("values" + value.id.toString());
-
+        FirebaseFirestore.instance
+            .collection("alarm")
+            .doc(value.id)
+            .update({'docid': value.id});
         alarmisloading.value = false;
       });
     } on Exception catch (e) {
@@ -220,11 +223,11 @@ class AlramController extends GetxController {
             title: 'Alarm is playing....',
             body: '',
             payload: {
-                "name": "FlutterCampus",
-                "currentTime": currentTime.toString(),
-                "sound": soundname.toString(),
-                "snooze": snooze.toString()
-              },
+              "name": "FlutterCampus",
+              "currentTime": currentTime.toString(),
+              "sound": soundname.toString(),
+              "snooze": snooze.toString()
+            },
             autoDismissible: false,
             customSound: soundname,
             displayOnForeground: true,

@@ -1,5 +1,4 @@
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/View/WorldClock/SearchScreen.dart';
 import 'package:intl/intl.dart';
 
 nextscreenwithoutback(cntx, screenname) {

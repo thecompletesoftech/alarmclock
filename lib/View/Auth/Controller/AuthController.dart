@@ -102,6 +102,9 @@ class AuthController extends GetxController {
               case 'invalid-email':
                 Mysnack(retry, invalidemail, cntx);
                 break;
+              case 'weak-password':
+                Mysnack(retry, passlength, cntx);
+                break;
               default:
                 Mysnack(retry, somethingwrong, cntx);
             }

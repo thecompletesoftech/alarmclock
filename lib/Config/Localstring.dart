@@ -1,4 +1,3 @@
-
 const register = 'Register';
 const fullname = 'Full Name';
 const email = 'Email';
@@ -70,6 +69,7 @@ const alarmeat = 'Alpha alarmed at:';
 const repeatinttext = 'Repeat Intervals Remaining';
 const logoutpopuptext = 'Are you sure want to Logout ?';
 const deleteacpoputext = 'Are you sure want to Delete Account ?';
+const deleteloginmsg = 'Please enter password to delete your account';
 const cameratext = 'Camera';
 const gallarytext = 'Gallary';
 const noanyalarfound = 'No any Alarm found';
@@ -91,6 +91,7 @@ const somethingwrong = 'Something went wrong';
 const emailalreadyinuse = 'The account already exists for that email';
 const invalidcredential = 'Invalid Credential';
 const invalidemail = 'Invalid email';
+const passlength = 'Password should be at least 6 characters';
 const timername = 'Timer Name';
 const timerlist = 'Timer List';
 const tomanytry =

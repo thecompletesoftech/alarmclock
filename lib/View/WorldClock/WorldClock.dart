@@ -18,6 +18,7 @@ class _WorldClockState extends State<WorldClock> {
   WorldController controller = Get.put(WorldController());
   var currentindex = 0;
   void initState() {
+    // GetStorage().erase();
     controller.currentcitytime.clear();
     super.initState();
   }
