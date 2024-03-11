@@ -139,11 +139,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                   iconorimage: true,
                   child: (currentobscureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/DarkEyes.png"
-                          : "assets/LightEye.png")
-                      : Image.asset(NeumorphicTheme.isUsingDark(context)
                           ? "assets/DarkHide.png"
-                          : 'assets/LightHides.png')),
+                          : 'assets/LightHides.png')
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {
@@ -182,11 +182,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                   iconorimage: true,
                   child: (newobscureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/DarkEyes.png"
-                          : "assets/LightEye.png")
-                      : Image.asset(NeumorphicTheme.isUsingDark(context)
                           ? "assets/DarkHide.png"
-                          : 'assets/LightHides.png')),
+                          : 'assets/LightHides.png')
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {
@@ -225,11 +225,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                   iconorimage: true,
                   child: (confirmobsureText
                       ? Image.asset(NeumorphicTheme.isUsingDark(context)
-                          ? "assets/DarkEyes.png"
-                          : "assets/LightEye.png")
-                      : Image.asset(NeumorphicTheme.isUsingDark(context)
                           ? "assets/DarkHide.png"
-                          : 'assets/LightHides.png')),
+                          : 'assets/LightHides.png')
+                      : Image.asset(NeumorphicTheme.isUsingDark(context)
+                          ? "assets/DarkEyes.png"
+                          : "assets/LightEye.png")),
                   ontapsufixicon: () {
                     print("object==>>>>>>>>>");
                     setState(() {
@@ -266,7 +266,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               child: controller.passwordloading.value
                   ? Center(
                       child: CircularProgressIndicator(
-                        color: NeumorphicTheme.defaultTextColor(context),
+                        color: NeumorphicTheme.baseColor(context),
                       ),
                     )
                   : TextButton(

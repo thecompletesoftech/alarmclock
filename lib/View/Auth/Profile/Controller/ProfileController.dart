@@ -22,26 +22,29 @@ class ProfileController extends GetxController {
     return downloadURL;
   }
 
-  updateprofile(cntx) async {
-    profileloading.value = true;
-    var setimageid = await ApiHelper().getdatabyuserid('users');
-    log("message" + setimageid.docs[0]['id'].toString());
-    String downloadURL = await uploadImage(File(selectimage!));
-    print('Image uploaded. Download URL: $downloadURL');
-    var updatedata = {"image": downloadURL.toString()};
-    await ApiHelper().Updatedata('users', setimageid.docs[0]['id'], updatedata);
-    profileloading.value = false;
-    nextscreen(cntx, NewBottomNavigator());
+  getimageurl(cntx) async {
+    try {
+      profileloading.value = true;
+      var userdata = await ApiHelper().getdatabyuserid('users');
+      log("message==> " + userdata.docs[0]['id'].toString());
+      String downloadURL = selectimage != null
+          ? await uploadImage(File(selectimage!))
+          : userdata.docs[0]['image'].toString();
+      print('Image uploaded. Download URL: $downloadURL');
+      editprofile(cntx, downloadURL, userdata.docs[0]);
+    } catch (e) {
+      profileloading.value = false;
+    }
   }
 
-  EditProfileprofile(cntx) async {
-    profileloading.value = true;
-    var setimageid = await ApiHelper().getdatabyuserid('users');
-    log("message" + setimageid.docs[0]['id'].toString());
-    String downloadURL = await uploadImage(File(selectimage!));
-    print('Image uploaded. Download URL: $downloadURL');
-    var updatedata = {"image": downloadURL.toString()};
-    await ApiHelper().Updatedata('users', setimageid.docs[0]['id'], updatedata);
+  editprofile(cntx, imageurl, userdata) async {
+    var updatedata = {
+      "image": imageurl.toString(),
+      "name": nameContoller.text.isEmpty
+          ? userdata['name']
+          : nameContoller.text.toString()
+    };
+    await ApiHelper().Updatedata('users', userdata['id'], updatedata);
     profileloading.value = false;
     nextscreen(cntx, Profile());
   }

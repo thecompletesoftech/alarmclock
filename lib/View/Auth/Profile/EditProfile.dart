@@ -19,6 +19,17 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   ProfileController controller = Get.put(ProfileController());
 
+  @override
+  void initState() {
+    getdata();
+    super.initState();
+  }
+
+  getdata() async {
+    var userdata = await ApiHelper().getdatabyuserid('users');
+    controller.nameContoller.text = userdata.docs[0]['name'];
+  }
+
   var box = GetStorage();
   @override
   Widget build(BuildContext context) {
@@ -53,13 +64,6 @@ class _EditProfileState extends State<EditProfile> {
                     MediaQuery.of(context).platformBrightness == Brightness.dark
                         ? ThemeMode.dark
                         : ThemeMode.light;
-                    // if (controller.profileloading.value == false) {
-                    //   if (controller.selectimage != null) {
-                    //     controller.updateprofile(context);
-                    //   } else {
-                    //     Navigator.pop(context);
-                    //   }
-                    // }
                   },
                   child: Container()),
             ],
@@ -206,7 +210,6 @@ class _EditProfileState extends State<EditProfile> {
                                             ),
                                           ),
                                         ),
-                              // SvgPicture.string(camera, color: mycolor().White,height: 50,),
                               Center(
                                 child: GestureDetector(
                                   onTap: () {
@@ -252,7 +255,6 @@ class _EditProfileState extends State<EditProfile> {
                                     color: NeumorphicTheme.defaultTextColor(
                                         context)),
                                 controller: controller.nameContoller,
-                                hinttext: '',
                                 suffixshowicon: true,
                                 iconorimage: true,
                                 child: Image.asset(
@@ -339,11 +341,7 @@ class _EditProfileState extends State<EditProfile> {
                   : TextButton(
                       onPressed: () {
                         if (controller.profileloading.value == false) {
-                          if (controller.selectimage != null) {
-                            controller.EditProfileprofile(context);
-                          } else {
-                            Navigator.pop(context);
-                          }
+                          controller.getimageurl(context);
                         }
                       },
                       child: Text(
