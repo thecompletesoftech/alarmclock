@@ -52,32 +52,35 @@ class ProfileController extends GetxController {
 
   Future<bool?> deleteUserAccount(cntx) async {
     try {
+      profileloading.value = true;
       var userdata = await ApiHelper().getdatabyuserid('users');
       var alarmdata = await ApiHelper().getdatabyuserid('alarm');
       var mivsdata = await ApiHelper().getdatabyuserid('mivs');
       var worldclockdata = await ApiHelper().getdatabyuserid('worldclocklist');
+      log("USERID" + userdata.docs[0]['id'].toString());
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: userdata.docs[0]['email'], password: password.text);
-      await Deletedata(alarmdata, mivsdata, worldclockdata, userdata)
-          .then((value) async {
-        if (alarmdata.docs.length > 0) {
-          log("alarm" + alarmdata.docs[0]['docid']);
-          await ApiHelper().deletedata('alarm', alarmdata.docs[0]['docid']);
-        }
-        if (mivsdata.docs.length > 0) {
-          await ApiHelper().deletedata('mivs', mivsdata.docs[0]['id']);
-        }
-        if (worldclockdata.docs.length > 0) {
-          await ApiHelper()
-              .deletedata('worldclocklist', worldclockdata.docs[0]['id']);
-        }
-        await ApiHelper().deletedata('users', userdata.docs[0]['id']);
-        return true;
-      });
+      if (alarmdata.docs.length > 0) {
+        log("alarm" + alarmdata.docs[0]['docid']);
+        await ApiHelper().deletedata('alarm', alarmdata.docs[0]['docid']);
+      }
+      if (mivsdata.docs.length > 0) {
+        await ApiHelper().deletedata('mivs', mivsdata.docs[0]['id']);
+      }
+      if (worldclockdata.docs.length > 0) {
+        await ApiHelper()
+            .deletedata('worldclocklist', worldclockdata.docs[0]['id']);
+      }
+      await ApiHelper().deletedata('users', userdata.docs[0]['id']);
+      await FirebaseAuth.instance.currentUser!.delete();
+      profileloading.value = false;
       return true;
     } on FirebaseAuthException catch (e) {
+      profileloading.value = false;
       if (e.code == "requires-recent-login") {
         log('Delete Account==> ' + e.toString());
+        Get.snackbar("Relogin", "please login again to delete your account",
+            backgroundColor: NeumorphicTheme.accentColor(cntx));
       } else {
         Get.snackbar("Something went wrong", "Please retry after some time",
             backgroundColor: NeumorphicTheme.accentColor(cntx));
