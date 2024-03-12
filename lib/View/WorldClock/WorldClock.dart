@@ -234,7 +234,14 @@ class _WorldClockState extends State<WorldClock> {
                   builder: (context, snapshot) {
                     if ((snapshot.data == null) ||
                         (snapshot.data!.docs.length < 1)) {
-                      return Container();
+                      return Center(
+                        child: Text(
+                          noanyclockadded,
+                          style: MyTextStyle.Dynamic(
+                              style: MyTextStyle.mw50018,
+                              color: NeumorphicTheme.defaultTextColor(context)),
+                        ),
+                      );
                     }
                     return ListView.builder(
                         itemCount: snapshot.data!.docs.length,
@@ -261,8 +268,7 @@ class _WorldClockState extends State<WorldClock> {
                                       Row(
                                         children: [
                                           Text(
-                                            // datTime2(newitem['timestamp']).toString(),
-                                            newitem['placename'],
+                                            newitem['label'],
                                             style: MyTextStyle.Dynamic(
                                                 style: MyTextStyle.mw40020,
                                                 color:
