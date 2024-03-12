@@ -185,10 +185,16 @@ class _AlarmHomeState extends State<AlarmHome> {
                                     top: NeumorphicTheme.isUsingDark(context)
                                         ? 0
                                         : 4,
-                                    child: Icon(
-                                      Icons.remove_circle,
-                                      color: Colors.red,
-                                      size: 22,
+                                    child: InkWell(
+                                      onTap: () {
+                                        ApiHelper().deletedata(
+                                            'alarm', newitem['docid']);
+                                      },
+                                      child: Icon(
+                                        Icons.remove_circle,
+                                        color: Colors.red,
+                                        size: 22,
+                                      ),
                                     ),
                                   )
                                 ],
