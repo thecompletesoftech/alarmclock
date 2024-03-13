@@ -10,7 +10,7 @@ class ClockWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
-    log("jnjksdvnsjkvss bnkjv"+ currenttime.toString());
+    log("jnjksdvnsjkvss bnkjv" + currenttime.toString());
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -28,7 +28,7 @@ class ClockWidget extends StatelessWidget {
                             isdark: NeumorphicTheme.isUsingDark(context),
                             radius: 250.0 * fem),
                       )
-                    : SvgPicture.string(clockbackground),
+                    : Image.asset("assets/stopwatch.png", height: 235),
                 Container(
                   height: 18,
                   width: 2,
@@ -83,27 +83,36 @@ class ClockWidget extends StatelessWidget {
             ),
           ],
         ),
-        Container(
-          height: 150,
-          width: 150,
-          child: AnalogClock(
-            decoration: Utils().decoration(
-                cntx: context,
-                isdark: NeumorphicTheme.isUsingDark(context),
-                radius: 150 * fem),
-            width: 150.0,
-            isLive: true,
-            hourHandColor: NeumorphicTheme.defaultTextColor(context),
-            minuteHandColor: NeumorphicTheme.accentColor(context),
-            showSecondHand: false,
-            numberColor: Colors.black87,
-            showNumbers: false,
-            showAllNumbers: false,
-            textScaleFactor: 1.4,
-            showTicks: false,
-            showDigitalClock: false,
-            datetime: currenttime ?? DateTime.now(),
-          ),
+        Stack(
+          children: [
+            if (NeumorphicTheme.isUsingDark(context) == false)
+              Image.asset("assets/stopwatch.png", height: 160)
+                  .paddingOnly(left: 5),
+            Container(
+              height: 150,
+              width: 150,
+              child: AnalogClock(
+                decoration: NeumorphicTheme.isUsingDark(context)
+                    ? Utils().decoration(
+                        cntx: context,
+                        isdark: NeumorphicTheme.isUsingDark(context),
+                        radius: 150 * fem)
+                    : BoxDecoration(),
+                width: 150.0,
+                isLive: true,
+                hourHandColor: NeumorphicTheme.defaultTextColor(context),
+                minuteHandColor: NeumorphicTheme.accentColor(context),
+                showSecondHand: false,
+                numberColor: Colors.black87,
+                showNumbers: false,
+                showAllNumbers: false,
+                textScaleFactor: 1.4,
+                showTicks: false,
+                showDigitalClock: false,
+                datetime: currenttime ?? DateTime.now(),
+              ).paddingOnly(left: 10),
+            ),
+          ],
         ).paddingOnly(
             right: NeumorphicTheme.isUsingDark(context) ? 0 : 5,
             bottom: NeumorphicTheme.isUsingDark(context) ? 0 : 3),

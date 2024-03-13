@@ -218,19 +218,18 @@ class _AlarmHomeState extends State<AlarmHome> {
           channelName: 'Basic notifications',
           channelDescription: 'Notification channel for basic tests',
           channelShowBadge: false,
-          importance: NotificationImportance.High,
+          importance: NotificationImportance.Max,
           enableVibration: true,
           playSound: true,
+          onlyAlertOnce: false,
           soundSource: soundname),
     ]);
     bool isallowed = await AwesomeNotifications().isNotificationAllowed();
 
     if (!isallowed) {
       print("object===>>>>>>>>>>");
-      //no permission of local notification
       AwesomeNotifications().requestPermissionToSendNotifications();
     } else {
-      //show notification
       AwesomeNotifications().createNotification(
           content: NotificationContent(
               id: 123,

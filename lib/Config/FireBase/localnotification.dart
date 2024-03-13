@@ -48,22 +48,21 @@ class NotificationService {
 
   Future<NotificationDetails> _notificationDetails() async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
+      AndroidNotificationDetails(
       'channel id',
       'channel name',
       groupKey: 'com.example.newtask',
       channelDescription: 'channel description',
       importance: Importance.max,
       priority: Priority.max,
+      fullScreenIntent: true,
       playSound: true,
       ticker: 'ticker',
       color: const Color(0xff2196f3),
     );
-
     IOSNotificationDetails iosNotificationDetails = IOSNotificationDetails(
       threadIdentifier: "thread1",
     );
-
     final details = await _localNotifications.getNotificationAppLaunchDetails();
     if (details != null && details.didNotificationLaunchApp) {
       behaviorSubject.add(details.payload!);
@@ -83,7 +82,8 @@ class NotificationService {
     tz.initializeTimeZones();
 
     final platformChannelSpecifics = await _notificationDetails();
-    await _localNotifications.periodicallyShow(id, title, body, RepeatInterval.daily, platformChannelSpecifics);
+    await _localNotifications.periodicallyShow(
+        id, title, body, RepeatInterval.daily, platformChannelSpecifics);
     // await _localNotifications.zonedSchedule(
     //     0,
     //     'scheduled title',

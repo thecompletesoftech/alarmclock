@@ -18,6 +18,7 @@ class _AddAlramState extends State<AddAlram> {
   bool isSwitched = false;
   @override
   void initState() {
+    _alramController.selectedweekdaylist.clear();
     _alramController.currentsoundpath.value = "resource://raw/immigrantsong";
     _alramController.currentsound.value = "Immigrant Song";
     super.initState();
@@ -77,7 +78,6 @@ class _AddAlramState extends State<AddAlram> {
                               _alramController.currentsoundpath.value,
                               context);
                           await _alramController.getalram(context);
-
                           backscreen(context);
                         },
                         child: Text(save,

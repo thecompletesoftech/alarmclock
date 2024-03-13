@@ -25,17 +25,16 @@ class AlramController extends GetxController {
   var addalarmisloading = false.obs;
   var box = GetStorage();
 
-  setAlarm(time, snooze, audio, BuildContext context) {
-    shownotification(audio, snooze, DateTime.parse(time.toString()));
+  setAlarm(time, snooze, audio, BuildContext context) async {
+    // shownotification(audio, snooze, DateTime.parse(time.toString()));
     addalarmisloading.value = true;
-
     print("dateTime" + time.toString());
     final alarmSettings = AlarmSettings(
         id: Random().nextInt(100),
         dateTime: time,
         assetAudioPath: "assets/ringtone/ImmigrantSong.mp3++++++",
         loopAudio: true,
-        volume: 0.0,
+        // volume: 0.0,
         vibrate: false,
         // volumeMax: true,
         fadeDuration: 3.0,
@@ -43,18 +42,19 @@ class AlramController extends GetxController {
         notificationBody: 'Tap to stop',
         enableNotificationOnKill: true,
         // stopOnNotificationOpen: true,
-        androidFullScreenIntent: true);
-    Alarm.set(alarmSettings: alarmSettings).then((value) async {
-      await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
-          time.toString(), snooze, audio, context);
-      print("time to" + time.toString());
-      shownotification(audio, snooze, DateTime.parse(time.toString()));
-      addalarmisloading.value = false;
-      //insert to firebase
-    }).then((value) {
-      addalarmisloading.value = false;
-      //get data of firebase
-    });
+        androidFullScreenIntent: false);
+
+    // Alarm.set(alarmSettings: alarmSettings).then((value) async {
+    await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
+        time.toString(), snooze, audio, context);
+    print("time to" + time.toString());
+    shownotification(audio, snooze, DateTime.parse(time.toString()));
+    addalarmisloading.value = false;
+    //insert to firebase
+    // }).then((value) {
+    //   addalarmisloading.value = false;
+    //   //get data of firebase
+    // });
   }
 
   setalarmfalse() async {
@@ -202,7 +202,7 @@ class AlramController extends GetxController {
           channelName: 'Basic notifications',
           channelDescription: 'Notification channel for basic tests',
           channelShowBadge: false,
-          importance: NotificationImportance.High,
+          importance: NotificationImportance.Max,
           enableVibration: true,
           playSound: true,
           soundSource: soundname),
@@ -216,6 +216,7 @@ class AlramController extends GetxController {
     } else {
       //show notification
       // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+      print("LENGTHHHHHHHHHHHHHH=> " + selectedweekdaylist.toString());
       AwesomeNotifications().createNotification(
         content: NotificationContent(
             id: 123,
@@ -231,6 +232,7 @@ class AlramController extends GetxController {
             autoDismissible: false,
             customSound: soundname,
             displayOnForeground: true,
+            plays
             wakeUpScreen: true),
         actionButtons: snooze
             ? [
@@ -251,7 +253,8 @@ class AlramController extends GetxController {
               ],
         schedule: selectedweekdaylist.length > 0
             ? Sendnotification(dateTime)
-            : NotificationCalendar.fromDate(date: dateTime),
+            : NotificationCalendar.fromDate(
+                date: dateTime, preciseAlarm: true, repeats: true),
       );
     }
   }
@@ -263,14 +266,15 @@ class AlramController extends GetxController {
           '---' +
           selectedweekdaylist[i].toString());
       NotificationCalendar(
-          repeats: true,
-          weekday: int.parse(selectedweekdaylist[i].toString()),
-          hour: dateTime.hour,
-          minute: dateTime.minute,
-          second: 0,
-          millisecond: 0,
-          allowWhileIdle: true,
-          preciseAlarm: true);
+        repeats: true,
+        weekday: int.parse(selectedweekdaylist[i].toString()),
+        hour: dateTime.hour,
+        minute: dateTime.minute,
+        second: 0,
+        millisecond: 0,
+        allowWhileIdle: true,
+        preciseAlarm: true,
+      );
     }
   }
 }

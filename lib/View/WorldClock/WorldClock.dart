@@ -28,6 +28,7 @@ class _WorldClockState extends State<WorldClock> {
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     return Scaffold(
+      backgroundColor: NeumorphicTheme.baseColor(context),
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(55),
           child: CustomeAppbar(
@@ -109,7 +110,8 @@ class _WorldClockState extends State<WorldClock> {
                                                         context),
                                                 radius: 250.0 * fem),
                                           )
-                                        : SvgPicture.string(clockbackground),
+                                        : Image.asset("assets/stopwatch.png",
+                                            height: 235),
                                     Container(
                                       height: 18,
                                       width: 2,
@@ -168,30 +170,45 @@ class _WorldClockState extends State<WorldClock> {
                                 ),
                               ],
                             ),
-                            Container(
-                              height: 150,
-                              width: 150,
-                              child: AnalogClock(
-                                decoration: Utils().decoration(
-                                    cntx: context,
-                                    isdark:
-                                        NeumorphicTheme.isUsingDark(context),
-                                    radius: 150 * fem),
-                                width: 150.0,
-                                isLive: true,
-                                hourHandColor:
-                                    NeumorphicTheme.defaultTextColor(context),
-                                minuteHandColor:
-                                    NeumorphicTheme.accentColor(context),
-                                showSecondHand: false,
-                                numberColor: Colors.black87,
-                                showNumbers: false,
-                                showAllNumbers: false,
-                                textScaleFactor: 1.4,
-                                showTicks: false,
-                                showDigitalClock: false,
-                                datetime: currenttime ?? DateTime.now(),
-                              ),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                if (NeumorphicTheme.isUsingDark(context) ==
+                                    false)
+                                  Image.asset("assets/stopwatch.png",
+                                          height: 160)
+                                      .paddingOnly(left: 5),
+                                Container(
+                                  height: 150,
+                                  width: 150,
+                                  child: AnalogClock(
+                                    decoration:
+                                        NeumorphicTheme.isUsingDark(context)
+                                            ? Utils().decoration(
+                                                cntx: context,
+                                                isdark:
+                                                    NeumorphicTheme.isUsingDark(
+                                                        context),
+                                                radius: 150 * fem)
+                                            : BoxDecoration(),
+                                    width: 150.0,
+                                    isLive: true,
+                                    hourHandColor:
+                                        NeumorphicTheme.defaultTextColor(
+                                            context),
+                                    minuteHandColor:
+                                        NeumorphicTheme.accentColor(context),
+                                    showSecondHand: false,
+                                    numberColor: Colors.black87,
+                                    showNumbers: false,
+                                    showAllNumbers: false,
+                                    textScaleFactor: 1.4,
+                                    showTicks: false,
+                                    showDigitalClock: false,
+                                    datetime: currenttime ?? DateTime.now(),
+                                  ).paddingOnly(left: 10),
+                                ),
+                              ],
                             ).paddingOnly(
                                 right: NeumorphicTheme.isUsingDark(context)
                                     ? 0
