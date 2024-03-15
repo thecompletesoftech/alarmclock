@@ -1,5 +1,8 @@
+import 'dart:math';
+import 'package:alarmplayer/alarmplayer.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Api.dart';
+import 'package:clockalarm/View/alarm/AlarmScreen.dart';
 import '../../Config/FireBase/Getfirebasetoken.dart';
 import '../../Config/Import.dart';
 
@@ -13,12 +16,11 @@ class AlarmHome extends StatefulWidget {
 class _AlarmHomeState extends State<AlarmHome> {
   bool isSwitched = false;
   var box = GetStorage();
-
+  Alarmplayer alarmplayer = Alarmplayer();
   AlramController _alramController = Get.put(AlramController());
-
-  add5Minutes(String timeString) {
+  add5Minutes(String timeString, {mins = 5}) {
     DateTime currentTime = DateTime.parse(timeString);
-    DateTime updatedTime = currentTime.add(Duration(minutes: 5));
+    DateTime updatedTime = currentTime.add(Duration(minutes: mins));
     String formattedTime = updatedTime.toString();
     DateTime newtime = DateTime.parse(formattedTime);
     return newtime;
@@ -26,28 +28,8 @@ class _AlarmHomeState extends State<AlarmHome> {
 
   @override
   void initState() {
-    AwesomeNotifications().setListeners(
-        onActionReceivedMethod: (ReceivedAction receivedAction) async {
-          print("action -----" + receivedAction.toString());
-          print("Payload===>>>>>>>>>>" +
-              receivedAction.payload!['currentTime'].toString());
-          var updatedTime =
-              add5Minutes(receivedAction.payload!['currentTime'].toString());
-          print("Updated Time: $updatedTime");
-          if (bool.parse(receivedAction.payload!['snooze'].toString()) ==
-              true) {
-            shownotification(
-                receivedAction.payload!['sound'],
-                bool.parse(receivedAction.payload!['snooze'].toString()),
-                updatedTime);
-          }
-        },
-        onNotificationCreatedMethod:
-            (ReceivedNotification receivedNotification) async {},
-        onNotificationDisplayedMethod:
-            (ReceivedNotification receivedNotification) async {},
-        onDismissActionReceivedMethod:
-            (ReceivedAction receivedAction) async {});
+    // alarmplayer.StopAlarm();
+    notification();
     Future.delayed(const Duration(milliseconds: 1), () {
       _alramController.getalram(context);
       GetFirebasetoken().getfirebasetoken();
@@ -55,6 +37,51 @@ class _AlarmHomeState extends State<AlarmHome> {
 
     // _alramController.currenttime.value = DateTime.now().toString();
     super.initState();
+  }
+
+  notification() {
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: (ReceivedAction receivedAction) async {
+          // print("action -----" + receivedAction.toString());
+          // print("Payload===>>>>>>>>>>" +
+          //     receivedAction.payload!['currentTime'].toString());
+          // var updatedTime =
+          //     add5Minutes(receivedAction.payload!['currentTime'].toString());
+          // print("Updated Time: $updatedTime");
+          // if (bool.parse(receivedAction.payload!['snooze'].toString()) ==
+          //     true) {
+          //   // alarmplayer.StopAlarm();
+          //   shownotification(
+          //       receivedAction.payload!['sound'],
+          //       bool.parse(receivedAction.payload!['snooze'].toString()),
+          //       updatedTime);
+          // }
+        },
+        onNotificationCreatedMethod:
+            (ReceivedNotification receivedNotification) async {},
+        onNotificationDisplayedMethod:
+            (ReceivedNotification receivedNotification) async {
+          print("object" + receivedNotification.toString());
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AlarmScreen(
+                      data: receivedNotification.payload!,
+                      onsnoozeTap: (val) {
+                        print("checkkkkkkkkkkk" + val.toString());
+                        snooze(receivedNotification.payload!, val);
+                      },
+                    )),
+          );
+        },
+        onDismissActionReceivedMethod:
+            (ReceivedAction receivedAction) async {});
+  }
+
+  snooze(data, mins) {
+    var updatedTime = add5Minutes(data['currentTime'].toString(), mins: mins);
+    shownotification(data['sound'], bool.parse(data['snooze'].toString()),
+        updatedTime, data['assets']);
   }
 
   @override
@@ -208,7 +235,7 @@ class _AlarmHomeState extends State<AlarmHome> {
     );
   }
 
-  shownotification(soundname, snooze, dateTime) async {
+  shownotification(soundname, snooze, dateTime, soundassets) async {
     DateTime currentTime = DateTime.now();
     await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
       // notification icon
@@ -232,7 +259,7 @@ class _AlarmHomeState extends State<AlarmHome> {
     } else {
       AwesomeNotifications().createNotification(
           content: NotificationContent(
-              id: 123,
+              id: Random().nextInt(999),
               channelKey: 'basic', //set configuration wuth key "basic"
               title: 'Alarm is playing',
               body: '',
@@ -240,10 +267,12 @@ class _AlarmHomeState extends State<AlarmHome> {
                 "name": "FlutterCampus",
                 "currentTime": currentTime.toString(),
                 "sound": soundname.toString(),
+                "assets": soundassets.toString(),
                 "snooze": snooze.toString()
               },
               autoDismissible: false,
-              customSound: soundname),
+              customSound: soundname,
+              fullScreenIntent: true),
           schedule: NotificationCalendar.fromDate(date: dateTime),
           actionButtons: snooze
               ? [

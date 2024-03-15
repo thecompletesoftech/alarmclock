@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import '../../../../main.dart';
 
 class ProfileController extends GetxController {
+  var dataa = {}.obs;
   final nameContoller = TextEditingController();
   final password = TextEditingController();
   var selectimage;
@@ -27,7 +30,7 @@ class ProfileController extends GetxController {
     try {
       profileloading.value = true;
       var userdata = await ApiHelper().getdatabyuserid('users');
-      log("message==> " + userdata.docs[0]['id'].toString());
+      print("message==> " + userdata.docs[0]['id'].toString());
       String downloadURL = selectimage != null
           ? await uploadImage(File(selectimage!))
           : userdata.docs[0]['image'].toString();
@@ -57,11 +60,11 @@ class ProfileController extends GetxController {
       var alarmdata = await ApiHelper().getdatabyuserid('alarm');
       var mivsdata = await ApiHelper().getdatabyuserid('mivs');
       var worldclockdata = await ApiHelper().getdatabyuserid('worldclocklist');
-      log("USERID" + userdata.docs[0]['id'].toString());
+      print("USERID" + userdata.docs[0]['id'].toString());
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: userdata.docs[0]['email'], password: password.text);
       if (alarmdata.docs.length > 0) {
-        log("alarm" + alarmdata.docs[0]['docid']);
+        print("alarm" + alarmdata.docs[0]['docid']);
         await ApiHelper().deletedata('alarm', alarmdata.docs[0]['docid']);
       }
       if (mivsdata.docs.length > 0) {
@@ -78,13 +81,13 @@ class ProfileController extends GetxController {
     } on FirebaseAuthException catch (e) {
       profileloading.value = false;
       if (e.code == "requires-recent-login") {
-        log('Delete Account==> ' + e.toString());
+        print('Delete Account==> ' + e.toString());
         Get.snackbar("Relogin", "please login again to delete your account",
             backgroundColor: NeumorphicTheme.accentColor(cntx));
       } else {
         Get.snackbar("Something went wrong", "Please retry after some time",
             backgroundColor: NeumorphicTheme.accentColor(cntx));
-        log('Delete Account Error==> ' + e.toString());
+        print('Delete Account Error==> ' + e.toString());
       }
       return false;
     }
@@ -93,5 +96,91 @@ class ProfileController extends GetxController {
   Future Deletedata(alarmdata, mivsdata, worldclockdata, userdata) async {
     await FirebaseAuth.instance.currentUser!.delete();
     return true;
+  }
+
+  notification() async {
+    await AwesomeNotifications().setListeners(
+        onActionReceivedMethod: (ReceivedAction receivedAction) async {},
+        onNotificationCreatedMethod:
+            (ReceivedNotification receivedNotification) async {},
+        onNotificationDisplayedMethod:
+            (ReceivedNotification receivedNotification) async {
+          print("object" + receivedNotification.toString());
+          dataa.value = receivedNotification.payload!;
+        },
+        onDismissActionReceivedMethod:
+            (ReceivedAction receivedAction) async {});
+  }
+
+  add5Minutes(String timeString, {mins = 5}) {
+    DateTime currentTime = DateTime.parse(timeString);
+    DateTime updatedTime = currentTime.add(Duration(minutes: mins));
+    String formattedTime = updatedTime.toString();
+    DateTime newtime = DateTime.parse(formattedTime);
+    return newtime;
+  }
+
+  snooze(data, mins) {
+    var updatedTime = add5Minutes(data['currentTime'].toString(), mins: mins);
+    shownotification(data['sound'], bool.parse(data['snooze'].toString()),
+        updatedTime, data['assets']);
+  }
+
+  shownotification(soundname, snooze, dateTime, soundassets) async {
+    DateTime currentTime = DateTime.now();
+    await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
+      NotificationChannel(
+          channelGroupKey: 'basic_test',
+          channelKey: 'basic',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          channelShowBadge: false,
+          importance: NotificationImportance.Max,
+          enableVibration: true,
+          playSound: true,
+          onlyAlertOnce: false,
+          soundSource: soundname),
+    ]);
+    bool isallowed = await AwesomeNotifications().isNotificationAllowed();
+
+    if (!isallowed) {
+      print("object===>>>>>>>>>>");
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    } else {
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: Random().nextInt(999),
+              channelKey: 'basic', //set configuration wuth key "basic"
+              title: 'Alarm is playing',
+              body: '',
+              payload: {
+                "name": "FlutterCampus",
+                "currentTime": currentTime.toString(),
+                "sound": soundname.toString(),
+                "assets": soundassets.toString(),
+                "snooze": snooze.toString()
+              },
+              autoDismissible: false,
+              customSound: soundname,
+              fullScreenIntent: true),
+          schedule: NotificationCalendar.fromDate(date: dateTime),
+          actionButtons: snooze
+              ? [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
+                  NotificationActionButton(
+                    key: "snooze",
+                    label: "Snooze",
+                  )
+                ]
+              : [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
+                ]);
+    }
   }
 }

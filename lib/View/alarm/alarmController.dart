@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:clockalarm/Config/FireBase/SendNotification.dart';
 import 'package:clockalarm/Config/Import.dart';
-import 'package:flutter/services.dart';
 
 class AlramController extends GetxController {
   var alarms = <AlarmSettings>[].obs;
@@ -20,6 +18,7 @@ class AlramController extends GetxController {
   var currenttime = "".obs;
   var currentsound = "".obs;
   var currentsoundpath = "".obs;
+  var currentsoundassets = "".obs;
   var alarmisloading = false.obs;
   var getalarmisloading = false.obs;
   var addalarmisloading = false.obs;
@@ -29,20 +28,20 @@ class AlramController extends GetxController {
     // shownotification(audio, snooze, DateTime.parse(time.toString()));
     addalarmisloading.value = true;
     print("dateTime" + time.toString());
-    final alarmSettings = AlarmSettings(
-        id: Random().nextInt(100),
-        dateTime: time,
-        assetAudioPath: "assets/ringtone/ImmigrantSong.mp3++++++",
-        loopAudio: true,
-        // volume: 0.0,
-        vibrate: false,
-        // volumeMax: true,
-        fadeDuration: 3.0,
-        notificationTitle: 'Alarm is Playing',
-        notificationBody: 'Tap to stop',
-        enableNotificationOnKill: true,
-        // stopOnNotificationOpen: true,
-        androidFullScreenIntent: false);
+    // final alarmSettings = AlarmSettings(
+    //     id: Random().nextInt(100),
+    //     dateTime: time,
+    //     assetAudioPath: "assets/ringtone/ImmigrantSong.mp3++++++",
+    //     loopAudio: true,
+    //     // volume: 0.0,
+    //     vibrate: false,
+    //     // volumeMax: true,
+    //     fadeDuration: 3.0,
+    //     notificationTitle: 'Alarm is Playing',
+    //     notificationBody: 'Tap to stop',
+    //     enableNotificationOnKill: true,
+    //     // stopOnNotificationOpen: true,
+    //     androidFullScreenIntent: false);
 
     // Alarm.set(alarmSettings: alarmSettings).then((value) async {
     await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
@@ -158,40 +157,6 @@ class AlramController extends GetxController {
     }
   }
 
-  // setstorealramtolocal(cntx) async {
-  //   clearalramlist();
-  //   var uid = box.read('uid');
-  //   print("uid" + uid.toString());
-  //   QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
-  //       .collection("alarm")
-  //       .where("uid", isEqualTo: uid)
-  //       .get();
-  //   _querySnapshot.docs.forEach((element) async {
-  //     if (element['alarmstatus'] == true) {
-  //       print("insert -------------------");
-  //       final alarmSettings = AlarmSettings(
-  //           id: element['id'],
-  //           dateTime: DateTime.parse(element['date']),
-  //           assetAudioPath: element['assetAudioPath'],
-  //           loopAudio: true,
-  //           vibrate: true,
-  //           // volumeMax: true,
-  //           fadeDuration: 3.0,
-  //           notificationTitle: 'Alarm is Playing',
-  //           notificationBody: 'Tap to stop',
-  //           enableNotificationOnKill: true,
-  //           // stopOnNotificationOpen: true,
-  //           androidFullScreenIntent: true);
-  //       await Alarm.set(alarmSettings: alarmSettings).then((value) async {
-  //         print("alarm set to local");
-  //         //insert to firebase
-  //       }).then((value) {});
-  //     }
-  //   });
-  //   alarms.value = await Alarm.getAlarms();
-  //   print("alarams" + alarms.toString());
-  // }
-
   shownotification(soundname, snooze, dateTime) async {
     DateTime currentTime = DateTime.now();
     await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
@@ -204,7 +169,7 @@ class AlramController extends GetxController {
           channelShowBadge: false,
           importance: NotificationImportance.Max,
           enableVibration: true,
-          playSound: true,
+          playSound: false,
           soundSource: soundname),
     ]);
     bool isallowed = await AwesomeNotifications().isNotificationAllowed();
@@ -217,64 +182,168 @@ class AlramController extends GetxController {
       //show notification
       // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
       print("LENGTHHHHHHHHHHHHHH=> " + selectedweekdaylist.toString());
-      AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: 123,
-            channelKey: 'basic', //set configuration wuth key "basic"
-            title: 'Alarm is playing....',
-            body: '',
-            payload: {
-              "name": "FlutterCampus",
-              "currentTime": currentTime.toString(),
-              "sound": soundname.toString(),
-              "snooze": snooze.toString()
-            },
-            autoDismissible: false,
-            customSound: soundname,
-            displayOnForeground: true,
-            plays
-            wakeUpScreen: true),
-        actionButtons: snooze
-            ? [
-                NotificationActionButton(
-                    key: "stop",
-                    label: "Stop alarm",
-                    actionType: ActionType.SilentBackgroundAction),
-                NotificationActionButton(
-                    key: "snooze",
-                    label: "Snooze",
-                    actionType: ActionType.SilentBackgroundAction)
-              ]
-            : [
-                NotificationActionButton(
-                    key: "stop",
-                    label: "Stop alarm",
-                    actionType: ActionType.SilentBackgroundAction),
-              ],
-        schedule: selectedweekdaylist.length > 0
-            ? Sendnotification(dateTime)
-            : NotificationCalendar.fromDate(
-                date: dateTime, preciseAlarm: true, repeats: true),
-      );
+      selectedweekdaylist.length > 0
+          ? Sendnotification(soundname, snooze, dateTime)
+          : AwesomeNotifications().createNotification(
+              content: NotificationContent(
+                  id: Random().nextInt(9999),
+                  channelKey: 'basic', //set configuration wuth key "basic"
+                  title: 'Alarm is playing....',
+                  body: '',
+                  payload: {
+                    "name": "FlutterCampus",
+                    "currentTime": currentTime.toString(),
+                    "sound": soundname.toString(),
+                    "assets": currentsoundassets.toString(),
+                    "snooze": snooze.toString()
+                  },
+                  autoDismissible: false,
+                  customSound: soundname,
+                  displayOnForeground: true,
+                  wakeUpScreen: true,
+                  fullScreenIntent: true),
+              actionButtons: snooze
+                  ? [
+                      NotificationActionButton(
+                          key: "stop",
+                          label: "Stop alarm",
+                          actionType: ActionType.SilentBackgroundAction),
+                      NotificationActionButton(
+                          key: "snooze",
+                          label: "Snooze",
+                          actionType: ActionType.SilentBackgroundAction)
+                    ]
+                  : [
+                      NotificationActionButton(
+                          key: "stop",
+                          label: "Stop alarm",
+                          actionType: ActionType.SilentBackgroundAction),
+                    ],
+              schedule: NotificationCalendar.fromDate(
+                  date: dateTime, preciseAlarm: true, repeats: true));
     }
   }
 
-  Sendnotification(dateTime) {
+  newsendnotify(soundname, snooze, dateTime) {
+    DateTime currentTime = DateTime.now();
+    var currentdate = DateTime.now();
+    for (var i = 0; i < selectedweekdaylist.length; i++) {
+      var selectedday = int.parse(selectedweekdaylist[i].toString());
+      var currentday = currentdate.weekday;
+      var nextalarmday = selectedday > currentday
+          ? selectedday - currentday
+          : currentday - selectedday;
+      final newdate = DateTime(
+          currentdate.year,
+          currentdate.month,
+          selectedday > currentday
+              ? currentdate.day + nextalarmday
+              : currentdate.day - nextalarmday);
+      var neww = newdate.toString().split(' ');
+      // print("NewDatee" + dateTime. .toString());
+      var newdatetime =
+          neww[0].toString() + ' ' + dateTime.toString().split(' ')[1];
+      print("NewDatee" + newdatetime.toString());
+      Future.delayed(Duration(milliseconds: 200), () {
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+                id: 123,
+                channelKey: 'basic', //set configuration wuth key "basic"
+                title: 'Alarm is playing....',
+                body: '',
+                payload: {
+                  "name": "FlutterCampus",
+                  "currentTime": currentTime.toString(),
+                  "sound": soundname.toString(),
+                  "snooze": snooze.toString()
+                },
+                autoDismissible: false,
+                customSound: soundname,
+                displayOnForeground: true,
+                wakeUpScreen: true),
+            actionButtons: snooze
+                ? [
+                    NotificationActionButton(
+                        key: "stop",
+                        label: "Stop alarm",
+                        actionType: ActionType.SilentBackgroundAction),
+                    NotificationActionButton(
+                        key: "snooze",
+                        label: "Snooze",
+                        actionType: ActionType.SilentBackgroundAction)
+                  ]
+                : [
+                    NotificationActionButton(
+                        key: "stop",
+                        label: "Stop alarm",
+                        actionType: ActionType.SilentBackgroundAction),
+                  ],
+            schedule: NotificationCalendar.fromDate(
+                date: DateTime.parse(newdatetime),
+                preciseAlarm: true,
+                repeats: true)
+
+            // schedule: selectedweekdaylist.length > 0
+            //     ? Sendnotification(dateTime)
+            //     : NotificationCalendar.fromDate(
+            //         date: dateTime, preciseAlarm: true, repeats: true),
+            );
+      });
+    }
+  }
+
+  Sendnotification(soundname, snooze, dateTime) {
+    DateTime currentTime = DateTime.now();
     for (var i = 0; i < selectedweekdaylist.length; i++) {
       print("Alarm Day" +
           dateTime.toString() +
           '---' +
           selectedweekdaylist[i].toString());
-      NotificationCalendar(
-        repeats: true,
-        weekday: int.parse(selectedweekdaylist[i].toString()),
-        hour: dateTime.hour,
-        minute: dateTime.minute,
-        second: 0,
-        millisecond: 0,
-        allowWhileIdle: true,
-        preciseAlarm: true,
-      );
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: Random().nextInt(9999),
+              channelKey: 'basic', //set configuration wuth key "basic"
+              title: 'Alarm is playing....',
+              body: '',
+              payload: {
+                "name": "FlutterCampus",
+                "currentTime": currentTime.toString(),
+                "sound": soundname.toString(),
+                "assets": currentsoundassets.toString(),
+                "snooze": snooze.toString()
+              },
+              autoDismissible: false,
+              customSound: soundname,
+              displayOnForeground: true,
+              wakeUpScreen: true,
+              fullScreenIntent: true),
+          actionButtons: snooze
+              ? [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alarm",
+                      actionType: ActionType.SilentBackgroundAction),
+                  NotificationActionButton(
+                      key: "snooze",
+                      label: "Snooze",
+                      actionType: ActionType.SilentBackgroundAction)
+                ]
+              : [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alarm",
+                      actionType: ActionType.SilentBackgroundAction),
+                ],
+          schedule: NotificationCalendar(
+            repeats: true,
+            weekday: int.parse(selectedweekdaylist[i].toString()),
+            hour: dateTime.hour,
+            minute: dateTime.minute,
+            second: 0,
+            millisecond: 0,
+            allowWhileIdle: true,
+            preciseAlarm: true,
+          ));
     }
   }
 }

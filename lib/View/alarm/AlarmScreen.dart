@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:alarmplayer/alarmplayer.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Color.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +11,35 @@ import 'package:intl/intl.dart';
 import '../../Config/Import.dart';
 import '../../main.dart';
 
-class AlarmScreen extends StatelessWidget {
+class AlarmScreen extends StatefulWidget {
   // final ObservableAlarm? alarm;
-
+  final data;
+  final Function? onsnoozeTap;
   const AlarmScreen({
     Key? key,
+    this.data,
+    this.onsnoozeTap,
     // required this.alarm
   }) : super(key: key);
+
+  @override
+  State<AlarmScreen> createState() => _AlarmScreenState();
+}
+
+class _AlarmScreenState extends State<AlarmScreen> {
+  Alarmplayer alarmplayer = Alarmplayer();
+  @override
+  void initState() {
+    // alarmplayer.StopAlarm();
+    alarmplayer.Alarm(
+      url: widget.data['assets'].toString(), // Path of sound file.
+      volume: 1, // optional, set the volume, default 1.
+      looping: true, // optional, if you want to loop you're alarm or not
+      // callback: ()              // this is the callback, it's getting executed if you're alarm
+      // => {print("i'm done!")}   // is done playing. Note if you're alarm is on loop you're callback won't be executed
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +54,14 @@ class AlarmScreen extends StatelessWidget {
     ];
     double baseWidth = 390;
     double fem = MediaQuery.of(context).size.width / baseWidth;
+
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            SizedBox(height: 20),
             Center(
               child: NeumorphicTheme.isUsingDark(context)
                   ? Container(
@@ -62,7 +90,7 @@ class AlarmScreen extends StatelessWidget {
                           Container(
                             width: 250,
                             child: Text(
-                              'alarm!.name',
+                              'Alarm',
                               maxLines: 3,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
@@ -97,7 +125,7 @@ class AlarmScreen extends StatelessWidget {
                             Container(
                               width: 250,
                               child: Text(
-                                'alarm!.name',
+                                'Alarm',
                                 maxLines: 3,
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
@@ -111,69 +139,52 @@ class AlarmScreen extends StatelessWidget {
                       ],
                     ),
             ),
-            SizedBox(
-              height: 45,
-            ),
-            GestureDetector(
-              onTap: () async {
-                await rescheduleAlarm(5);
-              },
-              child: Text(
-                'Snooze',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: NeumorphicTheme.accentColor(context)),
+            SizedBox(height: 45),
+            if (bool.parse(widget.data['snooze'].toString()) == true)
+              GestureDetector(
+                onTap: () async {
+                  // await rescheduleAlarm(5);
+                },
+                child: Text(
+                  'Snooze',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: NeumorphicTheme.accentColor(context)),
+                ),
               ),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: snoozeTimes
-                  .map((minutes) => Expanded(
-                        child: ButtonWidget(
-                          name: "+$minutes\m",
-                          issmall: true,
-                          // fontSize: 24,
-                          onTap: () async {
-                            await rescheduleAlarm(minutes);
-                          },
-                        ).paddingSymmetric(
-                            horizontal:
-                                NeumorphicTheme.isUsingDark(context) ? 10 : 0),
-                      ))
-                  .toList(),
-            ),
-            SizedBox(
-              height: 45,
-            ),
+            if (bool.parse(widget.data['snooze'].toString()) == true)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: snoozeTimes
+                    .map((minutes) => Expanded(
+                          child: ButtonWidget(
+                            name: "+$minutes\m",
+                            issmall: true,
+                            // fontSize: 24,
+                            onTap: () async {
+                              widget.onsnoozeTap!(minutes);
+                              alarmplayer.StopAlarm();
+                              SystemNavigator.pop();
+                            },
+                          ).paddingSymmetric(
+                              horizontal: NeumorphicTheme.isUsingDark(context)
+                                  ? 10
+                                  : 0),
+                        ))
+                    .toList(),
+              ),
+            SizedBox(height: 45),
             ButtonWidget(
                 name: "Dismiss",
                 onTap: () async {
-                  await dismissCurrentAlarm();
+                  alarmplayer.StopAlarm();
+                  SystemNavigator.pop();
                 }),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> dismissCurrentAlarm() async {
-    // mediaHandler.stopMusic();
-    // Wakelock.disable();
-
-    // AlarmStatus().isAlarm = false;
-    // AlarmStatus().alarmId = -1;
-    SystemNavigator.pop();
-  }
-
-  Future<void> rescheduleAlarm(int minutes) async {
-    // Re-schedule alarm
-    // var checkedDay = DateTime.now();
-    // var targetDateTime = DateTime(checkedDay.year, checkedDay.month,
-    //     checkedDay.day, alarm!.hour!, alarm!.minute!);
-    // await AlarmScheduler()
-    //     .newShot(targetDateTime.add(Duration(minutes: minutes)), alarm!.id!);
-    dismissCurrentAlarm();
   }
 }

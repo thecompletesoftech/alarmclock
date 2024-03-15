@@ -1,12 +1,7 @@
-import 'dart:developer';
-import 'dart:io';
 import 'dart:ui';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
   NotificationService();
@@ -37,7 +32,7 @@ class NotificationService {
 
   void onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) {
-    print('id $id');
+    print('id===> $id');
   }
 
   void selectNotification(String? payload) {
@@ -48,7 +43,7 @@ class NotificationService {
 
   Future<NotificationDetails> _notificationDetails() async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
-      AndroidNotificationDetails(
+        AndroidNotificationDetails(
       'channel id',
       'channel name',
       groupKey: 'com.example.newtask',

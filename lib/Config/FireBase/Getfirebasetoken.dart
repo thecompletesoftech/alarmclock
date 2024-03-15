@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_storage/get_storage.dart';
 

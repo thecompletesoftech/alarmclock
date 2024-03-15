@@ -13,15 +13,27 @@ class Sound extends StatefulWidget {
 
 class _SoundState extends State<Sound> {
   var soundlist = [
-    {"title": "Immigrant Song", "path": "resource://raw/immigrantsong"},
-    {"title": "Super Mario", "path": "resource://raw/breaktime"},
-    {"title": "Breaking", "path": "resource://raw/breaktime"},
-    {"title": "Canopy"},
-    {"title": "Thursday"},
-    {"title": "Chalet"},
-    {"title": "Quad"},
-    {"title": "Steps"},
-    {"title": "Chirp"},
+    {
+      "title": "Immigrant Song",
+      "path": "resource://raw/immigrantsong",
+      'assets': 'assets/ringtone/immigrate.mp3'
+    },
+    {
+      "title": "Super Mario",
+      "path": "resource://raw/breaktime",
+      'assets': 'assets/ringtone/ImmigrantSong.mp3'
+    },
+    {
+      "title": "Breaking",
+      "path": "resource://raw/breaktime",
+      'assets': 'assets/ringtone/Super-Mario.mp3'
+    },
+    // {"title": "Canopy"},
+    // {"title": "Thursday"},
+    // {"title": "Chalet"},
+    // {"title": "Quad"},
+    // {"title": "Steps"},
+    // {"title": "Chirp"},
     // {"title": "Valley"}
   ];
   var isplaying = false;
@@ -117,6 +129,9 @@ class _SoundState extends State<Sound> {
                                         _alramController
                                                 .currentsoundpath.value =
                                             soundlist[index]['path'].toString();
+                                        _alramController
+                                                .currentsoundassets.value =
+                                            soundlist[index]['assets'].toString();
                                         // backscreen(context);
                                         // if (index == 0) {
                                         //   // final player = AudioCache();

@@ -20,6 +20,7 @@ class _AddAlramState extends State<AddAlram> {
   void initState() {
     _alramController.selectedweekdaylist.clear();
     _alramController.currentsoundpath.value = "resource://raw/immigrantsong";
+    _alramController.currentsoundassets.value = "assets/ringtone/Super-Mario.mp3";
     _alramController.currentsound.value = "Immigrant Song";
     super.initState();
   }

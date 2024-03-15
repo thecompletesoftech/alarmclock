@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+  alarmplayer:
+    dependency: "direct main"
+    description:
+      name: alarmplayer
+      sha256: c9b80b9aa180f0572436cfb912786170da57d09e90ee137a778b3681058c6c3c
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   analog_clock:
     dependency: "direct main"
     description:
