@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 
 import 'package:timezone/data/latest.dart' as tz;
 
+ProfileController profilecontroller = Get.put(ProfileController());
 var onalarm = false;
 void main() async {
   await GetStorage.init();
@@ -21,33 +22,23 @@ void main() async {
   await Alarm.init();
   // await PushNotificationService().setupInteractedMessage();
   await NotificationService().initializePlatformNotifications();
-  runApp(const MyApp());
-}
 
-onSelectNotification(String? payload) async {
-  // Handle the selection of the notification
-  print('Notification selected: $payload');
+  ReceivedAction? receivedAction = await AwesomeNotifications()
+      .getInitialNotificationAction(removeFromActionEvents: false);
+  if (receivedAction?.channelKey == 'basic') {
+    print("checkSecondd" + receivedAction.toString());
+    runApp(MyApps(dataa: receivedAction!.payload!));
+  } else {
+    runApp(const MyApp());
+  }
 }
 
 var box = GetStorage();
 
-ProfileController profilecontroller = Get.put(ProfileController());
-
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  var dataa = null;
-  @override
-  void initState() {
-    profilecontroller.notification();
-    super.initState();
-  }
-
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -61,36 +52,78 @@ class _MyAppState extends State<MyApp> {
             : Brightness.dark));
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       home: Obx(
         () => NeumorphicApp(
-          debugShowCheckedModeBanner: false,
-          themeMode: profilecontroller.darktheme.value == true
-              ? ThemeMode.dark
-              : ThemeMode.light,
-          theme: NeumorphicThemeData(
-            defaultTextColor: mycolor().Black,
-            baseColor: mycolor().lightWhite,
-            lightSource: LightSource.topLeft,
-            accentColor: mycolor().lighttxtcolor,
-            depth: 10,
-          ),
-          darkTheme: NeumorphicThemeData(
-            defaultTextColor: mycolor().White,
-            baseColor: mycolor().lightBlack,
-            accentColor: mycolor().darktxtcolor,
-            lightSource: LightSource.topLeft,
-            depth: 6,
-          ),
-          home: profilecontroller.dataa.length < 1
-              ? SplashScreen()
-              : AlarmScreen(
-                  data: dataa,
-                  onsnoozeTap: (val) {
-                    print("checkkkkkkkkkkk" + val.toString());
-                    profilecontroller.snooze(dataa, val);
-                  },
-                ),
-        ),
+            debugShowCheckedModeBanner: false,
+            themeMode: profilecontroller.darktheme.value == true
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            theme: NeumorphicThemeData(
+              defaultTextColor: mycolor().Black,
+              baseColor: mycolor().lightWhite,
+              lightSource: LightSource.topLeft,
+              accentColor: mycolor().lighttxtcolor,
+              depth: 10,
+            ),
+            darkTheme: NeumorphicThemeData(
+              defaultTextColor: mycolor().White,
+              baseColor: mycolor().lightBlack,
+              accentColor: mycolor().darktxtcolor,
+              lightSource: LightSource.topLeft,
+              depth: 6,
+            ),
+            home: SplashScreen()),
+      ),
+    );
+  }
+}
+
+class MyApps extends StatelessWidget {
+  final dataa;
+  const MyApps({super.key, this.dataa});
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: profilecontroller.darktheme.value == true
+            ? mycolor().lightBlack
+            : mycolor().lightWhite,
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: profilecontroller.darktheme.value == true
+            ? Brightness.light
+            : Brightness.dark));
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
+      home: Obx(
+        () => NeumorphicApp(
+            debugShowCheckedModeBanner: false,
+            themeMode: profilecontroller.darktheme.value == true
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            theme: NeumorphicThemeData(
+              defaultTextColor: mycolor().Black,
+              baseColor: mycolor().lightWhite,
+              lightSource: LightSource.topLeft,
+              accentColor: mycolor().lighttxtcolor,
+              depth: 10,
+            ),
+            darkTheme: NeumorphicThemeData(
+              defaultTextColor: mycolor().White,
+              baseColor: mycolor().lightBlack,
+              accentColor: mycolor().darktxtcolor,
+              lightSource: LightSource.topLeft,
+              depth: 6,
+            ),
+            home: AlarmScreen(
+              data: dataa,
+              onsnoozeTap: (val) {
+                profilecontroller.snooze(dataa, val);
+              },
+            )),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
+import 'package:clockalarm/View/alarm/AlarmScreen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../../main.dart';
@@ -99,14 +100,26 @@ class ProfileController extends GetxController {
   }
 
   notification() async {
+    print("checkFirst--> ");
     await AwesomeNotifications().setListeners(
         onActionReceivedMethod: (ReceivedAction receivedAction) async {},
         onNotificationCreatedMethod:
             (ReceivedNotification receivedNotification) async {},
         onNotificationDisplayedMethod:
             (ReceivedNotification receivedNotification) async {
+          SnackBar(content: Text("eneter"));
           print("object" + receivedNotification.toString());
           dataa.value = receivedNotification.payload!;
+          print("Receivedd");
+          print("Receivedd value ===> " + receivedNotification.toString());
+          Get.to(
+            () => AlarmScreen(
+              data: receivedNotification.payload!,
+              onsnoozeTap: (val) {
+                snooze(receivedNotification.payload!, val);
+              },
+            ),
+          );
         },
         onDismissActionReceivedMethod:
             (ReceivedAction receivedAction) async {});

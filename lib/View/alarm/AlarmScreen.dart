@@ -31,6 +31,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
   @override
   void initState() {
     // alarmplayer.StopAlarm();
+    print("NETER Screen");
     alarmplayer.Alarm(
       url: widget.data['assets'].toString(), // Path of sound file.
       volume: 1, // optional, set the volume, default 1.

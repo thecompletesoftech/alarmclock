@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   var box = GetStorage();
   Alarmplayer alarmplayer = Alarmplayer();
   void initState() {
-    notification();
+    print("Splash ENTER==>");
     Timer(
       Duration(seconds: 5),
       () => nextscreenwithoutback(
@@ -28,7 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  notification() {
+  Future<dynamic> notification() async {
+    var data = false;
     AwesomeNotifications().setListeners(
         onActionReceivedMethod: (ReceivedAction receivedAction) async {},
         onNotificationCreatedMethod:
@@ -36,28 +37,20 @@ class _SplashScreenState extends State<SplashScreen> {
         onNotificationDisplayedMethod:
             (ReceivedNotification receivedNotification) async {
           print("object" + receivedNotification.toString());
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => AlarmScreen(
-                      data: receivedNotification,
-                      onsnoozeTap: (val) {
-                        print("checkkkkkkkkkkk" + val.toString());
-                        snooze(receivedNotification, val);
-                      },
-                    )),
-          );
-          // Get.to(() => AlarmScreen(
-          //       data: receivedNotification,
-          //       onsnoozeTap: (val) {
-          //         print("checkkkkkkkkkkk" + val.toString());
-          //         snooze(receivedNotification, val);
-          //       },
-          //     ));
+          if (receivedNotification.payload != null) {
+            Get.to(() => AlarmScreen(
+                  data: receivedNotification,
+                  onsnoozeTap: (val) {
+                    print("checkkkkkkkkkkk" + val.toString());
+                    snooze(receivedNotification, val);
+                  },
+                ));
+            data = true;
+          }
         },
-        onDismissActionReceivedMethod: (ReceivedAction receivedAction) async {
-          // alarmplayer.StopAlarm();
-        });
+        onDismissActionReceivedMethod:
+            (ReceivedAction receivedAction) async {});
+    return data;
   }
 
   @override

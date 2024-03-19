@@ -44,10 +44,10 @@ class NotificationService {
   Future<NotificationDetails> _notificationDetails() async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'channel id',
-      'channel name',
+      'basic',
+      'Basic notifications',
       groupKey: 'com.example.newtask',
-      channelDescription: 'channel description',
+      channelDescription: 'Notification channel for basic tests',
       importance: Importance.max,
       priority: Priority.max,
       fullScreenIntent: true,
