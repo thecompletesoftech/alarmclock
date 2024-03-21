@@ -25,35 +25,18 @@ class AlramController extends GetxController {
   var box = GetStorage();
 
   setAlarm(time, snooze, audio, BuildContext context) async {
-    // shownotification(audio, snooze, DateTime.parse(time.toString()));
     addalarmisloading.value = true;
     print("dateTime" + time.toString());
-    // final alarmSettings = AlarmSettings(
-    //     id: Random().nextInt(100),
-    //     dateTime: time,
-    //     assetAudioPath: "assets/ringtone/ImmigrantSong.mp3++++++",
-    //     loopAudio: true,
-    //     // volume: 0.0,
-    //     vibrate: false,
-    //     // volumeMax: true,
-    //     fadeDuration: 3.0,
-    //     notificationTitle: 'Alarm is Playing',
-    //     notificationBody: 'Tap to stop',
-    //     enableNotificationOnKill: true,
-    //     // stopOnNotificationOpen: true,
-    //     androidFullScreenIntent: false);
-
-    // Alarm.set(alarmSettings: alarmSettings).then((value) async {
-    await AddAlramtime(time.hour.toString() + ":" + time.minute.toString(),
-        time.toString(), snooze, audio, context);
-    print("time to" + time.toString());
-    shownotification(audio, snooze, DateTime.parse(time.toString()));
+    var notid = Random().nextInt(9999);
+    await AddAlramtime(
+        notid,
+        time.hour.toString() + ":" + time.minute.toString(),
+        time.toString(),
+        snooze,
+        audio,
+        context);
+    shownotification(notid, audio, snooze, DateTime.parse(time.toString()));
     addalarmisloading.value = false;
-    //insert to firebase
-    // }).then((value) {
-    //   addalarmisloading.value = false;
-    //   //get data of firebase
-    // });
   }
 
   setalarmfalse() async {
@@ -66,16 +49,24 @@ class AlramController extends GetxController {
     if (_querySnapshot.docs.isNotEmpty) {
       for (var i = 0; i < _querySnapshot.docs.length; i++) {
         if (DateTime.parse(_querySnapshot.docs[i]['date']).compareTo(now) < 0) {
-          FirebaseFirestore.instance
-              .collection("alarm")
-              .doc(_querySnapshot.docs[i].id)
-              .update({"alarmstatus": false});
+          if (_querySnapshot.docs[i]['repeat'] != true) {
+            FirebaseFirestore.instance
+                .collection('alarm')
+                .doc(_querySnapshot.docs[i].id)
+                .delete();
+            AwesomeNotifications().cancel(_querySnapshot.docs[i]['id']);
+            // FirebaseFirestore.instance
+            //     .collection("alarm")
+            //     .doc(_querySnapshot.docs[i].id)
+            //     .update({"alarmstatus": false});
+          }
         }
       }
     }
   }
 
   alramstatus(id, status, cntx) async {
+    print("staaa" + status.toString());
     QuerySnapshot _querySnapshot = await FirebaseFirestore.instance
         .collection("alarm")
         .where("id", isEqualTo: id)
@@ -85,10 +76,13 @@ class AlramController extends GetxController {
           .collection("alarm")
           .doc(_querySnapshot.docs[0].id)
           .update({"alarmstatus": status});
+      if (status == false) {
+        AwesomeNotifications().cancel(id);
+      } else {
+        await reschedule(_querySnapshot.docs[0].id);
+      }
     }
-    // clearalramlist();
     await setalarmfalse();
-    // await setstorealramtolocal(cntx);
     final QuerySnapshot qSnap = await FirebaseFirestore.instance
         .collection('alarm')
         .where("uid", isEqualTo: box.read('uid'))
@@ -97,48 +91,37 @@ class AlramController extends GetxController {
     print("documents length" + documents.toString());
   }
 
-  getalram(cntx) async {
-    getalarmisloading.value = true;
-    // clearalramlist();
-    await setalarmfalse();
-    // await setstorealramtolocal(cntx);
-    final QuerySnapshot qSnap = await FirebaseFirestore.instance
-        .collection('alarm')
-        .where("uid", isEqualTo: box.read('uid'))
-        .get();
-    final int documents = qSnap.docs.length;
-    print("documents length" + documents.toString());
-    getalarmisloading.value = false;
+  reschedule(id) async {
+    await FirebaseFirestore.instance
+        .collection("alarm")
+        .doc(id)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        Map<String, dynamic>? data = value.data();
+        if (data != null)
+          shownotification(data['id'], data['assetAudioPath'], data['snooze'],
+              DateTime.parse(data['date'].toString()));
+      }
+    });
   }
 
-  clearalramlist() async {
-    var alarms = await Alarm.getAlarms();
-    print("alarams" + alarms.toString());
-    for (var i = 0; i < alarms.length; i++) {
-      Alarm.stop(alarms[i].id);
-    }
-  }
-
-  AddAlramtime(dateTime, date, snooze, audio, cntx) {
+  AddAlramtime(notid, dateTime, date, snooze, audio, cntx) {
     alarmisloading.value = true;
     var uid = box.read('uid');
     var alramdata = {
       "uid": uid,
-      "id": Random().nextInt(100),
+      "id": notid,
       'docid': '',
       "dateTime": dateTime,
       "date": date,
       "assetAudioPath": audio,
-      "loopAudio": snooze,
-      "vibrate": true,
+      "snooze": snooze,
       "alarmstatus": true,
-      "fadeDuration": 3.0,
+      'repeat': selectedweekdaylist.length > 0 ? true : false,
       "notificationTitle": 'Alarm is Playing',
-      "notificationBody": 'Tap to stop',
-      "enableNotificationOnKill": true,
-      "androidFullScreenIntent": true
+      "notificationBody": '',
     };
-    // log("UserDetail" + userdata.toString());
     try {
       FirebaseFirestore.instance
           .collection("alarm")
@@ -157,7 +140,7 @@ class AlramController extends GetxController {
     }
   }
 
-  shownotification(soundname, snooze, dateTime) async {
+  shownotification(notid, soundname, snooze, dateTime) async {
     DateTime currentTime = DateTime.now();
     await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
       // notification icon
@@ -173,20 +156,17 @@ class AlramController extends GetxController {
           soundSource: soundname),
     ]);
     bool isallowed = await AwesomeNotifications().isNotificationAllowed();
-
     if (!isallowed) {
       print("object===>>>>>>>>>>");
       //no permission of local notification
       AwesomeNotifications().requestPermissionToSendNotifications();
     } else {
-      //show notification
-      // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
       print("LENGTHHHHHHHHHHHHHH=> " + selectedweekdaylist.toString());
       selectedweekdaylist.length > 0
-          ? Sendnotification(soundname, snooze, dateTime)
+          ? Sendnotification(notid, soundname, snooze, dateTime)
           : AwesomeNotifications().createNotification(
               content: NotificationContent(
-                  id: Random().nextInt(9999),
+                  id: notid,
                   channelKey: 'basic', //set configuration wuth key "basic"
                   title: 'Alarm is playing....',
                   body: '',
@@ -224,75 +204,7 @@ class AlramController extends GetxController {
     }
   }
 
-  newsendnotify(soundname, snooze, dateTime) {
-    DateTime currentTime = DateTime.now();
-    var currentdate = DateTime.now();
-    for (var i = 0; i < selectedweekdaylist.length; i++) {
-      var selectedday = int.parse(selectedweekdaylist[i].toString());
-      var currentday = currentdate.weekday;
-      var nextalarmday = selectedday > currentday
-          ? selectedday - currentday
-          : currentday - selectedday;
-      final newdate = DateTime(
-          currentdate.year,
-          currentdate.month,
-          selectedday > currentday
-              ? currentdate.day + nextalarmday
-              : currentdate.day - nextalarmday);
-      var neww = newdate.toString().split(' ');
-      // print("NewDatee" + dateTime. .toString());
-      var newdatetime =
-          neww[0].toString() + ' ' + dateTime.toString().split(' ')[1];
-      print("NewDatee" + newdatetime.toString());
-      Future.delayed(Duration(milliseconds: 200), () {
-        AwesomeNotifications().createNotification(
-            content: NotificationContent(
-                id: 123,
-                channelKey: 'basic', //set configuration wuth key "basic"
-                title: 'Alarm is playing....',
-                body: '',
-                payload: {
-                  "name": "FlutterCampus",
-                  "currentTime": currentTime.toString(),
-                  "sound": soundname.toString(),
-                  "snooze": snooze.toString()
-                },
-                autoDismissible: false,
-                customSound: soundname,
-                displayOnForeground: true,
-                wakeUpScreen: true),
-            actionButtons: snooze
-                ? [
-                    NotificationActionButton(
-                        key: "stop",
-                        label: "Stop alarm",
-                        actionType: ActionType.SilentBackgroundAction),
-                    NotificationActionButton(
-                        key: "snooze",
-                        label: "Snooze",
-                        actionType: ActionType.SilentBackgroundAction)
-                  ]
-                : [
-                    NotificationActionButton(
-                        key: "stop",
-                        label: "Stop alarm",
-                        actionType: ActionType.SilentBackgroundAction),
-                  ],
-            schedule: NotificationCalendar.fromDate(
-                date: DateTime.parse(newdatetime),
-                preciseAlarm: true,
-                repeats: true)
-
-            // schedule: selectedweekdaylist.length > 0
-            //     ? Sendnotification(dateTime)
-            //     : NotificationCalendar.fromDate(
-            //         date: dateTime, preciseAlarm: true, repeats: true),
-            );
-      });
-    }
-  }
-
-  Sendnotification(soundname, snooze, dateTime) {
+  Sendnotification(notid, soundname, snooze, dateTime) {
     DateTime currentTime = DateTime.now();
     for (var i = 0; i < selectedweekdaylist.length; i++) {
       print("Alarm Day" +
@@ -301,7 +213,7 @@ class AlramController extends GetxController {
           selectedweekdaylist[i].toString());
       AwesomeNotifications().createNotification(
           content: NotificationContent(
-              id: Random().nextInt(9999),
+              id: notid,
               channelKey: 'basic', //set configuration wuth key "basic"
               title: 'Alarm is playing....',
               body: '',
@@ -345,5 +257,6 @@ class AlramController extends GetxController {
             preciseAlarm: true,
           ));
     }
+    selectedweekdaylist.clear();
   }
 }

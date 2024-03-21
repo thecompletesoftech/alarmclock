@@ -99,32 +99,6 @@ class ProfileController extends GetxController {
     return true;
   }
 
-  notification() async {
-    print("checkFirst--> ");
-    await AwesomeNotifications().setListeners(
-        onActionReceivedMethod: (ReceivedAction receivedAction) async {},
-        onNotificationCreatedMethod:
-            (ReceivedNotification receivedNotification) async {},
-        onNotificationDisplayedMethod:
-            (ReceivedNotification receivedNotification) async {
-          SnackBar(content: Text("eneter"));
-          print("object" + receivedNotification.toString());
-          dataa.value = receivedNotification.payload!;
-          print("Receivedd");
-          print("Receivedd value ===> " + receivedNotification.toString());
-          Get.to(
-            () => AlarmScreen(
-              data: receivedNotification.payload!,
-              onsnoozeTap: (val) {
-                snooze(receivedNotification.payload!, val);
-              },
-            ),
-          );
-        },
-        onDismissActionReceivedMethod:
-            (ReceivedAction receivedAction) async {});
-  }
-
   add5Minutes(String timeString, {mins = 5}) {
     DateTime currentTime = DateTime.parse(timeString);
     DateTime updatedTime = currentTime.add(Duration(minutes: mins));
@@ -133,13 +107,15 @@ class ProfileController extends GetxController {
     return newtime;
   }
 
-  snooze(data, mins) {
+  snooze(notid, data, mins) async {
+    print("datata===> " + data.toString());
+    print("datata===> " + mins.toString());
     var updatedTime = add5Minutes(data['currentTime'].toString(), mins: mins);
-    shownotification(data['sound'], bool.parse(data['snooze'].toString()),
-        updatedTime, data['assets']);
+    await shownotification(notid, data['sound'],
+        bool.parse(data['snooze'].toString()), updatedTime, data['assets']);
   }
 
-  shownotification(soundname, snooze, dateTime, soundassets) async {
+  shownotification(notid, soundname, snooze, dateTime, soundassets) async {
     DateTime currentTime = DateTime.now();
     await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
       NotificationChannel(
@@ -150,8 +126,7 @@ class ProfileController extends GetxController {
           channelShowBadge: false,
           importance: NotificationImportance.Max,
           enableVibration: true,
-          playSound: true,
-          onlyAlertOnce: false,
+          playSound: false,
           soundSource: soundname),
     ]);
     bool isallowed = await AwesomeNotifications().isNotificationAllowed();
@@ -160,9 +135,10 @@ class ProfileController extends GetxController {
       print("object===>>>>>>>>>>");
       AwesomeNotifications().requestPermissionToSendNotifications();
     } else {
+      print('entererr' + dateTime.toString());
       AwesomeNotifications().createNotification(
           content: NotificationContent(
-              id: Random().nextInt(999),
+              id: notid,
               channelKey: 'basic', //set configuration wuth key "basic"
               title: 'Alarm is playing',
               body: '',
@@ -175,8 +151,11 @@ class ProfileController extends GetxController {
               },
               autoDismissible: false,
               customSound: soundname,
+              displayOnForeground: true,
+              wakeUpScreen: true,
               fullScreenIntent: true),
-          schedule: NotificationCalendar.fromDate(date: dateTime),
+          schedule: NotificationCalendar.fromDate(
+              date: dateTime, preciseAlarm: true, repeats: true),
           actionButtons: snooze
               ? [
                   NotificationActionButton(

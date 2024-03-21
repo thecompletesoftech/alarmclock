@@ -1,25 +1,16 @@
-import 'dart:math';
-
 import 'package:alarmplayer/alarmplayer.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:clockalarm/Config/Color.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-
 import '../../Config/Import.dart';
-import '../../main.dart';
 
 class AlarmScreen extends StatefulWidget {
-  // final ObservableAlarm? alarm;
   final data;
   final Function? onsnoozeTap;
   const AlarmScreen({
     Key? key,
     this.data,
     this.onsnoozeTap,
-    // required this.alarm
   }) : super(key: key);
 
   @override
@@ -30,25 +21,20 @@ class _AlarmScreenState extends State<AlarmScreen> {
   Alarmplayer alarmplayer = Alarmplayer();
   @override
   void initState() {
-    // alarmplayer.StopAlarm();
-    print("NETER Screen");
     alarmplayer.Alarm(
       url: widget.data['assets'].toString(), // Path of sound file.
       volume: 1, // optional, set the volume, default 1.
       looping: true, // optional, if you want to loop you're alarm or not
-      // callback: ()              // this is the callback, it's getting executed if you're alarm
-      // => {print("i'm done!")}   // is done playing. Note if you're alarm is on loop you're callback won't be executed
     );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-    //     overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     final now = DateTime.now();
     final format = DateFormat('Hm');
     final snoozeTimes = [
+      1,
       5,
       10,
       15,
@@ -166,7 +152,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                             // fontSize: 24,
                             onTap: () async {
                               widget.onsnoozeTap!(minutes);
-                              alarmplayer.StopAlarm();
+                              await alarmplayer.StopAlarm();
                               SystemNavigator.pop();
                             },
                           ).paddingSymmetric(

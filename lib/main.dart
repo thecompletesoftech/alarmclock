@@ -27,7 +27,7 @@ void main() async {
       .getInitialNotificationAction(removeFromActionEvents: false);
   if (receivedAction?.channelKey == 'basic') {
     print("checkSecondd" + receivedAction.toString());
-    runApp(MyApps(dataa: receivedAction!.payload!));
+    runApp(MyApps(dataa: receivedAction));
   } else {
     runApp(const MyApp());
   }
@@ -119,9 +119,10 @@ class MyApps extends StatelessWidget {
               depth: 6,
             ),
             home: AlarmScreen(
-              data: dataa,
+              data: dataa.payload!,
               onsnoozeTap: (val) {
-                profilecontroller.snooze(dataa, val);
+                print('------------');
+                profilecontroller.snooze(dataa.id, dataa.payload!, val);
               },
             )),
       ),

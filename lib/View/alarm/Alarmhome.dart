@@ -31,11 +31,9 @@ class _AlarmHomeState extends State<AlarmHome> {
     // alarmplayer.StopAlarm();
     notification();
     Future.delayed(const Duration(milliseconds: 1), () {
-      _alramController.getalram(context);
+      _alramController.setalarmfalse();
       GetFirebasetoken().getfirebasetoken();
     });
-
-    // _alramController.currenttime.value = DateTime.now().toString();
     super.initState();
   }
 
@@ -61,15 +59,14 @@ class _AlarmHomeState extends State<AlarmHome> {
             (ReceivedNotification receivedNotification) async {},
         onNotificationDisplayedMethod:
             (ReceivedNotification receivedNotification) async {
-          print("object" + receivedNotification.toString());
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => AlarmScreen(
                       data: receivedNotification.payload!,
                       onsnoozeTap: (val) {
-                        print("checkkkkkkkkkkk" + val.toString());
-                        snooze(receivedNotification.payload!, val);
+                        snooze(receivedNotification.id,
+                            receivedNotification.payload!, val);
                       },
                     )),
           );
@@ -78,10 +75,10 @@ class _AlarmHomeState extends State<AlarmHome> {
             (ReceivedAction receivedAction) async {});
   }
 
-  snooze(data, mins) {
+  snooze(notid, data, mins) {
     var updatedTime = add5Minutes(data['currentTime'].toString(), mins: mins);
-    shownotification(data['sound'], bool.parse(data['snooze'].toString()),
-        updatedTime, data['assets']);
+    shownotification(notid, data['sound'],
+        bool.parse(data['snooze'].toString()), updatedTime, data['assets']);
   }
 
   @override
@@ -171,21 +168,14 @@ class _AlarmHomeState extends State<AlarmHome> {
                                             .toString()
                                             .toLowerCase(),
                                     onchange: (value) async {
-                                      await Alarm.stop(newitem['id']);
                                       _alramController.alramstatus(
-                                          newitem['id'],
-                                          newitem['alarmstatus'] == true
-                                              ? false
-                                              : true,
-                                          context);
+                                          newitem['id'], value, context);
                                     },
                                     ontapcard: () async {
                                       setState(() {
                                         _alramController.currenttime.value =
                                             newitem['date'].toString();
                                       });
-
-                                      await _alramController.getalram(context);
                                     },
                                     swicthvalue: newitem['alarmstatus'],
                                     time: convert12to24(newitem['dateTime'])
@@ -235,7 +225,7 @@ class _AlarmHomeState extends State<AlarmHome> {
     );
   }
 
-  shownotification(soundname, snooze, dateTime, soundassets) async {
+  shownotification(notid, soundname, snooze, dateTime, soundassets) async {
     DateTime currentTime = DateTime.now();
     await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
       // notification icon
@@ -247,8 +237,7 @@ class _AlarmHomeState extends State<AlarmHome> {
           channelShowBadge: false,
           importance: NotificationImportance.Max,
           enableVibration: true,
-          playSound: true,
-          onlyAlertOnce: false,
+          playSound: false,
           soundSource: soundname),
     ]);
     bool isallowed = await AwesomeNotifications().isNotificationAllowed();
@@ -259,7 +248,7 @@ class _AlarmHomeState extends State<AlarmHome> {
     } else {
       AwesomeNotifications().createNotification(
           content: NotificationContent(
-              id: Random().nextInt(999),
+              id: notid,
               channelKey: 'basic', //set configuration wuth key "basic"
               title: 'Alarm is playing',
               body: '',
@@ -272,8 +261,11 @@ class _AlarmHomeState extends State<AlarmHome> {
               },
               autoDismissible: false,
               customSound: soundname,
+              displayOnForeground: true,
+              wakeUpScreen: true,
               fullScreenIntent: true),
-          schedule: NotificationCalendar.fromDate(date: dateTime),
+          schedule: NotificationCalendar.fromDate(
+              date: dateTime, preciseAlarm: true, repeats: true),
           actionButtons: snooze
               ? [
                   NotificationActionButton(
