@@ -1,16 +1,19 @@
 import 'package:alarmplayer/alarmplayer.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../../Config/Import.dart';
 
 class AlarmScreen extends StatefulWidget {
+  final id;
   final data;
   final Function? onsnoozeTap;
   const AlarmScreen({
     Key? key,
     this.data,
     this.onsnoozeTap,
+    this.id,
   }) : super(key: key);
 
   @override
@@ -153,7 +156,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                             onTap: () async {
                               widget.onsnoozeTap!(minutes);
                               await alarmplayer.StopAlarm();
-                              SystemNavigator.pop();
+                              Navigator.pop(context);
                             },
                           ).paddingSymmetric(
                               horizontal: NeumorphicTheme.isUsingDark(context)
@@ -167,6 +170,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 name: "Dismiss",
                 onTap: () async {
                   alarmplayer.StopAlarm();
+                  AwesomeNotifications().cancel(widget.id);
                   SystemNavigator.pop();
                 }),
           ],
