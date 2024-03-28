@@ -123,7 +123,7 @@ class MyApps extends StatelessWidget {
               id: dataa.id!,
               onsnoozeTap: (val) {
                 print('------------');
-                profilecontroller.snooze(dataa.id!, dataa.payload!, val);
+                // profilecontroller.snooze(dataa.id!, dataa.payload!, val);
               },
             )),
       ),

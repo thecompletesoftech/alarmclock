@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:alarmplayer/alarmplayer.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Api.dart';
@@ -18,13 +17,6 @@ class _AlarmHomeState extends State<AlarmHome> {
   var box = GetStorage();
   Alarmplayer alarmplayer = Alarmplayer();
   AlramController _alramController = Get.put(AlramController());
-  add5Minutes(String timeString, {mins = 5}) {
-    DateTime currentTime = DateTime.parse(timeString);
-    DateTime updatedTime = currentTime.add(Duration(minutes: mins));
-    String formattedTime = updatedTime.toString();
-    DateTime newtime = DateTime.parse(formattedTime);
-    return newtime;
-  }
 
   @override
   void initState() {
@@ -64,21 +56,12 @@ class _AlarmHomeState extends State<AlarmHome> {
             MaterialPageRoute(
                 builder: (context) => AlarmScreen(
                       data: receivedNotification.payload!,
-                      onsnoozeTap: (val) {
-                        snooze(receivedNotification.id,
-                            receivedNotification.payload!, val);
-                      },
+                      id: receivedNotification.id!,
                     )),
           );
         },
         onDismissActionReceivedMethod:
             (ReceivedAction receivedAction) async {});
-  }
-
-  snooze(notid, data, mins) {
-    var updatedTime = add5Minutes(data['currentTime'].toString(), mins: mins);
-    shownotification(notid, data['sound'],
-        bool.parse(data['snooze'].toString()), updatedTime, data['assets']);
   }
 
   @override
@@ -223,66 +206,5 @@ class _AlarmHomeState extends State<AlarmHome> {
         ),
       ),
     );
-  }
-
-  shownotification(notid, soundname, snooze, dateTime, soundassets) async {
-    DateTime currentTime = DateTime.now();
-    await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
-      // notification icon
-      NotificationChannel(
-          channelGroupKey: 'basic_test',
-          channelKey: 'basic',
-          channelName: 'Basic notifications',
-          channelDescription: 'Notification channel for basic tests',
-          channelShowBadge: false,
-          importance: NotificationImportance.Max,
-          enableVibration: true,
-          playSound: false,
-          soundSource: soundname),
-    ]);
-    bool isallowed = await AwesomeNotifications().isNotificationAllowed();
-
-    if (!isallowed) {
-      print("object===>>>>>>>>>>");
-      AwesomeNotifications().requestPermissionToSendNotifications();
-    } else {
-      AwesomeNotifications().createNotification(
-          content: NotificationContent(
-              id: notid,
-              channelKey: 'basic', //set configuration wuth key "basic"
-              title: 'Alarm is playing',
-              body: '',
-              payload: {
-                "name": "FlutterCampus",
-                "currentTime": currentTime.toString(),
-                "sound": soundname.toString(),
-                "assets": soundassets.toString(),
-                "snooze": snooze.toString()
-              },
-              autoDismissible: false,
-              customSound: soundname,
-              displayOnForeground: true,
-              wakeUpScreen: true,
-              fullScreenIntent: true),
-          schedule: NotificationCalendar.fromDate(
-              date: dateTime, preciseAlarm: true, repeats: true),
-          actionButtons: snooze
-              ? [
-                  NotificationActionButton(
-                      key: "stop",
-                      label: "Stop alram",
-                      actionType: ActionType.SilentBackgroundAction),
-                  NotificationActionButton(
-                    key: "snooze",
-                    label: "Snooze",
-                  )
-                ]
-              : [
-                  NotificationActionButton(
-                      key: "stop",
-                      label: "Stop alram",
-                      actionType: ActionType.SilentBackgroundAction),
-                ]);
-    }
   }
 }

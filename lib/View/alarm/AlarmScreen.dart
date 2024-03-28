@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:alarmplayer/alarmplayer.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Widgets/ButtonWidget.dart';
@@ -37,7 +40,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
     final now = DateTime.now();
     final format = DateFormat('Hm');
     final snoozeTimes = [
-      1,
+      2,
       5,
       10,
       15,
@@ -154,9 +157,10 @@ class _AlarmScreenState extends State<AlarmScreen> {
                             issmall: true,
                             // fontSize: 24,
                             onTap: () async {
-                              widget.onsnoozeTap!(minutes);
+                              await snooze(widget.id, widget.data, minutes);
                               await alarmplayer.StopAlarm();
-                              Navigator.pop(context);
+                              AwesomeNotifications().dismiss(widget.id);
+                              exit(0);
                             },
                           ).paddingSymmetric(
                               horizontal: NeumorphicTheme.isUsingDark(context)
@@ -171,11 +175,88 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 onTap: () async {
                   alarmplayer.StopAlarm();
                   AwesomeNotifications().cancel(widget.id);
-                  SystemNavigator.pop();
+                  AwesomeNotifications().dismiss(widget.id);
+                  exit(0);
                 }),
           ],
         ),
       ),
     );
+  }
+
+  add5Minutes({mins = 5}) {
+    DateTime currentTime = DateTime.now();
+    DateTime updatedTime = currentTime.add(Duration(minutes: mins));
+    String formattedTime = updatedTime.toString();
+    DateTime newtime = DateTime.parse(formattedTime);
+    return newtime;
+  }
+
+  snooze(notid, data, mins) async {
+    print("datata===> " + data.toString());
+    print("datata===> " + mins.toString());
+    var updatedTime = add5Minutes(mins: mins);
+    await shownotification(notid, data['sound'],
+        bool.parse(data['snooze'].toString()), updatedTime, data['assets']);
+  }
+
+  shownotification(notid, soundname, snooze, dateTime, soundassets) async {
+    DateTime currentTime = DateTime.now();
+    await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
+      NotificationChannel(
+          channelGroupKey: 'basic_test',
+          channelKey: 'basic',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          channelShowBadge: false,
+          importance: NotificationImportance.Max,
+          enableVibration: true,
+          playSound: false,
+          soundSource: soundname),
+    ]);
+    bool isallowed = await AwesomeNotifications().isNotificationAllowed();
+    if (!isallowed) {
+      print("object===>>>>>>>>>>");
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    } else {
+      print('entererr' + dateTime.toString());
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: Random().nextInt(9999),
+              channelKey: 'basic', //set configuration wuth key "basic"
+              title: 'Alarm is playing',
+              body: '',
+              payload: {
+                "name": "FlutterCampus",
+                "currentTime": currentTime.toString(),
+                "sound": soundname.toString(),
+                "assets": soundassets.toString(),
+                "snooze": snooze.toString()
+              },
+              autoDismissible: false,
+              customSound: soundname,
+              displayOnForeground: true,
+              wakeUpScreen: true,
+              fullScreenIntent: true),
+          schedule: NotificationCalendar.fromDate(
+              date: dateTime, preciseAlarm: true, repeats: true),
+          actionButtons: snooze
+              ? [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
+                  NotificationActionButton(
+                    key: "snooze",
+                    label: "Snooze",
+                  )
+                ]
+              : [
+                  NotificationActionButton(
+                      key: "stop",
+                      label: "Stop alram",
+                      actionType: ActionType.SilentBackgroundAction),
+                ]);
+    }
   }
 }

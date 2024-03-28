@@ -1,12 +1,7 @@
-import 'dart:developer';
 import 'dart:io';
-import 'dart:math';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:clockalarm/Config/Api.dart';
 import 'package:clockalarm/Config/Import.dart';
-import 'package:clockalarm/View/alarm/AlarmScreen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import '../../../../main.dart';
 
 class ProfileController extends GetxController {
@@ -97,82 +92,5 @@ class ProfileController extends GetxController {
   Future Deletedata(alarmdata, mivsdata, worldclockdata, userdata) async {
     await FirebaseAuth.instance.currentUser!.delete();
     return true;
-  }
-
-  add5Minutes(String timeString, {mins = 5}) {
-    DateTime currentTime = DateTime.parse(timeString);
-    DateTime updatedTime = currentTime.add(Duration(minutes: mins));
-    String formattedTime = updatedTime.toString();
-    DateTime newtime = DateTime.parse(formattedTime);
-    return newtime;
-  }
-
-  snooze(notid, data, mins) async {
-    print("datata===> " + data.toString());
-    print("datata===> " + mins.toString());
-    var updatedTime = add5Minutes(data['currentTime'].toString(), mins: mins);
-    await shownotification(notid, data['sound'],
-        bool.parse(data['snooze'].toString()), updatedTime, data['assets']);
-  }
-
-  shownotification(notid, soundname, snooze, dateTime, soundassets) async {
-    DateTime currentTime = DateTime.now();
-    await AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
-      NotificationChannel(
-          channelGroupKey: 'basic_test',
-          channelKey: 'basic',
-          channelName: 'Basic notifications',
-          channelDescription: 'Notification channel for basic tests',
-          channelShowBadge: false,
-          importance: NotificationImportance.Max,
-          enableVibration: true,
-          playSound: false,
-          soundSource: soundname),
-    ]);
-    bool isallowed = await AwesomeNotifications().isNotificationAllowed();
-
-    if (!isallowed) {
-      print("object===>>>>>>>>>>");
-      AwesomeNotifications().requestPermissionToSendNotifications();
-    } else {
-      print('entererr' + dateTime.toString());
-      AwesomeNotifications().createNotification(
-          content: NotificationContent(
-              id: notid,
-              channelKey: 'basic', //set configuration wuth key "basic"
-              title: 'Alarm is playing',
-              body: '',
-              payload: {
-                "name": "FlutterCampus",
-                "currentTime": currentTime.toString(),
-                "sound": soundname.toString(),
-                "assets": soundassets.toString(),
-                "snooze": snooze.toString()
-              },
-              autoDismissible: false,
-              customSound: soundname,
-              displayOnForeground: true,
-              wakeUpScreen: true,
-              fullScreenIntent: true),
-          schedule: NotificationCalendar.fromDate(
-              date: dateTime, preciseAlarm: true, repeats: true),
-          actionButtons: snooze
-              ? [
-                  NotificationActionButton(
-                      key: "stop",
-                      label: "Stop alram",
-                      actionType: ActionType.SilentBackgroundAction),
-                  NotificationActionButton(
-                    key: "snooze",
-                    label: "Snooze",
-                  )
-                ]
-              : [
-                  NotificationActionButton(
-                      key: "stop",
-                      label: "Stop alram",
-                      actionType: ActionType.SilentBackgroundAction),
-                ]);
-    }
   }
 }
